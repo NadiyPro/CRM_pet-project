@@ -1,4 +1,5 @@
 import { OpenAPIObject } from '@nestjs/swagger';
+import { OperationObject } from '@nestjs/swagger/dist/interfaces/open-api-spec.interface';
 
 const pathMethods = ['get', 'post', 'put', 'delete', 'patch'];
 
@@ -24,12 +25,14 @@ export class SwaggerHelper {
       for (const method of pathMethods) {
         // Внутрішній цикл перевіряє кожен метод HTTP
         // (наприклад, get, post, put, delete, patch) для кожного шляху
-        const route = document.paths[key]?.[method];
+        const route = document.paths[key]?.[method] as
+          | OperationObject
+          | undefined;
         //  перевіряє, чи існує опис цього маршруту (get/post/put/delete/patch)
         // типу перевіряємо наприклад, чи існує в @Controller('users') запит get
         if (route) {
+          // Безпечне додавання загальних відповідей
           Object.assign(route.responses, generalResponses);
-          // до цього маршруту додаються загальні відповіді для всіх методів (400, 422, 500)
           if (route.security) {
             Object.assign(route.responses, authResponses);
           } // Якщо маршрут містить поле security (означає, що цей маршрут захищений авторизацією),
