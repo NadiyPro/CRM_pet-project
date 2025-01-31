@@ -8,7 +8,6 @@ export class BaseAuthReqDto extends PickType(BaseUserReqDto, [
   'password',
   'name',
   'surname',
-  'is_active',
   'role',
 ]) {
   @IsNotEmpty() // перевіряє, щоб значення поля не було порожнім

@@ -1,6 +1,5 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   Index,
   OneToMany,
@@ -35,8 +34,8 @@ export class UserEntity {
   @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
   role: RoleTypeEnum;
 
-  @Column({ type: 'enum', enum: RoleTypeEnum })
-  is_active: 'false' | 'true';
+  @Column('boolean', { default: false })
+  is_active: boolean;
 
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
