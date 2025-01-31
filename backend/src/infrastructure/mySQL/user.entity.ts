@@ -1,52 +1,45 @@
 import {
-  Column,
+  Column, CreateDateColumn,
   Entity,
-  Index,
+  Index, OneToOne,
   // JoinColumn,
   // ManyToOne,
   // OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TableNameEnum } from './entities/enums/table-name.enum';
-import { CreateUpdateModel } from './entities/models/date.model';
+
 import { RoleTypeEnum } from '../../modules/users/enums/RoleType.enum';
 
 @Index(['name'])
 @Entity(TableNameEnum.USERS) // назва табл в БД
-export class UserEntity extends CreateUpdateModel {
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('text')
   name: string;
 
-  @Column('text', { unique: true })
+  @Column('text')
+  surname: string;
+
+  @Column('text', { default: 'admin@gmail.com', unique: true })
   email: string;
 
-  @Column('text', { select: false })
+  @Column('text', { default: 'admin' , select: false })
   password: string;
 
-  @Column('text', { unique: true })
-  phone: string;
+  // @Column('text', { unique: true })
+  // phone: string;
 
-  // @Column('text', { default: AccountTypeEnum.BASIC })
-  // accountType: AccountTypeEnum;
-
-  @Column({ type: 'enum', enum: RoleTypeEnum })
+  @Column({ type: 'enum', default:RoleTypeEnum.ADMIN , enum: RoleTypeEnum })
   role: RoleTypeEnum;
 
-  @Column('text', { nullable: true })
-  dealership?: string;
+  @Column({ type: 'enum', enum: RoleTypeEnum })
+  is_active: RoleTypeEnum;
 
-  @Column('text', { nullable: true })
-  avatar?: string;
-  // @VirtualColumn({
-  //   query: () => 'SELECT CONCAT(firstName, lastName) FROM users WHERE id = id',
-  // })
-  // fullName: string;
-  // @VirtualColumn - це декоратор, який дозволяє створити колонку,
-  // що НЕ зберігається в базі даних, але результат якої розраховується під час запиту
-  // CONCAT(firstName, lastName) об'єднує два рядки (ім'я та прізвище)  по id = id
+  @CreateDateColumn()
+  last_login:  Date;
 
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
