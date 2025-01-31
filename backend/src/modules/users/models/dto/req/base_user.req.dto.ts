@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsOptional, IsString, Length, Matches } from 'class-validator';
+import { IsString, Length, Matches } from 'class-validator';
 
 import { RoleTypeEnum } from '../../../enums/RoleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
@@ -17,14 +17,6 @@ export class BaseUserReqDto {
   @Transform(TransformHelper.trim)
   @Type(() => String)
   surname: string;
-  // @ApiProperty({ example: '+380123456789' })
-  // @IsString()
-  // @Length(12)
-  // @Transform(TransformHelper.trim)
-  // @Matches(
-  //   /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?/,
-  // )
-  // phone: string;
 
   @ApiProperty({ example: 'admin@gmail.com' })
   @IsString()
