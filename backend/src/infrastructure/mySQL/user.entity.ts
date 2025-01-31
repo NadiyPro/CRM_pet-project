@@ -1,7 +1,9 @@
 import {
-  Column, CreateDateColumn,
+  Column,
+  CreateDateColumn,
   Entity,
-  Index, OneToOne,
+  Index,
+  OneToOne,
   // JoinColumn,
   // ManyToOne,
   // OneToMany,
@@ -26,20 +28,17 @@ export class UserEntity {
   @Column('text', { default: 'admin@gmail.com', unique: true })
   email: string;
 
-  @Column('text', { default: 'admin' , select: false })
+  @Column('text', { default: 'admin', select: false })
   password: string;
 
-  // @Column('text', { unique: true })
-  // phone: string;
-
-  @Column({ type: 'enum', default:RoleTypeEnum.ADMIN , enum: RoleTypeEnum })
+  @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
   role: RoleTypeEnum;
 
   @Column({ type: 'enum', enum: RoleTypeEnum })
-  is_active: RoleTypeEnum;
+  is_active: 'false' | 'true';
 
   @CreateDateColumn()
-  last_login:  Date;
+  last_login: Date;
 
   @Column('timestamp', { nullable: true })
   deleted: Date | null;

@@ -3,10 +3,10 @@ import { RoleTypeEnum } from '../../../enums/RoleType.enum';
 export class BaseResDto {
   id: string;
   name: string;
+  surname: string;
   email: string;
-  phone: string;
+  is_active: string;
+  last_login: Date;
   role: RoleTypeEnum;
-  dealership?: string;
-  avatar?: string;
   deleted: Date | null;
 }
