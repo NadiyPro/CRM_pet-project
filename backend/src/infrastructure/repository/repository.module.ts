@@ -2,10 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { UserRepository } from './services/user.repository';
 import { RefreshTokenRepository } from './services/refresh-token.repository';
 
-const repositories = [
-  RefreshTokenRepository,
-  UserRepository,
-];
+const repositories = [RefreshTokenRepository, UserRepository];
 
 @Global()
 @Module({

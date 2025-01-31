@@ -3,7 +3,6 @@ import { UsersService } from './service/users.service';
 import { UsersController } from './users.controller';
 import { AuthModule } from '../auth/auth.module';
 
-
 @Module({
   imports: [forwardRef(() => AuthModule)],
   // імпортуємо інший модуль з використанням функції forwardRef.

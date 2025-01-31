@@ -70,4 +70,4 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
     }),
   ],
 })
-export class PostgresModule {}
+export class SQLModule {}

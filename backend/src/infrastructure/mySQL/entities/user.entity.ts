@@ -2,7 +2,8 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  Index, OneToMany,
+  Index,
+  OneToMany,
   // JoinColumn,
   // ManyToOne,
   // OneToMany,
@@ -42,5 +43,4 @@ export class UserEntity {
 
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[] | null;
-
 }

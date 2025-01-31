@@ -8,13 +8,13 @@ import { TransformHelper } from '../../../../../common/helpers/transform.helper'
 export class BaseUserReqDto {
   @IsString()
   @Length(3, 50)
-  @Transform(TransformHelper.trim)
+  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   name: string;
 
   @IsString()
   @Length(3, 50)
-  @Transform(TransformHelper.trim)
+  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   surname: string;
 

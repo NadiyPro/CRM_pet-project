@@ -4,7 +4,6 @@ import { DataSource, Repository } from 'typeorm';
 import { RoleTypeEnum } from '../../../modules/users/enums/RoleType.enum';
 import { UserEntity } from '../../mySQL/entities/user.entity';
 
-
 @Injectable()
 export class UserRepository extends Repository<UserEntity> {
   //  Клас UserRepository наслідується від класу Repository<UserEntity>,

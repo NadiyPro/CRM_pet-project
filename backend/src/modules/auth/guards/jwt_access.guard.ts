@@ -11,8 +11,8 @@ import { UserRepository } from '../../../infrastructure/repository/services/user
 import { UserMapper } from '../../users/service/user.mapper';
 import { SKIP_AUTH } from '../decorators/skip_auth.decorator';
 import { TokenType } from '../enums/token_type.enum';
-import { AuthCacheService } from '../services/auth-cache.service';
 import { TokenService } from '../services/token.service';
+import { AuthCacheService } from '../services/auth-cache.service';
 
 @Injectable()
 export class Jwt_accessGuard implements CanActivate {

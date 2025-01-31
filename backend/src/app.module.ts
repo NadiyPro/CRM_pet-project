@@ -1,6 +1,10 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './configs/configuration';
+import { RedisModule } from './infrastructure/redis/redis.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { RepositoryModule } from './infrastructure/repository/repository.module';
+import { SQLModule } from './infrastructure/mySQL/sql.module';
 
 @Module({
   imports: [
@@ -8,10 +12,10 @@ import configuration from './configs/configuration';
       load: [configuration],
       isGlobal: true,
     }),
-    // RepositoryModule,
-    // PostgresModule,
-    // RedisModule,
-    // AuthModule,
+    RepositoryModule,
+    SQLModule,
+    RedisModule,
+    AuthModule,
     // EmailModule,
   ],
 })

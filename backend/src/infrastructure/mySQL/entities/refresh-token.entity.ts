@@ -26,5 +26,4 @@ export class RefreshTokenEntity extends CreateUpdateModel {
   @ManyToOne(() => UserEntity, (entity) => entity.refreshTokens)
   @JoinColumn({ name: 'user_id' })
   user?: UserEntity;
-
 }
