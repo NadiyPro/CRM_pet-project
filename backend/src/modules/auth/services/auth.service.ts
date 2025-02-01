@@ -67,8 +67,10 @@ export class AuthService {
     return { user: UserMapper.toResDto(userEntity), tokens };
   }
 
-  // в registration додати створення токену (тривалість дії 30 хв та відправа його на пошту новому user,
-  // перевірку токену який нам прийшов, якщо все ок, то видаляємо цей токен та виконуємо реєстрацію
+  // activateRecoveryPassword створення access токену (тривалість дії 30 хв та відправа його на пошту новому user)
+  //
+  // в registration перевіряємо токен activateRecoveryPassword, якщо все ок, то видаляємо цей токен,
+  // шукаємо в БД email, потім дістаємо з dto Password та Confirm Password перевіряємо щоб вони співпадали,
   // public async registration(dto: RegistrationReqDto): Promise<AuthResDto> {
   //   await this.isEmailNotExistOrThrow(dto.email, dto.password);
   //   const password = await bcrypt.hash(dto.password, 10);

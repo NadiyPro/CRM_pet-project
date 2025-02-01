@@ -1,13 +1,9 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
-import { CurrentUser } from './decorators/current_user.decorator';
 import { SkipAuth } from './decorators/skip_auth.decorator';
-import { Jwt_refreshGuard } from './guards/jwt_refresh.guard';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
 import { AuthResDto } from './models/dto/res/auth.res.dto';
-import { TokenPairResDto } from './models/dto/res/token_pair.res.dto';
-import { IUserData } from './models/interfaces/user_data.interface';
 import { AuthService } from './services/auth.service';
 
 @ApiTags('Auth')
@@ -32,8 +28,7 @@ export class AuthController {
   //   description:
   //     'Admin активує (is_active: true) роль для нового manage / admin, ' +
   //     'після чого на його email надходить лист з токеном, який діє 30 хв. ' +
-  //     'Після переходу по даному посиланню, новий user виконує реєстрацію ' +
-  //     '*При реєстрації роль buyer автоматично змінюється на роль seller.',
+  //     'Після переходу по даному посиланню, новий user виконує реєстрацію '
   // })
   // @SkipAuth()
   // @Post('registration')
@@ -42,7 +37,22 @@ export class AuthController {
   // ): Promise<AuthResDto> {
   //   return await this.authService.registration(dto);
   // }
-  // // singUp - тут логінація вконується (перший вхід з хешуванням паролю)
+
+  // @ApiOperation({
+  //   summary: 'Для реєстрації нового користувача',
+  //   description:
+  //     'Користувач переходить за посиланням,
+  //     яке йому надійшло на email (сформоване при активації користувача адміном),
+  //     далі вводить придуманий ним пароль та підтверджує його '
+  // })
+  // @SkipAuth()
+  // @Post('registration')
+  // public async registration(
+  // @CurrentUser() userRegistration: IUserRegistration,
+  //   @Body() dto: RegistrationReqDto,
+  // ): Promise<AuthResDto> {
+  //   return await this.authService.registration(dto);
+  // }
 
   // @ApiOperation({
   //   summary:
@@ -63,7 +73,7 @@ export class AuthController {
 
   // @ApiOperation({
   //   summary:
-  //     'Для відновлення доступу до акаунту користувача за його user_id ("бан")',
+  //     'Для відновлення доступу до акаунту користувача за його user_id ',
   //   description:
   //     'Admin може відновити доступ для входу в акаунт користувача за його user_id (!is_active)',
   // })
