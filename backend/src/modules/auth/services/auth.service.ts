@@ -71,6 +71,7 @@ export class AuthService {
   //
   // в registration перевіряємо токен activateRecoveryPassword, якщо все ок, то видаляємо цей токен,
   // шукаємо в БД email, потім дістаємо з dto Password та Confirm Password перевіряємо щоб вони співпадали,
+  // після чого формуємо токени, зберігаємо дані в БД та змінюємо статус is_active: true
   // public async registration(dto: RegistrationReqDto): Promise<AuthResDto> {
   //   await this.isEmailNotExistOrThrow(dto.email, dto.password);
   //   const password = await bcrypt.hash(dto.password, 10);
@@ -82,6 +83,7 @@ export class AuthService {
   //       ...dto,
   //       password,
   //       role: RoleTypeEnum.ADMIN,
+  // is_active: true,
   //     }),
   //   );
   //
