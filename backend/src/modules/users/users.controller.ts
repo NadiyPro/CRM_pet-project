@@ -23,7 +23,7 @@ export class UsersController {
 
   // @ApiOperation({
   //   summary: 'Для видачі ролей',
-  //   description: 'Користувач з ролью admin може видавати ролі',
+  //   description: 'Користувач з ролю admin може видавати ролі',
   // })
   // @ApiBearerAuth()
   // @UseGuards(ApprovedRoleGuard)
