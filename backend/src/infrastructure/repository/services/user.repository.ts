@@ -18,37 +18,19 @@ export class UserRepository extends Repository<UserEntity> {
     // (дозволяє використовувати всі методи create/findAll/findOne/update/remove/delete і т.п)
   }
 
-  // public async findAllManager(): Promise<UserEntity[]> {
-  //   const manager = await this.createQueryBuilder('user')
-  //     .where('user.role = :role', { role: 'manager' })
-  //     .getMany();
-  //   return manager;
-  // }
-
-  // public async giveRole(
-  //   userId: string,
-  //   role: RoleTypeEnum,
-  // ): Promise<UserEntity> {
-  //   const user = await this.findOne({ where: { id: userId } });
-  //   if (!user) throw new Error('User not found');
-  //   user.role = role;
-  //   return this.save(user);
-  // }
-
   // public async findAll(
   //   query: ListUsersQueryReqDto,
   // ): Promise<[UserEntity[], number]> {
   //   const qb = this.createQueryBuilder('users');
   //   qb.where('users.deleted IS NULL');
-  //   qb.take(query.limit);
-  //   qb.skip(query.offset);
+  // const limit = query.limit || 10;
+  // const page = query.page || 1;
   //
-  //   if (query.search) {
-  //     qb.andWhere('CONCAT(users.name) ILIKE :search');
-  //     qb.setParameter('search', `%${query.search}%`);
-  //   }
+  // qb.take(query.limit);
+  // qb.skip((page-1)*limit);
   //
-  //   qb.orderBy('name', 'ASC');
+  //
+  //   qb.orderBy('created', 'DESC');
   //   return await qb.getManyAndCount();
   // }
 }

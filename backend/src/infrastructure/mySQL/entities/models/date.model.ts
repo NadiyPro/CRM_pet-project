@@ -5,5 +5,5 @@ export class CreateUpdateModel {
   created: Date;
 
   @UpdateDateColumn()
-  last_login: Date;
+  update: Date;
 }

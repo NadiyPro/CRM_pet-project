@@ -12,10 +12,11 @@ import { TableNameEnum } from './enums/table-name.enum';
 
 import { RoleTypeEnum } from '../../../modules/users/enums/RoleType.enum';
 import { RefreshTokenEntity } from './refresh-token.entity';
+import { CreateUpdateModel } from './models/date.model';
 
 @Index(['name'])
 @Entity(TableNameEnum.USERS) // назва табл в БД
-export class UserEntity {
+export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
