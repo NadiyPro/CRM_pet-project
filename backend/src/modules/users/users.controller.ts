@@ -29,14 +29,50 @@ export class UsersController {
   // @ApiOperation({
   //   summary: 'Для отримання інформацію про всі облікові записи користувачів',
   //   description:
-  //     'Користувач може отримати інформацію про всі облікові записи користувачів',
+  //     'Admin може отримати інформацію про всі облікові записи користувачів',
   // })
-  // @SkipAuth()
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
   // @Get('all')
   // public async findAll(
   //   @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
   // ): Promise<ListResQueryDto> {
   //   const [entities, total] = await this.usersService.findAll(query);
   //   return UserMapper.toAllResDtoList(entities, total, query);
+  // }
+
+  // @ApiOperation({
+  //   summary:
+  //     'Для отримання інформацію статистику по заявках користувача за його id',
+  //   description:
+  //     'Admin може отримати інформацію про статистику по заявкам будь якого користувача по його id.'
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
+  // @Get(':userId')
+  // public async findOne(
+  //   @Param('userId', ParseUUIDPipe) userId: string,
+  //   @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
+  // ): Promise<статистика> {
+  //   const [entities, total]  = await this.usersService.findOne(userId, query);
+  //    return UserMapper.toAllResDtoListId(entities, total, query);
+  // }
+
+  // @ApiOperation({
+  //   summary: 'Для видалення облікового запису користувача за його id',
+  //   description:
+  //     'Admin може видалити обліковий запис іншого користувача по його id ' +
+  //     '*в БД в стовбчику deleted буде вказано дату видалення користувача.'
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
+  // @Delete(':userId')
+  // public async deleteId(
+  //   @Param('userId', ParseUUIDPipe) userId: string,
+  // ): Promise<string> {
+  //   return await this.usersService.deleteId(userId);
   // }
 }

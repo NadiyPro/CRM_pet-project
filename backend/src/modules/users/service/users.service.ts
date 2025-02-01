@@ -28,9 +28,11 @@ export class UsersService {
   //   return await this.userRepository.findAll(query);
   // }
   //
-  // public async OrdersStatistic(
-  // ): Promise<StudentEntity> {
-  //   return await this.studentRepository.findStatus(query);
+  // public async ordersStatisticId(
+  //   query: ListUsersQueryReqDto,
+  // userId: string,
+  // ): Promise<статистика> {
+  //   return await this.userRepository.findOne(userId, query);
   // }
   //
   // public async deleteId(userId: string): Promise<string> {
