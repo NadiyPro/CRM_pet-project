@@ -18,6 +18,7 @@ export class UserRepository extends Repository<UserEntity> {
     // (дозволяє використовувати всі методи create/findAll/findOne/update/remove/delete і т.п)
   }
 
+  // додати статистику по заявкам з табл студентів
   // public async findAll(
   //   query: ListUsersQueryReqDto,
   // ): Promise<[UserEntity[], number]> {
@@ -28,7 +29,6 @@ export class UserRepository extends Repository<UserEntity> {
   //
   // qb.take(query.limit);
   // qb.skip((page-1)*limit);
-  //
   //
   //   qb.orderBy('created', 'DESC');
   //   return await qb.getManyAndCount();

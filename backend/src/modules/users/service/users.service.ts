@@ -22,12 +22,14 @@ export class UsersService {
     return await this.userRepository.save(user);
   }
 
+  // додати статистику по заявкам з табл студентів
   // public async findAll(
   //   query: ListUsersQueryReqDto,
   // ): Promise<[UserEntity[], number]> {
   //   return await this.userRepository.findAll(query);
   // }
   //
+  // додати статистику по заявкам з табл студентів
   // public async ordersStatisticId(
   //   query: ListUsersQueryReqDto,
   // userId: string,
