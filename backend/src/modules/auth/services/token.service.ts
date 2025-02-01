@@ -69,6 +69,8 @@ export class TokenService {
     }
     return secret;
   }
+  // отримуємо secret і після цього перевіряємо наш токен у verifyToken
+  // трохи вище функція
 
   // private getSecretForTokenType(type: TokenType): string {
   //   if (type === TokenType.ACCESS) {

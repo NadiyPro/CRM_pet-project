@@ -34,7 +34,7 @@ export class UserRepository extends Repository<UserEntity> {
     const user = await this.findOne({ where: { id: userId } });
     if (!user) throw new Error('User not found');
     user.role = role;
-    return await this.save(user);
+    return this.save(user);
   }
 
   // public async findAll(
