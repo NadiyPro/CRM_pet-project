@@ -31,11 +31,11 @@ export class AuthController {
   //     'Після переходу по даному посиланню, новий user виконує реєстрацію '
   // })
   // @SkipAuth()
-  // @Post('registration')
-  // public async registration(
+  // @Post()
+  // public async activateRecoveryPassword(
   //   @Body() dto: RegistrationReqDto,
   // ): Promise<AuthResDto> {
-  //   return await this.authService.registration(dto);
+  //   return await this.authService.activateRecoveryPassword(dto);
   // }
 
   // @ApiOperation({
