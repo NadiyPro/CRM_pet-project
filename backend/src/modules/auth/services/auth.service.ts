@@ -113,11 +113,11 @@ export class AuthService {
   //   }
   // }
 
-  // додати змінну статусу на is_active === false,
-  // тут ми блокуємо вхід юзеру, видаляючи всі його токени,
-  // але при цьому сам юзер в нас залишається в БД
-  // public async signOutBlockUserId(user_id: string): Promise<void> {
+  // // видаляємо токени юзера (бан)
+  // public async signOutId(user_id: string): Promise<void> {
+  //   const banUser = await this.userRepository.findOneBy({ id: user_id });
   //   await Promise.all([
+  //     await this.userRepository.save({ ...banUser, is_active: false }),
   //     this.authCacheService.deleteTokenUserId(user_id),
   //     this.refreshTokenRepository.delete({
   //       user_id: user_id,
@@ -126,9 +126,11 @@ export class AuthService {
   //   ]);
   // }
 
-  // додати змінну статусу на is_active === true
-  // (юзер в БД у нас залишився, а при логінації йому просто видадуться нова пара токенів)
-  // public async signUnBlockUserId(user_id: string): Promise<void> {
+  // // змінюємо статус в БД is_active на true
+  // (більше нічого не робимо, бо в нас в БД юзер є в тепер він зможе залогінитися)
+  // public async signUnBlock(user_id: string): Promise<void> {
+  // const unBlock = await this.userRepository.findOneBy({ id: user_id });
+  // await this.userRepository.save({ ...unBlock, is_active: true }),
   // }
 
   // public async refresh(userData: IUserData): Promise<TokenPairResDto> {

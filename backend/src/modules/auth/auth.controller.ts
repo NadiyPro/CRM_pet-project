@@ -46,19 +46,35 @@ export class AuthController {
 
   // @ApiOperation({
   //   summary:
-  //     'Для видалення облікового запису користувача за його user_id ("бан")',
+  //     'Для видалення токенів користувача за його user_id ("бан")',
   //   description:
-  //     'Користувач може видалити обліковий запис іншого користувача за його user_id, ' +
-  //     'таким чином поставити користувача в "бан". Доступно для ролей: admin, manager',
+  //     'Admin може видалити токени для входу в акаунт користувача за його user_id, ' +
+  //     'таким чином поставити користувача в "бан". (!is_active)',
   // })
   // @ApiBearerAuth()
   // @UseGuards(ApprovedRoleGuard)
   // @Role(RoleTypeEnum.ADMIN)
-  // @Post('sign-out/:user_id,')
+  // @Post('sign-outBLock/:user_id,')
   // public async signOutUserId(
   //   @Param('user_id', ParseUUIDPipe) user_id: string,
   // ): Promise<void> {
   //   return await this.authService.signOutUserId(user_id);
+  // }
+
+  // @ApiOperation({
+  //   summary:
+  //     'Для відновлення доступу до акаунту користувача за його user_id ("бан")',
+  //   description:
+  //     'Admin може відновити доступ для входу в акаунт користувача за його user_id (!is_active)',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
+  // @Post('sign-unBLock/:user_id,')
+  // public async signUnBlock(
+  //   @Param('user_id', ParseUUIDPipe) user_id: string,
+  // ): Promise<void> {
+  //   return await this.authService.signUnBlock(user_id);
   // }
 
   // @ApiOperation({
@@ -73,5 +89,4 @@ export class AuthController {
   // ): Promise<TokenPairResDto> {
   //   return await this.authService.refresh(userData);
   // }
-
 }
