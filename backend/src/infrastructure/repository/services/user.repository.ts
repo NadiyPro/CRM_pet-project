@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-
-import { RoleTypeEnum } from '../../../modules/users/enums/RoleType.enum';
 import { UserEntity } from '../../mySQL/entities/user.entity';
 
 @Injectable()
@@ -27,15 +25,15 @@ export class UserRepository extends Repository<UserEntity> {
   //   return manager;
   // }
 
-  public async giveRole(
-    userId: string,
-    role: RoleTypeEnum,
-  ): Promise<UserEntity> {
-    const user = await this.findOne({ where: { id: userId } });
-    if (!user) throw new Error('User not found');
-    user.role = role;
-    return this.save(user);
-  }
+  // public async giveRole(
+  //   userId: string,
+  //   role: RoleTypeEnum,
+  // ): Promise<UserEntity> {
+  //   const user = await this.findOne({ where: { id: userId } });
+  //   if (!user) throw new Error('User not found');
+  //   user.role = role;
+  //   return this.save(user);
+  // }
 
   // public async findAll(
   //   query: ListUsersQueryReqDto,

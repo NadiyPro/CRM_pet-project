@@ -3,6 +3,7 @@ import { UserRepository } from '../../../infrastructure/repository/services/user
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
 import { RoleTypeEnum } from '../enums/RoleType.enum';
 import { UserEntity } from '../../../infrastructure/mySQL/entities/user.entity';
+import { GiveRoleDto } from '../models/dto/req/give_role.dto';
 
 @Injectable()
 export class UsersService {
@@ -12,19 +13,13 @@ export class UsersService {
     private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
-  public async giveRole(
-    user_id: string,
-    new_role: RoleTypeEnum,
-    role: RoleTypeEnum,
-    is_active: boolean,
-  ): Promise<UserEntity> {
-    if (role === RoleTypeEnum.ADMIN && is_active === true) {
-      const user = await this.userRepository.giveRole(user_id, new_role);
-      return await this.userRepository.save(user);
-    } else {
-      throw new Error('Permission denied');
-    }
-    // додати формування access 30 хв та відправку його на пошту новому user
+  public async giveRole(giveRoleDto: GiveRoleDto): Promise<UserEntity> {
+    const user = this.userRepository.create({
+      ...giveRoleDto,
+      role: RoleTypeEnum.MANAGER,
+      is_active: false,
+    });
+    return await this.userRepository.save(user);
   }
 
   // public async findAll(
