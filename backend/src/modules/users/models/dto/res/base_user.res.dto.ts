@@ -6,7 +6,7 @@ export class BaseResDto {
   surname: string;
   email: string;
   is_active: boolean;
-  last_login: Date;
+  // last_login: Date;
   role: RoleTypeEnum;
   deleted: Date | null;
 }

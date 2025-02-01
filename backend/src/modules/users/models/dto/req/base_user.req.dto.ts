@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsString, Length, Matches } from 'class-validator';
+import { IsBoolean, IsString, Length, Matches } from 'class-validator';
 
 import { RoleTypeEnum } from '../../../enums/RoleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
@@ -34,4 +34,8 @@ export class BaseUserReqDto {
   @IsString()
   @Length(3, 50)
   role: RoleTypeEnum;
+
+  @ApiProperty({ example: false })
+  @IsBoolean()
+  is_active: boolean;
 }
