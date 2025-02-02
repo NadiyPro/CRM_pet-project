@@ -5,6 +5,8 @@ import { RedisModule } from './infrastructure/redis/redis.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RepositoryModule } from './infrastructure/repository/repository.module';
 import { SQLModule } from './infrastructure/mySQL/sql.module';
+import { StudentsModule } from './modules/students/students.module';
+import { UsersModule } from './modules/users/users.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { SQLModule } from './infrastructure/mySQL/sql.module';
     SQLModule,
     RedisModule,
     AuthModule,
+    UsersModule,
+    StudentsModule,
     // EmailModule,
   ],
 })
