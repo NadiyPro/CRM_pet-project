@@ -1,5 +1,6 @@
-import { Type } from 'class-transformer';
-import { IsInt, IsOptional, Max, Min } from 'class-validator';
+import { Transform, Type } from 'class-transformer';
+import { IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
+import { TransformHelper } from '../../../../../common/helpers/transform.helper';
 
 export class ListStudentsQueryReqDto {
   @Type(() => Number)
@@ -15,4 +16,19 @@ export class ListStudentsQueryReqDto {
   @Min(1)
   @IsOptional()
   page?: number = 1;
+
+  @Transform(({ value }) =>
+    TransformHelper.toLowerCase({ value: value as string }),
+  )
+  @IsString()
+  @IsOptional()
+  search?: string;
+
+  @IsString()
+  @IsOptional()
+  sortField?: string;
+
+  @IsString()
+  @IsOptional()
+  sortASCOrDESC?: string;
 }

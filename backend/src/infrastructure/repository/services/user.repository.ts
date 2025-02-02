@@ -28,7 +28,7 @@ export class UserRepository extends Repository<UserEntity> {
   // const page = query.page || 1;
   //
   // qb.take(query.limit);
-  // qb.skip((page-1)*limit);
+  // qb.skip((page - 1) * limit);
   //
   //   qb.orderBy('created', 'DESC');
   //   return await qb.getManyAndCount();

@@ -10,7 +10,7 @@ import { ListStudentsResQueryDto } from './models/dto/res/list-students-query.re
 @ApiTags('students')
 @Controller('students')
 export class StudentsController {
-  constructor(private readonly usersService: StudentsService) {}
+  constructor(private readonly studentsService: StudentsService) {}
 
   // перевіряти статус активний чи ні тут не потрібно,
   // оскільки якщо статус не активно, то юзер просто не зможе зайти в адміну
@@ -25,8 +25,8 @@ export class StudentsController {
   public async findAll(
     @Query() query: ListStudentsQueryReqDto, // Параметри передаються через @Query
   ): Promise<ListStudentsResQueryDto> {
-    // const [entities, total] = await this.usersService.findAll(query);
-    // return UserMapper.toAllResDtoList(entities, total, query);
+    const [entities, total] = await this.studentsService.findAll(query);
+    return UserMapper.toAllResDtoList(entities, total, query);
   }
 
   // @ApiOperation({
