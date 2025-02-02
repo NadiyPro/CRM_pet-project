@@ -1,7 +1,7 @@
 export enum CourseTypeEnum {
-  pro = 'pro',
-  minimal = 'minimal',
-  premium = 'premium',
-  incubator = 'incubator',
-  vip = 'vip',
+  PRO = 'pro',
+  MINIMAL = 'minimal',
+  PREMIUM = 'premium',
+  INCUBATOR = 'incubator',
+  VIP = 'vip',
 }
