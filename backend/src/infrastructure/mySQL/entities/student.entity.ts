@@ -1,10 +1,21 @@
-import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
 import { CreateUpdateModel } from './models/date.model';
 import { CourseEnum } from './enums/course.enum';
 import { CourseFormatEnum } from './enums/courseFormat.enum';
 import { CourseTypeEnum } from './enums/courseType.enum';
 import { StatusEnum } from './enums/status.enum';
+import { RefreshTokenEntity } from './refresh-token.entity';
+import { UserEntity } from './user.entity';
+import { MessageEntity } from './message.entity';
 
 @Index(['name'])
 @Entity(TableNameEnum.STUDENT)
@@ -53,7 +64,15 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
-  // cвязать с таб юзеров
-  // @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
-  // role: RoleTypeEnum;
+  @Column()
+  user_id: string;
+  @ManyToOne(() => UserEntity, (entity) => entity.student)
+  @JoinColumn({ name: 'user_id' })
+  user?: UserEntity;
+
+  @Column()
+  message_id: string;
+  @ManyToOne(() => MessageEntity, (entity) => entity.student)
+  @JoinColumn({ name: 'message_id' })
+  message?: MessageEntity;
 }
