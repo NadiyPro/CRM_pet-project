@@ -22,6 +22,4 @@ export class StudentsController {
   //   const [entities, total] = await this.usersService.findAll(query);
   //   return UserMapper.toAllResDtoList(entities, total, query);
   // }
-
-
 }
