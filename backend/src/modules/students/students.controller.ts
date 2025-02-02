@@ -1,27 +1,33 @@
-import { ApiTags } from '@nestjs/swagger';
-import { Controller } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Controller, Get, Query, UseGuards } from '@nestjs/common';
 import { StudentsService } from './service/students.service';
+import { ApprovedRoleGuard } from '../guards/approved_role.guard';
+import { Role } from '../guards/decorator/role.decorator';
+import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/roleType.enum';
+import { ListStudentsQueryReqDto } from './models/dto/req/list-students-query.req.dto';
+import { ListStudentsResQueryDto } from './models/dto/res/list-students-query.res.dto';
 
 @ApiTags('students')
 @Controller('students')
 export class StudentsController {
   constructor(private readonly usersService: StudentsService) {}
 
-  // @ApiOperation({
-  //   summary: 'Для отримання інформацію про всі облікові записи користувачів',
-  //   description:
-  //     'Admin може отримати інформацію про всі облікові записи користувачів',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Get('all')
-  // public async findAll(
-  //   @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
-  // ): Promise<ListResQueryDto> {
-  //   const [entities, total] = await this.usersService.findAll(query);
-  //   return UserMapper.toAllResDtoList(entities, total, query);
-  // }
+  // перевіряти статус активний чи ні тут не потрібно,
+  // оскільки якщо статус не активно, то юзер просто не зможе зайти в адміну
+  @ApiOperation({
+    summary: 'Для отримання інформацію про students',
+    description: 'Admin / manager може отримати інформацію про students',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Get('all')
+  public async findAll(
+    @Query() query: ListStudentsQueryReqDto, // Параметри передаються через @Query
+  ): Promise<ListStudentsResQueryDto> {
+    // const [entities, total] = await this.usersService.findAll(query);
+    // return UserMapper.toAllResDtoList(entities, total, query);
+  }
 
   // @ApiOperation({
   //   summary: 'Для оновлення даних по student',
