@@ -6,5 +6,5 @@ export interface IUserData {
   email: string;
   role: RoleTypeEnum;
   is_active: boolean;
-  /*  deleted: Date | null;*/
+  deleted: Date | null;
 }
