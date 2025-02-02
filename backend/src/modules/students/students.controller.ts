@@ -6,6 +6,7 @@ import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/roleType.enum';
 import { ListStudentsQueryReqDto } from './models/dto/req/list-students-query.req.dto';
 import { ListStudentsResQueryDto } from './models/dto/res/list-students-query.res.dto';
+import { StudentsMapper } from './service/students.mapper';
 
 @ApiTags('students')
 @Controller('students')
@@ -26,7 +27,7 @@ export class StudentsController {
     @Query() query: ListStudentsQueryReqDto, // Параметри передаються через @Query
   ): Promise<ListStudentsResQueryDto> {
     const [entities, total] = await this.studentsService.findAll(query);
-    return UserMapper.toAllResDtoList(entities, total, query);
+    return StudentsMapper.toAllResDtoList(entities, total, query);
   }
 
   // @ApiOperation({

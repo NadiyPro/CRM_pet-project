@@ -1,5 +1,5 @@
 export interface BaseStudentsResDto {
-  id: number;
+  id: string;
   name: string;
   surname: string;
   email: string;
