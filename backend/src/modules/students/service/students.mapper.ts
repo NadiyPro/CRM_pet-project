@@ -25,16 +25,6 @@ export class StudentsMapper {
     };
   }
 
-  // public static toIUserData(
-  //   student: StudentEntity,
-  //   jwtPayload: IJwtPayload,
-  // ): IUserData {
-  //   return {
-  //     studentId: student.id,
-  //
-  //   };
-  // }
-
   public static toAllResDtoList(
     students: StudentEntity[],
     total: number,
@@ -46,5 +36,4 @@ export class StudentsMapper {
       ...query,
     };
   }
-  // кількість юзерів, поля query передані в моделі (limit, page)
 }
