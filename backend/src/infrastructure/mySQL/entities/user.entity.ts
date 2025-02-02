@@ -8,9 +8,9 @@ import {
   // OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { TableNameEnum } from './enums/table-name.enum';
+import { TableNameEnum } from './enums/tableName.enum';
 
-import { RoleTypeEnum } from './enums/RoleType.enum';
+import { RoleTypeEnum } from './enums/roleType.enum';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { CreateUpdateModel } from './models/date.model';
 

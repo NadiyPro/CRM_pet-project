@@ -1,10 +1,13 @@
 import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
-import { TableNameEnum } from './enums/table-name.enum';
-
+import { TableNameEnum } from './enums/tableName.enum';
 import { CreateUpdateModel } from './models/date.model';
+import { CourseEnum } from './enums/course.enum';
+import { CourseFormatEnum } from './enums/courseFormat.enum';
+import { CourseTypeEnum } from './enums/courseType.enum';
+import { StatusEnum } from './enums/status.enum';
 
 @Index(['name'])
-@Entity(TableNameEnum.USERS) // назва табл в БД
+@Entity(TableNameEnum.STUDENT)
 export class StudentEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -24,17 +27,17 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('integer', { unique: true })
   age: number;
 
-  @Column('text', { unique: true })
-  course: string;
+  @Column({ type: 'enum', enum: CourseEnum, unique: true })
+  course: CourseEnum;
 
-  @Column('text', { unique: true })
-  course_format: string;
+  @Column({ type: 'enum', enum: CourseFormatEnum, unique: true })
+  course_format: CourseFormatEnum;
 
-  @Column('text', { unique: true })
-  course_type: string;
+  @Column({ type: 'enum', enum: CourseTypeEnum, unique: true })
+  course_type: CourseTypeEnum;
 
-  @Column('text', { unique: true })
-  status: string;
+  @Column({ type: 'enum', enum: StatusEnum, unique: true })
+  status: StatusEnum;
 
   @Column('float', { nullable: false })
   sum: number;

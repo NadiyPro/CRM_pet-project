@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { TableNameEnum } from './enums/table-name.enum';
+import { TableNameEnum } from './enums/tableName.enum';
 import { UserEntity } from './user.entity';
 import { CreateUpdateModel } from './models/date.model';
 
