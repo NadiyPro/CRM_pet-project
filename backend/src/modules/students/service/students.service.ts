@@ -6,7 +6,6 @@ import { StudentEntity } from '../../../infrastructure/mySQL/entities/student.en
 @Injectable()
 export class StudentsService {
   constructor(
-    // private readonly configService: ConfigService<Config>,
     private readonly studentsRepository: StudentsRepository,
     // private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
