@@ -29,18 +29,35 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('text', { default: 'admin@gmail.com', unique: true })
   email: string;
 
-  @Column('text', { default: 'admin', select: false })
-  password: string;
+  @Column('text', { unique: true })
+  phone: string;
 
-  @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
-  role: RoleTypeEnum;
+  @Column('integer', { unique: true })
+  age: number;
 
-  @Column('boolean', { default: false })
-  is_active: boolean;
+  @Column('text', { unique: true })
+  course: string;
+
+  @Column('text', { unique: true })
+  course_format: string;
+
+  @Column('text', { unique: true })
+  course_type: string;
+
+  @Column('text', { unique: true })
+  status: string;
+
+  @Column('float', { nullable: false })
+  sum: number;
+
+  @Column('float', { nullable: false })
+  alreadyPaid: number;
 
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
-  @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
-  refreshTokens?: RefreshTokenEntity[] | null;
+  // cвязать с таб юзеров
+  // @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
+  // role: RoleTypeEnum;
+
 }
