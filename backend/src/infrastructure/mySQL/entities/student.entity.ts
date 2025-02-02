@@ -62,7 +62,7 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
-  // тут я буду витягувати юзера який взяв заявку в роботу та ПІБ та роль
+  // тут я буду витягувати юзера який взяв заявку в роботу та ПІБ (при необхідності роль можна підтягнути)
   @Column()
   user_id: string;
   @ManyToOne(() => UserEntity, (entity) => entity.student)

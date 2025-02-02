@@ -22,4 +22,26 @@ export class StudentsController {
   //   const [entities, total] = await this.usersService.findAll(query);
   //   return UserMapper.toAllResDtoList(entities, total, query);
   // }
+
+  // @ApiOperation({
+  //   summary: 'Для оновлення даних по student',
+  //   description:
+  //     'Admin / manager може оновити дані по student
+  //     (якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
+  //     '*можна залишати пусті поля',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER)
+  // @Patch(':studentId')
+  // public async updateId(
+  // @CurrentUser() userData: IUserData,
+  // @Param('studentId', ParseUUIDPipe) studentId: string,
+  //   @Body() updateUserDto: UpdateUserReqDto,
+  // ) {
+  //   const result = await this.usersService.updateId(studentId, updateUserDto, userData);
+  //   return UserMapper.toResDto(result);
+  // }
+  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
+  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
 }
