@@ -12,10 +12,10 @@ export class StudentEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text', {nullable: true})
+  @Column('text', { nullable: true })
   name: string;
 
-  @Column('text', {nullable: true})
+  @Column('text', { nullable: true })
   surname: string;
 
   @Column('text', { default: 'admin@gmail.com', unique: true })
@@ -30,13 +30,18 @@ export class StudentEntity extends CreateUpdateModel {
   @Column({ type: 'enum', enum: CourseEnum, unique: true, nullable: true })
   course: CourseEnum;
 
-  @Column({ type: 'enum', enum: CourseFormatEnum, unique: true, nullable: true })
+  @Column({
+    type: 'enum',
+    enum: CourseFormatEnum,
+    unique: true,
+    nullable: true,
+  })
   course_format: CourseFormatEnum;
 
-  @Column({ type: 'enum', enum: CourseTypeEnum, unique: true, nullable: true})
+  @Column({ type: 'enum', enum: CourseTypeEnum, unique: true, nullable: true })
   course_type: CourseTypeEnum;
 
-  @Column({ type: 'enum', enum: StatusEnum, unique: true, nullable: true})
+  @Column({ type: 'enum', enum: StatusEnum, unique: true, nullable: true })
   status: StatusEnum;
 
   @Column('float', { nullable: true })
