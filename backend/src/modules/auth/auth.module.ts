@@ -1,6 +1,5 @@
 import { UsersModule } from '../users/users.module';
 import { forwardRef, Module } from '@nestjs/common';
-import { Jwt_accessGuard } from './guards/jwt_access.guard';
 import { APP_GUARD } from '@nestjs/core';
 import { Jwt_refreshGuard } from './guards/jwt_refresh.guard';
 import { AuthController } from './auth.controller';
@@ -9,6 +8,7 @@ import { AuthCacheService } from './services/auth-cache.service';
 import { TokenService } from './services/token.service';
 import { RedisModule } from '../../infrastructure/redis/redis.module';
 import { JwtModule } from '@nestjs/jwt';
+import { JwtAccessGuard } from './guards/jwt_access.guard';
 
 @Module({
   imports: [forwardRef(() => UsersModule), JwtModule, RedisModule],
@@ -16,7 +16,7 @@ import { JwtModule } from '@nestjs/jwt';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: Jwt_accessGuard,
+      useClass: JwtAccessGuard,
     },
     Jwt_refreshGuard,
     AuthService,
