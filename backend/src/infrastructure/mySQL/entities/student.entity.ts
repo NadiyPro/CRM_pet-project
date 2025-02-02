@@ -4,7 +4,6 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
-  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
@@ -13,7 +12,6 @@ import { CourseEnum } from './enums/course.enum';
 import { CourseFormatEnum } from './enums/courseFormat.enum';
 import { CourseTypeEnum } from './enums/courseType.enum';
 import { StatusEnum } from './enums/status.enum';
-import { RefreshTokenEntity } from './refresh-token.entity';
 import { UserEntity } from './user.entity';
 import { MessageEntity } from './message.entity';
 
@@ -64,6 +62,7 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
+  // тут я буду витягувати юзера який взяв заявку в роботу та ПІБ та роль
   @Column()
   user_id: string;
   @ManyToOne(() => UserEntity, (entity) => entity.student)

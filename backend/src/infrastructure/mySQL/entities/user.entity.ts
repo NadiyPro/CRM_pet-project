@@ -2,12 +2,7 @@ import {
   Column,
   Entity,
   Index,
-  JoinColumn,
-  ManyToOne,
   OneToMany,
-  // JoinColumn,
-  // ManyToOne,
-  // OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
@@ -47,7 +42,6 @@ export class UserEntity extends CreateUpdateModel {
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[] | null;
 
-  // тут я буду витягувати юзера який взяв заявку в роботу та ПІБ та роль
   @OneToMany(() => StudentEntity, (entity) => entity.user)
   student?: StudentEntity[] | null;
 }
