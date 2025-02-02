@@ -44,4 +44,20 @@ export class StudentsController {
   // }
   // в додати перевірку ,якщо status ==== New або null о можна редагувати або
   // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
+
+  // @ApiOperation({
+  //   summary: 'Для видалення запису про student за його id',
+  //   description:
+  //     'Admin може видалити запис про student по його id ' +
+  //     '*в БД в стовбчику deleted буде вказано дату видалення користувача.'
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
+  // @Delete(':studentId')
+  // public async deleteId(
+  //   @Param('studentId', ParseUUIDPipe) studentId: string,
+  // ): Promise<string> {
+  //   return await this.usersService.deleteId(studentId);
+  // }
 }
