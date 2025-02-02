@@ -1,17 +1,6 @@
-import {
-  Column,
-  Entity,
-  Index,
-  OneToMany,
-  // JoinColumn,
-  // ManyToOne,
-  // OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, Index, PrimaryGeneratedColumn } from 'typeorm';
 import { TableNameEnum } from './enums/table-name.enum';
 
-import { RoleTypeEnum } from '../../../modules/users/enums/RoleType.enum';
-import { RefreshTokenEntity } from './refresh-token.entity';
 import { CreateUpdateModel } from './models/date.model';
 
 @Index(['name'])
@@ -59,5 +48,4 @@ export class StudentEntity extends CreateUpdateModel {
   // cвязать с таб юзеров
   // @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
   // role: RoleTypeEnum;
-
 }

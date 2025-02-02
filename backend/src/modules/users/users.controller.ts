@@ -1,6 +1,6 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { RoleTypeEnum } from './enums/RoleType.enum';
+import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/RoleType.enum';
 import { Role } from '../guards/decorator/role.decorator';
 import { UsersService } from './service/users.service';
 import { ApprovedRoleGuard } from '../guards/approved_role.guard';

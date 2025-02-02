@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 import { TableNameEnum } from './enums/table-name.enum';
 
-import { RoleTypeEnum } from '../../../modules/users/enums/RoleType.enum';
+import { RoleTypeEnum } from './enums/RoleType.enum';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { CreateUpdateModel } from './models/date.model';
 

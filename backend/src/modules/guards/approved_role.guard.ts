@@ -1,4 +1,4 @@
-import { RoleTypeEnum } from '../users/enums/RoleType.enum';
+import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/RoleType.enum';
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 

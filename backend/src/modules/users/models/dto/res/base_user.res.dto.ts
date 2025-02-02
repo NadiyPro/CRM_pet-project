@@ -1,4 +1,4 @@
-import { RoleTypeEnum } from '../../../enums/RoleType.enum';
+import { RoleTypeEnum } from '../../../../../infrastructure/mySQL/entities/enums/RoleType.enum';
 
 export class BaseResDto {
   id: string;
