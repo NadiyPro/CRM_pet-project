@@ -32,27 +32,27 @@ export class StudentsController {
     return StudentsMapper.toAllResDtoList(entities, total, query);
   }
   //
-  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
-  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
-  @ApiOperation({
-    summary: 'Для оновлення даних по student',
-    description:
-      'Admin / manager може оновити дані по student' +
-      '(якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
-      '*можна залишати пусті поля',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Put(':studentId')
-  public async updateId(
-  @CurrentUser() userData: IUserData,
-  @Param('studentId', ParseUUIDPipe) studentId: string,
-    @Body() updateUserDto: UpdateUserReqDto,
-  ) {
-    const result = await this.usersService.updateId(studentId, updateUserDto, userData);
-    return UserMapper.toResDto(result);
-  }
+  // // в додати перевірку ,якщо status ==== New або null о можна редагувати або
+  // // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
+  // @ApiOperation({
+  //   summary: 'Для оновлення даних по student',
+  //   description:
+  //     'Admin / manager може оновити дані по student' +
+  //     '(якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
+  //     '*можна залишати пусті поля',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  // @Put(':studentId')
+  // public async updateId(
+  // @CurrentUser() userData: IUserData,
+  // @Param('studentId', ParseUUIDPipe) studentId: string,
+  //   @Body() updateUserDto: UpdateUserReqDto,
+  // ) {
+  //   const result = await this.usersService.updateId(studentId, updateUserDto, userData);
+  //   return UserMapper.toResDto(result);
+  // }
 
   // @ApiOperation({
   //   summary: 'Для видалення запису про student за його id',

@@ -13,6 +13,6 @@ export interface BaseStudentResDto {
   alreadyPaid: number;
   deleted: Date | null;
   created_at: Date;
-  user_id: string;
+  manager: string;
   message_id: string;
 }

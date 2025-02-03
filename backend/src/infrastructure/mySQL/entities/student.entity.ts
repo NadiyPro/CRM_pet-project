@@ -62,12 +62,13 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
-  // тут я буду витягувати юзера який взяв заявку в роботу та ПІБ manager (при необхідності роль можна підтягнути)
+  // manager - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager
+  // manager_id - по цьому полю вяжу таблиці
   @Column()
-  user_id: string;
+  manager: string;
   @ManyToOne(() => UserEntity, (entity) => entity.student)
-  @JoinColumn({ name: 'user_id' })
-  user?: UserEntity;
+  @JoinColumn({ name: 'manager_id' })
+  manager_id?: UserEntity;
 
   @Column()
   message_id: string;
