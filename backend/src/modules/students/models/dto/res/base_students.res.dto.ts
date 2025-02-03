@@ -14,5 +14,6 @@ export interface BaseStudentResDto {
   deleted: Date | null;
   created_at: Date;
   manager: string;
+  group: string;
   message_id: string;
 }

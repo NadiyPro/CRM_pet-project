@@ -30,7 +30,9 @@ export class StudentsRepository extends Repository<StudentEntity> {
       .leftJoinAndSelect('student.group_id', 'group')
       .where('student.deleted IS NULL');
 
-    // **Пошук по всьому полю (повний збіг)**
+    qb.addSelect(['manager.surname', 'group.group']);
+    // витягаємо surname та group із звязаних табл
+
     if (query.search) {
       qb.andWhere(
         `(
