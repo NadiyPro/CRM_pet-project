@@ -14,6 +14,5 @@ export interface UpdateStudentResDto {
   deleted: Date | null;
   created_at: Date;
   updated_at: Date;
-  user_id: string;
-  message_id: string;
+  manager: string;
 }
