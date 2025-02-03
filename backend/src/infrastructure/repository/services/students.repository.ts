@@ -26,7 +26,8 @@ export class StudentsRepository extends Repository<StudentEntity> {
     )
       .leftJoinAndSelect('student.manager_id', 'manager')
       // зєднуємо по назві звязу manager_id?: UserEntity;
-      .leftJoinAndSelect('student.message', 'message')
+      .leftJoinAndSelect('student.manager_id', 'manager')
+      .leftJoinAndSelect('student.group_id', 'group')
       .where('student.deleted IS NULL');
 
     // **Пошук по всьому полю (повний збіг)**
@@ -45,7 +46,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
           student.status LIKE :search OR
           CAST(student.sum AS CHAR) LIKE :search OR
           CAST(student.alreadyPaid AS CHAR) LIKE :search OR
-          manager.surname LIKE :search
+          manager.surname LIKE :search OR group.group LIKE :search 
         )`,
         { search: `%${query.search}%` },
       );
@@ -67,6 +68,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
         'alreadyPaid',
         'created_at',
         'manager.surname',
+        'group.group',
       ];
       const column = allowedColumns.includes(query.sortField)
         ? `student.${query.sortField}`

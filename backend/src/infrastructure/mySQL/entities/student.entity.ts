@@ -78,8 +78,8 @@ export class StudentEntity extends CreateUpdateModel {
   message?: MessageEntity;
 
   @Column()
-  group: string;
+  group_id: string;
   @ManyToOne(() => GroupEntity, (entity) => entity.student)
   @JoinColumn({ name: 'group_id' })
-  group_id?: GroupEntity;
+  group?: GroupEntity;
 }
