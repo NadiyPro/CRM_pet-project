@@ -17,8 +17,7 @@ import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
-import { UpdateStudentReqDto } from '../students/models/dto/req/updateStudent.req.dto';
-import { UpdateGroupStudentReqDto } from '../students/models/dto/req/updateGoupStudent.req.dto';
+import { UpdateStatusCheckReqDto } from '../students/models/dto/req/updateStatusСheck.req.dto';
 
 @ApiTags('group')
 @Controller('group')
@@ -49,7 +48,7 @@ export class GroupController {
   @Post()
   public async create(
     @CurrentUser() userData: IUserData,
-    studentsData: UpdateGroupStudentReqDto,
+    studentsData: UpdateStatusCheckReqDto,
     @Body() group: string,
   ): Promise<BaseGroupResDto> {
     return await this.groupService.create(group, userData, studentsData);

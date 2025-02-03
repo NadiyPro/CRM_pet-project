@@ -6,9 +6,10 @@ import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
-import { UpdateStudentReqDto } from '../../students/models/dto/req/updateStudent.req.dto';
 import { StatusEnum } from '../../../infrastructure/mySQL/entities/enums/status.enum';
-import { UpdateGroupStudentReqDto } from '../../students/models/dto/req/updateGoupStudent.req.dto';
+import {
+  UpdateStatusCheckReqDto,
+} from '../../students/models/dto/req/updateStatusСheck.req.dto';
 
 @Injectable()
 export class GroupService {
@@ -24,7 +25,7 @@ export class GroupService {
   public async create(
     group: string,
     userData: IUserData,
-    studentsData: UpdateGroupStudentReqDto,
+    studentsData: UpdateStatusCheckReqDto,
   ): Promise<BaseGroupResDto> {
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
