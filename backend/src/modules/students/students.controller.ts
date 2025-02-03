@@ -67,7 +67,7 @@ export class StudentsController {
       studentId,
       updateStudentReqDto,
     );
-return result;
+    return result;
   }
 
   // @ApiOperation({

@@ -19,13 +19,10 @@ export class StudentOwnershipGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+
     const userData = request.user as IUserData;
     const studentId = request.params.studentId as string;
-    // CanActivate – інтерфейс, який визначає, чи дозволено виконання запиту
-    // ExecutionContext – надає доступ до контексту виконання (наприклад, до HTTP-запиту)
-    // отримуємо дані користувача з контексту запиту
-    // через switchToHttp() ми отримуємось доступ до HTTP запиту,
-    // а через getRequest() дістаємо об'єкт запиту (request)
+
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
     });

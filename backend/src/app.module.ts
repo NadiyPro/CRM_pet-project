@@ -7,6 +7,7 @@ import { RepositoryModule } from './infrastructure/repository/repository.module'
 import { SQLModule } from './infrastructure/mySQL/sql.module';
 import { StudentsModule } from './modules/students/students.module';
 import { UsersModule } from './modules/users/users.module';
+import { GroupModule } from './modules/group/group.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { UsersModule } from './modules/users/users.module';
     AuthModule,
     UsersModule,
     StudentsModule,
+    GroupModule,
     // EmailModule,
   ],
 })

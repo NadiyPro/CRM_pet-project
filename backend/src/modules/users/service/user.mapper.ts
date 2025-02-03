@@ -24,6 +24,8 @@ export class UserMapper {
   ): IUserData {
     return {
       userId: user.id,
+      surname: user.surname,
+      name: user.name,
       deviceId: jwtPayload.deviceId,
       email: user.email,
       role: user.role,

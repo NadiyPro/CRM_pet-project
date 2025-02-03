@@ -3,11 +3,8 @@ import { StudentsRepository } from '../../../infrastructure/repository/services/
 import { ListStudentsQueryReqDto } from '../models/dto/req/list-students-query.req.dto';
 import { StudentEntity } from '../../../infrastructure/mySQL/entities/student.entity';
 import { IUserData } from '../../auth/models/interfaces/user_data.interface';
-import { BaseGroupResDto } from '../../group/models/dto/res/baseGroup.res.dto';
-import { StatusEnum } from '../../../infrastructure/mySQL/entities/enums/status.enum';
 import { UpdateStudentReqDto } from '../models/dto/req/updateStudent.req.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
-import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
 import { UpdateStudentResDto } from '../models/dto/res/updateStudent.res.dto';
 
 @Injectable()
@@ -15,7 +12,6 @@ export class StudentsService {
   constructor(
     private readonly studentsRepository: StudentsRepository,
     private readonly userRepository: UserRepository,
-    private readonly groupRepository: GroupRepository,
     // private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
@@ -30,10 +26,6 @@ export class StudentsService {
     studentId: string,
     updateStudentReqDto: UpdateStudentReqDto,
   ): Promise<UpdateStudentResDto> {
-    const student = await this.studentsRepository.findOne({
-      where: { id: studentId },
-    });
-
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
     });
@@ -47,26 +39,20 @@ export class StudentsService {
       updated_at: new Date(),
     });
 
-// Отримання оновленого студента
-    const updatedStudent = await this.studentsRepository.findOne({
+    return await this.studentsRepository.findOne({
       where: { id: studentId },
     });
-
-    return updatedStudent;
- // const new_student = await this.studentsRepository.update({
- //   ...student,
- //   updateStudentReqDto,
- //   manager: userData.surname,
- // });
- //
- //    return new_student as UpdateStudentResDto;
   }
+  //
+  //
+  //create
+  //
   //
   // public async deleteId(groupId: string): Promise<string> {
   //   await this.groupRepository.delete({ id: groupId });
   //   return 'The user in the table (db) has been successfully marked as deleted';
   // }
-
+  //
   // public async ordersStatisticId(
   //   query: ListUsersQueryReqDto,
   // userId: string,

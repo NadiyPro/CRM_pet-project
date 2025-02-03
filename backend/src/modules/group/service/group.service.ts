@@ -2,11 +2,9 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
 import { GroupEntity } from '../../../infrastructure/mySQL/entities/group.entity';
 import { ListGroupQueryReqDto } from '../models/dto/req/listGroupQuery.req.dto';
-import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
-import { StatusEnum } from '../../../infrastructure/mySQL/entities/enums/status.enum';
 
 @Injectable()
 export class GroupService {
