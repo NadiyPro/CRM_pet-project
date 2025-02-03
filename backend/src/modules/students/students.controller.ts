@@ -30,6 +30,8 @@ export class StudentsController {
     return StudentsMapper.toAllResDtoList(entities, total, query);
   }
 
+  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
+  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
   // @ApiOperation({
   //   summary: 'Для оновлення даних по student',
   //   description:
@@ -49,8 +51,6 @@ export class StudentsController {
   //   const result = await this.usersService.updateId(studentId, updateUserDto, userData);
   //   return UserMapper.toResDto(result);
   // }
-  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
-  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
 
   // @ApiOperation({
   //   summary: 'Для видалення запису про student за його id',
