@@ -52,7 +52,7 @@ export class StudentsController {
   //     '*можна залишати пусті поля',
   // })
   // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
+  // @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   // @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   // @Put(':studentId')
   // public async updateId(

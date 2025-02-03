@@ -8,6 +8,7 @@ import {
 import { UserRepository } from '../../infrastructure/repository/services/user.repository';
 import { StudentsRepository } from '../../infrastructure/repository/services/students.repository';
 import { StatusEnum } from '../../infrastructure/mySQL/entities/enums/status.enum';
+import { IUserData } from '../auth/models/interfaces/user_data.interface';
 
 @Injectable()
 export class StudentOwnershipGuard implements CanActivate {
@@ -18,8 +19,8 @@ export class StudentOwnershipGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
-    const userData = request.user;
-    const studentId = request.params.studentId;
+    const userData = request.user as IUserData;
+    const studentId = request.params.studentId as string;
     // CanActivate – інтерфейс, який визначає, чи дозволено виконання запиту
     // ExecutionContext – надає доступ до контексту виконання (наприклад, до HTTP-запиту)
     // отримуємо дані користувача з контексту запиту
