@@ -72,10 +72,10 @@ export class StudentEntity extends CreateUpdateModel {
   manager_id?: UserEntity;
 
   @Column()
-  message_id: string;
+  message: string;
   @ManyToOne(() => MessageEntity, (entity) => entity.student)
   @JoinColumn({ name: 'message_id' })
-  message?: MessageEntity;
+  message_id?: MessageEntity;
 
   @Column()
   group_id: string;

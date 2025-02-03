@@ -26,7 +26,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
     )
       .leftJoinAndSelect('student.manager_id', 'manager')
       // зєднуємо по назві звязу manager_id?: UserEntity;
-      .leftJoinAndSelect('student.manager_id', 'manager')
+      // .leftJoinAndSelect('student.message_id', 'message')
       .leftJoinAndSelect('student.group_id', 'group')
       .where('student.deleted IS NULL');
 
