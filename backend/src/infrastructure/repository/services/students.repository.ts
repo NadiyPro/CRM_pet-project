@@ -24,7 +24,8 @@ export class StudentsRepository extends Repository<StudentEntity> {
     const qb: SelectQueryBuilder<StudentEntity> = this.createQueryBuilder(
       'student',
     )
-      .leftJoinAndSelect('student.user', 'manager')
+      .leftJoinAndSelect('student.manager_id', 'manager')
+      // зєднуємо по назві звязу manager_id?: UserEntity;
       .leftJoinAndSelect('student.message', 'message')
       .where('student.deleted IS NULL');
 
