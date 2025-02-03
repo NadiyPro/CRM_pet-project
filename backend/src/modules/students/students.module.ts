@@ -8,7 +8,7 @@ import { GroupModule } from '../group/group.module';
   imports: [forwardRef(() => AuthModule), GroupModule],
   // імпортуємо інший модуль з використанням функції forwardRef.
   // forwardRef дозволяє сказати NestJS: "Ми знаємо, що модулі залежать один від одного,
-  // але спочатку підключи один з них, а потім повернись до другого".
+  // але спочатку підключи один з них, а потім повернись до другого"
   // Це розриває циклічну залежність.
   controllers: [StudentsController],
   providers: [StudentsService],
