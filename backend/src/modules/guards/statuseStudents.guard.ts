@@ -9,6 +9,11 @@ import { UserRepository } from '../../infrastructure/repository/services/user.re
 import { StudentsRepository } from '../../infrastructure/repository/services/students.repository';
 import { StatusEnum } from '../../infrastructure/mySQL/entities/enums/status.enum';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
+import { Request } from 'express';
+
+interface RequestWithUser extends Request {
+  user?: IUserData;
+}
 
 @Injectable()
 export class StudentOwnershipGuard implements CanActivate {
@@ -18,10 +23,10 @@ export class StudentOwnershipGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest();
+    const request = context.switchToHttp().getRequest<RequestWithUser>();
 
-    const userData = request.user as IUserData;
-    const studentId = request.params.studentId as string;
+    const userData = request.user;
+    const studentId = request.params.studentId;
 
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
