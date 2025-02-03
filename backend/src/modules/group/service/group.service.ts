@@ -7,9 +7,6 @@ import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
 import { StatusEnum } from '../../../infrastructure/mySQL/entities/enums/status.enum';
-import {
-  UpdateStatusCheckReqDto,
-} from '../../students/models/dto/req/updateStatusСheck.req.dto';
 
 @Injectable()
 export class GroupService {
@@ -25,7 +22,7 @@ export class GroupService {
   public async create(
     group: string,
     userData: IUserData,
-    studentsData: UpdateStatusCheckReqDto,
+    studentId: string,
   ): Promise<BaseGroupResDto> {
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
@@ -34,7 +31,7 @@ export class GroupService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     const students = await this.studentsRepository.findOne({
-      where: { id: studentsData.id }, // Аналогічно додаємо where для пошуку по id
+      where: { id: studentId },
     });
     if (students.status !== StatusEnum.NEW || students.status !== null) {
       throw new HttpException(

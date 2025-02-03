@@ -17,7 +17,6 @@ import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
-import { UpdateStatusCheckReqDto } from '../students/models/dto/req/updateStatusСheck.req.dto';
 
 @ApiTags('group')
 @Controller('group')
@@ -39,19 +38,19 @@ export class GroupController {
   }
 
   @ApiOperation({
-    summary: 'Для вивантаження всіх group',
-    description: 'Admin / manager може вивантажити всі group',
+    summary: 'Для створення нової group',
+    description: 'Admin / manager створити нову group',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Post()
+  @Post(':studentId')
   public async create(
     @CurrentUser() userData: IUserData,
-    studentsData: UpdateStatusCheckReqDto,
+    @Param('studentId', ParseUUIDPipe) studentId: string,
     @Body() group: string,
   ): Promise<BaseGroupResDto> {
-    return await this.groupService.create(group, userData, studentsData);
+    return await this.groupService.create(group, userData, studentId);
   }
 
   @ApiOperation({
