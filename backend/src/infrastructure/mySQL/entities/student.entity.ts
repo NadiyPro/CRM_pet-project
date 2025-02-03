@@ -14,6 +14,7 @@ import { CourseTypeEnum } from './enums/courseType.enum';
 import { StatusEnum } from './enums/status.enum';
 import { UserEntity } from './user.entity';
 import { MessageEntity } from './message.entity';
+import { GroupEntity } from './group.entity';
 
 @Index(['name'])
 @Entity(TableNameEnum.STUDENT)
@@ -75,4 +76,10 @@ export class StudentEntity extends CreateUpdateModel {
   @ManyToOne(() => MessageEntity, (entity) => entity.student)
   @JoinColumn({ name: 'message_id' })
   message?: MessageEntity;
+
+  @Column()
+  group: string;
+  @ManyToOne(() => GroupEntity, (entity) => entity.student)
+  @JoinColumn({ name: 'group_id' })
+  group_id?: GroupEntity;
 }

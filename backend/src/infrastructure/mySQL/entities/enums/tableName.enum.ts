@@ -3,4 +3,5 @@ export enum TableNameEnum {
   USERS = 'users',
   STUDENT = 'student',
   MESSAGE = 'message',
+  GROUP = 'group',
 }
