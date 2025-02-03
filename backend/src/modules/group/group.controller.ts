@@ -15,8 +15,7 @@ import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
-import { CurrentUser } from '../auth/decorators/current_user.decorator';
-import { IUserData } from '../auth/models/interfaces/user_data.interface';
+import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
 
 @ApiTags('group')
 @Controller('group')
@@ -42,15 +41,15 @@ export class GroupController {
     description: 'Admin / manager створити нову group',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
+  @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Post(':studentId')
   public async create(
-    @CurrentUser() userData: IUserData,
-    @Param('studentId', ParseUUIDPipe) studentId: string,
+    // @CurrentUser() userData: IUserData,
+    // @Param('studentId', ParseUUIDPipe) studentId: string,
     @Body() group: string,
   ): Promise<BaseGroupResDto> {
-    return await this.groupService.create(group, userData, studentId);
+    return await this.groupService.create(group);
   }
 
   @ApiOperation({

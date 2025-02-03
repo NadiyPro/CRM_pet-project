@@ -21,24 +21,24 @@ export class GroupService {
 
   public async create(
     group: string,
-    userData: IUserData,
-    studentId: string,
+    // userData: IUserData,
+    // studentId: string,
   ): Promise<BaseGroupResDto> {
-    const user = await this.userRepository.findOne({
-      where: { id: userData.userId },
-    });
-    if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-    }
-    const students = await this.studentsRepository.findOne({
-      where: { id: studentId },
-    });
-    if (students.status !== StatusEnum.NEW || students.status !== null) {
-      throw new HttpException(
-        'The application is in the works of another manager',
-        HttpStatus.CONFLICT,
-      );
-    }
+    // const user = await this.userRepository.findOne({
+    //   where: { id: userData.userId },
+    // });
+    // if (!user) {
+    //   throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    // }
+    // const students = await this.studentsRepository.findOne({
+    //   where: { id: studentId },
+    // });
+    // if (students.status !== StatusEnum.NEW || students.status !== null) {
+    //   throw new HttpException(
+    //     'The application is in the works of another manager',
+    //     HttpStatus.CONFLICT,
+    //   );
+    // }
 
     const new_group = await this.groupRepository.findOneBy({ group: group });
     if (new_group) {
