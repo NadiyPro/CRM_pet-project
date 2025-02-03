@@ -5,6 +5,7 @@ import { ApprovedRoleGuard } from '../guards/approved_role.guard';
 import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mySQL/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
+import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 
 @ApiTags('group')
 @Controller('group')
@@ -19,7 +20,9 @@ export class GroupController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get()
-  public async findAll(): Promise<BaseGroupResDto[]> {
-    return await this.groupService.findAll();
+  public async findAll(
+    query: ListGroupQueryReqDto,
+  ): Promise<BaseGroupResDto[]> {
+    return await this.groupService.findAll(query);
   }
 }

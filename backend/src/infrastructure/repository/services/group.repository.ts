@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { GroupEntity } from '../../mySQL/entities/group.entity';
+import { ListGroupQueryReqDto } from '../../../modules/group/models/dto/req/listGroupQuery.req.dto';
 
 @Injectable()
 export class GroupRepository extends Repository<GroupEntity> {
@@ -18,9 +19,18 @@ export class GroupRepository extends Repository<GroupEntity> {
     // (дозволяє використовувати всі методи create/findAll/findOne/update/remove/delete і т.п)
   }
 
-  public async findAll(): Promise<GroupEntity[]> {
+  public async findAll(query: ListGroupQueryReqDto): Promise<GroupEntity[]> {
     const qb = this.createQueryBuilder('group');
-    qb.orderBy('created', 'DESC');
+    if (query.search) {
+      qb.andWhere(
+        `(
+         group.group LIKE :search 
+        )`,
+        { search: `%${query.search}%` },
+      );
+    }
+
+    qb.orderBy('group.created_at', 'DESC');
     return await qb.getMany();
   }
 }
