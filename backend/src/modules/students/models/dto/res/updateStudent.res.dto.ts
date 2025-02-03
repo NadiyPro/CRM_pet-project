@@ -1,4 +1,4 @@
-export interface BaseStudentResDto {
+export interface UpdateStudentResDto {
   id: string;
   name: string;
   surname: string;
@@ -13,6 +13,7 @@ export interface BaseStudentResDto {
   alreadyPaid: number;
   deleted: Date | null;
   created_at: Date;
+  updated_at: Date;
   user_id: string;
   message_id: string;
 }

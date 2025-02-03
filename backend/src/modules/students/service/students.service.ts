@@ -15,4 +15,11 @@ export class StudentsService {
   ): Promise<[StudentEntity[], number]> {
     return await this.studentsRepository.findAll(query);
   }
+
+  // public async ordersStatisticId(
+  //   query: ListUsersQueryReqDto,
+  // userId: string,
+  // ): Promise<статистика> {
+  //   return await this.userRepository.findOne(userId, query);
+  // }
 }
