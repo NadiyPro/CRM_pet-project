@@ -20,7 +20,7 @@ export class StudentsMapper {
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
       manager: student.manager,
-      group: student.group.group,
+      group: student.group,
       message: student.message,
       deleted: student.deleted,
     };

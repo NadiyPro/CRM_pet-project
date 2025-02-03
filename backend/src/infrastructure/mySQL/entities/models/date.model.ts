@@ -5,5 +5,5 @@ export class CreateUpdateModel {
   created_at: Date;
 
   @UpdateDateColumn()
-  update: Date;
+  updated_at: Date;
 }

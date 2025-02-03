@@ -2,6 +2,8 @@ import { RoleTypeEnum } from '../../../../infrastructure/mySQL/entities/enums/ro
 
 export interface IUserData {
   userId: string;
+  surname: string;
+  name: string;
   deviceId: string;
   email: string;
   role: RoleTypeEnum;

@@ -19,6 +19,8 @@ import { StudentsMapper } from './service/students.mapper';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { UpdateStudentReqDto } from './models/dto/req/updateStudent.req.dto';
+import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
+import { UpdateStudentResDto } from './models/dto/res/updateStudent.res.dto';
 
 @ApiTags('students')
 @Controller('students')
@@ -42,31 +44,31 @@ export class StudentsController {
     return StudentsMapper.toAllResDtoList(entities, total, query);
   }
   //
-  // // в додати перевірку ,якщо status ==== New або null о можна редагувати або
-  // // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
-  // @ApiOperation({
-  //   summary: 'Для оновлення даних по student',
-  //   description:
-  //     'Admin / manager може оновити дані по student' +
-  //     '(якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
-  //     '*можна залишати пусті поля',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
-  // @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  // @Put(':studentId')
-  // public async updateId(
-  //   @CurrentUser() userData: IUserData,
-  //   @Param('studentId', ParseUUIDPipe) studentId: string,
-  //   @Body() updateStudentReqDto: UpdateStudentReqDto,
-  // ) {
-  //   const result = await this.studentsService.updateId(
-  //     studentId,
-  //     updateStudentReqDto,
-  //     userData,
-  //   );
-  //   return UserMapper.toResDto(result);
-  // }
+  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
+  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
+  @ApiOperation({
+    summary: 'Для оновлення даних по student',
+    description:
+      'Admin / manager може оновити дані по student' +
+      '(якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
+      '*можна залишати пусті поля',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
+  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Put(':studentId')
+  public async updateId(
+    @CurrentUser() userData: IUserData,
+    @Param('studentId', ParseUUIDPipe) studentId: string,
+    @Body() updateStudentReqDto: UpdateStudentReqDto,
+  ): Promise<UpdateStudentResDto> {
+    const result = await this.studentsService.updateId(
+      userData,
+      studentId,
+      updateStudentReqDto,
+    );
+return result;
+  }
 
   // @ApiOperation({
   //   summary: 'Для видалення запису про student за його id',
