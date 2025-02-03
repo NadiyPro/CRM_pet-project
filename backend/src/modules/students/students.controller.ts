@@ -62,12 +62,11 @@ export class StudentsController {
     @Param('studentId', ParseUUIDPipe) studentId: string,
     @Body() updateStudentReqDto: UpdateStudentReqDto,
   ): Promise<UpdateStudentResDto> {
-    const result = await this.studentsService.updateId(
+    return await this.studentsService.updateId(
       userData,
       studentId,
       updateStudentReqDto,
     );
-    return result;
   }
 
   // @ApiOperation({
