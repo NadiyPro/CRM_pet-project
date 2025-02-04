@@ -51,7 +51,6 @@ export class BaseStudentsReqDto {
   @Type(() => Number)
   age: number | null;
 
-  @IsString()
   @Length(2, 5)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
