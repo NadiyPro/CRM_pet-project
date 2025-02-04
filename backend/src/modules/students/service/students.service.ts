@@ -50,6 +50,10 @@ export class StudentsService {
   ): Promise<[StudentEntity[], number]> {
     return await this.studentsRepository.findMySOrder(userData, query);
   }
+
+  public async resetFilters(): Promise<[StudentEntity[], number]> {
+    return await this.studentsRepository.resetFilters();
+  }
   //
   //
   //create

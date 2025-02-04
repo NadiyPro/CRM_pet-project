@@ -37,4 +37,36 @@ export class StudentsMapper {
       ...query,
     };
   }
+
+  public static resetFiltersResDto(student: StudentEntity): BaseStudentResDto {
+    return {
+      id: student.id,
+      name: student.name,
+      surname: student.surname,
+      email: student.email,
+      phone: student.phone,
+      age: student.age,
+      course: student.course,
+      course_format: student.course_format,
+      course_type: student.course_type,
+      status: student.status,
+      sum: student.sum,
+      alreadyPaid: student.alreadyPaid,
+      created_at: student.created_at,
+      manager: student.manager,
+      group: student.group,
+      message: student.message,
+      deleted: student.deleted,
+    };
+  }
+
+  public static resetFiltersAllResDtoList(
+    students: StudentEntity[],
+    total: number,
+  ): ListStudentsResQueryDto {
+    return {
+      students: students.map((student) => this.resetFiltersResDto(student)),
+      total,
+    };
+  }
 }

@@ -148,4 +148,12 @@ export class StudentsRepository extends Repository<StudentEntity> {
       return await qb.getManyAndCount();
     }
   }
+
+  public async resetFilters(): Promise<[StudentEntity[], number]> {
+    return await this.createQueryBuilder('student')
+      .leftJoinAndSelect('student.manager_id', 'manager')
+      .leftJoinAndSelect('student.group_id', 'group')
+      .addSelect(['manager.surname', 'group.group'])
+      .getManyAndCount();
+  }
 }

@@ -94,6 +94,19 @@ export class StudentsController {
     return StudentsMapper.toAllResDtoList(entities, total, query);
   }
 
+  @ApiOperation({
+    summary: 'Для того, щоб скинути всі фільтри.',
+    description: 'Для того, щоб скинути всі фільтри.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Get('resetFilters')
+  public async resetFilters(): Promise<ListStudentsResQueryDto> {
+    const [entities, total] = await this.studentsService.resetFilters();
+    return StudentsMapper.resetFiltersAllResDtoList(entities, total);
+  }
+
   // @ApiOperation({
   //   summary: 'Для видалення запису про student за його id',
   //   description:
