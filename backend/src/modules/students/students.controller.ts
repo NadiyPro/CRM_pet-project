@@ -57,7 +57,8 @@ export class StudentsController {
     description:
       'Admin / manager може оновити дані по student' +
       '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin / manager)' +
-      '*можна залишати пусті поля',
+      '*можна залишати пусті поля' +
+      '*сортування по замовченню по полю created_at, DESC',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
@@ -77,7 +78,9 @@ export class StudentsController {
 
   @ApiOperation({
     summary: 'Для фільтрації та сортуванню своїх заявок по студентам',
-    description: 'Для фільтрації та сортуванню своїх заявок по студентам',
+    description:
+      'Для фільтрації та сортуванню своїх заявок по студентам. ' +
+      '*сортування по замовченню по полю created_at, DESC',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -95,8 +98,10 @@ export class StudentsController {
   }
 
   @ApiOperation({
-    summary: 'Для того, щоб скинути всі фільтри.',
-    description: 'Для того, щоб скинути всі фільтри.',
+    summary: 'Для того, щоб скинути всі фільтри та сортування.',
+    description:
+      'Для того, щоб скинути всі фільтри та сортування. ' +
+      '*сортування по замовченню по полю created_at, DESC',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

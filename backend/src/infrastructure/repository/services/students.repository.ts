@@ -154,6 +154,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
       .leftJoinAndSelect('student.manager_id', 'manager')
       .leftJoinAndSelect('student.group_id', 'group')
       .addSelect(['manager.surname', 'group.group'])
+      .addOrderBy('student.created_at', 'DESC')
       .getManyAndCount();
   }
 }
