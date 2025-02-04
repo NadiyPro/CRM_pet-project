@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IS_ENUM, IsBoolean, IsEnum, IsString, Length, Matches } from 'class-validator';
+import { IsBoolean, IsEnum, IsString, Length, Matches } from 'class-validator';
 
 import { RoleTypeEnum } from '../../../../../infrastructure/mySQL/entities/enums/roleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
