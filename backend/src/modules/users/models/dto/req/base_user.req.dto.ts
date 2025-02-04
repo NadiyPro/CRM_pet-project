@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsString, Length, Matches } from 'class-validator';
+import { IS_ENUM, IsBoolean, IsEnum, IsString, Length, Matches } from 'class-validator';
 
 import { RoleTypeEnum } from '../../../../../infrastructure/mySQL/entities/enums/roleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
@@ -31,7 +31,7 @@ export class BaseUserReqDto {
   password: string;
 
   @ApiProperty({ example: 'admin' })
-  @IsString()
+  @IsEnum(RoleTypeEnum, { message: 'role must be one of: admin, manager' })
   @Length(3, 50)
   role: RoleTypeEnum;
 
