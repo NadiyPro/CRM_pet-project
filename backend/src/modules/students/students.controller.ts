@@ -56,7 +56,7 @@ export class StudentsController {
     summary: 'Для оновлення даних по student',
     description:
       'Admin / manager може оновити дані по student' +
-      '(якщо заявка ще не взяти в роботу або знаходиться в роботі у даного admin / manager)' +
+      '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin / manager)' +
       '*можна залишати пусті поля',
   })
   @ApiBearerAuth()
@@ -73,6 +73,25 @@ export class StudentsController {
       studentId,
       updateStudentReqDto,
     );
+  }
+
+  @ApiOperation({
+    summary: 'Для фільтрації та сортуванню своїх заявок по студентам',
+    description: 'Для фільтрації та сортуванню своїх заявок по студентам',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Get('myOrder')
+  public async findMySOrder(
+    @CurrentUser() userData: IUserData,
+    @Query() query: ListStudentsQueryReqDto,
+  ): Promise<ListStudentsResQueryDto> {
+    const [entities, total] = await this.studentsService.findMySOrder(
+      userData,
+      query,
+    );
+    return StudentsMapper.toAllResDtoList(entities, total, query);
   }
 
   // @ApiOperation({

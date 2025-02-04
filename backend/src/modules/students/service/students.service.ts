@@ -43,6 +43,13 @@ export class StudentsService {
       where: { id: studentId },
     });
   }
+
+  public async findMySOrder(
+    userData: IUserData,
+    query: ListStudentsQueryReqDto,
+  ): Promise<[StudentEntity[], number]> {
+    return await this.studentsRepository.findMySOrder(userData, query);
+  }
   //
   //
   //create
