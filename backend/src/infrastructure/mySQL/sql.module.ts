@@ -17,7 +17,7 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
         // конфігурація для TypeORM завантажується з ConfigService,
         // з файлу configuration по ключу 'database'
         return {
-          type: 'postgres', // вказуємо доя якої БД будемо конектитись
+          type: 'mysql', // вказуємо доя якої БД будемо конектитись
           host: config.host,
           port: config.port,
           username: config.user,
@@ -27,35 +27,26 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
             path.join(
               process.cwd(),
               'dist',
+              'backend',
               'src',
               'infrastructure',
-              'postgres',
+              'mySQL',
               'entities',
               '*.entity.js',
             ),
-          ], // Шлях до файлів ентіті
-          // Ентіті - описує структуру таблиці в БД, це типу як моделі,
-          // кожна модель - це окрема таблиця буде,
-          // ми для юзера такий опис зробили в database/entities/user.entity.ts
-          // Файли з розширенням *.entity.js — це скомпільовані версії файлів ентіті,
-          // де * - значить всі назви файлів, після крапки де йде розширення entity.js
-          // які використовуються в TypeORM для відображення об'єктів в БД, тобто описує структуру таблиці в БД
-          // (кажемо яка назва табл буде, який стовпчик / строка, яку матиме назву, та чим наповнюватиметься)
-          // Node.js не вміє виконувати TypeScript напряму.
-          // TypeORM та інші бібліотеки завантажують ентіті та інші файли з папки dist,
-          // яка містить уже скомпільовані .js версії файлів.
-          // Тому ми вказуємо шлях саме до папки dist в якій містяться скомпільовані файли в форматі js
+          ],
           migrations: [
             path.join(
               process.cwd(),
               'dist',
+              'backend',
               'src',
               'infrastructure',
-              'postgres',
+              'mySQL',
               'migrations',
               '*.js',
             ),
-          ], // Шлях до файлів міграцій у папці dist (щоб виконувати міграції)
+          ],
           synchronize: false,
           // Якщо встановлено в false,
           // TypeORM не синхронізуватиме схему бази даних автоматично

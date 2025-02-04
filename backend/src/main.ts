@@ -12,7 +12,7 @@ async function bootstrap() {
   // Вона ініціалізує всі компоненти програми, налаштовує залежності та маршрутизацію.
 
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
-    .setTitle('March-2024 NestJS') // Встановлює заголовок API документації
+    .setTitle('final_project_NadiaPro') // Встановлює заголовок API документації
     .setDescription('The cats API description') // опис нашого API
     .setVersion('1.0') // версія нашого API
     .addBearerAuth({
