@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { GroupEntity } from '../../mySQL/entities/group.entity';
+import { GroupEntity } from '../../mysql/entities/group.entity';
 import { ListGroupQueryReqDto } from '../../../modules/group/models/dto/req/listGroupQuery.req.dto';
 
 @Injectable()

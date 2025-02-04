@@ -1,4 +1,4 @@
-import { UserEntity } from '../../../infrastructure/mySQL/entities/user.entity';
+import { UserEntity } from '../../../infrastructure/mysql/entities/user.entity';
 import { IJwtPayload } from '../../auth/models/interfaces/jwt_payload.interface';
 import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { UserResDto } from '../models/dto/res/user.res.dto';

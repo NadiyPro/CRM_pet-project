@@ -1,7 +1,7 @@
-import { CourseEnum } from '../../../../../infrastructure/mySQL/entities/enums/course.enum';
-import { CourseFormatEnum } from '../../../../../infrastructure/mySQL/entities/enums/courseFormat.enum';
-import { CourseTypeEnum } from '../../../../../infrastructure/mySQL/entities/enums/courseType.enum';
-import { StatusEnum } from '../../../../../infrastructure/mySQL/entities/enums/status.enum';
+import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/course.enum';
+import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
+import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
+import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
 
 export interface UpdateStudentResDto {
   id: string | null;

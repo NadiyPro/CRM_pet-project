@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { UserRepository } from '../../infrastructure/repository/services/user.repository';
 import { StudentsRepository } from '../../infrastructure/repository/services/students.repository';
-import { StatusEnum } from '../../infrastructure/mySQL/entities/enums/status.enum';
+import { StatusEnum } from '../../infrastructure/mysql/entities/enums/status.enum';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { Request } from 'express';
 

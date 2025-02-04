@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { RefreshTokenEntity } from '../../mySQL/entities/refresh-token.entity';
+import { RefreshTokenEntity } from '../../mysql/entities/refresh-token.entity';
 
 @Injectable()
 export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {

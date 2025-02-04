@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
-import { StudentEntity } from '../../mySQL/entities/student.entity';
+import { StudentEntity } from '../../mysql/entities/student.entity';
 import { ListStudentsQueryReqDto } from '../../../modules/students/models/dto/req/list-students-query.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
 

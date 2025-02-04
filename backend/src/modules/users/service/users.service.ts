@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
-import { RoleTypeEnum } from '../../../infrastructure/mySQL/entities/enums/roleType.enum';
-import { UserEntity } from '../../../infrastructure/mySQL/entities/user.entity';
+import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
+import { UserEntity } from '../../../infrastructure/mysql/entities/user.entity';
 import { GiveRoleDto } from '../models/dto/req/give_role.dto';
 
 @Injectable()

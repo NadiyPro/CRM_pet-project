@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
-import { GroupEntity } from '../../../infrastructure/mySQL/entities/group.entity';
+import { GroupEntity } from '../../../infrastructure/mysql/entities/group.entity';
 import { ListGroupQueryReqDto } from '../models/dto/req/listGroupQuery.req.dto';
 import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
