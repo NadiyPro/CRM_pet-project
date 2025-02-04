@@ -30,8 +30,14 @@ export class StudentsController {
   // перевіряти статус активний чи ні тут не потрібно,
   // оскільки якщо статус не активно, то юзер просто не зможе зайти в адміну
   @ApiOperation({
-    summary: 'Для отримання інформацію про students',
-    description: 'Admin / manager може отримати інформацію про students',
+    summary: 'Для отримання інформацію про всіх students',
+    description:
+      'Admin / manager може отримати інформацію про всіх students, ' +
+      'сортувати ASC / DESC за кожним полем та фільтрувати по кожному полю. ' +
+      'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка, ' +
+      'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
+      'sortField - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
+      'Приклад запиту: GET /students?limit=10&page=2&search=john&sortField=name&sortASCOrDESC=ASC',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
