@@ -8,8 +8,7 @@ export class MessageService {
   constructor(
     private readonly messageRepository: MessageRepository,
     private readonly studentsRepository: StudentsRepository,
-  ) {
-  }
+  ) {}
 
   public async findId(studentId: string): Promise<BaseMessageResDto[]> {
     const messages = await this.messageRepository.findId(studentId);
