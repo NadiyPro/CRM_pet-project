@@ -30,8 +30,6 @@ import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto'
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 
-  // перевіряти статус активний чи ні тут не потрібно,
-  // оскільки якщо статус не активно, то юзер просто не зможе зайти в адміну
   @ApiOperation({
     summary: 'Для отримання інформацію про всіх students',
     description:
