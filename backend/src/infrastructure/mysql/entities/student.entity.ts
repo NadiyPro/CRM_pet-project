@@ -67,17 +67,19 @@ export class StudentEntity extends CreateUpdateModel {
   // manager - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager
   // manager_id - по цьому полю вяжу таблиці
   @Column()
-  manager: string | null;
-  @ManyToOne(() => UserEntity, (entity) => entity.students)
-  @JoinColumn({ name: 'manager_id' })
-  manager_id?: UserEntity | null;
-
+  managerId: string | null;
   @Column()
-  messages: string | null;
+  managerSurname: string | null;
+  @ManyToOne(() => UserEntity, (entity) => entity.students)
+  @JoinColumn({ name: 'manager' })
+  manager?: UserEntity | null;
+
+  // @Column()
+  // messages: string | null;
   @OneToMany(() => MessageEntity, (message) => message.student)
-  messages_id: MessageEntity[];
+  messages?: MessageEntity[];
 
   @ManyToOne(() => GroupEntity, (entity) => entity.student)
-  @JoinColumn({ name: 'group_id' })
+  @JoinColumn({ name: 'group' })
   group?: GroupEntity;
 }

@@ -22,7 +22,7 @@ export class MessageEntity extends CreateUpdateModel {
   @JoinColumn({ name: 'student_id' })
   student: StudentEntity;
 
-  @ManyToOne(() => UserEntity, (entity) => entity.message)
+  @ManyToOne(() => UserEntity, (entity) => entity.messages)
   @JoinColumn({ name: 'user_id' })
   manager?: UserEntity;
 }

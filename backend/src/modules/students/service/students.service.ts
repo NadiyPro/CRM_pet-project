@@ -41,7 +41,7 @@ export class StudentsService {
     if (student.status === StatusEnum.NEW || student.status === null) {
       await this.studentsRepository.update(studentId, {
         ...updateStudentReqDto,
-        manager: user.surname,
+        manager: user,
         updated_at: new Date(),
         status: StatusEnum.IN_WORK,
       });

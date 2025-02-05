@@ -18,7 +18,8 @@ export interface BaseStudentResDto {
   alreadyPaid: number | null;
   deleted: Date | null;
   created_at: Date;
-  manager: string | null;
+  managerId: string | null;
+  managerSurname: string;
   group: string | null;
   messages: string | null;
 }

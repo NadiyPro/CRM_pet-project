@@ -16,11 +16,11 @@ export class StudentsRepository extends Repository<StudentEntity> {
     const qb: SelectQueryBuilder<StudentEntity> = this.createQueryBuilder(
       'student',
     )
-      .leftJoinAndSelect('student.manager_id', 'manager')
-      .leftJoinAndSelect('student.group_id', 'group');
+      .leftJoinAndSelect('student.manager', 'manager')
+      .leftJoinAndSelect('student.group', 'group');
     // .where('student.deleted IS NULL');
 
-    qb.addSelect(['manager.surname', 'group.group']);
+    qb.addSelect(['manager.id', 'manager.surname', 'group.group']);
 
     if (query.search) {
       qb.andWhere(
@@ -37,7 +37,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
           student.status LIKE :search OR
           CAST(student.sum AS CHAR) LIKE :search OR
           CAST(student.alreadyPaid AS CHAR) LIKE :search OR
-          manager.surname LIKE :search OR group.group LIKE :search 
+          manager.surname LIKE :search OR manager.id LIKE :search OR group.group LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -88,11 +88,11 @@ export class StudentsRepository extends Repository<StudentEntity> {
     const qb: SelectQueryBuilder<StudentEntity> = this.createQueryBuilder(
       'student',
     )
-      .leftJoinAndSelect('student.manager_id', 'manager')
+      .leftJoinAndSelect('student.manager', 'manager')
       .andWhere('manager.id = :userId', { userId: userData.userId })
-      .leftJoinAndSelect('student.group_id', 'group');
+      .leftJoinAndSelect('student.group', 'group');
 
-    qb.addSelect(['manager.surname', 'group.group']);
+    qb.addSelect(['manager.id', 'manager.surname', 'group.group']);
 
     if (query.search) {
       qb.andWhere(
@@ -109,7 +109,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
           student.status LIKE :search OR
           CAST(student.sum AS CHAR) LIKE :search OR
           CAST(student.alreadyPaid AS CHAR) LIKE :search OR
-          manager.surname LIKE :search OR group.group LIKE :search 
+          manager.surname LIKE :search OR manager.id LIKE :search OR group.group LIKE :search 
         )`,
         { search: `%${query.search}%` },
       );
@@ -131,6 +131,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
         'alreadyPaid',
         'created_at',
         'manager.surname',
+        'manager.id',
         'group.group',
       ];
       const column = allowedColumns.includes(query.sortField)
@@ -152,9 +153,9 @@ export class StudentsRepository extends Repository<StudentEntity> {
 
   public async resetFilters(): Promise<[StudentEntity[], number]> {
     return await this.createQueryBuilder('student')
-      .leftJoinAndSelect('student.manager_id', 'manager')
-      .leftJoinAndSelect('student.group_id', 'group')
-      .addSelect(['manager.surname', 'group.group'])
+      .leftJoinAndSelect('student.manager', 'manager')
+      .leftJoinAndSelect('student.group', 'group')
+      .addSelect(['manager', 'manager.surname', 'group.group'])
       .addOrderBy('student.created_at', 'DESC')
       .getManyAndCount();
   }
@@ -174,7 +175,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
 
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.createQueryBuilder('student')
-      .leftJoin('student.manager_id', 'manager')
+      .leftJoin('student.manager', 'manager')
       .select([
         'manager.id as managerId',
         'manager.surname as managerSurname',
