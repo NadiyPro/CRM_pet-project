@@ -6,6 +6,7 @@ import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
 import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
+import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
 
 @ApiTags(TableNameEnum.MESSAGE)
 @Controller(TableNameEnum.MESSAGE)
@@ -17,5 +18,5 @@ export class MessageController {
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get()
-  public async findAll():Promise<>{}
+  public async findAll():Promise<BaseMessageResDto>{}
 }
