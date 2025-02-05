@@ -23,6 +23,7 @@ import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { UpdateStudentReqDto } from './models/dto/req/updateStudent.req.dto';
 import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
 import { UpdateStudentResDto } from './models/dto/res/updateStudent.res.dto';
+import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
 
 @ApiTags('students')
 @Controller('students')
@@ -140,5 +141,19 @@ export class StudentsController {
     @Param('studentId', ParseUUIDPipe) studentId: string,
   ): Promise<string> {
     return await this.studentsService.deleteId(studentId);
+  }
+
+  @ApiOperation({
+    summary:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+    description:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Get('ordersStatisticAll')
+  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+    return await this.studentsService.ordersStatisticAll();
   }
 }

@@ -7,6 +7,7 @@ import { UpdateStudentReqDto } from '../models/dto/req/updateStudent.req.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UpdateStudentResDto } from '../models/dto/res/updateStudent.res.dto';
 import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.enum';
+import { OrdersStatisticResDto } from '../models/dto/res/ordersStatistic.res.dto';
 
 @Injectable()
 export class StudentsService {
@@ -74,6 +75,9 @@ export class StudentsService {
     return 'The user in the table (db) was successfully deleted';
   }
 
+  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+    return await this.studentsRepository.ordersStatisticAll();
+  }
   //
   // public async ordersStatisticId(
   //   query: ListUsersQueryReqDto,

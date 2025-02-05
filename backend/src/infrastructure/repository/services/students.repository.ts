@@ -3,6 +3,7 @@ import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
 import { StudentEntity } from '../../mysql/entities/student.entity';
 import { ListStudentsQueryReqDto } from '../../../modules/students/models/dto/req/list-students-query.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
+import { OrdersStatisticResDto } from '../../../modules/students/models/dto/res/ordersStatistic.res.dto';
 
 @Injectable()
 export class StudentsRepository extends Repository<StudentEntity> {
@@ -156,5 +157,18 @@ export class StudentsRepository extends Repository<StudentEntity> {
       .addSelect(['manager.surname', 'group.group'])
       .addOrderBy('student.created_at', 'DESC')
       .getManyAndCount();
+  }
+
+  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+    return await this.createQueryBuilder('student')
+      .select([
+        'COUNT(student.id) as total',
+        'COUNT(CASE WHEN student.status = "In work" THEN student.id END) as In_work',
+        'COUNT(CASE WHEN student.status = "New" THEN student.id END) as New',
+        'COUNT(CASE WHEN student.status = "Aggre" THEN student.id END) as Aggre',
+        'COUNT(CASE WHEN student.status = "Disaggre" THEN student.id END) as Disaggre',
+        'COUNT(CASE WHEN student.status = "Dubbing" THEN student.id END) as Dubbing',
+      ])
+      .getRawOne();
   }
 }
