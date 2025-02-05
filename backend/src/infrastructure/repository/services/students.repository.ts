@@ -64,6 +64,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
+        'messages.id',
         'manager.surname',
         'group.group',
       ];
@@ -103,6 +104,7 @@ export class StudentsRepository extends Repository<StudentEntity> {
       'manager.id',
       'manager.surname',
       'group.group',
+      'messages.id',
       'messages.messages',
     ]);
 
