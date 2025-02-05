@@ -11,6 +11,7 @@ import { RoleTypeEnum } from './enums/roleType.enum';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { CreateUpdateModel } from './models/date.model';
 import { StudentEntity } from './student.entity';
+import { MessageEntity } from './message.entity';
 
 @Index(['name'])
 @Entity(TableNameEnum.USERS) // назва табл в БД
@@ -44,4 +45,7 @@ export class UserEntity extends CreateUpdateModel {
 
   @OneToMany(() => StudentEntity, (entity) => entity.manager_id)
   student?: StudentEntity[] | null;
+
+  @OneToMany(() => MessageEntity, (entity) => entity.manager_id)
+  message?: MessageEntity[] | null;
 }
