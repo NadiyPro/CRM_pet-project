@@ -50,9 +50,7 @@ export class StudentsController {
     const [entities, total] = await this.studentsService.findAll(query);
     return StudentsMapper.toAllResDtoList(entities, total, query);
   }
-  //
-  // в додати перевірку ,якщо status ==== New або null о можна редагувати або
-  // якщо заява знаходиться в роботі у цього ж юзера manager (призвіще та імя)
+
   @ApiOperation({
     summary: 'Для оновлення даних по student',
     description:

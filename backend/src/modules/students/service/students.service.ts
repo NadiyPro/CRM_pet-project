@@ -42,6 +42,7 @@ export class StudentsService {
       await this.studentsRepository.update(studentId, {
         ...updateStudentReqDto,
         manager: userData.surname,
+        manager_id: user,
         updated_at: new Date(),
         status: StatusEnum.IN_WORK,
       });
