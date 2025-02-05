@@ -43,7 +43,8 @@ export class StudentOwnershipGuard implements CanActivate {
     }
 
     if (
-      (student.status !== StatusEnum.NEW && student.status !== null) ||
+      student.status !== StatusEnum.NEW ||
+      student.status !== null ||
       student.manager_id?.id !== user.id
     ) {
       throw new HttpException(

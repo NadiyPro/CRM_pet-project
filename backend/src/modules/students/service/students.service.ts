@@ -6,6 +6,7 @@ import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { UpdateStudentReqDto } from '../models/dto/req/updateStudent.req.dto';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UpdateStudentResDto } from '../models/dto/res/updateStudent.res.dto';
+import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.enum';
 
 @Injectable()
 export class StudentsService {
@@ -33,11 +34,18 @@ export class StudentsService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    await this.studentsRepository.update(studentId, {
-      ...updateStudentReqDto,
-      manager: userData.surname,
-      updated_at: new Date(),
+    const student = await this.studentsRepository.findOne({
+      where: { id: studentId },
     });
+
+    if (student.status === StatusEnum.NEW || student.status === null) {
+      await this.studentsRepository.update(studentId, {
+        ...updateStudentReqDto,
+        manager: userData.surname,
+        updated_at: new Date(),
+        status: StatusEnum.IN_WORK,
+      });
+    }
 
     return await this.studentsRepository.findOne({
       where: { id: studentId },
