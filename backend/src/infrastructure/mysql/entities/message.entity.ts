@@ -1,4 +1,10 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
 import { CreateUpdateModel } from './models/date.model';
 import { StudentEntity } from './student.entity';
@@ -12,12 +18,11 @@ export class MessageEntity extends CreateUpdateModel {
   @Column('text', { nullable: true })
   message: string;
 
-  @OneToMany(() => StudentEntity, (entity) => entity.message)
-  student?: StudentEntity[] | null;
+  @ManyToOne(() => StudentEntity, (student) => student.messages)
+  @JoinColumn({ name: 'student_id' })
+  student: StudentEntity;
 
-  @Column()
-  manager: string;
   @ManyToOne(() => UserEntity, (entity) => entity.message)
   @JoinColumn({ name: 'user_id' })
-  manager_id?: UserEntity | null;
+  manager?: UserEntity;
 }

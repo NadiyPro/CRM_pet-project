@@ -43,9 +43,9 @@ export class UserEntity extends CreateUpdateModel {
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[] | null;
 
-  @OneToMany(() => StudentEntity, (entity) => entity.manager_id)
-  student?: StudentEntity[] | null;
+  @OneToMany(() => StudentEntity, (entity) => entity.manager)
+  students?: StudentEntity[] | null;
 
-  @OneToMany(() => MessageEntity, (entity) => entity.manager_id)
-  message?: MessageEntity[] | null;
+  @OneToMany(() => MessageEntity, (entity) => entity.manager)
+  message?: MessageEntity[];
 }

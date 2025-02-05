@@ -4,6 +4,7 @@ import {
   Index,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
@@ -67,19 +68,14 @@ export class StudentEntity extends CreateUpdateModel {
   // manager_id - по цьому полю вяжу таблиці
   @Column()
   manager: string | null;
-  @ManyToOne(() => UserEntity, (entity) => entity.student)
+  @ManyToOne(() => UserEntity, (entity) => entity.students)
   @JoinColumn({ name: 'manager_id' })
-  manager_id?: UserEntity;
+  manager_id?: UserEntity | null;
 
-  @Column()
-  message: string | null;
-  @ManyToOne(() => MessageEntity, (entity) => entity.student)
-  @JoinColumn({ name: 'message_id' })
-  message_id?: MessageEntity;
+  @OneToMany(() => MessageEntity, (message) => message.student)
+  messages: MessageEntity[];
 
-  @Column()
-  group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.student)
   @JoinColumn({ name: 'group_id' })
-  group_id?: GroupEntity;
+  group?: GroupEntity;
 }

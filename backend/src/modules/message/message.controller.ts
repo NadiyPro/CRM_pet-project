@@ -1,5 +1,5 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { MessageService } from './service/message.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
@@ -13,10 +13,14 @@ import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @ApiOperation({ summary: '', description: ''})
-@ApiBearerAuth()
+  @ApiOperation({ summary: '', description: '' })
+  @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Get()
-  public async findAll():Promise<BaseMessageResDto>{}
+  @Get(':studentId')
+  public async findId(
+    @Param('studentId') studentId: string,
+  ): Promise<BaseMessageResDto[]> {
+    return await this.messageService.findId(studentId);
+  }
 }

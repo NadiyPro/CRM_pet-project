@@ -11,9 +11,7 @@ export class GroupService {
     return await this.groupRepository.findAll(query);
   }
 
-  public async create(
-    group: string,
-  ): Promise<BaseGroupResDto> {
+  public async create(group: string): Promise<BaseGroupResDto> {
     const new_group = await this.groupRepository.findOneBy({ group: group });
     if (new_group) {
       throw new HttpException('Group already exists', HttpStatus.CONFLICT);

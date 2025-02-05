@@ -12,5 +12,5 @@ export class GroupEntity extends CreateUpdateModel {
   group: string;
 
   @OneToMany(() => StudentEntity, (entity) => entity.group)
-  student?: StudentEntity[] | null;
+  student?: StudentEntity[];
 }

@@ -2,6 +2,7 @@ import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/c
 import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
+import { UserEntity } from '../../../../../infrastructure/mysql/entities/user.entity';
 
 export interface UpdateStudentResDto {
   id: string | null;
@@ -19,5 +20,5 @@ export interface UpdateStudentResDto {
   deleted: Date | null;
   created_at: Date;
   updated_at: Date;
-  manager: string | null;
+  manager: string;
 }

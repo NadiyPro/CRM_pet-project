@@ -1,7 +1,7 @@
 import { IsString, Length } from 'class-validator';
 
-export class BaseMessageReqDto{
+export class BaseMessageReqDto {
   @IsString()
-  @Length(5,200)
+  @Length(5, 200)
   message: string | null;
 }
