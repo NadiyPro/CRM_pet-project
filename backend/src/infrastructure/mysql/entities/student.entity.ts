@@ -75,6 +75,8 @@ export class StudentEntity extends CreateUpdateModel {
   manager?: UserEntity | null;
 
   @Column()
+  messagesId: string[] | null;
+  @Column()
   messagesText: string[] | null;
   @OneToMany(() => MessageEntity, (message) => message.student)
   messages?: MessageEntity[];

@@ -22,6 +22,7 @@ export class StudentsMapper {
       managerId: student.manager.id,
       managerSurname: student.manager.surname,
       group: student.group.group,
+      messagesId: student.messages.map((item) => item.id),
       messagesText: student.messages.map((item) => item.messages),
       deleted: student.deleted,
     };
@@ -57,6 +58,7 @@ export class StudentsMapper {
       managerId: student.manager.id,
       managerSurname: student.manager.surname,
       group: student.group.group,
+      messagesId: student.messages.map((item) => item.id),
       messagesText: student.messages.map((item) => item.messages),
       deleted: student.deleted,
     };
