@@ -2,8 +2,8 @@ import { UserEntity } from '../../../infrastructure/mysql/entities/user.entity';
 import { IJwtPayload } from '../../auth/models/interfaces/jwt_payload.interface';
 import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { UserResDto } from '../models/dto/res/user.res.dto';
-import { ListUsersQueryReqDto } from '../models/dto/req/list-users-query.req.dto';
-import { ListResQueryDto } from '../models/dto/res/list-users-query.res.dto';
+import { ListUsersQueryReqDto } from '../models/dto/req/listUsersQuery.req.dto';
+import { ListResQueryDto } from '../models/dto/res/listUsersQuery.res.dto';
 
 export class UserMapper {
   public static toResDto(user: UserEntity): UserResDto {

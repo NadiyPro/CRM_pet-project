@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
-import { ListStudentsQueryReqDto } from '../models/dto/req/list-students-query.req.dto';
+import { ListStudentsQueryReqDto } from '../models/dto/req/listStudentsQuery.req.dto';
 import { StudentEntity } from '../../../infrastructure/mysql/entities/student.entity';
 import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { UpdateStudentReqDto } from '../models/dto/req/updateStudent.req.dto';

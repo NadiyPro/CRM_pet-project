@@ -3,7 +3,7 @@ import { UserRepository } from '../../../infrastructure/repository/services/user
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
 import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { UserEntity } from '../../../infrastructure/mysql/entities/user.entity';
-import { GiveRoleDto } from '../models/dto/req/give_role.dto';
+import { GiveRoleDto } from '../models/dto/req/giveRole.dto';
 
 @Injectable()
 export class UsersService {

@@ -1,7 +1,7 @@
-import { ListUsersQueryReqDto } from '../../users/models/dto/req/list-users-query.req.dto';
+import { ListUsersQueryReqDto } from '../../users/models/dto/req/listUsersQuery.req.dto';
 import { StudentEntity } from '../../../infrastructure/mysql/entities/student.entity';
-import { BaseStudentResDto } from '../models/dto/res/base_students.res.dto';
-import { ListStudentsResQueryDto } from '../models/dto/res/list-students-query.res.dto';
+import { BaseStudentResDto } from '../models/dto/res/baseStudents.res.dto';
+import { ListStudentsResQueryDto } from '../models/dto/res/listStudentsQuery.res.dto';
 
 export class StudentsMapper {
   public static toResDto(student: StudentEntity): BaseStudentResDto {

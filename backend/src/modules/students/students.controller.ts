@@ -12,11 +12,11 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { StudentsService } from './service/students.service';
-import { ApprovedRoleGuard } from '../guards/approved_role.guard';
+import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
-import { ListStudentsQueryReqDto } from './models/dto/req/list-students-query.req.dto';
-import { ListStudentsResQueryDto } from './models/dto/res/list-students-query.res.dto';
+import { ListStudentsQueryReqDto } from './models/dto/req/listStudentsQuery.req.dto';
+import { ListStudentsResQueryDto } from './models/dto/res/listStudentsQuery.res.dto';
 import { StudentsMapper } from './service/students.mapper';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';

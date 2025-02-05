@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { GroupService } from './service/group.service';
-import { ApprovedRoleGuard } from '../guards/approved_role.guard';
+import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';

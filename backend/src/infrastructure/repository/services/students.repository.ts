@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
 import { StudentEntity } from '../../mysql/entities/student.entity';
-import { ListStudentsQueryReqDto } from '../../../modules/students/models/dto/req/list-students-query.req.dto';
+import { ListStudentsQueryReqDto } from '../../../modules/students/models/dto/req/listStudentsQuery.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
 import { OrdersStatisticResDto } from '../../../modules/students/models/dto/res/ordersStatistic.res.dto';
 

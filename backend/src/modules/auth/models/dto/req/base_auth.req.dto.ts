@@ -1,6 +1,6 @@
 import { PickType } from '@nestjs/swagger';
 
-import { BaseUserReqDto } from '../../../../users/models/dto/req/base_user.req.dto';
+import { BaseUserReqDto } from '../../../../users/models/dto/req/baseUser.req.dto';
 import { IsNotEmpty, IsString } from 'class-validator';
 
 export class BaseAuthReqDto extends PickType(BaseUserReqDto, [

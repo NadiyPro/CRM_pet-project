@@ -1,5 +1,5 @@
 import { PickType } from '@nestjs/swagger';
-import { BaseStudentsReqDto } from './base_students.req.dto';
+import { BaseStudentsReqDto } from './baseStudents.req.dto';
 
 export class UpdateStudentReqDto extends PickType(BaseStudentsReqDto, [
   'name',

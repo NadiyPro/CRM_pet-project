@@ -1,4 +1,4 @@
-import { ListUsersQueryReqDto } from '../req/list-users-query.req.dto';
+import { ListUsersQueryReqDto } from '../req/listUsersQuery.req.dto';
 import { UserResDto } from './user.res.dto';
 
 export class ListResQueryDto extends ListUsersQueryReqDto {
