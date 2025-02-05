@@ -13,7 +13,6 @@ export class MessageService {
   public async findId(studentId: string): Promise<BaseMessageResDto[]> {
     const messages = await this.messageRepository.findId(studentId);
     return messages.map((message) => {
-      // Перетворення MessageEntity в BaseMessageResDto
       return {
         id: message.id,
         messages: message.messages,
