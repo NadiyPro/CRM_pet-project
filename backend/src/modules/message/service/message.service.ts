@@ -2,6 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { MessageRepository } from '../../../infrastructure/repository/services/message.repository';
 import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
 import { BaseMessageResDto } from '../models/dto/res/baseMessage.res.dto';
+import { IUserData } from '../../auth/models/interfaces/user_data.interface';
+import { BaseMessageReqDto } from '../models/dto/req/baseMessage.req.dto';
+import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.enum';
 
 @Injectable()
 export class MessageService {
@@ -23,5 +26,26 @@ export class MessageService {
         updated_at: message.updated_at,
       };
     });
+  }
+
+  public async createMessage(
+    userData: IUserData,
+    studentId: string,
+    dataMessage: BaseMessageReqDto,
+  ): Promise<BaseMessageResDto> {
+    const student = await this.studentsRepository.findOneBy({ id: studentId });
+    const mewMessage = this.messageRepository.create({
+      messages: dataMessage.messages,
+      studentId: student.id,
+      managerId: userData.userId,
+      managerSurname: userData.surname,
+    });
+    if (student.status === StatusEnum.NEW || student.status === null) {
+      await this.studentsRepository.update(studentId, {
+        manager: userData,
+        status: StatusEnum.IN_WORK,
+      });
+      return await this.messageRepository.save(mewMessage);
+    }
   }
 }
