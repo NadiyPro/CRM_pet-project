@@ -58,7 +58,7 @@ export class StudentsController {
       'Manager може оновити дані по student. ' +
       'При збережені заявки, якщо до цього status === New, або status === null, ' +
       'то буде автоматично змінено status на In_Work та підтягнеться Призвіще менеджера.' +
-      '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin / manager)' +
+      '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)' +
       '*можна залишати пусті поля' +
       '*сортування по замовченню по полю created_at, DESC',
   })

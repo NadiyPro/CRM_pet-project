@@ -1,5 +1,14 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { MessageService } from './service/message.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
@@ -34,7 +43,14 @@ export class MessageController {
     return await this.messageService.findId(studentId);
   }
 
-  @ApiOperation({ summary: '', description: '' })
+  @ApiOperation({
+    summary: 'Admin | manager може створити коменнтар.',
+    description:
+      'Admin | manager може створити коменнтар, ' +
+      'якщо до цього status === New, або status === null,' +
+      'то буде автоматично змінено status на In_Work та підтягнеться Призвіще менеджера.' +
+      '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)',
+  })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN)
@@ -49,5 +65,19 @@ export class MessageController {
       studentId,
       dataMessage,
     );
+  }
+
+  @ApiOperation({
+    summary: 'Для видалення запису про message за його messageId',
+    description: 'Admin може видалити запис про message по його messageId ',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Delete(':messageId')
+  public async deleteId(
+    @Param('messageId', ParseUUIDPipe) messageId: string,
+  ): Promise<string> {
+    return await this.messageService.deleteId(messageId);
   }
 }

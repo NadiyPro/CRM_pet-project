@@ -48,4 +48,9 @@ export class MessageService {
       return await this.messageRepository.save(mewMessage);
     }
   }
+
+  public async deleteId(messageId: string): Promise<string> {
+    await this.messageRepository.delete({ id: messageId });
+    return 'The user in the table (db) was successfully deleted';
+  }
 }
