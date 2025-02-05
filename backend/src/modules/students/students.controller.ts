@@ -4,7 +4,8 @@ import {
   Controller,
   Get,
   Param,
-  ParseUUIDPipe, Post,
+  ParseUUIDPipe,
+  Post,
   Put,
   Query,
   UseGuards,
@@ -112,13 +113,19 @@ export class StudentsController {
     return StudentsMapper.resetFiltersAllResDtoList(entities, total);
   }
 
-  // @ApiOperation({summary: '', disciption: ''})
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Post()
-  // public async createStudent(@)
-  //create
+  @ApiOperation({
+    summary: 'Admin може додати нового student до списку.',
+    description: 'Admin може додати нового student до списку',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Post()
+  public async createStudent(
+    @Body() updateStudentReqDto: UpdateStudentReqDto,
+  ): Promise<UpdateStudentResDto> {
+    return await this.studentsService.createStudent(updateStudentReqDto);
+  }
 
   // @ApiOperation({
   //   summary: 'Для видалення запису про student за його id',

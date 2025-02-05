@@ -62,11 +62,14 @@ export class StudentsService {
   public async resetFilters(): Promise<[StudentEntity[], number]> {
     return await this.studentsRepository.resetFilters();
   }
-  //
-  //
-  //create
-  //
-  //
+
+  public async createStudent(
+    updateStudentReqDto: UpdateStudentReqDto,
+  ): Promise<StudentEntity> {
+    const student = this.studentsRepository.create(updateStudentReqDto);
+    return await this.studentsRepository.save(student);
+  }
+
   // public async deleteId(groupId: string): Promise<string> {
   //   await this.groupRepository.delete({ id: groupId });
   //   return 'The user in the table (db) has been successfully marked as deleted';
