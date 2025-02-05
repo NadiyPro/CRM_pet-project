@@ -7,9 +7,10 @@ import { ApprovedRoleGuard } from '../guards/approved_role.guard';
 import { GiveRoleDto } from './models/dto/req/give_role.dto';
 import { UserResDto } from './models/dto/res/user.res.dto';
 import { UserMapper } from './service/user.mapper';
+import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
-@ApiTags('Users')
-@Controller('users')
+@ApiTags(TableNameEnum.USERS)
+@Controller(TableNameEnum.USERS)
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 

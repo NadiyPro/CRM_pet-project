@@ -24,9 +24,10 @@ import { UpdateStudentReqDto } from './models/dto/req/updateStudent.req.dto';
 import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
 import { UpdateStudentResDto } from './models/dto/res/updateStudent.res.dto';
 import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
+import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
-@ApiTags('students')
-@Controller('students')
+@ApiTags(TableNameEnum.STUDENT)
+@Controller(TableNameEnum.STUDENT)
 export class StudentsController {
   constructor(private readonly studentsService: StudentsService) {}
 

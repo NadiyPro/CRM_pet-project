@@ -5,9 +5,10 @@ import { SkipAuth } from './decorators/skip_auth.decorator';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
 import { AuthResDto } from './models/dto/res/auth.res.dto';
 import { AuthService } from './services/auth.service';
+import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
-@ApiTags('Auth')
-@Controller('auth')
+@ApiTags(TableNameEnum.AUTH)
+@Controller(TableNameEnum.AUTH)
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 

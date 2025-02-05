@@ -16,9 +16,10 @@ import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
+import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
-@ApiTags('group')
-@Controller('group')
+@ApiTags(TableNameEnum.GROUP)
+@Controller(TableNameEnum.GROUP)
 export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 
