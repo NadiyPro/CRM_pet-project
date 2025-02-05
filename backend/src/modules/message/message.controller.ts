@@ -13,9 +13,12 @@ import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
 export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
-  @ApiOperation({ summary: '', description: '' })
+  @ApiOperation({ summary: 'Admin | manager може переглядати всі коментарі, ' +
+      'які відносяться до кокретного студента за його studentId',
+    description: 'Admin | manager може переглядати всі коментарі, ' +
+      'які відносяться до кокретного студента за його studentId' })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
+  @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get(':studentId')
   public async findId(
@@ -23,4 +26,6 @@ export class MessageController {
   ): Promise<BaseMessageResDto[]> {
     return await this.messageService.findId(studentId);
   }
+
+
 }
