@@ -171,4 +171,21 @@ export class StudentsRepository extends Repository<StudentEntity> {
       ])
       .getRawOne();
   }
+
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    return await this.createQueryBuilder('student')
+      .leftJoin('student.manager_id', 'manager')
+      .select([
+        'manager.id as managerId',
+        'manager.surname as managerSurname',
+        'COUNT(student.id) as total',
+        'COUNT(CASE WHEN student.status = "In work" THEN student.id END) as In_work',
+        'COUNT(CASE WHEN student.status = "New" THEN student.id END) as New',
+        'COUNT(CASE WHEN student.status = "Aggre" THEN student.id END) as Aggre',
+        'COUNT(CASE WHEN student.status = "Disaggre" THEN student.id END) as Disaggre',
+        'COUNT(CASE WHEN student.status = "Dubbing" THEN student.id END) as Dubbing',
+      ])
+      .groupBy('manager.id')
+      .getRawMany();
+  }
 }

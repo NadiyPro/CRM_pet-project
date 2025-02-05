@@ -1,8 +1,10 @@
 export interface OrdersStatisticResDto {
-  total: number;
-  In_work: number;
-  New: number;
-  Aggre: number;
-  Disaggre: number;
-  Dubbing: number;
+  managerId: string;
+  managerSurname: string;
+  total: number | null;
+  In_work: number | null;
+  New: number | null;
+  Aggre: number | null;
+  Disaggre: number | null;
+  Dubbing: number | null;
 }

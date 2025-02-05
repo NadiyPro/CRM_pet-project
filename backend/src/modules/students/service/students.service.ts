@@ -78,11 +78,18 @@ export class StudentsService {
   public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
     return await this.studentsRepository.ordersStatisticAll();
   }
-  //
-  // public async ordersStatisticId(
-  //   query: ListUsersQueryReqDto,
-  // userId: string,
-  // ): Promise<статистика> {
-  //   return await this.userRepository.findOne(userId, query);
-  // }
+
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    const statisticAll = await this.studentsRepository.ordersStatisticManager();
+    return statisticAll.map((item) => ({
+      managerId: item.managerId,
+      managerSurname: item.managerSurname,
+      total: Number(item.total) || null,
+      In_work: Number(item.In_work) || null,
+      New: Number(item.New) || null,
+      Aggre: Number(item.Aggre) || null,
+      Disaggre: Number(item.Disaggre) || null,
+      Dubbing: Number(item.Dubbing) || null,
+    }));
+  }
 }

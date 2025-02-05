@@ -156,4 +156,18 @@ export class StudentsController {
   public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
     return await this.studentsService.ordersStatisticAll();
   }
+
+  @ApiOperation({
+    summary:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+    description:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Get('ordersStatisticManager')
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    return await this.studentsService.ordersStatisticManager();
+  }
 }
