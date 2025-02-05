@@ -17,10 +17,16 @@ export class StudentsRepository extends Repository<StudentEntity> {
       'student',
     )
       .leftJoinAndSelect('student.manager', 'manager')
-      .leftJoinAndSelect('student.group', 'group');
+      .leftJoinAndSelect('student.group', 'group')
+      .leftJoinAndSelect('student.messages', 'messages');
     // .where('student.deleted IS NULL');
 
-    qb.addSelect(['manager.id', 'manager.surname', 'group.group']);
+    qb.addSelect([
+      'manager.id',
+      'manager.surname',
+      'group.group',
+      'messages.messages',
+    ]);
 
     if (query.search) {
       qb.andWhere(
@@ -90,9 +96,15 @@ export class StudentsRepository extends Repository<StudentEntity> {
     )
       .leftJoinAndSelect('student.manager', 'manager')
       .andWhere('manager.id = :userId', { userId: userData.userId })
-      .leftJoinAndSelect('student.group', 'group');
+      .leftJoinAndSelect('student.group', 'group')
+      .leftJoinAndSelect('student.messages', 'messages');
 
-    qb.addSelect(['manager.id', 'manager.surname', 'group.group']);
+    qb.addSelect([
+      'manager.id',
+      'manager.surname',
+      'group.group',
+      'messages.messages',
+    ]);
 
     if (query.search) {
       qb.andWhere(

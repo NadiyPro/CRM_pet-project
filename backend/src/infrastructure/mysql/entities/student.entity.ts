@@ -64,8 +64,8 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('timestamp', { nullable: true })
   deleted: Date | null;
 
-  // manager - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager
-  // manager_id - по цьому полю вяжу таблиці
+  // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
+  // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
   @Column()
   managerId: string | null;
   @Column()
@@ -74,8 +74,8 @@ export class StudentEntity extends CreateUpdateModel {
   @JoinColumn({ name: 'manager' })
   manager?: UserEntity | null;
 
-  // @Column()
-  // messages: string | null;
+  @Column()
+  messagesText: string[] | null;
   @OneToMany(() => MessageEntity, (message) => message.student)
   messages?: MessageEntity[];
 

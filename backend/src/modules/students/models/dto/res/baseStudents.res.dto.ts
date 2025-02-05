@@ -21,5 +21,5 @@ export interface BaseStudentResDto {
   managerId: string | null;
   managerSurname: string;
   group: string | null;
-  messages: string | null;
+  messagesText: string[] | null;
 }
