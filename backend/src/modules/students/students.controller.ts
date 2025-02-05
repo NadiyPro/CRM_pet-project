@@ -2,6 +2,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   ParseUUIDPipe,
@@ -127,19 +128,17 @@ export class StudentsController {
     return await this.studentsService.createStudent(updateStudentReqDto);
   }
 
-  // @ApiOperation({
-  //   summary: 'Для видалення запису про student за його id',
-  //   description:
-  //     'Admin може видалити запис про student по його id ' +
-  //     '*в БД в стовбчику deleted буде вказано дату видалення користувача.'
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Delete(':studentId')
-  // public async deleteId(
-  //   @Param('studentId', ParseUUIDPipe) studentId: string,
-  // ): Promise<string> {
-  //   return await this.usersService.deleteId(studentId);
-  // }
+  @ApiOperation({
+    summary: 'Для видалення запису про student за його id',
+    description: 'Admin може видалити запис про student по його id ',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Delete(':studentId')
+  public async deleteId(
+    @Param('studentId', ParseUUIDPipe) studentId: string,
+  ): Promise<string> {
+    return await this.studentsService.deleteId(studentId);
+  }
 }

@@ -13,7 +13,6 @@ export class StudentsService {
   constructor(
     private readonly studentsRepository: StudentsRepository,
     private readonly userRepository: UserRepository,
-    // private readonly refreshTokenRepository: RefreshTokenRepository,
   ) {}
 
   public async findAll(
@@ -70,10 +69,11 @@ export class StudentsService {
     return await this.studentsRepository.save(student);
   }
 
-  // public async deleteId(groupId: string): Promise<string> {
-  //   await this.groupRepository.delete({ id: groupId });
-  //   return 'The user in the table (db) has been successfully marked as deleted';
-  // }
+  public async deleteId(studentId: string): Promise<string> {
+    await this.studentsRepository.delete({ id: studentId });
+    return 'The user in the table (db) was successfully deleted';
+  }
+
   //
   // public async ordersStatisticId(
   //   query: ListUsersQueryReqDto,

@@ -3,16 +3,10 @@ import { GroupRepository } from '../../../infrastructure/repository/services/gro
 import { GroupEntity } from '../../../infrastructure/mysql/entities/group.entity';
 import { ListGroupQueryReqDto } from '../models/dto/req/listGroupQuery.req.dto';
 import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
-import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
-import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
 
 @Injectable()
 export class GroupService {
-  constructor(
-    private readonly groupRepository: GroupRepository,
-    private readonly userRepository: UserRepository,
-    private readonly studentsRepository: StudentsRepository,
-  ) {}
+  constructor(private readonly groupRepository: GroupRepository) {}
   public async findAll(query: ListGroupQueryReqDto): Promise<GroupEntity[]> {
     return await this.groupRepository.findAll(query);
   }
@@ -48,6 +42,6 @@ export class GroupService {
 
   public async deleteId(groupId: string): Promise<string> {
     await this.groupRepository.delete({ id: groupId });
-    return 'The user in the table (db) has been successfully marked as deleted';
+    return 'The user in the table (db) was successfully deleted';
   }
 }
