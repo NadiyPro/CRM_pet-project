@@ -4,7 +4,7 @@ import {
   Controller,
   Get,
   Param,
-  ParseUUIDPipe,
+  ParseUUIDPipe, Post,
   Put,
   Query,
   UseGuards,
@@ -112,6 +112,12 @@ export class StudentsController {
     return StudentsMapper.resetFiltersAllResDtoList(entities, total);
   }
 
+  // @ApiOperation({summary: '', disciption: ''})
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role(RoleTypeEnum.ADMIN)
+  // @Post()
+  // public async createStudent(@)
   //create
 
   // @ApiOperation({

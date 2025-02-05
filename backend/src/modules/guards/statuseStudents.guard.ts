@@ -42,7 +42,10 @@ export class StudentOwnershipGuard implements CanActivate {
       throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
     }
 
-    if (student.status !== StatusEnum.NEW && student.status !== null) {
+    if (
+      (student.status !== StatusEnum.NEW && student.status !== null) ||
+      student.manager_id?.id !== user.id
+    ) {
       throw new HttpException(
         'The application is in the works of another manager',
         HttpStatus.CONFLICT,
