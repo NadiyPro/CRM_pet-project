@@ -8,7 +8,6 @@ export class ListUsersQueryReqDto {
   @Min(1)
   @IsOptional()
   limit?: number = 10;
-  // ліміт відображення
 
   @Type(() => Number)
   @IsInt()

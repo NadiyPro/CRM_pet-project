@@ -3,7 +3,5 @@ import { UserResDto } from './user.res.dto';
 
 export class ListResQueryDto extends ListUsersQueryReqDto {
   users: UserResDto[];
-  // масив постів
   total: number;
-  // кількість постів
 }

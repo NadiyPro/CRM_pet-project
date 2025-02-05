@@ -20,8 +20,8 @@ export class StudentsMapper {
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
       manager: student.manager,
-      group: student.group,
-      message: student.message,
+      group: student.group.group,
+      messages: student.messages,
       deleted: student.deleted,
     };
   }
@@ -54,8 +54,8 @@ export class StudentsMapper {
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
       manager: student.manager,
-      group: student.group,
-      message: student.message,
+      group: student.group.group,
+      messages: student.messages,
       deleted: student.deleted,
     };
   }

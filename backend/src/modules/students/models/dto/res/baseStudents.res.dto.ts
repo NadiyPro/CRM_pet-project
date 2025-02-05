@@ -20,5 +20,5 @@ export interface BaseStudentResDto {
   created_at: Date;
   manager: string | null;
   group: string | null;
-  message: string | null;
+  messages: string | null;
 }
