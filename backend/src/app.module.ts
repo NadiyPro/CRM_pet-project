@@ -8,6 +8,7 @@ import { SQLModule } from './infrastructure/mysql/sql.module';
 import { StudentsModule } from './modules/students/students.module';
 import { UsersModule } from './modules/users/users.module';
 import { GroupModule } from './modules/group/group.module';
+import { MessageModule } from './modules/message/message.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { GroupModule } from './modules/group/group.module';
     UsersModule,
     StudentsModule,
     GroupModule,
+    MessageModule,
     // EmailModule,
   ],
 })
