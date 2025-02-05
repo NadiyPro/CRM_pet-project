@@ -4,8 +4,6 @@ import { StudentEntity } from '../../mysql/entities/student.entity';
 import { ListStudentsQueryReqDto } from '../../../modules/students/models/dto/req/listStudentsQuery.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
 import { OrdersStatisticResDto } from '../../../modules/students/models/dto/res/ordersStatistic.res.dto';
-import { UpdateStudentReqDto } from '../../../modules/students/models/dto/req/updateStudent.req.dto';
-import { UpdateStudentResDto } from '../../../modules/students/models/dto/res/updateStudent.res.dto';
 
 @Injectable()
 export class StudentsRepository extends Repository<StudentEntity> {
@@ -82,27 +80,6 @@ export class StudentsRepository extends Repository<StudentEntity> {
 
     return await qb.getManyAndCount();
   }
-
-  // public async updateId( userData: IUserData,
-  //                        studentId: string,
-  //                        updateStudentReqDto: UpdateStudentReqDto,
-  // ): Promise<StudentEntity>{
-  //   return await this.createQueryBuilder('student',)
-  //     .leftJoinAndSelect('student.manager_id', 'manager')
-  //   .addSelect(['manager.surname'])
-  //     .getRawOne();
-  // }
-
-  // public async updateId(
-  //   userData: IUserData,
-  //   studentId: string,
-  //   updateStudentReqDto: UpdateStudentReqDto,
-  // ): Promise<StudentEntity> {
-  //   return await this.createQueryBuilder('student')
-  //     .leftJoinAndSelect('student.manager', 'manager')
-  //     .where('student.id = :studentId', { studentId })
-  //     .getOne();
-  // }
 
   public async findMySOrder(
     userData: IUserData,
