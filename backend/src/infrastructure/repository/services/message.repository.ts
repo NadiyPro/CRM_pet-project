@@ -13,6 +13,7 @@ export class MessageRepository extends Repository<MessageEntity> {
       .leftJoinAndSelect('message.manager', 'manager')
       .leftJoinAndSelect('message.student', 'student')
       .where('student.id = :studentId', { studentId })
+      .addSelect(['manager.id', 'manager.surname'])
       .orderBy('message.created_at', 'DESC')
       .getMany();
   }
