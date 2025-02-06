@@ -8,11 +8,11 @@ export default (): Config => ({
     host: process.env.APP_HOST,
   },
   database: {
-    host: process.env.POSTGRES_HOST,
-    port: parseInt(process.env.POSTGRES_PORT, 10) || 5432,
-    user: process.env.POSTGRES_USER,
-    password: process.env.POSTGRES_PASSWORD,
-    name: process.env.POSTGRES_DB,
+    host: process.env.MYSQL_HOST,
+    port: parseInt(process.env.MYSQL_PORT, 10) || 5432,
+    user: process.env.MYSQL_USER,
+    password: process.env.MYSQL_PASSWORD,
+    name: process.env.MYSQL_DB,
   },
   redis: {
     host: process.env.REDIS_HOST,
