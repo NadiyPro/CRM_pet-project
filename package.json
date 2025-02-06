@@ -10,6 +10,7 @@
     "format": "prettier --write \"backend/src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:dev": "nest start --watch",
+    "start:docker:local": "docker-compose -f docker-compose.local.yaml up -d --build",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
     "lint": "eslint \"{backend/src/,apps,libs,test}/**/*.ts\" --fix",
