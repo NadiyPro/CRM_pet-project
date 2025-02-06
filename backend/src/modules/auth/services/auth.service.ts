@@ -9,6 +9,7 @@ import { LoginReqDto } from '../models/dto/req/login.req.dto';
 import { AuthResDto } from '../models/dto/res/auth.res.dto';
 import { AuthCacheService } from './auth-cache.service';
 import { TokenService } from './token.service';
+import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
 
 @Injectable()
 export class AuthService {
@@ -31,8 +32,15 @@ export class AuthService {
         email: dto.email,
       });
       if (!admin) {
-        const user = this.userRepository.create({ ...dto, is_active: true });
-        await this.userRepository.save(user);
+        const password = await bcrypt.hash(dto.password, 10);
+        await this.userRepository.save(
+          this.userRepository.create({
+            ...dto,
+            password,
+            role: RoleTypeEnum.ADMIN,
+            is_active: true,
+          }),
+        );
       }
     }
 
