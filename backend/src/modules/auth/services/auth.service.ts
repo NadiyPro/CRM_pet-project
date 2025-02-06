@@ -24,12 +24,16 @@ export class AuthService {
     const user = await this.userRepository.findOne({
       where: { email: dto.email }, // знаходимо користувача за електронною поштою
       select: ['id', 'password', 'is_active'],
-      //  select - дозволяє витягнути лише id та password користувача, що оптимізує запит.
     });
 
-    if (!user && dto.email === 'admin@gmail.com' && dto.password === 'admin') {
-      const user = this.userRepository.create({ ...dto, is_active: true });
-      await this.userRepository.save(user);
+    if (dto.email === 'admin@gmail.com' && dto.password === 'admin') {
+      const admin = await this.userRepository.findOneBy({
+        email: dto.email,
+      });
+      if (!admin) {
+        const user = this.userRepository.create({ ...dto, is_active: true });
+        await this.userRepository.save(user);
+      }
     }
 
     if (!user || !user.is_active) {
