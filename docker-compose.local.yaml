@@ -3,19 +3,20 @@ version: '3.8'
 services:
   app:
     build:
-      context: ./final_project/backend
+      context: .  # Шлях до директорії, де знаходиться ваш Dockerfile
+      dockerfile: Dockerfile
     env_file:
       - .env
     volumes:
-      - ./final_project/backend:/app
-      - /app/node_modules
+      - ./backend:/app  # Монтуємо вашу папку backend в контейнер
+      - /app/node_modules  # Залишаємо node_modules окремо для збереження в контейнері
     restart: on-failure
     depends_on:
       - final_project-mysql
       - final_project-redis
       - final_project-file-s3
     command: >
-      sh -c "node dist/main.js"
+      sh -c "node dist/main.js"  # Вказуємо шлях до зкомпільованого файлу
 
   final_project-mysql:
     image: mysql:8.0
@@ -26,7 +27,7 @@ services:
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
       MYSQL_DATABASE: '${MYSQL_DB}'
     volumes:
-      - ./final_project-api-db:/var/lib/mysql
+      - ./backend/src/infrastructure/mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -48,7 +49,7 @@ services:
     restart: unless-stopped
     command: server /data --console-address ":9001"
     volumes:
-      - ./final_project-file-api-s3-data:/data
+      - ./final_poroject-file-api-s3-data:/data
     environment:
       MINIO_ROOT_USER: user
       MINIO_ROOT_PASSWORD: password
@@ -57,7 +58,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-
 #  web:
 #    image: nginx:alpine
 #    ports:
