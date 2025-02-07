@@ -10,6 +10,7 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
+      - /app/dist
     restart: on-failure
     depends_on:
       - final_project-mysql

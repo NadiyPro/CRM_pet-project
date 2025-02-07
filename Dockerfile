@@ -16,6 +16,9 @@ RUN npx husky install
 # Копіюємо весь код проекту
 COPY . .
 
+# Компілюємо TypeScript у JavaScript
+RUN npm run build
+
 # Вказуємо команду для запуску контейнера
 CMD ["npm", "start"]
 
