@@ -8,15 +8,15 @@ services:
     env_file:
       - .env
     volumes:
-      - ./backend:/app  # Монтуємо вашу папку backend в контейнер
-      - /app/node_modules  # Залишаємо node_modules окремо для збереження в контейнері
+      - ./backend:/app
+      - /app/node_modules
     restart: on-failure
     depends_on:
       - final_project-mysql
       - final_project-redis
       - final_project-file-s3
     command: >
-      sh -c "node dist/main.js"  # Вказуємо шлях до зкомпільованого файлу
+      sh -c "node dist/main.js"
 
   final_project-mysql:
     image: mysql:8.0
@@ -31,7 +31,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - mysql_data:/var/lib/mysql  # Замість зазначеного тома тут використовується mysql_data
+      - mysql_data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -64,7 +64,7 @@ services:
       retries: 3
 
 volumes:
-  mysql_data:  # Додав тут визначення тому mysql_data
+  mysql_data:
     driver: local
 
 #version: '3.8'
