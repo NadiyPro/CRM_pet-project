@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
 import { OrdersEntity } from '../../mysql/entities/orders.entity';
-import { ListOrdersQueryReqDto } from '../../../modules/students/models/dto/req/listOrdersQuery.req.dto';
+import { ListOrdersQueryReqDto } from '../../../modules/orders/models/dto/req/listOrdersQuery.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
-import { OrdersStatisticResDto } from '../../../modules/students/models/dto/res/ordersStatistic.res.dto';
+import { OrdersStatisticResDto } from '../../../modules/orders/models/dto/res/ordersStatistic.res.dto';
 
 @Injectable()
 export class OrdersRepository extends Repository<OrdersEntity> {

@@ -5,7 +5,7 @@ import { RedisModule } from './infrastructure/redis/redis.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { RepositoryModule } from './infrastructure/repository/repository.module';
 import { SQLModule } from './infrastructure/mysql/sql.module';
-import { OrdersModule } from './modules/students/orders.module';
+import { OrdersModule } from './modules/orders/orders.module';
 import { UsersModule } from './modules/users/users.module';
 import { GroupModule } from './modules/group/group.module';
 import { MessageModule } from './modules/message/message.module';
