@@ -16,7 +16,7 @@ interface RequestWithUser extends Request {
 }
 
 @Injectable()
-export class StudentOwnershipGuard implements CanActivate {
+export class OrdersGuard implements CanActivate {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly ordersRepository: OrdersRepository,

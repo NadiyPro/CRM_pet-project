@@ -12,7 +12,7 @@ import {
 import { MessageService } from './service/message.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
-import { StudentOwnershipGuard } from '../guards/statuseOrders.guard';
+import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { Role } from '../guards/decorator/role.decorator';
 import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
@@ -52,7 +52,7 @@ export class MessageController {
       '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
+  @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role(RoleTypeEnum.ADMIN)
   @Post(':orderId')
   public async createMessage(

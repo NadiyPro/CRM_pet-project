@@ -21,7 +21,7 @@ import { OrdersMapper } from './service/orders.mapper';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { UpdateOrdersReqDto } from './models/dto/req/updateOrder.req.dto';
-import { StudentOwnershipGuard } from '../guards/statuseOrders.guard';
+import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { UpdateOrdersResDto } from './models/dto/res/updateOrders.res.dto';
 import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
@@ -63,7 +63,7 @@ export class OrdersController {
       '*сортування по замовченню по полю created_at, DESC',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
+  @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Put(':orderId')
   public async updateId(
