@@ -20,15 +20,15 @@ export class MessageEntity extends CreateUpdateModel {
 
   @Column()
   studentId: string;
-  @ManyToOne(() => StudentEntity, (student) => student.messages)
+  @ManyToOne(() => StudentEntity, (student) => student.messages_id)
   @JoinColumn({ name: 'student' })
   student: StudentEntity;
 
   @Column()
   managerId: string;
   @Column()
-  managerSurname: string;
-  @ManyToOne(() => UserEntity, (entity) => entity.messages)
-  @JoinColumn({ name: 'manager' })
-  manager?: UserEntity;
+  manager: string;
+  @ManyToOne(() => UserEntity, (entity) => entity.messages_id)
+  @JoinColumn({ name: 'manager_id' })
+  manager_id?: UserEntity;
 }

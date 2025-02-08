@@ -3,7 +3,7 @@ export interface BaseMessageResDto {
   messages: string;
   studentId: string;
   managerId: string;
-  managerSurname: string;
+  manager: string;
   created_at: Date;
   updated_at: Date;
 }

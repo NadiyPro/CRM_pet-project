@@ -11,6 +11,6 @@ export class GroupEntity extends CreateUpdateModel {
   @Column('text', { nullable: true, unique: true })
   group: string;
 
-  @OneToMany(() => StudentEntity, (entity) => entity.group)
+  @OneToMany(() => StudentEntity, (entity) => entity.group_id)
   student?: StudentEntity[];
 }

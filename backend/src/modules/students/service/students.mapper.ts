@@ -19,11 +19,11 @@ export class StudentsMapper {
       sum: student.sum,
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
-      managerId: student.manager.id,
-      managerSurname: student.manager.surname,
-      group: student.group.group,
-      messagesId: student.messages.map((item) => item.id),
-      messagesText: student.messages.map((item) => item.messages),
+      managerId: student.managerId,
+      manager: student.manager,
+      group: student.group,
+      messagesId: student.messagesId.map((item) => item),
+      messages: student.messages.map((item) => item),
       deleted: student.deleted,
     };
   }
@@ -55,11 +55,11 @@ export class StudentsMapper {
       sum: student.sum,
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
-      managerId: student.manager.id,
-      managerSurname: student.manager.surname,
-      group: student.group.group,
-      messagesId: student.messages.map((item) => item.id),
-      messagesText: student.messages.map((item) => item.messages),
+      managerId: student.managerId,
+      manager: student.manager,
+      group: student.group,
+      messagesId: student.messagesId.map((item) => item),
+      messages: student.messages.map((item) => item),
       deleted: student.deleted,
     };
   }

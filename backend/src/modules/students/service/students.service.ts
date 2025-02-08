@@ -41,7 +41,7 @@ export class StudentsService {
     if (student.status === StatusEnum.NEW || student.status === null) {
       await this.studentsRepository.update(studentId, {
         ...updateStudentReqDto,
-        manager: user,
+        manager_id: user,
         updated_at: new Date(),
         status: StatusEnum.IN_WORK,
       });
@@ -83,7 +83,7 @@ export class StudentsService {
     const statisticAll = await this.studentsRepository.ordersStatisticManager();
     return statisticAll.map((item) => ({
       managerId: item.managerId,
-      managerSurname: item.managerSurname,
+      manager: item.manager,
       total: Number(item.total) || null,
       In_work: Number(item.In_work) || null,
       New: Number(item.New) || null,

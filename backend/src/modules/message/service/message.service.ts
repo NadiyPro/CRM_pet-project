@@ -21,7 +21,7 @@ export class MessageService {
         messages: message.messages,
         studentId: message.studentId,
         managerId: message.managerId,
-        managerSurname: message.managerSurname,
+        manager: message.manager,
         created_at: message.created_at,
         updated_at: message.updated_at,
       };
@@ -38,11 +38,11 @@ export class MessageService {
       messages: dataMessage.messages,
       studentId: student.id,
       managerId: userData.userId,
-      managerSurname: userData.surname,
+      manager: userData.surname,
     });
     if (student.status === StatusEnum.NEW || student.status === null) {
       await this.studentsRepository.update(studentId, {
-        manager: userData,
+        manager_id: userData,
         status: StatusEnum.IN_WORK,
       });
       return await this.messageRepository.save(mewMessage);

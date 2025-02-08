@@ -19,8 +19,8 @@ export interface BaseStudentResDto {
   deleted: Date | null;
   created_at: Date;
   managerId: string | null;
-  managerSurname: string;
+  manager: string;
   group: string | null;
   messagesId: string[] | null;
-  messagesText: string[] | null;
+  messages: string[] | null;
 }

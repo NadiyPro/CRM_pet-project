@@ -65,22 +65,28 @@ export class StudentEntity extends CreateUpdateModel {
 
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  @Column()
+  // @Column()
+  // managerId: string | null;
+  // @Column()
+  // managerSurname: string | null;
+  @Column({ type: 'uuid', nullable: true })
   managerId: string | null;
-  @Column()
-  managerSurname: string | null;
+  @Column({ nullable: true })
+  manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.students)
-  @JoinColumn({ name: 'manager' })
-  manager?: UserEntity | null;
+  @JoinColumn({ name: 'manager_id' })
+  manager_id?: UserEntity | null;
 
-  @Column()
+  @Column({ type: 'uuid', array: true, nullable: true })
   messagesId: string[] | null;
-  @Column()
-  messagesText: string[] | null;
+  @Column('text', { array: true, nullable: true })
+  messages: string[] | null;
   @OneToMany(() => MessageEntity, (message) => message.student)
-  messages?: MessageEntity[];
+  messages_id?: MessageEntity[];
 
+  @Column({ nullable: true })
+  group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.student)
-  @JoinColumn({ name: 'group' })
-  group?: GroupEntity;
+  @JoinColumn({ name: 'group_id' })
+  group_id?: GroupEntity;
 }

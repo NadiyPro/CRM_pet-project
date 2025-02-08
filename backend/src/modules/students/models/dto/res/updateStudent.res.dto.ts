@@ -20,5 +20,5 @@ export interface UpdateStudentResDto {
   created_at: Date;
   updated_at: Date;
   managerId: string;
-  managerSurname: string;
+  manager: string;
 }
