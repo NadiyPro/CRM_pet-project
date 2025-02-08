@@ -65,10 +65,6 @@ export class StudentEntity extends CreateUpdateModel {
 
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  // @Column()
-  // managerId: string | null;
-  // @Column()
-  // managerSurname: string | null;
   @Column({ type: 'uuid', nullable: true })
   managerId: string | null;
   @Column({ nullable: true })
