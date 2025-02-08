@@ -43,7 +43,7 @@ export class StudentOwnershipGuard implements CanActivate {
     }
 
     if (student.status !== StatusEnum.NEW || student.status !== null) {
-      if (student.manager?.id !== user.id) {
+      if (student.managerId !== user.id) {
         throw new HttpException(
           'The application is in the works of another manager',
           HttpStatus.CONFLICT,
