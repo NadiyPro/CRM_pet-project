@@ -29,7 +29,7 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('text', { nullable: true })
   surname: string | null;
 
-  @Column('text', { default: 'admin@gmail.com', unique: true })
+  @Column('text', { default: 'admin@gmail.com', unique: true, nullable: true })
   email: string | null;
 
   @Column('text', { unique: true, nullable: true })
@@ -38,21 +38,20 @@ export class StudentEntity extends CreateUpdateModel {
   @Column('integer', { unique: true, nullable: true })
   age: number | null;
 
-  @Column({ type: 'enum', enum: CourseEnum, unique: true, nullable: true })
+  @Column({ type: 'enum', enum: CourseEnum, nullable: true })
   course: CourseEnum;
 
   @Column({
     type: 'enum',
     enum: CourseFormatEnum,
-    unique: true,
     nullable: true,
   })
   course_format: CourseFormatEnum | null;
 
-  @Column({ type: 'enum', enum: CourseTypeEnum, unique: true, nullable: true })
+  @Column({ type: 'enum', enum: CourseTypeEnum, nullable: true })
   course_type: CourseTypeEnum | null;
 
-  @Column({ type: 'enum', enum: StatusEnum, unique: true, nullable: true })
+  @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
   @Column('float', { nullable: true })
