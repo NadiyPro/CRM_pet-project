@@ -1,7 +1,7 @@
 import { ListUsersQueryReqDto } from '../../users/models/dto/req/listUsersQuery.req.dto';
 import { OrdersEntity } from '../../../infrastructure/mysql/entities/orders.entity';
 import { BaseOrdersResDto } from '../models/dto/res/baseOrders.res.dto';
-import { ListOrdersResQueryDto } from '../models/dto/res/listStudentsQuery.res.dto';
+import { ListOrdersResQueryDto } from '../models/dto/res/listOrdersQuery.res.dto';
 
 export class OrdersMapper {
   public static toResDto(order: OrdersEntity): BaseOrdersResDto {
