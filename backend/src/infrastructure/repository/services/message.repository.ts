@@ -8,12 +8,12 @@ export class MessageRepository extends Repository<MessageEntity> {
     super(MessageEntity, dataSource.manager);
   }
 
-  public async findId(studentId: string): Promise<MessageEntity[]> {
+  public async findId(orderId: string): Promise<MessageEntity[]> {
     return await this.createQueryBuilder('message')
       .leftJoinAndSelect('message.manager', 'manager')
-      .leftJoinAndSelect('message.student', 'student')
-      .where('student.id = :studentId', { studentId })
-      .addSelect(['manager.id', 'manager.surname'])
+      .leftJoinAndSelect('message.order', 'order')
+      .where('order.id = :order', { orderId })
+      .addSelect(['manager.id as managerId', 'manager.surname as manager'])
       .orderBy('message.created_at', 'DESC')
       .getMany();
   }

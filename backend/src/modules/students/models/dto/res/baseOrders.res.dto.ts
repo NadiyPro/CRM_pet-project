@@ -3,7 +3,7 @@ import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/e
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
 
-export interface UpdateStudentResDto {
+export interface BaseOrdersResDto {
   id: string | null;
   name: string | null;
   surname: string | null;
@@ -18,7 +18,9 @@ export interface UpdateStudentResDto {
   alreadyPaid: number | null;
   deleted: Date | null;
   created_at: Date;
-  updated_at: Date;
-  managerId: string;
+  managerId: string | null;
   manager: string;
+  group: string | null;
+  messagesId: string[] | null;
+  messages: string[] | null;
 }

@@ -11,25 +11,25 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { StudentsService } from './service/students.service';
+import { OrdersService } from './service/orders.service';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
-import { ListStudentsQueryReqDto } from './models/dto/req/listStudentsQuery.req.dto';
-import { ListStudentsResQueryDto } from './models/dto/res/listStudentsQuery.res.dto';
-import { StudentsMapper } from './service/students.mapper';
+import { ListOrdersQueryReqDto } from './models/dto/req/listOrdersQuery.req.dto';
+import { ListOrdersResQueryDto } from './models/dto/res/listStudentsQuery.res.dto';
+import { OrdersMapper } from './service/orders.mapper';
 import { CurrentUser } from '../auth/decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
-import { UpdateStudentReqDto } from './models/dto/req/updateStudent.req.dto';
-import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
-import { UpdateStudentResDto } from './models/dto/res/updateStudent.res.dto';
+import { UpdateOrdersReqDto } from './models/dto/req/updateOrder.req.dto';
+import { StudentOwnershipGuard } from '../guards/statuseOrders.guard';
+import { UpdateOrdersResDto } from './models/dto/res/updateOrders.res.dto';
 import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
-@ApiTags(TableNameEnum.STUDENT)
-@Controller(TableNameEnum.STUDENT)
-export class StudentsController {
-  constructor(private readonly studentsService: StudentsService) {}
+@ApiTags(TableNameEnum.ORDERS)
+@Controller(TableNameEnum.ORDERS)
+export class OrdersController {
+  constructor(private readonly ordersService: OrdersService) {}
 
   @ApiOperation({
     summary: 'Для отримання інформацію про всіх students',
@@ -39,17 +39,17 @@ export class StudentsController {
       'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка, ' +
       'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
       'sortField - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
-      'Приклад запиту: GET /students?limit=10&page=2&search=john&sortField=name&sortASCOrDESC=ASC',
+      'Приклад запиту: GET /orders?limit=10&page=2&search=john&sortField=name&sortASCOrDESC=ASC',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get()
   public async findAll(
-    @Query() query: ListStudentsQueryReqDto, // Параметри передаються через @Query
-  ): Promise<ListStudentsResQueryDto> {
-    const [entities, total] = await this.studentsService.findAll(query);
-    return StudentsMapper.toAllResDtoList(entities, total, query);
+    @Query() query: ListOrdersQueryReqDto, // Параметри передаються через @Query
+  ): Promise<ListOrdersResQueryDto> {
+    const [entities, total] = await this.ordersService.findAll(query);
+    return OrdersMapper.toAllResDtoList(entities, total, query);
   }
 
   @ApiOperation({
@@ -65,16 +65,16 @@ export class StudentsController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Put(':studentId')
+  @Put(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
-    @Param('studentId', ParseUUIDPipe) studentId: string,
-    @Body() updateStudentReqDto: UpdateStudentReqDto,
-  ): Promise<UpdateStudentResDto> {
-    return await this.studentsService.updateId(
+    @Param('orderId', ParseUUIDPipe) orderId: string,
+    @Body() updateOrdersReqDto: UpdateOrdersReqDto,
+  ): Promise<UpdateOrdersResDto> {
+    return await this.ordersService.updateId(
       userData,
-      studentId,
-      updateStudentReqDto,
+      orderId,
+      updateOrdersReqDto,
     );
   }
 
@@ -90,13 +90,13 @@ export class StudentsController {
   @Get('myOrder')
   public async findMySOrder(
     @CurrentUser() userData: IUserData,
-    @Query() query: ListStudentsQueryReqDto,
-  ): Promise<ListStudentsResQueryDto> {
-    const [entities, total] = await this.studentsService.findMySOrder(
+    @Query() query: ListOrdersQueryReqDto,
+  ): Promise<ListOrdersResQueryDto> {
+    const [entities, total] = await this.ordersService.findMySOrder(
       userData,
       query,
     );
-    return StudentsMapper.toAllResDtoList(entities, total, query);
+    return OrdersMapper.toAllResDtoList(entities, total, query);
   }
 
   @ApiOperation({
@@ -109,9 +109,9 @@ export class StudentsController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get('resetFilters')
-  public async resetFilters(): Promise<ListStudentsResQueryDto> {
-    const [entities, total] = await this.studentsService.resetFilters();
-    return StudentsMapper.resetFiltersAllResDtoList(entities, total);
+  public async resetFilters(): Promise<ListOrdersResQueryDto> {
+    const [entities, total] = await this.ordersService.resetFilters();
+    return OrdersMapper.resetFiltersAllResDtoList(entities, total);
   }
 
   @ApiOperation({
@@ -122,10 +122,10 @@ export class StudentsController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN)
   @Post()
-  public async createStudent(
-    @Body() updateStudentReqDto: UpdateStudentReqDto,
-  ): Promise<UpdateStudentResDto> {
-    return await this.studentsService.createStudent(updateStudentReqDto);
+  public async createOrder(
+    @Body() updateOrdersReqDto: UpdateOrdersReqDto,
+  ): Promise<UpdateOrdersResDto> {
+    return await this.ordersService.createOrder(updateOrdersReqDto);
   }
 
   @ApiOperation({
@@ -135,11 +135,11 @@ export class StudentsController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN)
-  @Delete(':studentId')
+  @Delete(':orderId')
   public async deleteId(
-    @Param('studentId', ParseUUIDPipe) studentId: string,
+    @Param('orderId', ParseUUIDPipe) orderId: string,
   ): Promise<string> {
-    return await this.studentsService.deleteId(studentId);
+    return await this.ordersService.deleteId(orderId);
   }
 
   @ApiOperation({
@@ -153,7 +153,7 @@ export class StudentsController {
   @Role(RoleTypeEnum.ADMIN)
   @Get('ordersStatisticAll')
   public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
-    return await this.studentsService.ordersStatisticAll();
+    return await this.ordersService.ordersStatisticAll();
   }
 
   @ApiOperation({
@@ -167,6 +167,6 @@ export class StudentsController {
   @Role(RoleTypeEnum.ADMIN)
   @Get('ordersStatisticManager')
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
-    return await this.studentsService.ordersStatisticManager();
+    return await this.ordersService.ordersStatisticManager();
   }
 }

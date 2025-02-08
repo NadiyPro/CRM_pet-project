@@ -6,7 +6,7 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { UserRepository } from '../../infrastructure/repository/services/user.repository';
-import { StudentsRepository } from '../../infrastructure/repository/services/students.repository';
+import { OrdersRepository } from '../../infrastructure/repository/services/orders.repository';
 import { StatusEnum } from '../../infrastructure/mysql/entities/enums/status.enum';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { Request } from 'express';
@@ -19,14 +19,14 @@ interface RequestWithUser extends Request {
 export class StudentOwnershipGuard implements CanActivate {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly studentsRepository: StudentsRepository,
+    private readonly ordersRepository: OrdersRepository,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<RequestWithUser>();
 
     const userData = request.user;
-    const studentId = request.params.studentId;
+    const ordersId = request.params.studentId;
 
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
@@ -35,15 +35,15 @@ export class StudentOwnershipGuard implements CanActivate {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
-    const student = await this.studentsRepository.findOne({
-      where: { id: studentId },
+    const orders = await this.ordersRepository.findOne({
+      where: { id: ordersId },
     });
-    if (!student) {
+    if (!orders) {
       throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
     }
 
-    if (student.status !== StatusEnum.NEW || student.status !== null) {
-      if (student.managerId !== user.id) {
+    if (orders.status !== StatusEnum.NEW || orders.status !== null) {
+      if (orders.managerId !== user.id) {
         throw new HttpException(
           'The application is in the works of another manager',
           HttpStatus.CONFLICT,

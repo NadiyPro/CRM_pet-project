@@ -10,7 +10,7 @@ import { TableNameEnum } from './enums/tableName.enum';
 import { RoleTypeEnum } from './enums/roleType.enum';
 import { RefreshTokenEntity } from './refresh-token.entity';
 import { CreateUpdateModel } from './models/date.model';
-import { StudentEntity } from './student.entity';
+import { OrdersEntity } from './orders.entity';
 import { MessageEntity } from './message.entity';
 
 @Index(['name'])
@@ -43,8 +43,8 @@ export class UserEntity extends CreateUpdateModel {
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[] | null;
 
-  @OneToMany(() => StudentEntity, (entity) => entity.manager)
-  students?: StudentEntity[] | null;
+  @OneToMany(() => OrdersEntity, (entity) => entity.manager)
+  orders?: OrdersEntity[] | null;
 
   @OneToMany(() => MessageEntity, (entity) => entity.manager_id)
   messages_id?: MessageEntity[];

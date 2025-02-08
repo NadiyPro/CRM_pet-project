@@ -15,7 +15,7 @@ import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/e
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
 
-export class BaseStudentsReqDto {
+export class BaseOrdersReqDto {
   @IsString()
   @Length(3, 30)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))

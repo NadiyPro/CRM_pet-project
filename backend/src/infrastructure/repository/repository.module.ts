@@ -1,14 +1,14 @@
 import { Global, Module } from '@nestjs/common';
 import { UserRepository } from './services/user.repository';
 import { RefreshTokenRepository } from './services/refresh-token.repository';
-import { StudentsRepository } from './services/students.repository';
+import { OrdersRepository } from './services/orders.repository';
 import { GroupRepository } from './services/group.repository';
 import { MessageRepository } from './services/message.repository';
 
 const repositories = [
   RefreshTokenRepository,
   UserRepository,
-  StudentsRepository,
+  OrdersRepository,
   GroupRepository,
   MessageRepository,
 ];

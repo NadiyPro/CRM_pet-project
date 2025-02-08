@@ -15,7 +15,7 @@ import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
-import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
+import { StudentOwnershipGuard } from '../guards/statuseOrders.guard';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 
 @ApiTags(TableNameEnum.GROUP)

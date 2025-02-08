@@ -1,7 +1,7 @@
 export enum TableNameEnum {
   REFRESH_TOKENS = 'refresh_tokens',
   USERS = 'users',
-  STUDENT = 'student',
+  ORDERS = 'orders',
   MESSAGE = 'message',
   GROUP = 'group',
   AUTH = 'auth',

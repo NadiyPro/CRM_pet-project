@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
 import { CreateUpdateModel } from './models/date.model';
-import { StudentEntity } from './student.entity';
+import { OrdersEntity } from './orders.entity';
 import { UserEntity } from './user.entity';
 
 @Entity(TableNameEnum.MESSAGE)
@@ -19,15 +19,15 @@ export class MessageEntity extends CreateUpdateModel {
   messages: string;
 
   @Column()
-  studentId: string;
-  @ManyToOne(() => StudentEntity, (student) => student.messages_id)
-  @JoinColumn({ name: 'student' })
-  student: StudentEntity;
+  orderId: string;
+  @ManyToOne(() => OrdersEntity, (student) => student.messages_id)
+  @JoinColumn({ name: 'order' })
+  order: OrdersEntity;
 
-  @Column()
-  managerId: string;
-  @Column()
-  manager: string;
+  @Column({ type: 'uuid', nullable: true })
+  managerId: string | null;
+  @Column({ nullable: true })
+  manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.messages_id)
   @JoinColumn({ name: 'manager_id' })
   manager_id?: UserEntity;

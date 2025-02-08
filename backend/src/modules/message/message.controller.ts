@@ -12,7 +12,7 @@ import {
 import { MessageService } from './service/message.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
-import { StudentOwnershipGuard } from '../guards/statuseStudents.guard';
+import { StudentOwnershipGuard } from '../guards/statuseOrders.guard';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { Role } from '../guards/decorator/role.decorator';
 import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
@@ -36,9 +36,9 @@ export class MessageController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Get(':studentId')
+  @Get(':orderId')
   public async findId(
-    @Param('studentId') studentId: string,
+    @Param('orderId') studentId: string,
   ): Promise<BaseMessageResDto[]> {
     return await this.messageService.findId(studentId);
   }
@@ -54,10 +54,10 @@ export class MessageController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, StudentOwnershipGuard)
   @Role(RoleTypeEnum.ADMIN)
-  @Post(':studentId')
+  @Post(':orderId')
   public async createMessage(
     @CurrentUser() userData: IUserData,
-    @Param('studentId') studentId: string,
+    @Param('orderId') studentId: string,
     @Body() dataMessage: BaseMessageReqDto,
   ): Promise<BaseMessageResDto> {
     return await this.messageService.createMessage(

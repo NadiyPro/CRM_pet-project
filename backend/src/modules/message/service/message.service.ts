@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MessageRepository } from '../../../infrastructure/repository/services/message.repository';
-import { StudentsRepository } from '../../../infrastructure/repository/services/students.repository';
+import { OrdersRepository } from '../../../infrastructure/repository/services/orders.repository';
 import { BaseMessageResDto } from '../models/dto/res/baseMessage.res.dto';
 import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 import { BaseMessageReqDto } from '../models/dto/req/baseMessage.req.dto';
@@ -10,16 +10,16 @@ import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.
 export class MessageService {
   constructor(
     private readonly messageRepository: MessageRepository,
-    private readonly studentsRepository: StudentsRepository,
+    private readonly ordersRepository: OrdersRepository,
   ) {}
 
-  public async findId(studentId: string): Promise<BaseMessageResDto[]> {
-    const messages = await this.messageRepository.findId(studentId);
+  public async findId(orderId: string): Promise<BaseMessageResDto[]> {
+    const messages = await this.messageRepository.findId(orderId);
     return messages.map((message) => {
       return {
         id: message.id,
         messages: message.messages,
-        studentId: message.studentId,
+        orderId: message.orderId,
         managerId: message.managerId,
         manager: message.manager,
         created_at: message.created_at,
@@ -30,18 +30,18 @@ export class MessageService {
 
   public async createMessage(
     userData: IUserData,
-    studentId: string,
+    orderId: string,
     dataMessage: BaseMessageReqDto,
   ): Promise<BaseMessageResDto> {
-    const student = await this.studentsRepository.findOneBy({ id: studentId });
+    const order = await this.ordersRepository.findOneBy({ id: orderId });
     const mewMessage = this.messageRepository.create({
       messages: dataMessage.messages,
-      studentId: student.id,
+      orderId: order.id,
       managerId: userData.userId,
       manager: userData.surname,
     });
-    if (student.status === StatusEnum.NEW || student.status === null) {
-      await this.studentsRepository.update(studentId, {
+    if (order.status === StatusEnum.NEW || order.status === null) {
+      await this.ordersRepository.update(orderId, {
         manager_id: userData,
         status: StatusEnum.IN_WORK,
       });

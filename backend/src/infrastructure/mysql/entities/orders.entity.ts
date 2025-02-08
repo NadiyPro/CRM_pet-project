@@ -18,8 +18,8 @@ import { MessageEntity } from './message.entity';
 import { GroupEntity } from './group.entity';
 
 @Index(['name'])
-@Entity(TableNameEnum.STUDENT)
-export class StudentEntity extends CreateUpdateModel {
+@Entity(TableNameEnum.ORDERS)
+export class OrdersEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -69,7 +69,7 @@ export class StudentEntity extends CreateUpdateModel {
   managerId: string | null;
   @Column({ nullable: true })
   manager: string | null;
-  @ManyToOne(() => UserEntity, (entity) => entity.students)
+  @ManyToOne(() => UserEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'manager_id' })
   manager_id?: UserEntity | null;
 
@@ -77,12 +77,12 @@ export class StudentEntity extends CreateUpdateModel {
   messagesId: string[] | null;
   @Column('text', { array: true, nullable: true })
   messages: string[] | null;
-  @OneToMany(() => MessageEntity, (message) => message.student)
+  @OneToMany(() => MessageEntity, (message) => message.order)
   messages_id?: MessageEntity[];
 
   @Column({ nullable: true })
   group: string | null;
-  @ManyToOne(() => GroupEntity, (entity) => entity.student)
+  @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_id' })
   group_id?: GroupEntity;
 }
