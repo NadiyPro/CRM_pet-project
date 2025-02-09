@@ -24,7 +24,7 @@ export class OrdersService {
 
   public async updateId(
     userData: IUserData,
-    orderId: string,
+    orderId: number,
     updateOrdersReqDto: UpdateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
     const user = await this.userRepository.findOne({
@@ -70,7 +70,7 @@ export class OrdersService {
     return await this.ordersRepository.save(order);
   }
 
-  public async deleteId(orderId: string): Promise<string> {
+  public async deleteId(orderId: number): Promise<string> {
     await this.ordersRepository.delete({ id: orderId });
     return 'The user in the table (db) was successfully deleted';
   }

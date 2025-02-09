@@ -38,9 +38,9 @@ export class MessageController {
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get(':orderId')
   public async findId(
-    @Param('orderId') studentId: string,
+    @Param('orderId') orderId: number,
   ): Promise<BaseMessageResDto[]> {
-    return await this.messageService.findId(studentId);
+    return await this.messageService.findId(orderId);
   }
 
   @ApiOperation({
@@ -57,12 +57,12 @@ export class MessageController {
   @Post(':orderId')
   public async createMessage(
     @CurrentUser() userData: IUserData,
-    @Param('orderId') studentId: string,
+    @Param('orderId') orderId: number,
     @Body() dataMessage: BaseMessageReqDto,
   ): Promise<BaseMessageResDto> {
     return await this.messageService.createMessage(
       userData,
-      studentId,
+      orderId,
       dataMessage,
     );
   }

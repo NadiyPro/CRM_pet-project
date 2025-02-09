@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
   IsEnum,
-  IsNumber,
+  IsInt,
   IsString,
   Length,
   Matches,
@@ -17,20 +17,20 @@ import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/s
 
 export class BaseOrdersReqDto {
   @IsString()
-  @Length(3, 30)
+  @Length(3, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   name: string | null;
 
   @IsString()
-  @Length(3, 30)
+  @Length(3, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   surname: string | null;
 
   @ApiProperty({ example: 'admin@gmail.com' })
   @IsString()
-  @Length(0, 20)
+  @Length(6, 100)
   @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
   email: string | null;
 
@@ -44,7 +44,7 @@ export class BaseOrdersReqDto {
   phone: string | null;
 
   @ApiProperty({ example: 30 })
-  @IsNumber()
+  @IsInt()
   @Min(18)
   @Max(100)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
@@ -84,12 +84,12 @@ export class BaseOrdersReqDto {
   status: StatusEnum | null;
 
   @ApiProperty({ example: 100000 })
-  @IsNumber()
+  @IsInt()
   @Type(() => Number)
   sum: number | null;
 
   @ApiProperty({ example: 100000 })
-  @IsNumber()
+  @IsInt()
   @Type(() => Number)
   alreadyPaid: number | null;
 }

@@ -5,7 +5,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -68,7 +67,7 @@ export class OrdersController {
   @Put(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
-    @Param('orderId', ParseUUIDPipe) orderId: string,
+    @Param('orderId') orderId: number,
     @Body() updateOrdersReqDto: UpdateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
     return await this.ordersService.updateId(
@@ -136,9 +135,7 @@ export class OrdersController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN)
   @Delete(':orderId')
-  public async deleteId(
-    @Param('orderId', ParseUUIDPipe) orderId: string,
-  ): Promise<string> {
+  public async deleteId(@Param('orderId') orderId: number): Promise<string> {
     return await this.ordersService.deleteId(orderId);
   }
 

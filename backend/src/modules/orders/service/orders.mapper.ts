@@ -24,7 +24,6 @@ export class OrdersMapper {
       group: order.group,
       messagesId: order.messagesId.map((item) => item),
       messages: order.messages.map((item) => item),
-      deleted: order.deleted,
     };
   }
 
@@ -60,7 +59,6 @@ export class OrdersMapper {
       group: student.group,
       messagesId: student.messagesId.map((item) => item),
       messages: student.messages.map((item) => item),
-      deleted: student.deleted,
     };
   }
 

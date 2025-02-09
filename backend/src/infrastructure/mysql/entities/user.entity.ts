@@ -14,7 +14,7 @@ import { OrdersEntity } from './orders.entity';
 import { MessageEntity } from './message.entity';
 
 @Index(['name'])
-@Entity(TableNameEnum.USERS) // назва табл в БД
+@Entity(TableNameEnum.USERS)
 export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;

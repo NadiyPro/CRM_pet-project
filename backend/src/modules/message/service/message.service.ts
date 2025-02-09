@@ -13,7 +13,7 @@ export class MessageService {
     private readonly ordersRepository: OrdersRepository,
   ) {}
 
-  public async findId(orderId: string): Promise<BaseMessageResDto[]> {
+  public async findId(orderId: number): Promise<BaseMessageResDto[]> {
     const messages = await this.messageRepository.findId(orderId);
     return messages.map((message) => {
       return {
@@ -30,7 +30,7 @@ export class MessageService {
 
   public async createMessage(
     userData: IUserData,
-    orderId: string,
+    orderId: number,
     dataMessage: BaseMessageReqDto,
   ): Promise<BaseMessageResDto> {
     const order = await this.ordersRepository.findOneBy({ id: orderId });

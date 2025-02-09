@@ -4,7 +4,7 @@ import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enu
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
 
 export interface UpdateOrdersResDto {
-  id: string | null;
+  id: number | null;
   name: string | null;
   surname: string | null;
   email: string | null;
@@ -16,7 +16,6 @@ export interface UpdateOrdersResDto {
   status: StatusEnum | null;
   sum: number | null;
   alreadyPaid: number | null;
-  deleted: Date | null;
   created_at: Date;
   updated_at: Date;
   managerId: string;

@@ -8,7 +8,7 @@ export class MessageRepository extends Repository<MessageEntity> {
     super(MessageEntity, dataSource.manager);
   }
 
-  public async findId(orderId: string): Promise<MessageEntity[]> {
+  public async findId(orderId: number): Promise<MessageEntity[]> {
     return await this.createQueryBuilder('message')
       .leftJoinAndSelect('message.manager', 'manager')
       .leftJoinAndSelect('message.order', 'order')

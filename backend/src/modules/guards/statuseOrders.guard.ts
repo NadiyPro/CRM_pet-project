@@ -36,7 +36,7 @@ export class OrdersGuard implements CanActivate {
     }
 
     const orders = await this.ordersRepository.findOne({
-      where: { id: ordersId },
+      where: { id: +ordersId },
     });
     if (!orders) {
       throw new HttpException('Student not found', HttpStatus.NOT_FOUND);

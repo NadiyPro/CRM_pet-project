@@ -20,22 +20,27 @@ import { GroupEntity } from './group.entity';
 @Index(['name'])
 @Entity(TableNameEnum.ORDERS)
 export class OrdersEntity extends CreateUpdateModel {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   name: string | null;
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   surname: string | null;
 
-  @Column('text', { default: 'admin@gmail.com', unique: true, nullable: true })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    unique: true,
+    default: 'admin@gmail.com',
+  })
   email: string | null;
 
-  @Column('text', { unique: true, nullable: true })
+  @Column({ type: 'varchar', nullable: true, unique: false })
   phone: string | null;
 
-  @Column('integer', { unique: true, nullable: true })
+  @Column('integer', { nullable: true })
   age: number | null;
 
   @Column({ type: 'enum', enum: CourseEnum, nullable: true })
@@ -54,14 +59,17 @@ export class OrdersEntity extends CreateUpdateModel {
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
-  @Column('float', { nullable: true })
+  @Column('integer', { nullable: true })
   sum: number | null;
 
-  @Column('float', { nullable: true })
+  @Column('integer', { nullable: true })
   alreadyPaid: number | null;
 
-  @Column('timestamp', { nullable: true })
-  deleted: Date | null;
+  @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
+  utm: string | null;
+
+  @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
+  msg: string | null;
 
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
