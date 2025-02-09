@@ -88,8 +88,8 @@ export class OrdersEntity extends CreateUpdateModel {
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages_id?: MessageEntity[];
 
-  @Column({ nullable: true })
-  group: string | null;
+  @Column({ type: 'number', nullable: true })
+  group: number | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_id' })
   group_id?: GroupEntity;

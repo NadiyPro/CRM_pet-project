@@ -17,10 +17,10 @@ export class GroupService {
       throw new HttpException('Group already exists', HttpStatus.CONFLICT);
     }
     const createdGroup = await this.groupRepository.save({ group });
-    return { id: createdGroup.id, group: createdGroup.group };
+    return { id: +createdGroup.id, group: createdGroup.group };
   }
 
-  public async deleteId(groupId: string): Promise<string> {
+  public async deleteId(groupId: number): Promise<string> {
     await this.groupRepository.delete({ id: groupId });
     return 'The user in the table (db) was successfully deleted';
   }

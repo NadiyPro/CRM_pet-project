@@ -5,7 +5,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseUUIDPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -44,7 +43,7 @@ export class GroupController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
-  @Post(':studentId')
+  @Post(':orderId')
   public async create(
     // @CurrentUser() userData: IUserData,
     // @Param('studentId', ParseUUIDPipe) studentId: string,
@@ -61,9 +60,7 @@ export class GroupController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN)
   @Delete(':groupId')
-  public async deleteId(
-    @Param('groupId', ParseUUIDPipe) groupId: string,
-  ): Promise<string> {
+  public async deleteId(@Param('groupId') groupId: number): Promise<string> {
     return await this.groupService.deleteId(groupId);
   }
 }
