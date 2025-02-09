@@ -62,7 +62,7 @@ export class OrdersEntity extends CreateUpdateModel {
   @Column('integer', { nullable: true })
   sum: number | null;
 
-  @Column('integer', { nullable: true })
+  @Column({ type: 'integer', nullable: true })
   alreadyPaid: number | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
@@ -73,7 +73,7 @@ export class OrdersEntity extends CreateUpdateModel {
 
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  @Column({ type: 'uuid', nullable: true })
+  @Column({ type: 'number', nullable: true })
   managerId: string | null;
   @Column({ nullable: true })
   manager: string | null;
@@ -88,8 +88,8 @@ export class OrdersEntity extends CreateUpdateModel {
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages_id?: MessageEntity[];
 
-  @Column({ type: 'number', nullable: true })
-  group: number | null;
+  @Column({ type: 'text', nullable: true })
+  group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_id' })
   group_id?: GroupEntity;

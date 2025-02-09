@@ -18,7 +18,7 @@ export class MessageEntity extends CreateUpdateModel {
   @Column('text', { nullable: true })
   messages: string;
 
-  @Column()
+  @Column({ type: 'number', nullable: true })
   orderId: number;
   @ManyToOne(() => OrdersEntity, (student) => student.messages_id)
   @JoinColumn({ name: 'order' })

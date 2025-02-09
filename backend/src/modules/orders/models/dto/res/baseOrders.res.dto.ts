@@ -20,6 +20,6 @@ export interface BaseOrdersResDto {
   managerId: string | null;
   manager: string;
   group: string | null;
-  messagesId: string[] | null;
+  messagesId: number[] | null;
   messages: string[] | null;
 }
