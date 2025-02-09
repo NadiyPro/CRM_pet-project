@@ -1,5 +1,5 @@
 export interface BaseMessageResDto {
-  id: string;
+  id: number;
   messages: string;
   orderId: number;
   managerId: string;

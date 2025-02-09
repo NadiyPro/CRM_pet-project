@@ -81,8 +81,8 @@ export class OrdersEntity extends CreateUpdateModel {
   @JoinColumn({ name: 'manager_id' })
   manager_id?: UserEntity | null;
 
-  @Column({ type: 'uuid', array: true, nullable: true })
-  messagesId: string[] | null;
+  @Column({ type: 'number', array: true, nullable: true })
+  messagesId: number[] | null;
   @Column('text', { array: true, nullable: true })
   messages: string[] | null;
   @OneToMany(() => MessageEntity, (message) => message.order)

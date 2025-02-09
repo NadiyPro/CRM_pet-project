@@ -49,7 +49,7 @@ export class MessageService {
     }
   }
 
-  public async deleteId(messageId: string): Promise<string> {
+  public async deleteId(messageId: number): Promise<string> {
     await this.messageRepository.delete({ id: messageId });
     return 'The user in the table (db) was successfully deleted';
   }

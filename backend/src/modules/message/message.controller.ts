@@ -5,7 +5,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseUUIDPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -76,7 +75,7 @@ export class MessageController {
   @Role(RoleTypeEnum.ADMIN)
   @Delete(':messageId')
   public async deleteId(
-    @Param('messageId', ParseUUIDPipe) messageId: string,
+    @Param('messageId') messageId: number,
   ): Promise<string> {
     return await this.messageService.deleteId(messageId);
   }

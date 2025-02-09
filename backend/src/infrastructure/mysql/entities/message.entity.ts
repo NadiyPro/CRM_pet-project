@@ -12,8 +12,8 @@ import { UserEntity } from './user.entity';
 
 @Entity(TableNameEnum.MESSAGE)
 export class MessageEntity extends CreateUpdateModel {
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @Column('text', { nullable: true })
   messages: string;
