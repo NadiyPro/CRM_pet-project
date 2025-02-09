@@ -33,14 +33,14 @@ export class OrdersEntity extends CreateUpdateModel {
     type: 'varchar',
     nullable: true,
     unique: true,
-    default: 'admin@gmail.com',
+    default: 'student@gmail.com',
   })
   email: string | null;
 
-  @Column({ type: 'varchar', nullable: true, unique: false })
+  @Column({ type: 'varchar', nullable: true, unique: true })
   phone: string | null;
 
-  @Column('integer', { nullable: true })
+  @Column({ type: 'integer', nullable: true })
   age: number | null;
 
   @Column({ type: 'enum', enum: CourseEnum, nullable: true })
@@ -59,7 +59,7 @@ export class OrdersEntity extends CreateUpdateModel {
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
-  @Column('integer', { nullable: true })
+  @Column({ type: 'integer', nullable: true })
   sum: number | null;
 
   @Column({ type: 'integer', nullable: true })

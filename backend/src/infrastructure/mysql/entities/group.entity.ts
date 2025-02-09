@@ -8,7 +8,7 @@ export class GroupEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text', { nullable: true, unique: true })
+  @Column({ type: 'text', nullable: true, unique: true })
   group: string;
 
   @OneToMany(() => OrdersEntity, (entity) => entity.group_id)

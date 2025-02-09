@@ -15,13 +15,13 @@ export class RefreshTokenEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   refreshToken: string;
 
-  @Column('text')
+  @Column({ type: 'text' })
   deviceId: string;
 
-  @Column()
+  @Column({ type: 'uuid' })
   user_id: string;
   @ManyToOne(() => UserEntity, (entity) => entity.refreshTokens)
   @JoinColumn({ name: 'user_id' })

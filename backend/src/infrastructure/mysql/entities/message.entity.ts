@@ -15,7 +15,7 @@ export class MessageEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column('text', { nullable: true })
+  @Column({ type: 'text', nullable: true })
   messages: string;
 
   @Column({ type: 'number', nullable: true })

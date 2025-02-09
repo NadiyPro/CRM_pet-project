@@ -19,25 +19,30 @@ export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column('text')
+  @Column({ type: 'varchar', nullable: true })
   name: string;
 
-  @Column('text')
+  @Column({ type: 'varchar', nullable: true })
   surname: string;
 
-  @Column('text', { default: 'admin@gmail.com', unique: true })
+  @Column({
+    type: 'varchar',
+    nullable: true,
+    unique: true,
+    default: 'admin@gmail.com',
+  })
   email: string;
 
-  @Column('text', { default: 'admin', select: false })
+  @Column({ type: 'text', default: 'admin', select: false })
   password: string;
 
   @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
   role: RoleTypeEnum;
 
-  @Column('boolean', { default: false })
+  @Column({ type: 'boolean', default: false })
   is_active: boolean;
 
-  @Column('timestamp', { nullable: true })
+  @Column({ type: 'timestamp', nullable: true })
   deleted: Date | null;
 
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
