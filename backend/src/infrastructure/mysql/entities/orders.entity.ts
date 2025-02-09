@@ -73,7 +73,7 @@ export class OrdersEntity extends CreateUpdateModel {
 
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  @Column({ type: 'number', nullable: true })
+  @Column({ type: 'uuid', nullable: true })
   managerId: string | null;
   @Column({ nullable: true })
   manager: string | null;
@@ -81,7 +81,7 @@ export class OrdersEntity extends CreateUpdateModel {
   @JoinColumn({ name: 'manager_id' })
   manager_id?: UserEntity | null;
 
-  @Column({ type: 'number', array: true, nullable: true })
+  @Column({ type: 'integer', array: true, nullable: true })
   messagesId: number[] | null;
   @Column('text', { array: true, nullable: true })
   messages: string[] | null;
