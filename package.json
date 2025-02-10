@@ -22,7 +22,7 @@
     "prepare": "husky install",
     "typeorm": "typeorm-ts-node-commonjs --dataSource ./ormconfig.ts",
     "migration:create": "cross-var npm run typeorm -- migration:create ./backend/src/infrastructure/mysql/migrations/$npm_config_name",
-    "migration:generate": "cross-var npm run typeorm -- migration:generate .backend/src/infrastructure/mysql/migrations/$npm_config_name",
+    "migration:generate": "cross-var npm run typeorm -- migration:generate ./backend/src/infrastructure/mysql/migrations/$npm_config_name",
     "migration:revert": "npm run typeorm -- migration:revert",
     "migration:run": "npm run typeorm -- migration:run"
   },

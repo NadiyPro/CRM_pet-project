@@ -83,12 +83,12 @@ export class OrdersEntity extends CreateUpdateModel {
 
   @Column({ type: 'integer', array: true, nullable: true })
   messagesId: number[] | null;
-  @Column('text', { array: true, nullable: true })
+  @Column('varchar', { array: true, nullable: true })
   messages: string[] | null;
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages_id?: MessageEntity[];
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_id' })
