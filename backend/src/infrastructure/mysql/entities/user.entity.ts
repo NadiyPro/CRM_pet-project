@@ -19,14 +19,15 @@ export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 25, nullable: true })
   name: string;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 25, nullable: true })
   surname: string;
 
   @Column({
     type: 'varchar',
+    length: 100,
     nullable: true,
     unique: true,
     default: 'admin@gmail.com',
@@ -48,7 +49,7 @@ export class UserEntity extends CreateUpdateModel {
   @OneToMany(() => RefreshTokenEntity, (entity) => entity.user)
   refreshTokens?: RefreshTokenEntity[] | null;
 
-  @OneToMany(() => OrdersEntity, (entity) => entity.manager)
+  @OneToMany(() => OrdersEntity, (entity) => entity.manager_id)
   orders?: OrdersEntity[] | null;
 
   @OneToMany(() => MessageEntity, (entity) => entity.manager_id)

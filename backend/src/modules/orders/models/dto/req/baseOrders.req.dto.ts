@@ -51,7 +51,7 @@ export class BaseOrdersReqDto {
   @Type(() => Number)
   age: number | null;
 
-  @Length(2, 5)
+  @Length(2, 10)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseEnum, {
@@ -59,7 +59,7 @@ export class BaseOrdersReqDto {
   })
   course: CourseEnum | null;
 
-  @Length(5, 10)
+  @Length(5, 15)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseFormatEnum, {
@@ -67,21 +67,13 @@ export class BaseOrdersReqDto {
   })
   course_format: CourseFormatEnum | null;
 
-  @Length(3, 15)
+  @Length(3, 100)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseTypeEnum, {
     message: 'course_type can be one of: pro, minimal, premium, incubator, vip',
   })
   course_type: CourseTypeEnum | null;
-
-  @Length(3, 15)
-  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
-  @Type(() => String)
-  @IsEnum(StatusEnum, {
-    message: 'status can be one of: In_work, New, Aggre, Disaggre, Dubbing ',
-  })
-  status: StatusEnum | null;
 
   @ApiProperty({ example: 100000 })
   @IsInt()
@@ -92,4 +84,12 @@ export class BaseOrdersReqDto {
   @IsInt()
   @Type(() => Number)
   alreadyPaid: number | null;
+
+  @Length(3, 15)
+  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
+  @Type(() => String)
+  @IsEnum(StatusEnum, {
+    message: 'status can be one of: In_work, New, Aggre, Disaggre, Dubbing ',
+  })
+  status: StatusEnum | null;
 }

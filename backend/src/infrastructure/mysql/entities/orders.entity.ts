@@ -1,5 +1,6 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   Index,
   JoinColumn,
@@ -8,7 +9,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
-import { CreateUpdateModel } from './models/date.model';
 import { CourseEnum } from './enums/course.enum';
 import { CourseFormatEnum } from './enums/courseFormat.enum';
 import { CourseTypeEnum } from './enums/courseType.enum';
@@ -19,32 +19,33 @@ import { GroupEntity } from './group.entity';
 
 @Index(['name'])
 @Entity(TableNameEnum.ORDERS)
-export class OrdersEntity extends CreateUpdateModel {
+export class OrdersEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 25, nullable: true })
   name: string | null;
 
-  @Column({ type: 'varchar', nullable: true })
+  @Column({ type: 'varchar', length: 25, nullable: true })
   surname: string | null;
 
   @Column({
     type: 'varchar',
+    length: 100,
     nullable: true,
     unique: true,
     default: 'student@gmail.com',
   })
   email: string | null;
 
-  @Column({ type: 'varchar', nullable: true, unique: true })
+  @Column({ type: 'varchar', length: 20, nullable: true, unique: true })
   phone: string | null;
 
   @Column({ type: 'integer', nullable: true })
   age: number | null;
 
   @Column({ type: 'enum', enum: CourseEnum, nullable: true })
-  course: CourseEnum;
+  course: CourseEnum | null;
 
   @Column({
     type: 'enum',
@@ -56,14 +57,14 @@ export class OrdersEntity extends CreateUpdateModel {
   @Column({ type: 'enum', enum: CourseTypeEnum, nullable: true })
   course_type: CourseTypeEnum | null;
 
-  @Column({ type: 'enum', enum: StatusEnum, nullable: true })
-  status: StatusEnum | null;
-
   @Column({ type: 'integer', nullable: true })
   sum: number | null;
 
   @Column({ type: 'integer', nullable: true })
   alreadyPaid: number | null;
+
+  @CreateDateColumn({ type: 'timestamp' })
+  created_at: Date;
 
   @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
   utm: string | null;
@@ -71,22 +72,25 @@ export class OrdersEntity extends CreateUpdateModel {
   @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
   msg: string | null;
 
+  @Column({ type: 'enum', enum: StatusEnum, nullable: true })
+  status: StatusEnum | null;
+
   // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
   // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  @Column({ type: 'uuid', nullable: true })
-  managerId: string | null;
-  @Column({ nullable: true })
-  manager: string | null;
+  // @Column({ type: 'uuid', nullable: true })
+  // managerId: string | null;
+  // @Column({ nullable: true })
+  // manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'manager_id' })
   manager_id?: UserEntity | null;
 
   @OneToMany(() => MessageEntity, (message) => message.order)
-  messages_id?: MessageEntity[];
+  messages_id?: MessageEntity[] | null;
 
-  @Column({ type: 'varchar', nullable: true })
-  group: string | null;
+  // @Column({ type: 'varchar', nullable: true })
+  // group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_id' })
-  group_id?: GroupEntity;
+  group_id?: GroupEntity | null;
 }
