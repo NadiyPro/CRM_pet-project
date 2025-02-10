@@ -83,7 +83,7 @@ export class OrdersEntity {
   // manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'manager' })
-  manager?: UserEntity | null;
+  manager: UserEntity | null;
 
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages?: MessageEntity[] | null;

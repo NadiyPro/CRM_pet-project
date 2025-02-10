@@ -43,7 +43,7 @@ export class OrdersGuard implements CanActivate {
     }
 
     if (orders.status !== StatusEnum.NEW || orders.status !== null) {
-      if (orders.managerId !== user.id) {
+      if (orders.manager.id !== user.id) {
         throw new HttpException(
           'The application is in the works of another manager',
           HttpStatus.CONFLICT,
