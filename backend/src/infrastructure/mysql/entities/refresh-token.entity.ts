@@ -15,10 +15,10 @@ export class RefreshTokenEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'text' })
+  @Column('text')
   refreshToken: string;
 
-  @Column({ type: 'text' })
+  @Column('text')
   deviceId: string;
 
   @Column({ type: 'uuid' })

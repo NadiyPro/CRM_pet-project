@@ -33,7 +33,7 @@ export class UserEntity extends CreateUpdateModel {
   })
   email: string;
 
-  @Column({ type: 'text', default: 'admin', select: false })
+  @Column({ type: 'varchar', select: false })
   password: string;
 
   @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
