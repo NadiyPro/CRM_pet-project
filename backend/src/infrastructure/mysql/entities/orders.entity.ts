@@ -37,7 +37,7 @@ export class OrdersEntity {
   })
   email: string | null;
 
-  @Column({ type: 'varchar', length: 12, nullable: true})
+  @Column({ type: 'varchar', length: 12, nullable: true })
   phone: string | null;
 
   @Column({ type: 'integer', nullable: true })
