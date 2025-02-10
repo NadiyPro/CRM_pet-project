@@ -25,8 +25,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       'manager.id as managerId',
       'manager.surname as manager',
       'group.group as group',
-      'messages.id as messagesId',
-      'messages.messages as messages',
     ]);
 
     if (query.search) {
@@ -105,8 +103,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       'manager.id as managerId',
       'manager.surname as manager',
       'group.group as group',
-      'messages.id as messagesId',
-      'messages.messages as messages',
     ]);
 
     if (query.search) {
