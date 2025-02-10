@@ -33,12 +33,11 @@ export class OrdersEntity {
     type: 'varchar',
     length: 100,
     nullable: true,
-    unique: true,
     default: 'student@gmail.com',
   })
   email: string | null;
 
-  @Column({ type: 'varchar', length: 20, nullable: true, unique: true })
+  @Column({ type: 'varchar', length: 12, nullable: true})
   phone: string | null;
 
   @Column({ type: 'integer', nullable: true })
@@ -63,24 +62,18 @@ export class OrdersEntity {
   @Column({ type: 'integer', nullable: true })
   alreadyPaid: number | null;
 
-  @CreateDateColumn({ type: 'timestamp' })
+  @CreateDateColumn({ type: 'datetime' })
   created_at: Date;
 
-  @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
+  @Column({ type: 'varchar', length: 100, nullable: true }) // для завантаження дамп
   utm: string | null;
 
-  @Column({ type: 'varchar', length: 100, nullable: true }) // додано для відповідності дампу
+  @Column({ type: 'varchar', length: 100, nullable: true }) // для завантаження дамп
   msg: string | null;
 
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
-  // managerSurname, managerId - тут я буду витягувати юзера який взяв заявку в роботу ПІБ manager та його id
-  // manager - по цьому полю вяжу табл, тобто підєдную повністю табл UserEntity до поточної StudentEntity
-  // @Column({ type: 'uuid', nullable: true })
-  // managerId: string | null;
-  // @Column({ nullable: true })
-  // manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'manager' })
   manager: UserEntity | null;

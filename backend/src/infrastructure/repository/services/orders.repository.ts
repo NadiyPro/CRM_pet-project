@@ -21,7 +21,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.messages', 'messages');
     // .where('student.deleted IS NULL');
 
-    qb.addSelect(['manager.surname as manager', 'group.group as group']);
+    qb.addSelect(['manager.surname', 'group.group']);
 
     if (query.search) {
       qb.andWhere(
@@ -95,7 +95,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.group_id', 'group')
       .leftJoinAndSelect('orders.messages_id', 'messages');
 
-    qb.addSelect(['manager.surname as manager', 'group.group as group']);
+    qb.addSelect(['manager.surname', 'group.group' ]);
 
     if (query.search) {
       qb.andWhere(
