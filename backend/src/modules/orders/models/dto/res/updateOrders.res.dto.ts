@@ -2,6 +2,7 @@ import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/c
 import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
+import { UserEntity } from '../../../../../infrastructure/mysql/entities/user.entity';
 
 export interface UpdateOrdersResDto {
   id: number | null;
@@ -17,7 +18,5 @@ export interface UpdateOrdersResDto {
   sum: number | null;
   alreadyPaid: number | null;
   created_at: Date;
-  updated_at: Date;
-  managerId: string;
-  manager: string;
+  manager: UserEntity;
 }

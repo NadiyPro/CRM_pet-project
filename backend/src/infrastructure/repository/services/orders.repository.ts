@@ -16,16 +16,12 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoinAndSelect('orders.manager_id', 'manager')
-      .leftJoinAndSelect('orders.group_id', 'group')
-      .leftJoinAndSelect('orders.messages_id', 'messages');
+      .leftJoinAndSelect('orders.manager', 'manager')
+      .leftJoinAndSelect('orders.group', 'group')
+      .leftJoinAndSelect('orders.messages', 'messages');
     // .where('student.deleted IS NULL');
 
-    qb.addSelect([
-      'manager.id as managerId',
-      'manager.surname as manager',
-      'group.group as group',
-    ]);
+    qb.addSelect(['manager.surname as manager', 'group.group as group']);
 
     if (query.search) {
       qb.andWhere(
@@ -42,7 +38,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          manager LIKE :search OR managerId LIKE :search OR group LIKE :search
+          manager.surname LIKE :search OR group.group LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -64,8 +60,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'managerId',
-        'manager',
-        'group',
+        'manager.surname',
+        'group.group',
       ];
       const column = allowedColumns.includes(query.sortField)
         ? `orders.${query.sortField}`
@@ -99,11 +95,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.group_id', 'group')
       .leftJoinAndSelect('orders.messages_id', 'messages');
 
-    qb.addSelect([
-      'manager.id as managerId',
-      'manager.surname as manager',
-      'group.group as group',
-    ]);
+    qb.addSelect(['manager.surname as manager', 'group.group as group']);
 
     if (query.search) {
       qb.andWhere(
@@ -120,7 +112,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          manager LIKE :search OR managerId LIKE :search OR group LIKE :search 
+          manager.surname LIKE :search OR group.group LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -141,9 +133,9 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
-        'manager',
         'managerId',
-        'group',
+        'manager.surname',
+        'group.group',
       ];
       const column = allowedColumns.includes(query.sortField)
         ? `orders.${query.sortField}`
@@ -164,13 +156,9 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.createQueryBuilder('orders')
-      .leftJoinAndSelect('orders.manager_id', 'manager')
-      .leftJoinAndSelect('orders.group_id', 'group')
-      .addSelect([
-        'manager.id as managerId',
-        'manager.surname as manager',
-        'group.group as group',
-      ])
+      .leftJoinAndSelect('orders.manager', 'manager')
+      .leftJoinAndSelect('orders.group', 'group')
+      .addSelect(['manager.surname', 'group.group'])
       .addOrderBy('orders.created_at', 'DESC')
       .getManyAndCount();
   }
@@ -192,8 +180,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     return await this.createQueryBuilder('orders')
       .leftJoin('orders.manager', 'manager')
       .select([
-        'manager.id as managerId',
-        'manager.surname as manager',
+        'manager.id',
+        'manager.surname',
         'COUNT(orders.id) as total',
         'COUNT(CASE WHEN orders.status = "In work" THEN student.id END) as In_work',
         'COUNT(CASE WHEN orders.status = "New" THEN student.id END) as New',

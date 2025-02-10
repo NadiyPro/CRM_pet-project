@@ -2,6 +2,7 @@ import { ListUsersQueryReqDto } from '../../users/models/dto/req/listUsersQuery.
 import { OrdersEntity } from '../../../infrastructure/mysql/entities/orders.entity';
 import { BaseOrdersResDto } from '../models/dto/res/baseOrders.res.dto';
 import { ListOrdersResQueryDto } from '../models/dto/res/listOrdersQuery.res.dto';
+import { UpdateOrdersResDto } from '../models/dto/res/updateOrders.res.dto';
 
 export class OrdersMapper {
   public static toResDto(order: OrdersEntity): BaseOrdersResDto {
@@ -19,11 +20,8 @@ export class OrdersMapper {
       sum: order.sum,
       alreadyPaid: order.alreadyPaid,
       created_at: order.created_at,
-      managerId: order.managerId,
-      manager: order.manager,
-      group: order.group,
-      messagesId: order.messagesId.map((item) => item),
-      messages: order.messages.map((item) => item),
+      manager: order.manager.surname,
+      group: order.group.group,
     };
   }
 
@@ -54,11 +52,8 @@ export class OrdersMapper {
       sum: student.sum,
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
-      managerId: student.managerId,
-      manager: student.manager,
-      group: student.group,
-      messagesId: student.messagesId.map((item) => item),
-      messages: student.messages.map((item) => item),
+      manager: student.manager.surname,
+      group: student.group.group,
     };
   }
 
@@ -69,6 +64,27 @@ export class OrdersMapper {
     return {
       orders: orders.map((order) => this.resetFiltersResDto(order)),
       total,
+    };
+  }
+
+  public static toUpdatedOrderResDto(
+    updatedOrder: OrdersEntity,
+  ): UpdateOrdersResDto {
+    return {
+      id: updatedOrder.id,
+      name: updatedOrder.name,
+      surname: updatedOrder.surname,
+      email: updatedOrder.email,
+      phone: updatedOrder.phone,
+      age: updatedOrder.age,
+      course: updatedOrder.course,
+      course_format: updatedOrder.course_format,
+      course_type: updatedOrder.course_type,
+      status: updatedOrder.status,
+      sum: updatedOrder.sum,
+      alreadyPaid: updatedOrder.alreadyPaid,
+      created_at: updatedOrder.created_at,
+      manager: updatedOrder.manager,
     };
   }
 }

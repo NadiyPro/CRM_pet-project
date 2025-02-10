@@ -1,5 +1,4 @@
 export interface OrdersStatisticResDto {
-  managerId: string;
   manager: string;
   total: number | null;
   In_work: number | null;

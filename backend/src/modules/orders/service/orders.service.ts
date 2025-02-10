@@ -8,6 +8,7 @@ import { UpdateOrdersResDto } from '../models/dto/res/updateOrders.res.dto';
 import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.enum';
 import { OrdersStatisticResDto } from '../models/dto/res/ordersStatistic.res.dto';
 import { UpdateOrdersReqDto } from '../models/dto/req/updateOrder.req.dto';
+import { OrdersMapper } from './orders.mapper';
 
 @Injectable()
 export class OrdersService {
@@ -41,15 +42,24 @@ export class OrdersService {
     if (order.status === StatusEnum.NEW || order.status === null) {
       await this.ordersRepository.update(orderId, {
         ...updateOrdersReqDto,
-        manager_id: user,
-        updated_at: new Date(),
+        manager: user,
         status: StatusEnum.IN_WORK,
       });
     }
 
-    return await this.ordersRepository.findOne({
+    const updatedOrder = await this.ordersRepository.findOne({
       where: { id: orderId },
+      // relations: ['manager'], // Завантаження `manager`
     });
+
+    if (!updatedOrder) {
+      throw new HttpException(
+        'Failed to update order',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+
+    return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
   }
 
   public async findMySOrder(
@@ -82,7 +92,6 @@ export class OrdersService {
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     const statisticAll = await this.ordersRepository.ordersStatisticManager();
     return statisticAll.map((item) => ({
-      managerId: item.managerId,
       manager: item.manager,
       total: Number(item.total) || null,
       In_work: Number(item.In_work) || null,

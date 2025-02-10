@@ -20,7 +20,6 @@ export class MessageService {
         id: message.id,
         messages: message.messages,
         orderId: message.orderId,
-        managerId: message.managerId,
         manager: message.manager,
         created_at: message.created_at,
         updated_at: message.updated_at,
@@ -37,15 +36,22 @@ export class MessageService {
     const mewMessage = this.messageRepository.create({
       messages: dataMessage.messages,
       orderId: order.id,
-      managerId: userData.userId,
-      manager: userData.surname,
+      manager: userData,
     });
     if (order.status === StatusEnum.NEW || order.status === null) {
       await this.ordersRepository.update(orderId, {
-        manager_id: userData,
+        manager: userData,
         status: StatusEnum.IN_WORK,
       });
-      return await this.messageRepository.save(mewMessage);
+      const saveMessage = await this.messageRepository.save(mewMessage);
+      return {
+        id: saveMessage.id,
+        messages: saveMessage.messages,
+        orderId: saveMessage.orderId,
+        manager: saveMessage.manager,
+        created_at: saveMessage.created_at,
+        updated_at: saveMessage.updated_at,
+      };
     }
   }
 

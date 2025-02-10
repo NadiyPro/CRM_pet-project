@@ -17,9 +17,6 @@ export interface BaseOrdersResDto {
   sum: number | null;
   alreadyPaid: number | null;
   created_at: Date;
-  managerId: string | null;
   manager: string;
   group: string | null;
-  messagesId: number[] | null;
-  messages: string[] | null;
 }

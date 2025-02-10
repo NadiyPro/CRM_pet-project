@@ -20,15 +20,15 @@ export class MessageEntity extends CreateUpdateModel {
 
   @Column({ nullable: true })
   orderId: number;
-  @ManyToOne(() => OrdersEntity, (student) => student.messages_id)
+  @ManyToOne(() => OrdersEntity, (student) => student.messages)
   @JoinColumn({ name: 'order' })
   order: OrdersEntity;
 
-  @Column({ type: 'uuid', nullable: true })
-  managerId: string | null;
-  @Column({ nullable: true })
-  manager: string | null;
-  @ManyToOne(() => UserEntity, (entity) => entity.messages_id)
+  // @Column({ type: 'uuid', nullable: true })
+  // managerId: string | null;
+  // @Column({ nullable: true })
+  // manager: string | null;
+  @ManyToOne(() => UserEntity, (entity) => entity.messages)
   @JoinColumn({ name: 'manager_id' })
-  manager_id?: UserEntity;
+  manager?: UserEntity;
 }

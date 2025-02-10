@@ -82,15 +82,15 @@ export class OrdersEntity {
   // @Column({ nullable: true })
   // manager: string | null;
   @ManyToOne(() => UserEntity, (entity) => entity.orders)
-  @JoinColumn({ name: 'manager_id' })
-  manager_id?: UserEntity | null;
+  @JoinColumn({ name: 'manager' })
+  manager?: UserEntity | null;
 
   @OneToMany(() => MessageEntity, (message) => message.order)
-  messages_id?: MessageEntity[] | null;
+  messages?: MessageEntity[] | null;
 
   // @Column({ type: 'varchar', nullable: true })
   // group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
-  @JoinColumn({ name: 'group_id' })
-  group_id?: GroupEntity | null;
+  @JoinColumn({ name: 'group' })
+  group?: GroupEntity | null;
 }
