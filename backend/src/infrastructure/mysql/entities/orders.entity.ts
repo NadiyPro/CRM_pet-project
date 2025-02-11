@@ -62,8 +62,8 @@ export class OrdersEntity {
   @Column({ type: 'integer', nullable: true })
   alreadyPaid: number | null;
 
-  @CreateDateColumn({ type: 'datetime' })
-  created_at: Date;
+  @CreateDateColumn({ type: 'datetime', nullable: true })
+  created_at: Date | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true }) // для завантаження дамп
   utm: string | null;
