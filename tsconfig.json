@@ -8,7 +8,7 @@
     "allowSyntheticDefaultImports": true,
     "target": "ES2021",
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./backend/dist/src/",
     "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
@@ -17,5 +17,7 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false
-  }
+  },
+  "include": ["backend/src", "backend/src/ormconfig.ts"],
+  "exclude": ["node_modules", "dist", "backend/src/ormconfig.ts"]
 }
