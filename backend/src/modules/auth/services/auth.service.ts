@@ -1,5 +1,5 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
