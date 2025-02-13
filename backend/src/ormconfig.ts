@@ -2,7 +2,7 @@ import * as path from 'node:path';
 
 import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
-import configuration from './src/configs/configuration';
+import configuration from './configs/configuration';
 
 dotenv.config();
 // завантажує змінні середовища з файлу .env,

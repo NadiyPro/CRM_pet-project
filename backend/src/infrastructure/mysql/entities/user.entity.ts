@@ -30,7 +30,6 @@ export class UserEntity extends CreateUpdateModel {
     length: 100,
     nullable: true,
     unique: true,
-    default: 'admin@gmail.com',
   })
   email: string;
 
