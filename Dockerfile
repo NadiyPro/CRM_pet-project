@@ -1,26 +1,23 @@
-# Використовуємо Node.js як базовий образ
+# Використовуємо офіційний образ Node.js
 FROM node:20-alpine
 
-# Встановлюємо додаткові пакети для коректної роботи npm
-RUN apk add --no-cache python3 make g++
+# Встановлюємо необхідні пакети
+RUN apk add --no-cache make g++
 
-# Створюємо робочу директорію
+# Встановлюємо робочу директорію в контейнері
 WORKDIR /app
 
-# Копіюємо package.json та package-lock.json
+# Копіюємо package.json і package-lock.json у контейнер
 COPY package*.json ./
 
-# Очищуємо кеш npm та встановлюємо залежності
-RUN npm cache clean --force && npm install --legacy-peer-deps
+# Встановлюємо залежності
+RUN npm install --legacy-peer-deps
 
-# Копіюємо весь код проекту
+# Копіюємо весь код проєкту в контейнер
 COPY . .
 
-# Компілюємо TypeScript у JavaScript
+# Збираємо TypeScript-код (якщо у вас є TypeScript)
 RUN npm run build
 
-# Відкриваємо порт
-EXPOSE 3000
-
-# Вказуємо команду для запуску додатку
-CMD ["npm", "start:prod"]
+# Команда для запуску програми
+CMD ["node", "backend/dist/src/main.js"]
