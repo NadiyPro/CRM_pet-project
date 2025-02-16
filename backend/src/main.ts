@@ -71,14 +71,22 @@ async function bootstrap() {
   const appConfig = configService.get<AppConfig>('app');
   // отримує конфігурацію з configuration.ts
   // доступившись до нього в по ключам 'app' з типом AppConfig
-  await app.listen(appConfig.port, () => {
-    console.log(
-      `Server is running on http://${appConfig.host}:${appConfig.port}`,
-    );
-    console.log(
-      `Swagger is running on http://${appConfig.host}:${appConfig.port}/docs`,
-    );
-  });
-  console.log();
+  // await app.listen(appConfig.port, () => {
+  //   console.log(
+  //     `Server is running on http://${appConfig.host}:${appConfig.port}`,
+  //   );
+  //   console.log(
+  //     `Swagger is running on http://${appConfig.host}:${appConfig.port}/docs`,
+  //   );
+  // });
+  // console.log();
+  await app.listen(appConfig.port);
+
+  console.log(
+    `Server is running on http://${appConfig.host}:${appConfig.port}`,
+  );
+  console.log(
+    `Swagger docs available at http://${appConfig.host}:${appConfig.port}/docs`,
+  );
 }
 void bootstrap();
