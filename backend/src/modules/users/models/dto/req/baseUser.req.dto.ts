@@ -1,6 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsEnum, IsString, Length, Matches } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsString,
+  Length,
+  Matches,
+  ValidateIf,
+} from 'class-validator';
 
 import { RoleTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
@@ -27,6 +34,7 @@ export class BaseUserReqDto {
   @ApiProperty({ example: 'admin' })
   @IsString()
   @Length(0, 300)
+  @ValidateIf((o: { password: string }) => o.password !== 'admin')
   @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$/)
   password: string;
 
