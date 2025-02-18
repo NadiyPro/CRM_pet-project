@@ -6,7 +6,6 @@ import {
   IsString,
   Length,
   Matches,
-  ValidateIf,
 } from 'class-validator';
 
 import { RoleTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/roleType.enum';
@@ -34,8 +33,13 @@ export class BaseUserReqDto {
   @ApiProperty({ example: 'admin' })
   @IsString()
   @Length(0, 300)
-  @ValidateIf((o: { password: string }) => o.password !== 'admin')
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$/)
+  @Matches(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$|^admin$/,
+    {
+      message:
+        'Password must be at least 8 characters, include a letter, a number, and a special character, or be "admin".',
+    },
+  )
   password: string;
 
   @ApiProperty({ example: 'admin' })
