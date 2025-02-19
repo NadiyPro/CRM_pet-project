@@ -58,6 +58,7 @@ import { RedisService } from './services/redis.service';
           port: config.port,
           host: config.host,
           password: config.password,
+          db: 0,
         });
       },
       inject: [ConfigService],
