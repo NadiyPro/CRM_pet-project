@@ -80,7 +80,7 @@ async function bootstrap() {
   //   );
   // });
   // console.log();
-  await app.listen(appConfig.port);
+  await app.listen(appConfig.port, '0.0.0.0');
 
   console.log(
     `Server is running on http://${appConfig.host}:${appConfig.port}`,
