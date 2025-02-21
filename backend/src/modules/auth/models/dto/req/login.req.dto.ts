@@ -1,16 +1,22 @@
-import { PickType } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 
-import { BaseAuthReqDto } from './base_auth.req.dto';
+import { IsBoolean, IsString, Length } from 'class-validator';
 
-export class LoginReqDto extends PickType(BaseAuthReqDto, [
-  'email',
-  'password',
-  'is_active',
-  'deviceId',
-]) {}
-// PickType() дозволяє "вибрати" тільки конкретні поля з базового класу
-// і використовувати їх у новому DTO
-// signIn - тут проходить аутентифікація,
-// перевірка чи існує в нас такий юзер з таким то паролем,
-// якщо існує то генеруємо нову пару токенів
-// (повторний вхід, перевірка паролю, ат видача нової пари токенів)
+export class LoginReqDto {
+  @ApiProperty({ example: 'admin@gmail.com' })
+  @IsString()
+  @Length(0, 300)
+  email: string;
+
+  @ApiProperty({ example: 'admin' })
+  @IsString()
+  @Length(0, 300)
+  password: string;
+
+  @ApiProperty({ example: false })
+  @IsBoolean()
+  is_active: boolean;
+
+  @IsString()
+  deviceId: string;
+}
