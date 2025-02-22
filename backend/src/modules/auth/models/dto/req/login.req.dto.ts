@@ -1,22 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { PickType } from '@nestjs/swagger';
 
-import { IsBoolean, IsString, Length } from 'class-validator';
+import { BaseAuthReqDto } from './base_auth.req.dto';
 
-export class LoginReqDto {
-  @ApiProperty({ example: 'admin@gmail.com' })
-  @IsString()
-  @Length(0, 300)
-  email: string;
-
-  @ApiProperty({ example: 'admin' })
-  @IsString()
-  @Length(0, 300)
-  password: string;
-
-  @ApiProperty({ example: false })
-  @IsBoolean()
-  is_active: boolean;
-
-  @IsString()
-  deviceId: string;
-}
+export class LoginReqDto extends PickType(BaseAuthReqDto, [
+  'email',
+  'password',
+  'is_active',
+  'deviceId',
+]) {}

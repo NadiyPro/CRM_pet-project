@@ -1,9 +1,37 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
-import { IsBoolean, IsEnum, IsString, Length, Matches } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsString,
+  Length,
+  Matches,
+  ValidateIf,
+} from 'class-validator';
 
 import { RoleTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
+
+// import {
+//   ValidatorConstraint,
+//   ValidatorConstraintInterface,
+// } from 'class-validator';
+//
+// @ValidatorConstraint({ name: 'isValidPassword', async: false })
+// export class IsValidPassword implements ValidatorConstraintInterface {
+//   validate(password: string) {
+//     console.log('Validating password:', password);
+//     return (
+//       password === 'admin' ||
+//       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$/.test(
+//         password,
+//       )
+//     );
+//   }
+//   defaultMessage() {
+//     return 'Password must be at least 8 characters long, contain letters, a number, and a special character, or be "admin".';
+//   }
+// }
 
 export class BaseUserReqDto {
   @IsString()
@@ -26,14 +54,9 @@ export class BaseUserReqDto {
 
   @ApiProperty({ example: 'admin' })
   @IsString()
-  @Length(0, 300)
-  @Matches(
-    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$|^admin$/,
-    {
-      message:
-        'Password must be at least 8 characters, include a letter, a number, and a special character, or be "admin".',
-    },
-  )
+  @Length(5, 300)
+  @ValidateIf((dto: BaseUserReqDto) => dto.password !== 'admin') // Виконує перевірку тільки якщо пароль не "admin"
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
   password: string;
 
   @ApiProperty({ example: 'admin' })
