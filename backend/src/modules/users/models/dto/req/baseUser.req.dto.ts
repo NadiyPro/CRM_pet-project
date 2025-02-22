@@ -31,7 +31,7 @@ import { TransformHelper } from '../../../../../common/helpers/transform.helper'
 //   defaultMessage() {
 //     return 'Password must be at least 8 characters long, contain letters, a number, and a special character, or be "admin".';
 //   }
-// }
+// } //
 
 export class BaseUserReqDto {
   @IsString()
