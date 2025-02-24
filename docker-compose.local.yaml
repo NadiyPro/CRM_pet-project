@@ -18,7 +18,7 @@ services:
       - final_project-redis
       - final_project-file-s3
     command: >
-      sh -c "node /app/dist/src/main.js"
+      sh -c "npm run build && node dist/main.js"
     networks:
       - default
 

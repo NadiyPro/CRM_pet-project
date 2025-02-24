@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.env
+Dockerfile
+docker-compose*
+npm-debug.log
+yarn.lock
+.pnpm-debug.log

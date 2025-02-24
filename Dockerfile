@@ -8,13 +8,13 @@ RUN apk add --no-cache make g++
 WORKDIR /app
 
 # Копіюємо package.json і package-lock.json у контейнер
-COPY package*.json ./
+COPY backend/package*.json ./
+
+# Копіюємо весь код проєкту в контейнер
+COPY backend ./
 
 # Встановлюємо залежності
 RUN npm install --legacy-peer-deps
-
-# Копіюємо весь код проєкту в контейнер
-COPY . .
 
 # Збираємо TypeScript-код (якщо у вас є TypeScript)
 RUN npm run build
@@ -24,4 +24,4 @@ RUN npm run build
 # CMD повинен виглядати dist/src/main.js,
 # оскільки, dist/src/main.js знаходиться в середині контейнера /app,
 # а ми його встановили як робочу диреторію, тобто доступились до нього WORKDIR /app)
-CMD ["node", "dist/src/main.js"]
+CMD ["node", "dist/main.js"]

@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 import { DataSource } from 'typeorm';
 import configuration from './configs/configuration';
 
+
 dotenv.config();
 // завантажує змінні середовища з файлу .env,
 // розташованого в кореневій текі проекту
@@ -20,9 +21,8 @@ export default new DataSource({
   database: config.name,
   entities: [
     path.join(
-      process.cwd(),
-      'backend',
-      'src',
+      __dirname,
+      '..',
       'infrastructure',
       'mysql',
       'entities',
@@ -34,9 +34,8 @@ export default new DataSource({
   // Ентіті - описує структуру таблиці в БД, це типу як моделі
   migrations: [
     path.join(
-      process.cwd(),
-      'backend',
-      'src',
+      __dirname,
+      '..',
       'infrastructure',
       'mysql',
       'migrations',
