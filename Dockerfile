@@ -20,4 +20,4 @@ COPY . .
 RUN npm run build
 
 # Команда для запуску програми
-CMD ["node", "backend/dist/src/main.js"]
+CMD ["node", "dist/src/main.js"]
