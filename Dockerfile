@@ -20,7 +20,7 @@ RUN npm install --legacy-peer-deps
 RUN npm run build
 
 # Команда для запуску програми
-# (враховуючи, що в контейнері backend/ стає /app,
+# (враховуючи, що в контейнері backend/ стає /app
 # CMD повинен виглядати dist/src/main.js,
 # оскільки, dist/src/main.js знаходиться в середині контейнера /app,
 # а ми його встановили як робочу диреторію, тобто доступились до нього WORKDIR /app)
