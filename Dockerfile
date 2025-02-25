@@ -7,7 +7,7 @@ RUN apk add --no-cache make g++
 # Встановлюємо робочу директорію в контейнері (локальна папка backend буде відображатися у контейнері як /app)
 WORKDIR /app
 
-# Копіюємо package.json і package-lock.json у контейнер
+# Копіюємо backend/package.json і backend/package-lock.json у контейнер
 COPY backend/package*.json ./
 
 # Копіюємо весь код проєкту в контейнер

@@ -5,11 +5,8 @@ import { DataSource } from 'typeorm';
 import configuration from './configs/configuration';
 
 dotenv.config();
-// завантажує змінні середовища з файлу .env,
-// розташованого в кореневій текі проекту
 
 const config = configuration().database;
-//  отримуємо конфігурації (налаштуання для підключення до БД) з configuration.ts
 
 export default new DataSource({
   type: 'mysql',
@@ -28,7 +25,6 @@ export default new DataSource({
       '*.entity.ts',
     ),
   ],
-  // Ентіті - описує структуру таблиці в БД, це типу як моделі
   migrations: [
     path.join(__dirname, '..', 'infrastructure', 'mysql', 'migrations', '*.ts'),
   ],
