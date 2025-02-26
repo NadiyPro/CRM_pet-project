@@ -19,7 +19,7 @@ async function bootstrap() {
       in: 'header', //вказує, що токен буде передаватися в заголовку HTTP-запиту.
       type: 'http', // тип авторизації — HTTP
       scheme: 'bearer', // Схема авторизації — Bearer
-      bearerFormat: 'JWT', //  Формат токена — JWT (JSON Web Token).
+      bearerFormat: 'JWT', //  Формат токена — JWT (JSON Web Token)
     }) // Додає налаштування для авторизації типу Bearer, що використовується для JWT токенів
     .build(); // Створює остаточну конфігурацію на основі вказаних параметрів
 
