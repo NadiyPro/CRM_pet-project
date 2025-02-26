@@ -1,27 +1,55 @@
+## Використовуємо офіційний образ Node.js
+#FROM node:20-alpine
+#
+## Встановлюємо необхідні пакети
+#RUN apk add --no-cache make g++
+#
+## Встановлюємо робочу директорію в контейнері (локальна папка backend буде відображатися у контейнері як /app)
+#WORKDIR /app
+#
+## Копіюємо backend/package.json і backend/package-lock.json у контейнер
+#COPY backend/package*.json ./
+#
+## Копіюємо весь код проєкту в контейнер
+#COPY backend ./
+#
+## Встановлюємо залежності
+#RUN npm install --legacy-peer-deps
+#
+## Збираємо TypeScript-код (якщо у вас є TypeScript)
+#RUN npm run build
+#
+## Команда для запуску програми
+## (враховуючи, що в контейнері backend/ стає /app
+## CMD повинен виглядати dist/src/main.js,
+## оскільки, dist/src/main.js знаходиться в середині контейнера /app,
+## а ми його встановили як робочу диреторію, тобто доступились до нього WORKDIR /app)
+#CMD ["node", "dist/main.js"]
 # Використовуємо офіційний образ Node.js
 FROM node:20-alpine
 
 # Встановлюємо необхідні пакети
 RUN apk add --no-cache make g++
 
-# Встановлюємо робочу директорію в контейнері (локальна папка backend буде відображатися у контейнері як /app)
+# Встановлюємо робочу директорію в контейнері
+# в docker-compose.yml ми визнначили volumes: ./backend:/app
+# що означає, що локальна папка backend буде відображатися у контейнері як /app
 WORKDIR /app
 
-# Копіюємо backend/package.json і backend/package-lock.json у контейнер
+# Копіюємо package.json і package-lock.json
 COPY backend/package*.json ./
 
-# Копіюємо весь код проєкту в контейнер
-COPY backend ./
-
 # Встановлюємо залежності
-RUN npm install --legacy-peer-deps
+RUN npm ci --legacy-peer-deps
 
-# Збираємо TypeScript-код (якщо у вас є TypeScript)
+# Створюємо папку dist, якщо вона не існує
+RUN mkdir -p dist
+
+# Копіюємо весь код проєкту в контейнер
+COPY backend/ .
+
+# Збираємо TypeScript-код
 RUN npm run build
 
-# Команда для запуску програми
-# (враховуючи, що в контейнері backend/ стає /app
-# CMD повинен виглядати dist/src/main.js,
-# оскільки, dist/src/main.js знаходиться в середині контейнера /app,
-# а ми його встановили як робочу диреторію, тобто доступились до нього WORKDIR /app)
+# Вказуємо команду для запуску
 CMD ["node", "dist/main.js"]

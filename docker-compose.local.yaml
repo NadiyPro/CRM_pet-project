@@ -18,7 +18,7 @@ services:
       - final_project-redis
       - final_project-file-s3
     command: >
-      sh -c "npm run build && node dist/main.js"
+      sh -c "npm ci --legacy-peer-deps && npm run build && node dist/main.js"
     networks:
       - default
 
