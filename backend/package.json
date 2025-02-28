@@ -19,7 +19,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prepare": "husky install",
+    "prepare": "husky install .husky",
     "typeorm": "typeorm-ts-node-commonjs --dataSource src/ormconfig.ts",
     "migration:create": "cross-var npm run typeorm -- migration:create ./src/infrastructure/mysql/migrations/$npm_config_name",
     "migration:generate": "cross-var npm run typeorm -- migration:generate ./src/infrastructure/mysql/migrations/$npm_config_name",
