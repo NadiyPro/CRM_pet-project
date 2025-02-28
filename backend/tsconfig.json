@@ -11,6 +11,7 @@
     "rootDir": "src",
     "outDir": "dist",
     "baseUrl": "./",
+    "noEmit": false,
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": false,
@@ -21,7 +22,8 @@
     "moduleResolution": "node",
     "esModuleInterop": true
   },
+  "include": ["src"],
   "exclude": [
-    "node_modules"
+    "node_modules", "dist"
   ]
 }

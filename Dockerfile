@@ -29,7 +29,8 @@
 FROM node:20-alpine
 
 # Встановлюємо необхідні пакети
-RUN apk add --no-cache make g++
+# Додаємо Git, бо Husky його потребує
+RUN apk add --no-cache make g++ git
 
 # Встановлюємо робочу директорію в контейнері
 # в docker-compose.yml ми визнначили volumes: ./backend:/app
@@ -39,10 +40,10 @@ WORKDIR /app
 # Копіюємо package.json і package-lock.json
 COPY backend/package*.json ./
 
-# Встановлюємо залежності
+## Встановлюємо залежності
 RUN npm ci --legacy-peer-deps
 
-# Створюємо папку dist, якщо вона не існує
+## Створюємо папку dist, якщо вона не існує
 RUN mkdir -p dist
 
 # Копіюємо весь код проєкту в контейнер
@@ -50,6 +51,9 @@ COPY backend/ .
 
 # Збираємо TypeScript-код
 RUN npm run build
+
+## Видаляємо .js, .d.ts, .js.map з src/
+#RUN find src -type f -name '*.js' -delete -o -name '*.d.ts' -delete -o -name '*.js.map' -delete
 
 # Вказуємо команду для запуску
 CMD ["node", "dist/main.js"]
