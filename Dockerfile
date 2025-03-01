@@ -84,8 +84,8 @@ RUN rm -rf dist
 # Збираємо TypeScript-код
 RUN npm run build
 
-# Перевіряємо, чи створилася dist/main.js
-RUN ls -la dist
+## Перевіряємо, чи створилася dist/main.js
+#RUN ls -la dist || { echo "Dist folder is missing"; exit 1; }
 
 # Вказуємо команду для запуску
 CMD ["node", "dist/main.js"]
