@@ -18,15 +18,14 @@ export default new DataSource({
   entities: [
     path.join(
       __dirname,
-      '..',
       'infrastructure',
       'mysql',
       'entities',
-      '*.entity.ts',
+      '*.entity.{ts,.js}',
     ),
   ],
   migrations: [
-    path.join(__dirname, '..', 'infrastructure', 'mysql', 'migrations', '*.ts'),
+    path.join(__dirname, 'infrastructure', 'mysql', 'migrations', '*.ts'),
   ],
   // Шлях до файлів міграцій
   synchronize: false,

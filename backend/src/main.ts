@@ -59,6 +59,7 @@ async function bootstrap() {
   // // і додає загальні відповіді для всіх маршрутів у вашому API
   SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
+      url: '/docs-json',
       docExpansion: 'list',
       // Встановлює, як розкривати розділи документації.
       // 'list' означає, що всі розділи будуть показані у вигляді списку і згорнуті за замовчуванням
