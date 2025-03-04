@@ -11,7 +11,7 @@ async function bootstrap() {
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
   // Вона ініціалізує всі компоненти програми, налаштовує залежності та маршрутизацію
   app.enableCors({
-    origin: '*', // або вкажи конкретні дозволені домени ['http://localhost:3000']
+    origin: ['http://localhost:3000'], // або вкажи конкретні дозволені домени ['http://localhost:3000']
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
   });

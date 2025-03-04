@@ -1,5 +1,4 @@
 import * as path from 'node:path';
-import * as process from 'node:process';
 
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -25,26 +24,22 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
           database: config.name,
           entities: [
             path.join(
-              process.cwd(),
-              'dist',
-              'backend',
-              'src',
+              __dirname,
+              '..',
               'infrastructure',
               'mysql',
               'entities',
-              '*.entity.js',
+              '*.entity.{js,ts}',
             ),
           ],
           migrations: [
             path.join(
-              process.cwd(),
-              'dist',
-              'backend',
-              'src',
+              __dirname,
+              '..',
               'infrastructure',
               'mysql',
               'migrations',
-              '*.js',
+              '*.ts',
             ),
           ],
           synchronize: false,
