@@ -10,7 +10,7 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService<Config>) => {
-        // useFactory - функція, яка виконує логіку для налаштування підключення до БД.
+        // useFactory - функція, яка виконує логіку для налаштування підключення до БД
         // Вона отримує ConfigService як залежність і використовує його для отримання налаштувань БД.
         const config = configService.get<DatabaseConfig>('database');
         // конфігурація для TypeORM завантажується з ConfigService,
