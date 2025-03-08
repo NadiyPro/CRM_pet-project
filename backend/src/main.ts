@@ -5,13 +5,17 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerHelper } from './common/helpers/swagger.helper';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './configs/config.type';
+import dataSource from './ormconfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
   // Вона ініціалізує всі компоненти програми, налаштовує залежності та маршрутизацію
+  // Ініціалізуємо dataSource перед запуском сервера
+  await dataSource.initialize();
   app.enableCors({
-    origin: ['http://localhost:3000'], // або вкажи конкретні дозволені домени ['http://localhost:3000']
+    origin: '*', // або вкажи конкретні дозволені домени ['http://localhost:3000']
+
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     allowedHeaders: 'Content-Type,Authorization',
   });
@@ -80,7 +84,7 @@ async function bootstrap() {
     `Server is running on http://${appConfig.host}:${appConfig.port}`,
   );
   console.log(
-    `Swagger docs available at http://${appConfig.host}:${appConfig.port}/docs`,
+    `Swagger docs available at http://${appConfig.host}:${appConfig.port}/docs`, // http://127.0.0.1:3000/docs
   );
 }
 void bootstrap();

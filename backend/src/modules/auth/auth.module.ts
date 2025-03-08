@@ -26,8 +26,7 @@
 //   exports: [],
 // })
 // export class AuthModule {}
-import { UsersModule } from '../users/users.module';
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { Jwt_refreshGuard } from './guards/jwt_refresh.guard';
 import { AuthController } from './auth.controller';
@@ -42,7 +41,7 @@ import { UserEntity } from '../../infrastructure/mysql/entities/user.entity';
 
 @Module({
   imports: [
-    forwardRef(() => UsersModule),
+    // forwardRef(() => UsersModule),
     JwtModule,
     RedisModule,
     TypeOrmModule.forFeature([UserEntity]), // Додано UserEntity
@@ -58,6 +57,6 @@ import { UserEntity } from '../../infrastructure/mysql/entities/user.entity';
     AuthCacheService,
     TokenService,
   ],
-  exports: [TypeOrmModule], // Додаємо TypeOrmModule до експорту
+  exports: [], // Додаємо TypeOrmModule до експорту
 })
 export class AuthModule {}
