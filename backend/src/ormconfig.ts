@@ -40,7 +40,7 @@ export default new DataSource({
     //   'infrastructure',
     //   'mysql',
     //   'migrations',
-    //   '*.ts', // Шлях до міграцій
+    //   '*.ts', // Шлях міграцій
     // ),
     path.join(
       __dirname,
