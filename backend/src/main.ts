@@ -5,7 +5,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerHelper } from './common/helpers/swagger.helper';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './configs/config.type';
-import dataSource from './ormconfig';
+import dataSource from './../ormconfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

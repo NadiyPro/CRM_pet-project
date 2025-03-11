@@ -70,13 +70,15 @@ RUN apk add --no-cache make g++ git
 WORKDIR /app
 
 # Копіюємо package.json і package-lock.json для встановлення залежностей
-COPY backend/package*.json ./
+# Копіюємо package.json, package-lock.json та інші необхідні конфігураційні файли
+COPY ./backend/package.json ./backend/package-lock.json /app/
 
 # Встановлюємо залежності
 RUN npm ci --legacy-peer-deps
 
 # Копіюємо весь код проєкту в контейнер
-COPY backend ./
+#COPY backend ./
+COPY backend/ /app/
 
 # Видаляємо старий білд (на випадок залишкових файлів)
 RUN rm -rf dist
@@ -88,4 +90,4 @@ RUN npm run build
 #RUN ls -la dist || { echo "Dist folder is missing"; exit 1; }
 
 # Вказуємо команду для запуску
-CMD ["node", "dist/main.js"]
+CMD ["node", "dist/src/main.js"]

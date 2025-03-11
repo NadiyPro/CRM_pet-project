@@ -1,8 +1,9 @@
 {
   "extends": "./tsconfig.json",
+  "include": ["src", "ormconfig.ts"],
   "compilerOptions": {
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDir": ".",
     "removeComments": true,
     "noEmit": false
   },

@@ -12,6 +12,7 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app
+#      - .:/app
       - /app/node_modules
 #      - dist-volume:/app/dist
     restart: on-failure
@@ -20,7 +21,7 @@ services:
       - final_project-redis
       - final_project-file-s3
     command: >
-      sh -c "if [ ! -d dist ]; then npm run build; fi && node dist/main.js"
+      sh -c "if [ ! -d dist ]; then npm run build; fi && node dist/src/main.js"
 
     networks:
       - default
