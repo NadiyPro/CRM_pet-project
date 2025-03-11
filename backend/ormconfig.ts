@@ -61,7 +61,7 @@ const dataSource = new DataSource({
     // ),
     path.join(__dirname, 'src/infrastructure/mysql/migrations/*.ts'),
   ],
-  // Шлях до файлів міграцій
+  // Шлях файлів міграцій
   synchronize: false,
   logging: process.env.DB_LOGGING === 'true',
 });
