@@ -8,6 +8,7 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { UsersModule } from './modules/users/users.module';
 import { GroupModule } from './modules/group/group.module';
 import { MessageModule } from './modules/message/message.module';
+import { MySqlModule } from './infrastructure/mysql/mysql.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MessageModule } from './modules/message/message.module';
       load: [configuration],
       isGlobal: true,
     }),
+    MySqlModule,
     RepositoryModule,
     RedisModule,
     AuthModule,

@@ -4,7 +4,14 @@ import { RefreshTokenRepository } from './services/refresh-token.repository';
 import { OrdersRepository } from './services/orders.repository';
 import { GroupRepository } from './services/group.repository';
 import { MessageRepository } from './services/message.repository';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { MySqlModule } from '../mysql/mysql.module';
+// import { TypeOrmModule } from '@nestjs/typeorm';
+// import { UserEntity } from '../mysql/entities/user.entity';
+// import { RefreshTokenEntity } from '../mysql/entities/refresh-token.entity';
+// import { OrdersEntity } from '../mysql/entities/orders.entity';
+// import { MessageEntity } from '../mysql/entities/message.entity';
+// import { GroupEntity } from '../mysql/entities/group.entity';
+// import { MySqlModule } from '../mysql/mysql.module';
 
 const repositories = [
   RefreshTokenRepository,
@@ -14,20 +21,26 @@ const repositories = [
   MessageRepository,
 ];
 
-// @Global()
+@Global()
 // @Module({
-//   imports: [dataSource],
 //   providers: [...repositories],
 //   exports: [...repositories],
 //   // Список провайдерів, які будуть доступні за межами цього модуля.
 //   // Оскільки модуль глобальний,
 //   // ці сервіси зможуть використовуватися в будь-якому іншому модулі
 // })
-// export class RepositoryModule {}
-@Global()
 @Module({
-  imports: [TypeOrmModule.forFeature(repositories)], // Імпортуємо репозиторії через TypeOrmModule
+  imports: [
+    //   TypeOrmModule.forFeature([
+    //     UserEntity,
+    //     RefreshTokenEntity,
+    //     OrdersEntity,
+    //     MessageEntity,
+    //     GroupEntity,
+    //   ]),
+    MySqlModule,
+  ], // Додаємо сутність RefreshToken
   providers: [...repositories],
-  exports: [TypeOrmModule, ...repositories],
+  exports: [...repositories],
 })
 export class RepositoryModule {}

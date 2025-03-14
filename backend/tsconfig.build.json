@@ -1,11 +1,15 @@
+//{
+//  "extends": "./tsconfig.json",
+//  "include": ["src", "ormconfig.ts"],
+//  "compilerOptions": {
+//    "outDir": "./dist",
+//    "rootDir": ".",
+//    "removeComments": true,
+//    "noEmit": false
+//  },
+//  "exclude": ["node_modules", "test" ]
+//}
 {
   "extends": "./tsconfig.json",
-  "include": ["src", "ormconfig.ts"],
-  "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": ".",
-    "removeComments": true,
-    "noEmit": false
-  },
-  "exclude": ["node_modules", "test" ]
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
 }

@@ -21,8 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "prepare": "HUSKY=0 npx husky install ../../.husky",
     "typeorm": "typeorm-ts-node-commonjs --dataSource ./ormconfig.ts",
-    "migration:create": "cross-var npm run typeorm -- migration:create ./infrastructure/mysql/migrations/$npm_config_name",
-    "migration:generate": "cross-var npm run typeorm -- migration:generate ./infrastructure/mysql/migrations/$npm_config_name",
+    "migration:create": "cross-var npm run typeorm -- migration:create ./src/infrastructure/mysql/migrations/$npm_config_name",
+    "migration:generate": "cross-var npm run typeorm -- migration:generate ./src/infrastructure/mysql/migrations/$npm_config_name",
     "migration:revert": "npm run typeorm -- migration:revert",
     "migration:run": "npm run typeorm -- migration:run"
   },
@@ -90,6 +90,7 @@
       "json",
       "ts"
     ],
+    "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
       "^.+\\.(t|j)s$": "ts-jest"

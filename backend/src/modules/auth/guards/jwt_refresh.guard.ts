@@ -14,7 +14,7 @@ import { TokenType } from '../enums/token_type.enum';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
-export class Jwt_refreshGuard implements CanActivate {
+export class JwtRefreshGuard implements CanActivate {
   constructor(
     private readonly reflector: Reflector,
     private readonly tokenService: TokenService,

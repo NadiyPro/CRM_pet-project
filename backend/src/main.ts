@@ -5,14 +5,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerHelper } from './common/helpers/swagger.helper';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './configs/config.type';
-import dataSource from './../ormconfig';
+// import dataSource from './../ormconfig';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
   // Вона ініціалізує всі компоненти програми, налаштовує залежності та маршрутизацію
   // Ініціалізуємо dataSource перед запуском сервера
-  await dataSource.initialize();
+  // await dataSource.initialize();
   app.enableCors({
     origin: '*', // або вкажи конкретні дозволені домени ['http://localhost:3000']
 
