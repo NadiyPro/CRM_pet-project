@@ -8,7 +8,7 @@ services:
     ports:
         - "3000:3000"
     env_file:
-      - .env
+      - ./backend/.env
     working_dir: /app
     volumes:
       - ./backend:/app
@@ -30,11 +30,17 @@ services:
     container_name: final_project-mysql
     image: mysql:8.0
     restart: unless-stopped
+    env_file:
+      - ./backend/.env
     environment:
-      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
-      MYSQL_USER: '${MYSQL_USER}'
-      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
-      MYSQL_DATABASE: '${MYSQL_DB}'
+      MYSQL_ROOT_PASSWORD: 'owu.linkpc.net'
+      MYSQL_USER: 'nadiamysql'
+      MYSQL_PASSWORD: 'password'
+      MYSQL_DATABASE: 'nadiamysql'
+#      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
+#      MYSQL_USER: '${MYSQL_USER}'
+#      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+#      MYSQL_DATABASE: '${MYSQL_DB}'
     tmpfs:
       - /var/lib/mysql
     ports:
@@ -53,6 +59,8 @@ services:
   final_project-redis:
     container_name: final_project-redis
     image: redis:7.2.3
+    env_file:
+      - ./backend/.env
     ports:
       - '${REDIS_PORT:-6379}:6379'
     command: redis-server --requirepass redispass
@@ -69,6 +77,8 @@ services:
     container_name: final_project-file-s3
     image: quay.io/minio/minio:latest
     restart: unless-stopped
+    env_file:
+      - ./backend/.env
     command: server /data --console-address ":9001"
     volumes:
       - ./final_project-file-api-s3-data:/data

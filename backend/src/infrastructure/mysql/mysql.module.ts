@@ -3,7 +3,10 @@ import * as path from 'node:path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { Config, DatabaseConfig } from '../../configs/config.type';
-// import { DataSource } from 'typeorm';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+console.log('ENV TEST:', process.env.MYSQL_PORT);
 
 @Module({
   imports: [
@@ -12,11 +15,11 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
         const config = configService.get<DatabaseConfig>('database');
         return {
           type: 'mysql',
-          host: config.host || 'owu.linkpc.net',
-          port: config.port || 3306,
-          username: config.user || 'nadiamysql',
-          password: config.password || 'password',
-          database: config.name || 'nadiamysql',
+          host: config.host,
+          port: config.port,
+          username: config.user,
+          password: config.password,
+          database: config.name,
           entities: [
             path.join(
               process.cwd(),
@@ -49,26 +52,3 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
   // exports: [TypeOrmModule, DataSource],
 })
 export class MySqlModule {}
-
-// import { Module } from '@nestjs/common';
-// import { ConfigService } from '@nestjs/config';
-// import { DataSource } from 'typeorm';
-// import { AppDataSource } from '../../../ormconfig';
-//
-// @Module({
-//   providers: [
-//     {
-//       provide: DataSource,
-//       useFactory: async (configService: ConfigService) => {
-//         const dataSource = AppDataSource(configService);
-//         if (!dataSource.isInitialized) {
-//           await dataSource.initialize();
-//         }
-//         return dataSource;
-//       },
-//       inject: [ConfigService],
-//     },
-//   ],
-//   exports: [DataSource], // Експортуємо DataSource для використання в репозиторіях
-// })
-// export class MySqlModule {}

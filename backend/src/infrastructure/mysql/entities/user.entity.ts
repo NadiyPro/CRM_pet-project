@@ -7,7 +7,7 @@ import { CreateUpdateModel } from './models/date.model';
 import { OrdersEntity } from './orders.entity';
 import { MessageEntity } from './message.entity';
 
-@Index(['name'])
+// @Index(['name'])
 @Entity(TableNameEnum.USERS)
 export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')

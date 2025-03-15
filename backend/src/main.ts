@@ -5,7 +5,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { SwaggerHelper } from './common/helpers/swagger.helper';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './configs/config.type';
-// import dataSource from './../ormconfig';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+console.log('ENV TEST:', process.env.MYSQL_HOST);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -13,12 +16,12 @@ async function bootstrap() {
   // Вона ініціалізує всі компоненти програми, налаштовує залежності та маршрутизацію
   // Ініціалізуємо dataSource перед запуском сервера
   // await dataSource.initialize();
-  app.enableCors({
-    origin: '*', // або вкажи конкретні дозволені домени ['http://localhost:3000']
-
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    allowedHeaders: 'Content-Type,Authorization',
-  });
+  // app.enableCors({
+  //   origin: '*', // або вкажи конкретні дозволені домени ['http://localhost:3000']
+  //
+  //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  //   allowedHeaders: 'Content-Type,Authorization',
+  // });
 
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
     .setTitle('final_project_NadiaPro') // Встановлює заголовок API документації

@@ -9,25 +9,6 @@ export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {
   }
 
   public async isRefreshTokenExist(refreshToken: string): Promise<boolean> {
-    return await this.existsBy({ refreshToken });
+    return this.existsBy({ refreshToken });
   }
 }
-
-// import { Injectable } from '@nestjs/common';
-// import { InjectRepository } from '@nestjs/typeorm';
-// import { Repository } from 'typeorm';
-// import { RefreshTokenEntity } from '../../mysql/entities/refresh-token.entity';
-//
-// @Injectable()
-// export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {
-//   constructor(
-//     @InjectRepository(RefreshTokenEntity)
-//     private readonly repository: Repository<RefreshTokenEntity>,
-//   ) {
-//     super(repository.target, repository.manager, repository.queryRunner);
-//   }
-//
-//   public async isRefreshTokenExist(refreshToken: string): Promise<boolean> {
-//     return !!(await this.repository.findOne({ where: { refreshToken } }));
-//   }
-// }

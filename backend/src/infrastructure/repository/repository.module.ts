@@ -4,14 +4,15 @@ import { RefreshTokenRepository } from './services/refresh-token.repository';
 import { OrdersRepository } from './services/orders.repository';
 import { GroupRepository } from './services/group.repository';
 import { MessageRepository } from './services/message.repository';
-import { MySqlModule } from '../mysql/mysql.module';
+// import { DataSource } from 'typeorm';
+// import ormConfig from '../../../ormconfig';
 // import { TypeOrmModule } from '@nestjs/typeorm';
 // import { UserEntity } from '../mysql/entities/user.entity';
 // import { RefreshTokenEntity } from '../mysql/entities/refresh-token.entity';
 // import { OrdersEntity } from '../mysql/entities/orders.entity';
 // import { MessageEntity } from '../mysql/entities/message.entity';
 // import { GroupEntity } from '../mysql/entities/group.entity';
-// import { MySqlModule } from '../mysql/mysql.module';
+import { MySqlModule } from '../mysql/mysql.module';
 
 const repositories = [
   RefreshTokenRepository,
@@ -31,16 +32,31 @@ const repositories = [
 // })
 @Module({
   imports: [
-    //   TypeOrmModule.forFeature([
-    //     UserEntity,
-    //     RefreshTokenEntity,
-    //     OrdersEntity,
-    //     MessageEntity,
-    //     GroupEntity,
-    //   ]),
+    //     // TypeOrmModule.forFeature([
+    //     //   UserEntity,
+    //     //   RefreshTokenEntity,
+    //     //   OrdersEntity,
+    //     //   MessageEntity,
+    //     //   GroupEntity,
+    //     // ]),
     MySqlModule,
+    //     DataSource,
   ], // Додаємо сутність RefreshToken
   providers: [...repositories],
   exports: [...repositories],
 })
 export class RepositoryModule {}
+// const dataSourceProvider = {
+//   provide: DataSource,
+//   useFactory: async () => {
+//     const dataSource = new DataSource(ormConfig); // Передаємо правильний об'єкт налаштувань
+//     return dataSource.initialize(); // Асинхронно підключаємо базу
+//   },
+// };
+
+// @Global()
+// @Module({
+//   providers: [dataSourceProvider],
+//   exports: [dataSourceProvider],
+// })
+// export class RepositoryModule {}

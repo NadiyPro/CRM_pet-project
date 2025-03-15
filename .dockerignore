@@ -1,7 +1,7 @@
 backend/node_modules
 .git
 .gitignore
-.env
+backend/.env
 Dockerfile
 docker-compose*
 npm-debug.log
