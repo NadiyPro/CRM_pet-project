@@ -33,10 +33,10 @@ services:
     env_file:
       - ./backend/.env
     environment:
-      MYSQL_ROOT_PASSWORD: 'owu.linkpc.net'
-      MYSQL_USER: 'nadiamysql'
-      MYSQL_PASSWORD: 'password'
-      MYSQL_DATABASE: 'nadiamysql'
+      MYSQL_ROOT_PASSWORD: owu.linkpc.net
+      MYSQL_USER: nadiamysql
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: nadiamysql
 #      MYSQL_ROOT_PASSWORD: '${MYSQL_PASSWORD}'
 #      MYSQL_USER: '${MYSQL_USER}'
 #      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'

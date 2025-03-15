@@ -8,7 +8,6 @@ import { OrdersModule } from './modules/orders/orders.module';
 import { UsersModule } from './modules/users/users.module';
 import { GroupModule } from './modules/group/group.module';
 import { MessageModule } from './modules/message/message.module';
-import { DataSource } from 'typeorm';
 import { MySqlModule } from './infrastructure/mysql/mysql.module';
 
 @Module({
@@ -18,7 +17,6 @@ import { MySqlModule } from './infrastructure/mysql/mysql.module';
       isGlobal: true,
     }),
     MySqlModule,
-    DataSource,
     RepositoryModule,
     RedisModule,
     AuthModule,

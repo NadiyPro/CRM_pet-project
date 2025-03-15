@@ -4,14 +4,6 @@ import { RefreshTokenRepository } from './services/refresh-token.repository';
 import { OrdersRepository } from './services/orders.repository';
 import { GroupRepository } from './services/group.repository';
 import { MessageRepository } from './services/message.repository';
-// import { DataSource } from 'typeorm';
-// import ormConfig from '../../../ormconfig';
-// import { TypeOrmModule } from '@nestjs/typeorm';
-// import { UserEntity } from '../mysql/entities/user.entity';
-// import { RefreshTokenEntity } from '../mysql/entities/refresh-token.entity';
-// import { OrdersEntity } from '../mysql/entities/orders.entity';
-// import { MessageEntity } from '../mysql/entities/message.entity';
-// import { GroupEntity } from '../mysql/entities/group.entity';
 import { MySqlModule } from '../mysql/mysql.module';
 
 const repositories = [
