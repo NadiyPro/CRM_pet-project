@@ -49,7 +49,7 @@ export class RepositoryModule {}
 // const dataSourceProvider = {
 //   provide: DataSource,
 //   useFactory: async () => {
-//     const dataSource = new DataSource(ormConfig); // Передаємо правильний об'єкт налаштувань
+//     const dataSource = new DataSource(ormConfig);
 //     return dataSource.initialize(); // Асинхронно підключаємо базу
 //   },
 // };
