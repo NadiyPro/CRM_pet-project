@@ -1,32 +1,3 @@
-//{
-//  "compilerOptions": {
-//    "module": "commonjs",
-//    "declaration": true,
-//    "removeComments": true,
-//    "emitDecoratorMetadata": true,
-//    "experimentalDecorators": true,
-//    "allowSyntheticDefaultImports": true,
-//    "target": "ES2021",
-//    "sourceMap": true,
-////    "rootDir": ".",
-//    "outDir": "dist",
-//    "baseUrl": "./",
-//    "noEmit": false,
-//    "incremental": true,
-//    "skipLibCheck": true,
-//    "strictNullChecks": false,
-//    "forceConsistentCasingInFileNames": false,
-//    "noImplicitAny": false,
-//    "strictBindCallApply": false,
-//    "noFallthroughCasesInSwitch": false,
-//    "moduleResolution": "node",
-//    "esModuleInterop": true
-//  },
-//  "include": ["src", "ormconfig.ts"],
-//  "exclude": [
-//    "node_modules", "dist"
-//  ]
-//}
 {
   "compilerOptions": {
     "module": "commonjs",

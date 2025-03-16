@@ -16,11 +16,6 @@ export default new DataSource({
   username: config.user || 'nadiamysql',
   password: config.password || 'password',
   database: config.name || 'nadiamysql',
-  // host: config.host,
-  // port: config.port,
-  // username: config.user,
-  // password: config.password,
-  // database: config.name,
   entities: [
     path.join(process.cwd(), 'src/infrastructure/mysql/entities/*.ts'),
   ],

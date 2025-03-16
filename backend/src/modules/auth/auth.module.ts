@@ -39,25 +39,6 @@ import { JwtAccessGuard } from './guards/jwt_access.guard';
 import { UsersModule } from '../users/users.module';
 
 @Module({
-  //   imports: [
-  //     // forwardRef(() => UsersModule),
-  //     JwtModule,
-  //     RedisModule,
-  //     TypeOrmModule.forFeature([UserEntity]), // Додано UserEntity
-  //   ],
-  //   controllers: [AuthController],
-  //   providers: [
-  //     {
-  //       provide: APP_GUARD,
-  //       useClass: JwtAccessGuard,
-  //     },
-  //     Jwt_refreshGuard,
-  //     AuthService,
-  //     AuthCacheService,
-  //     TokenService,
-  //   ],
-  //   exports: [], // Додаємо TypeOrmModule до експорту
-  // })
   imports: [JwtModule, RedisModule, forwardRef(() => UsersModule)],
   controllers: [AuthController],
   providers: [
