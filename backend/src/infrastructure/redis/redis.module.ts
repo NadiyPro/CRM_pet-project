@@ -1,9 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import Redis from 'ioredis';
-
 import { Config, RedisConfig } from '../../configs/config.type';
 import { RedisService } from './services/redis.service';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
+console.log('ENV TEST:', process.env.REDIS_PORT);
 
 @Module({
   providers: [
