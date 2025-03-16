@@ -26,7 +26,7 @@
 //   exports: [],
 // })
 // export class AuthModule {}
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtRefreshGuard } from './guards/jwt_refresh.guard';
 import { AuthController } from './auth.controller';
@@ -36,6 +36,7 @@ import { TokenService } from './services/token.service';
 import { RedisModule } from '../../infrastructure/redis/redis.module';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtAccessGuard } from './guards/jwt_access.guard';
+import { UsersModule } from '../users/users.module';
 
 @Module({
   //   imports: [
@@ -57,7 +58,7 @@ import { JwtAccessGuard } from './guards/jwt_access.guard';
   //   ],
   //   exports: [], // Додаємо TypeOrmModule до експорту
   // })
-  imports: [JwtModule, RedisModule],
+  imports: [JwtModule, RedisModule, forwardRef(() => UsersModule)],
   controllers: [AuthController],
   providers: [
     {
