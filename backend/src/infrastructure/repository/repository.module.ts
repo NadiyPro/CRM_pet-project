@@ -16,9 +16,7 @@ const repositories = [
 
 @Global()
 @Module({
-  imports: [
-    MySqlModule,
-  ],
+  imports: [MySqlModule],
   providers: [...repositories],
   exports: [...repositories],
 })
