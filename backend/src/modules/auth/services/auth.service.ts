@@ -22,27 +22,51 @@ export class AuthService {
   ) {}
 
   public async login(dto: LoginReqDto): Promise<AuthResDto> {
-    const user = await this.userRepository.findOne({
+    let user = await this.userRepository.findOne({
       where: { email: dto.email }, // знаходимо користувача за електронною поштою
       select: ['id', 'password', 'is_active'],
     });
 
+    // if (dto.email === 'admin@gmail.com' && dto.password === 'admin') {
+    //   const admin = await this.userRepository.findOneBy({
+    //     email: dto.email,
+    //   });
+    //   if (!admin) {
+    //     const password = await bcrypt.hash(dto.password, 10);
+    //     await this.userRepository.save(
+    //       this.userRepository.create({
+    //         ...dto,
+    //         password,
+    //         role: RoleTypeEnum.ADMIN,
+    //         is_active: true,
+    //       }),
+    //     );
+    //   }
+    // }
+
     if (dto.email === 'admin@gmail.com' && dto.password === 'admin') {
-      const admin = await this.userRepository.findOneBy({
-        email: dto.email,
-      });
-      if (!admin) {
+      if (!user) {
         const password = await bcrypt.hash(dto.password, 10);
         await this.userRepository.save(
           this.userRepository.create({
             ...dto,
             password,
             role: RoleTypeEnum.ADMIN,
-            is_active: true,
+            is_active: true, // Автоматично активуємо
           }),
         );
+
+        // user = await this.userRepository.findOne({
+        //   where: { email: dto.email },
+        //   select: ['id', 'password', 'is_active'],
+        // });
       }
     }
+
+    user = await this.userRepository.findOne({
+      where: { email: dto.email },
+      select: ['id', 'password', 'is_active'],
+    });
 
     if (!user || !user.is_active) {
       throw new UnauthorizedException('Your account is not active');
