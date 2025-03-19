@@ -10,10 +10,11 @@ export class MessageRepository extends Repository<MessageEntity> {
 
   public async findId(orderId: number): Promise<MessageEntity[]> {
     return await this.createQueryBuilder('message')
-      .leftJoinAndSelect('message.manager', 'manager')
+      // .leftJoinAndSelect('message.manager', 'manager')
+      .leftJoin('message.manager', 'manager')
       .leftJoinAndSelect('message.order', 'order')
       .where('order.id = :order', { orderId })
-      .addSelect(['manager.id as managerId', 'manager.surname as manager'])
+      .addSelect(['manager.id as managerId'])
       .orderBy('message.created_at', 'DESC')
       .getMany();
   }

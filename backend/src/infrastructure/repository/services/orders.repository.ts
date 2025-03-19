@@ -16,12 +16,11 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoinAndSelect('orders.manager', 'manager')
-      .leftJoinAndSelect('orders.group', 'group')
-      .leftJoinAndSelect('orders.messages', 'messages');
-    // .where('student.deleted IS NULL');
-
-    qb.addSelect(['manager.surname', 'group.group']);
+      .leftJoin('orders.manager', 'manager')
+      .leftJoin('orders.group', 'groupOrders')
+      .leftJoinAndSelect('orders.messages', 'messages')
+      .addSelect('manager.surname', 'manager')
+      .addSelect('groupOrders.group', 'group_name');
 
     if (query.search) {
       qb.andWhere(
@@ -37,8 +36,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.course_type LIKE :search OR
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
-          CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          manager.surname LIKE :search OR group.group LIKE :search
+          CAST(orders.alreadyPaid AS CHAR) LIKE :search 
+          OR manager LIKE :search OR group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -59,13 +58,21 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
-        'managerId',
-        'manager.surname',
-        'group.group',
+        // 'managerId',
+        'manager',
+        'group_name',
       ];
-      const column = allowedColumns.includes(query.sortField)
-        ? `orders.${query.sortField}`
-        : 'orders.created_at';
+      // const column = allowedColumns.includes(query.sortField)
+      //   ? `orders.${query.sortField}`
+      //   : 'orders.created_at';
+      const column =
+        query.sortField === 'manager'
+          ? 'manager'
+          : query.sortField === 'group_name'
+            ? 'group_name'
+            : allowedColumns.includes(query.sortField)
+              ? `orders.${query.sortField}`
+              : 'orders.created_at';
 
       const order =
         query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
@@ -90,12 +97,12 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoinAndSelect('orders.manager_id', 'manager')
+      .leftJoinAndSelect('orders.manager', 'manager')
       .andWhere('manager.id = :userId', { userId: userData.userId })
-      .leftJoinAndSelect('orders.group_id', 'group')
-      .leftJoinAndSelect('orders.messages_id', 'messages');
+      .leftJoinAndSelect('orders.group', 'group')
+      .leftJoinAndSelect('orders.messages', 'messages');
 
-    qb.addSelect(['manager.surname', 'group.group']);
+    // qb.addSelect(['manager.surname', 'group.group']);
 
     if (query.search) {
       qb.andWhere(
@@ -137,9 +144,18 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'manager.surname',
         'group.group',
       ];
-      const column = allowedColumns.includes(query.sortField)
-        ? `orders.${query.sortField}`
-        : 'orders.created_at';
+      // const column = allowedColumns.includes(query.sortField)
+      //   ? `orders.${query.sortField}`
+      //   : 'orders.created_at';
+      const column =
+        query.sortField === 'manager.surname'
+          ? 'manager.surname'
+          : query.sortField === 'group.group'
+            ? 'group.group'
+            : allowedColumns.includes(query.sortField)
+              ? `orders.${query.sortField}`
+              : 'orders.created_at';
+
       const order =
         query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
       qb.orderBy(column, order);
@@ -158,7 +174,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     return await this.createQueryBuilder('orders')
       .leftJoinAndSelect('orders.manager', 'manager')
       .leftJoinAndSelect('orders.group', 'group')
-      .addSelect(['manager.surname', 'group.group'])
+      // .addSelect(['manager.surname', 'group.group'])
       .addOrderBy('orders.created_at', 'DESC')
       .getManyAndCount();
   }
@@ -167,11 +183,11 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     return await this.createQueryBuilder('orders')
       .select([
         'COUNT(orders.id) as total',
-        'COUNT(CASE WHEN student.status = "In work" THEN orders.id END) as In_work',
-        'COUNT(CASE WHEN student.status = "New" THEN orders.id END) as New',
-        'COUNT(CASE WHEN student.status = "Aggre" THEN orders.id END) as Aggre',
-        'COUNT(CASE WHEN student.status = "Disaggre" THEN orders.id END) as Disaggre',
-        'COUNT(CASE WHEN student.status = "Dubbing" THEN orders.id END) as Dubbing',
+        'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
+        'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',
+        'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
+        'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
+        'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
       ])
       .getRawOne();
   }
@@ -183,13 +199,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'manager.id',
         'manager.surname',
         'COUNT(orders.id) as total',
-        'COUNT(CASE WHEN orders.status = "In work" THEN student.id END) as In_work',
-        'COUNT(CASE WHEN orders.status = "New" THEN student.id END) as New',
-        'COUNT(CASE WHEN orders.status = "Aggre" THEN student.id END) as Aggre',
-        'COUNT(CASE WHEN orders.status = "Disaggre" THEN student.id END) as Disaggre',
-        'COUNT(CASE WHEN orders.status = "Dubbing" THEN student.id END) as Dubbing',
+        'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
+        'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',
+        'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
+        'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
+        'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
       ])
-      .groupBy('manager.id')
+      .groupBy('orders.manager.id')
       .getRawMany();
   }
 }
