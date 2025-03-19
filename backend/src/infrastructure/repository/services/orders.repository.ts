@@ -58,7 +58,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
-        // 'managerId',
         'manager',
         'group_name',
       ];
