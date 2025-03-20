@@ -9,8 +9,7 @@ export class OrdersMapper {
     return {
       id: order.id,
       name: order.name || null,
-      // surname: order.surname || null,
-      surname: order?.surname ?? null,
+      surname: order?.surname ?? null, // бо в мене тут може бути з дампи просто пуста стрінга
       email: order.email || null,
       phone: order.phone || null,
       age: order.age || null,
@@ -21,10 +20,8 @@ export class OrdersMapper {
       sum: order.sum || null,
       alreadyPaid: order.alreadyPaid || null,
       created_at: order.created_at,
-      manager: order.manager?.surname ?? null, // Запобігає помилці
+      manager: order.manager?.surname ?? null, // бо в мене тут може бути з дампи просто пуста стрінга
       group: order.group?.group ?? null, // Аналогічно для group
-      // manager: order.manager.surname || null,
-      // group: order.group.group || null,
     };
   }
 
