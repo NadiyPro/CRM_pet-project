@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
 
 import { RoleTypeEnum } from './enums/roleType.enum';
@@ -7,17 +13,17 @@ import { CreateUpdateModel } from './models/date.model';
 import { OrdersEntity } from './orders.entity';
 import { MessageEntity } from './message.entity';
 
-// @Index(['name'])
+@Index(['name'])
 @Entity(TableNameEnum.USERS)
 export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 25, nullable: true })
-  name: string;
+  name: string | null;
 
   @Column({ type: 'varchar', length: 25, nullable: true })
-  surname: string;
+  surname: string | null;
 
   @Column({
     type: 'varchar',
@@ -46,5 +52,5 @@ export class UserEntity extends CreateUpdateModel {
   orders?: OrdersEntity[] | null;
 
   @OneToMany(() => MessageEntity, (entity) => entity.manager)
-  messages?: MessageEntity[];
+  messages?: MessageEntity[] | null;
 }

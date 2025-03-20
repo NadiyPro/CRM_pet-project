@@ -101,8 +101,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.group', 'group')
       .leftJoinAndSelect('orders.messages', 'messages');
 
-    // qb.addSelect(['manager.surname', 'group.group']);
-
     if (query.search) {
       qb.andWhere(
         `(
@@ -143,9 +141,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'manager.surname',
         'group.group',
       ];
-      // const column = allowedColumns.includes(query.sortField)
-      //   ? `orders.${query.sortField}`
-      //   : 'orders.created_at';
+
       const column =
         query.sortField === 'manager.surname'
           ? 'manager.surname'

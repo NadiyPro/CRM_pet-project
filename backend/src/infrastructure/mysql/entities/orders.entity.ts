@@ -65,10 +65,10 @@ export class OrdersEntity {
   @CreateDateColumn({ type: 'datetime', nullable: true })
   created_at: Date | null;
 
-  @Column({ type: 'varchar', length: 100, nullable: true }) // для завантаження дамп
+  @Column({ type: 'varchar', length: 100, nullable: true })
   utm: string | null;
 
-  @Column({ type: 'varchar', length: 100, nullable: true }) // для завантаження дамп
+  @Column({ type: 'varchar', length: 100, nullable: true })
   msg: string | null;
 
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
@@ -81,8 +81,6 @@ export class OrdersEntity {
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages?: MessageEntity[] | null;
 
-  // @Column({ type: 'varchar', nullable: true })
-  // group: string | null;
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
   @JoinColumn({ name: 'group_group' })
   group?: GroupEntity | null;
