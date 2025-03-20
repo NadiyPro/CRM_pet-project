@@ -8,20 +8,20 @@ export class OrdersMapper {
   public static toResDto(order: OrdersEntity): BaseOrdersResDto {
     return {
       id: order.id,
-      name: order.name || null,
-      surname: order?.surname ?? null, // бо в мене тут може бути з дампи просто пуста стрінга
-      email: order.email || null,
-      phone: order.phone || null,
-      age: order.age || null,
-      course: order.course || null,
-      course_format: order.course_format || null,
-      course_type: order.course_type || null,
-      status: order.status || null,
-      sum: order.sum || null,
-      alreadyPaid: order.alreadyPaid || null,
+      name: order.name,
+      surname: order.surname,
+      email: order.email,
+      phone: order.phone,
+      age: order.age,
+      course: order.course,
+      course_format: order.course_format,
+      course_type: order.course_type,
+      status: order.status,
+      sum: order.sum,
+      alreadyPaid: order.alreadyPaid,
       created_at: order.created_at,
-      manager: order.manager?.surname ?? null, // бо в мене тут може бути з дампи просто пуста стрінга
-      group: order.group?.group ?? null, // Аналогічно для group
+      manager: order.manager.surname,
+      group: order.group.group,
     };
   }
 
