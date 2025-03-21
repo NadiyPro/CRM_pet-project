@@ -37,7 +37,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search 
-          OR manager LIKE :search OR group_id LIKE :search
+          OR users.surname LIKE :search OR group_id LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -63,7 +63,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       ];
       const column =
         query.sortField === 'manager'
-          ? 'manager'
+          ? 'users.surname'
           : query.sortField === 'group'
             ? 'group_id'
             : allowedColumns.includes(query.sortField)
