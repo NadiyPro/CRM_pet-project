@@ -16,7 +16,11 @@ export class AuthController {
     summary: 'Для логінації на платформі',
     description:
       'Користувач виконує логінацію для входу на платформу (користувач вже зареєстрований).' +
-      '*за замовченням для логінації: email === admin@gmail.com, password === admin',
+      '*за замовченням для логінації: email === admin@gmail.com, password === admin' +
+      '*якщо email === admin@gmail.com, password === admin, ' +
+      'то is_active: false автоматично замінюється на is_active === true, ' +
+      'але якщо вказано інший email/password, ' +
+      'то залогінитися можна лише при умові, що передається is_active === true',
   })
   @SkipAuth()
   @Post('login')
