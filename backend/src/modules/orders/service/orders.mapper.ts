@@ -9,7 +9,7 @@ export class OrdersMapper {
     return {
       id: order.id,
       name: order.name,
-      surname: order.surname,
+      surname: order?.surname ?? null,
       email: order.email,
       phone: order.phone,
       age: order.age,
@@ -20,8 +20,8 @@ export class OrdersMapper {
       sum: order.sum,
       alreadyPaid: order.alreadyPaid,
       created_at: order.created_at,
-      manager: order.manager.surname,
-      group: order.group.group,
+      manager: order.manager?.surname ?? null,
+      group: order.group_id?.group_name ?? null,
     };
   }
 
@@ -53,7 +53,7 @@ export class OrdersMapper {
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
       manager: student.manager.surname,
-      group: student.group.group,
+      group: student.group_id.group_name,
     };
   }
 

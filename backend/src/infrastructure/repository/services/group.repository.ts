@@ -14,7 +14,7 @@ export class GroupRepository extends Repository<GroupEntity> {
     if (query.search) {
       qb.andWhere(
         `(
-         group.group LIKE :search
+         group.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );

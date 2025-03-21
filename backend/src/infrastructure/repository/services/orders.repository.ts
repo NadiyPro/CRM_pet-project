@@ -16,11 +16,11 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoin('orders.manager', 'manager')
-      .leftJoin('orders.group', 'groupOrders')
+      .leftJoin('orders.manager', 'users')
+      .leftJoin('orders.group_id', 'groupOrders')
       .leftJoinAndSelect('orders.messages', 'messages')
-      .addSelect('manager.surname', 'manager')
-      .addSelect('groupOrders.group', 'group_name');
+      .addSelect('users.surname', 'manager')
+      .addSelect('groupOrders.group_name', 'group_id');
 
     if (query.search) {
       qb.andWhere(
@@ -37,7 +37,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search 
-          OR manager LIKE :search OR group_name LIKE :search
+          OR manager LIKE :search OR group_id LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -59,16 +59,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'manager',
-        'group_name',
+        'group_id',
       ];
-      // const column = allowedColumns.includes(query.sortField)
-      //   ? `orders.${query.sortField}`
-      //   : 'orders.created_at';
       const column =
         query.sortField === 'manager'
           ? 'manager'
-          : query.sortField === 'group_name'
-            ? 'group_name'
+          : query.sortField === 'group'
+            ? 'group_id'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';

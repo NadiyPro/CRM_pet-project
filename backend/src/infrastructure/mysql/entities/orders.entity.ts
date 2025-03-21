@@ -75,13 +75,13 @@ export class OrdersEntity {
   status: StatusEnum | null;
 
   @ManyToOne(() => UserEntity, (entity) => entity.orders)
-  @JoinColumn({ name: 'manager' })
+  @JoinColumn({ name: 'manager_id' })
   manager: UserEntity | null;
 
   @OneToMany(() => MessageEntity, (message) => message.order)
   messages?: MessageEntity[] | null;
 
   @ManyToOne(() => GroupEntity, (entity) => entity.orders)
-  @JoinColumn({ name: 'group_group' })
-  group?: GroupEntity | null;
+  @JoinColumn({ name: 'group_id' })
+  group_id?: GroupEntity | null;
 }
