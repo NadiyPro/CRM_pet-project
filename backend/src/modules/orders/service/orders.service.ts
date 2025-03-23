@@ -23,6 +23,13 @@ export class OrdersService {
     return await this.ordersRepository.findAll(query);
   }
 
+  public async createOrder(
+    updateOrdersReqDto: UpdateOrdersReqDto,
+  ): Promise<OrdersEntity> {
+    const order = this.ordersRepository.create(updateOrdersReqDto);
+    return await this.ordersRepository.save(order);
+  }
+
   public async updateId(
     userData: IUserData,
     orderId: number,
@@ -71,13 +78,6 @@ export class OrdersService {
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.ordersRepository.resetFilters();
-  }
-
-  public async createOrder(
-    updateOrdersReqDto: UpdateOrdersReqDto,
-  ): Promise<OrdersEntity> {
-    const order = this.ordersRepository.create(updateOrdersReqDto);
-    return await this.ordersRepository.save(order);
   }
 
   public async deleteId(orderId: number): Promise<string> {

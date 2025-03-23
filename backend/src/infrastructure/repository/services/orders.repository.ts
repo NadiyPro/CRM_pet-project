@@ -93,10 +93,15 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoinAndSelect('orders.manager', 'manager')
-      .andWhere('manager.id = :userId', { userId: userData.userId })
-      .leftJoinAndSelect('orders.group', 'group')
-      .leftJoinAndSelect('orders.messages', 'messages');
+      .leftJoin('orders.manager', 'users')
+      .leftJoin('orders.group_id', 'groupOrders')
+      .leftJoinAndSelect('orders.messages', 'messages')
+      .addSelect('users.surname', 'manager')
+      .addSelect('groupOrders.group_name', 'group_id')
+      // .leftJoinAndSelect('orders.manager', 'manager')
+      .andWhere('users.id = :userId', { userId: userData.userId });
+    // .leftJoinAndSelect('orders.group', 'group')
+    // .leftJoinAndSelect('orders.messages', 'messages');
 
     if (query.search) {
       qb.andWhere(
@@ -113,7 +118,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          manager.surname LIKE :search OR group.group LIKE :search
+          users.surname LIKE :search OR group_id LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -135,15 +140,15 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'managerId',
-        'manager.surname',
-        'group.group',
+        'manager',
+        'group_id',
       ];
 
       const column =
-        query.sortField === 'manager.surname'
-          ? 'manager.surname'
-          : query.sortField === 'group.group'
-            ? 'group.group'
+        query.sortField === 'manager'
+          ? 'users.surname'
+          : query.sortField === 'group'
+            ? 'group_id'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -164,8 +169,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.createQueryBuilder('orders')
-      .leftJoinAndSelect('orders.manager', 'manager')
-      .leftJoinAndSelect('orders.group', 'group')
+      .leftJoin('orders.manager', 'users')
+      .leftJoin('orders.group_id', 'groupOrders')
+      // .leftJoinAndSelect('orders.messages', 'messages')
+      .addSelect('users.surname', 'manager')
+      .addSelect('groupOrders.group_name', 'group_id')
+      // .leftJoinAndSelect('orders.manager', 'manager')
+      // .leftJoinAndSelect('orders.group', 'group')
       // .addSelect(['manager.surname', 'group.group'])
       .addOrderBy('orders.created_at', 'DESC')
       .getManyAndCount();
@@ -186,10 +196,10 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.createQueryBuilder('orders')
-      .leftJoin('orders.manager', 'manager')
+      .leftJoin('orders.manager', 'users')
       .select([
-        'manager.id',
-        'manager.surname',
+        'users.id',
+        'users.surname',
         'COUNT(orders.id) as total',
         'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
         'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',

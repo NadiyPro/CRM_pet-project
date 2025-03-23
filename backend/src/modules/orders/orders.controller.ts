@@ -31,9 +31,9 @@ export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
   @ApiOperation({
-    summary: 'Для отримання інформацію про всіх students',
+    summary: 'Для отримання інформацію про всі orders',
     description:
-      'Admin | manager може отримати інформацію про всіх students, ' +
+      'Admin | manager може отримати інформацію про всі orders, ' +
       'сортувати ASC | DESC за кожним полем та фільтрувати по кожному полю. ' +
       'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка, ' +
       'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
@@ -45,16 +45,30 @@ export class OrdersController {
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get()
   public async findAll(
-    @Query() query: ListOrdersQueryReqDto, // Параметри передаються через @Query
+    @Query() query: ListOrdersQueryReqDto,
   ): Promise<ListOrdersResQueryDto> {
     const [entities, total] = await this.ordersService.findAll(query);
     return OrdersMapper.toAllResDtoList(entities, total, query);
   }
 
   @ApiOperation({
-    summary: 'Для оновлення даних по student',
+    summary: 'Admin може додати новий orders до списку.',
+    description: 'Admin може додати новий orders до списку',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role(RoleTypeEnum.ADMIN)
+  @Post()
+  public async createOrder(
+    @Body() updateOrdersReqDto: UpdateOrdersReqDto,
+  ): Promise<UpdateOrdersResDto> {
+    return await this.ordersService.createOrder(updateOrdersReqDto);
+  }
+
+  @ApiOperation({
+    summary: 'Для оновлення даних по orders',
     description:
-      'Manager може оновити дані по student. ' +
+      'Manager може оновити дані по orders. ' +
       'При збережені заявки, якщо до цього status === New, або status === null, ' +
       'то буде автоматично змінено status на In_Work та підтягнеться Призвіще менеджера.' +
       '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)' +
@@ -78,9 +92,9 @@ export class OrdersController {
   }
 
   @ApiOperation({
-    summary: 'Для фільтрації та сортуванню своїх заявок по студентам',
+    summary: 'Для фільтрації та сортуванню своїх заявок по orders',
     description:
-      'Для фільтрації та сортуванню своїх заявок по студентам. ' +
+      'Для фільтрації та сортуванню своїх заявок по orders. ' +
       '*сортування по замовченню по полю created_at, DESC',
   })
   @ApiBearerAuth()
@@ -114,22 +128,8 @@ export class OrdersController {
   }
 
   @ApiOperation({
-    summary: 'Admin може додати нового student до списку.',
-    description: 'Admin може додати нового student до списку',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
-  @Post()
-  public async createOrder(
-    @Body() updateOrdersReqDto: UpdateOrdersReqDto,
-  ): Promise<UpdateOrdersResDto> {
-    return await this.ordersService.createOrder(updateOrdersReqDto);
-  }
-
-  @ApiOperation({
-    summary: 'Для видалення запису про student за його id',
-    description: 'Admin може видалити запис про student по його id ',
+    summary: 'Для видалення запису про order за його id',
+    description: 'Admin може видалити запис про order по його id ',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -155,9 +155,11 @@ export class OrdersController {
 
   @ApiOperation({
     summary:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+      'по конкретному менеджеру (по id менеджера).',
     description:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+      'по конкретному менеджеру (по id менеджера)',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

@@ -34,21 +34,18 @@ export class BaseOrdersReqDto {
   @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
   email: string | null;
 
-  @ApiProperty({ example: '+380123456789' })
+  @ApiProperty({ example: '380123456789' })
   @IsString()
   @Length(12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
-  @Matches(
-    /\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?/,
-  )
+  @Matches(/^380\d{9}$/)
   phone: string | null;
 
   @ApiProperty({ example: 30 })
+  @Transform(({ value }) => parseInt(value, 10))
   @IsInt()
   @Min(18)
   @Max(100)
-  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
-  @Type(() => Number)
   age: number | null;
 
   @Length(2, 10)
@@ -76,13 +73,13 @@ export class BaseOrdersReqDto {
   course_type: CourseTypeEnum | null;
 
   @ApiProperty({ example: 100000 })
+  @Transform(({ value }) => parseInt(value, 10))
   @IsInt()
-  @Type(() => Number)
   sum: number | null;
 
   @ApiProperty({ example: 100000 })
+  @Transform(({ value }) => parseInt(value, 10))
   @IsInt()
-  @Type(() => Number)
   alreadyPaid: number | null;
 
   @Length(3, 15)
