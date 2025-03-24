@@ -2,8 +2,6 @@ import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/c
 import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
-import { UserEntity } from '../../../../../infrastructure/mysql/entities/user.entity';
-import { GroupEntity } from '../../../../../infrastructure/mysql/entities/group.entity';
 
 export interface BaseOrdersResDto {
   id: number | null;
@@ -19,8 +17,8 @@ export interface BaseOrdersResDto {
   sum: number | null;
   alreadyPaid: number | null;
   created_at: Date;
-  manager: UserEntity | null;
-  group: GroupEntity | null;
+  manager: string | null;
+  group: string | null;
   // manager: string | null;
   // group: string | null;
 }

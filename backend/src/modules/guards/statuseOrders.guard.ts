@@ -11,6 +11,50 @@ import { StatusEnum } from '../../infrastructure/mysql/entities/enums/status.enu
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { Request } from 'express';
 
+// interface RequestWithUser extends Request {
+//   user?: IUserData;
+// }
+//
+// @Injectable()
+// export class OrdersGuard implements CanActivate {
+//   constructor(
+//     private readonly userRepository: UserRepository,
+//     private readonly ordersRepository: OrdersRepository,
+//   ) {}
+//
+//   async canActivate(context: ExecutionContext): Promise<boolean> {
+//     const request = context.switchToHttp().getRequest<RequestWithUser>();
+//
+//     const userData = request.user;
+//     const orderId = request.params.orderId;
+//
+//     const user = await this.userRepository.findOne({
+//       where: { id: userData.userId },
+//     });
+//     if (!user) {
+//       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+//     }
+//
+//     const orders = await this.ordersRepository.findOne({
+//       where: { id: +orderId },
+//       relations: ['manager'],
+//     });
+//     if (!orders) {
+//       throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+//     }
+//
+//     if (orders.status !== StatusEnum.NEW && orders.status !== null) {
+//       if (orders.manager.id !== user.id) {
+//         throw new HttpException(
+//           'The application is in the works of another manager',
+//           HttpStatus.CONFLICT,
+//         );
+//       }
+//     }
+//
+//     return true;
+//   }
+// }
 interface RequestWithUser extends Request {
   user?: IUserData;
 }
@@ -23,9 +67,10 @@ export class OrdersGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const request = context.switchToHttp().getRequest<RequestWithUser>();
-
-    const userData = request.user;
+    // const request = context.switchToHttp().getRequest<RequestWithUser>();
+    const request = context.switchToHttp().getRequest<RequestWithUser>(); // Додаємо типізацію
+    // return request.res.locals.user as IUserData;
+    const userData = request.res.locals.user as IUserData;
     const orderId = request.params.orderId;
 
     const user = await this.userRepository.findOne({
@@ -55,105 +100,3 @@ export class OrdersGuard implements CanActivate {
     return true;
   }
 }
-// @Injectable()
-// export class OrdersGuard implements CanActivate {
-//   constructor(
-//     private readonly userRepository: UserRepository,
-//     private readonly ordersRepository: OrdersRepository,
-//   ) {}
-//
-//   async canActivate(context: ExecutionContext): Promise<boolean> {
-//     const request = context.switchToHttp().getRequest<RequestWithUser>();
-//     const userData = request.user;
-//     const ordersId = request.params.orderId; // Оновлено
-//
-//     if (!userData) {
-//       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-//     }
-//
-//     const user = await this.userRepository.findOne({
-//       where: { id: userData.userId },
-//     });
-//     if (!user) {
-//       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-//     }
-//
-//     const orders = await this.ordersRepository.findOne({
-//       where: { id: +ordersId },
-//       relations: ['manager'], // Додаємо `manager`, щоб уникнути проблеми з `orders.manager.id`
-//     });
-//
-//     if (!orders) {
-//       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
-//     }
-//
-//     if (orders.status !== StatusEnum.NEW && orders.status !== null) {
-//       if (orders.manager?.id !== user.id) {
-//         // Додаємо безпечний доступ до `manager.id`
-//         throw new HttpException(
-//           'The application is in the works of another manager',
-//           HttpStatus.CONFLICT,
-//         );
-//       }
-//     }
-//
-//     return true;
-//   }
-// }
-
-// @Injectable()
-// export class OrdersGuard implements CanActivate {
-//   constructor(
-//     private readonly userRepository: UserRepository,
-//     private readonly ordersRepository: OrdersRepository,
-//   ) {}
-//
-//   async canActivate(context: ExecutionContext): Promise<boolean> {
-//     const request = context.switchToHttp().getRequest();
-//     const response = context.switchToHttp().getResponse();
-//     const userData: IUserData = response.locals.user;
-//
-//
-//     console.log('Extracted userData:', userData);
-//
-//     if (!userData) {
-//       throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
-//     }
-//
-//     const user = await this.userRepository.findOne({
-//       where: { id: userData.userId as string },
-//     });
-//
-//     if (!user) {
-//       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-//     }
-//
-//     const ordersId = Number(request.params.orderId);
-//     if (isNaN(ordersId)) {
-//       throw new HttpException('Invalid orderId', HttpStatus.BAD_REQUEST);
-//     }
-//
-//     const orders = await this.ordersRepository.findOne({
-//       where: { id: ordersId },
-//       relations: ['manager'],
-//     });
-//
-//     if (!orders) {
-//       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
-//     }
-//
-//     console.log('User ID:', user.id);
-//     console.log('Order Manager ID:', orders.manager?.id);
-//
-//     if (orders.status !== StatusEnum.NEW && orders.status !== null) {
-//       if (orders.manager?.id !== user.id) {
-//         throw new HttpException(
-//           'The application is in the works of another manager',
-//           HttpStatus.CONFLICT,
-//         );
-//       }
-//     }
-//
-//     return true;
-//   }
-// }
