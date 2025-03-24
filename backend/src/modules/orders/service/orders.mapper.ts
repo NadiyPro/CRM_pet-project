@@ -20,8 +20,8 @@ export class OrdersMapper {
       sum: order.sum,
       alreadyPaid: order.alreadyPaid,
       created_at: order.created_at,
-      manager: order.manager?.surname ?? null,
-      group: order.group_id?.group_name ?? null,
+      manager: order.manager ?? null,
+      group: order.group_id ?? null,
     };
   }
 
@@ -52,8 +52,10 @@ export class OrdersMapper {
       sum: student.sum,
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
-      manager: student.manager.surname,
-      group: student.group_id.group_name,
+      manager: student.manager ?? null,
+      group: student.group_id ?? null,
+      // manager: student.manager.surname,
+      // group: student.group_id.group_name,
     };
   }
 

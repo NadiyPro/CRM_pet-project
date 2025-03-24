@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -82,7 +83,7 @@ export class OrdersController {
   @Put(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
-    @Param('orderId') orderId: number,
+    @Param('orderId', ParseIntPipe) orderId: number,
     @Body() updateOrdersReqDto: UpdateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
     return await this.ordersService.updateId(

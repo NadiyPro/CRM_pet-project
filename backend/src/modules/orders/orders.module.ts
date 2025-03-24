@@ -11,3 +11,18 @@ import { GroupModule } from '../group/group.module';
   exports: [OrdersService],
 })
 export class OrdersModule {}
+// @Module({
+//   imports: [forwardRef(() => AuthModule), GroupModule],
+//   controllers: [OrdersController],
+//   providers: [
+//     {
+//       provide: APP_GUARD,
+//       useClass: JwtAccessGuard,
+//     },
+//     OrdersService,
+//     JwtRefreshGuard,
+//     AuthCacheService,
+//   ],
+//   exports: [OrdersService],
+// })
+// export class OrdersModule {}
