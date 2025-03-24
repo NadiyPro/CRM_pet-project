@@ -52,7 +52,7 @@ export class OrdersController {
   }
 
   @ApiOperation({
-    summary: 'Admin може додати новий orders до списку.',
+    summary: 'Admin може додати новий orders до списку',
     description: 'Admin може додати новий orders до списку',
   })
   @ApiBearerAuth()
