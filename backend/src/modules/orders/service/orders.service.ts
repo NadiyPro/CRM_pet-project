@@ -24,12 +24,64 @@ export class OrdersService {
   }
 
   public async createOrder(
+    userData: IUserData,
     updateOrdersReqDto: UpdateOrdersReqDto,
-  ): Promise<OrdersEntity> {
-    const order = this.ordersRepository.create(updateOrdersReqDto);
-    return await this.ordersRepository.save(order);
+  ): Promise<UpdateOrdersResDto> {
+    const user = await this.userRepository.findOne({
+      where: { id: userData.userId },
+    });
+    if (!user) {
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+    }
+    const order = this.ordersRepository.create({
+      ...updateOrdersReqDto,
+      manager: user,
+    });
+    await this.ordersRepository.save(order);
+    return await this.ordersRepository.findOne({
+      where: { id: order.id },
+      // relations: ['manager'], // Додаємо `manager`
+    });
   }
 
+  // public async updateId(
+  //   userData: IUserData,
+  //   orderId: number,
+  //   updateOrdersReqDto: UpdateOrdersReqDto,
+  // ): Promise<UpdateOrdersResDto> {
+  //   const user = await this.userRepository.findOne({
+  //     where: { id: userData.userId },
+  //   });
+  //   if (!user) {
+  //     throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  //   }
+  //
+  //   const order = await this.ordersRepository.findOne({
+  //     where: { id: orderId },
+  //   });
+  //
+  //   if (order.status === StatusEnum.NEW || order.status === null) {
+  //     await this.ordersRepository.update(orderId, {
+  //       ...updateOrdersReqDto,
+  //       manager: user,
+  //       status: StatusEnum.IN_WORK,
+  //     });
+  //   }
+  //
+  //   const updatedOrder = await this.ordersRepository.findOne({
+  //     where: { id: orderId },
+  //     // relations: ['manager'], // Завантаження `manager`
+  //   });
+  //
+  //   if (!updatedOrder) {
+  //     throw new HttpException(
+  //       'Failed to update order',
+  //       HttpStatus.INTERNAL_SERVER_ERROR,
+  //     );
+  //   }
+  //
+  //   return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
+  // }
   public async updateId(
     userData: IUserData,
     orderId: number,
@@ -44,7 +96,12 @@ export class OrdersService {
 
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
+      relations: ['manager'], // Завантажуємо `manager`
     });
+
+    if (!order) {
+      throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+    }
 
     if (order.status === StatusEnum.NEW || order.status === null) {
       await this.ordersRepository.update(orderId, {
@@ -56,7 +113,7 @@ export class OrdersService {
 
     const updatedOrder = await this.ordersRepository.findOne({
       where: { id: orderId },
-      // relations: ['manager'], // Завантаження `manager`
+      relations: ['manager'], // Додаємо `manager`
     });
 
     if (!updatedOrder) {

@@ -42,7 +42,7 @@ export class BaseOrdersReqDto {
   phone: string | null;
 
   @ApiProperty({ example: 30 })
-  @Transform(({ value }) => parseInt(value, 10))
+  @Type(() => Number)
   @IsInt()
   @Min(18)
   @Max(100)
@@ -73,12 +73,12 @@ export class BaseOrdersReqDto {
   course_type: CourseTypeEnum | null;
 
   @ApiProperty({ example: 100000 })
-  @Transform(({ value }) => parseInt(value, 10))
+  @Type(() => Number)
   @IsInt()
   sum: number | null;
 
   @ApiProperty({ example: 100000 })
-  @Transform(({ value }) => parseInt(value, 10))
+  @Type(() => Number)
   @IsInt()
   alreadyPaid: number | null;
 

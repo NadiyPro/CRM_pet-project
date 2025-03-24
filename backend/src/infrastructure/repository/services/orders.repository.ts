@@ -20,7 +20,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoin('orders.group_id', 'groupOrders')
       .leftJoinAndSelect('orders.messages', 'messages')
       .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_id');
+      .addSelect('groupOrders.group_name', 'group_name');
 
     if (query.search) {
       qb.andWhere(
@@ -37,7 +37,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search 
-          OR users.surname LIKE :search OR group_id LIKE :search
+          OR users.surname LIKE :search OR groupOrders.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -59,13 +59,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'manager',
-        'group_id',
+        'group',
       ];
       const column =
         query.sortField === 'manager'
           ? 'users.surname'
           : query.sortField === 'group'
-            ? 'group_id'
+            ? 'groupOrders.group_name'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -97,7 +97,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoin('orders.group_id', 'groupOrders')
       .leftJoinAndSelect('orders.messages', 'messages')
       .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_id')
+      .addSelect('groupOrders.group_name', 'group_name')
       // .leftJoinAndSelect('orders.manager', 'manager')
       .andWhere('users.id = :userId', { userId: userData.userId });
     // .leftJoinAndSelect('orders.group', 'group')
@@ -118,7 +118,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          users.surname LIKE :search OR group_id LIKE :search
+          users.surname LIKE :search OR groupOrders.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -141,14 +141,14 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'created_at',
         'managerId',
         'manager',
-        'group_id',
+        'group',
       ];
 
       const column =
         query.sortField === 'manager'
           ? 'users.surname'
           : query.sortField === 'group'
-            ? 'group_id'
+            ? 'groupOrders.group_name'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -173,7 +173,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoin('orders.group_id', 'groupOrders')
       // .leftJoinAndSelect('orders.messages', 'messages')
       .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_id')
+      .addSelect('groupOrders.group_name', 'group_name')
       // .leftJoinAndSelect('orders.manager', 'manager')
       // .leftJoinAndSelect('orders.group', 'group')
       // .addSelect(['manager.surname', 'group.group'])

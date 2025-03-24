@@ -60,9 +60,10 @@ export class OrdersController {
   @Role(RoleTypeEnum.ADMIN)
   @Post()
   public async createOrder(
+    @CurrentUser() userData: IUserData,
     @Body() updateOrdersReqDto: UpdateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
-    return await this.ordersService.createOrder(updateOrdersReqDto);
+    return await this.ordersService.createOrder(userData, updateOrdersReqDto);
   }
 
   @ApiOperation({
