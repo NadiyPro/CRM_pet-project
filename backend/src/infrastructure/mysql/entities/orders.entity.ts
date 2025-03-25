@@ -74,14 +74,16 @@ export class OrdersEntity {
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
-  @ManyToOne(() => UserEntity, (entity) => entity.orders)
+  @ManyToOne(() => UserEntity, (entity) => entity.orders, { nullable: true })
   @JoinColumn({ name: 'manager_id' })
   manager: UserEntity | null;
 
-  @OneToMany(() => MessageEntity, (message) => message.order)
+  @OneToMany(() => MessageEntity, (message) => message.order, {
+    nullable: true,
+  })
   messages?: MessageEntity[] | null;
 
-  @ManyToOne(() => GroupEntity, (entity) => entity.orders)
+  @ManyToOne(() => GroupEntity, (entity) => entity.orders, { nullable: true })
   @JoinColumn({ name: 'group_id' })
   group_id?: GroupEntity | null;
 }

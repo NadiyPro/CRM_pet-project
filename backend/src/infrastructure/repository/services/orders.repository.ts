@@ -16,11 +16,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoin('orders.manager', 'users')
-      .leftJoin('orders.group_id', 'groupOrders')
-      .leftJoinAndSelect('orders.messages', 'messages')
-      .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_name');
+      .leftJoinAndSelect('orders.manager', 'manager')
+      .leftJoinAndSelect('orders.group_id', 'group_id')
+      // .leftJoin('orders.manager', 'manager')
+      // .leftJoin('orders.group_id', 'groupOrders')
+      .leftJoinAndSelect('orders.messages', 'messages');
+    // .addSelect('manager.surname', 'manager')
+    // .addSelect('groupOrders.group_name', 'group_name');
 
     if (query.search) {
       qb.andWhere(
@@ -37,7 +39,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search 
-          OR users.surname LIKE :search OR groupOrders.group_name LIKE :search
+          OR manager.surname LIKE :search OR group_id.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -59,13 +61,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'manager',
-        'group',
+        'group_id',
       ];
       const column =
         query.sortField === 'manager'
-          ? 'users.surname'
-          : query.sortField === 'group'
-            ? 'groupOrders.group_name'
+          ? 'manager.surname'
+          : query.sortField === 'group_id'
+            ? 'group_id.group_name'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -86,7 +88,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     return await qb.getManyAndCount();
   }
 
-  public async findMySOrder(
+  public async findMyOrder(
     userData: IUserData,
     query: ListOrdersQueryReqDto,
   ): Promise<[OrdersEntity[], number]> {

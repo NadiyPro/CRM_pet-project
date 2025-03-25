@@ -103,11 +103,11 @@ export class OrdersController {
   @UseGuards(ApprovedRoleGuard)
   @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
   @Get('myOrder')
-  public async findMySOrder(
+  public async findMyOrder(
     @CurrentUser() userData: IUserData,
     @Query() query: ListOrdersQueryReqDto,
   ): Promise<ListOrdersResQueryDto> {
-    const [entities, total] = await this.ordersService.findMySOrder(
+    const [entities, total] = await this.ordersService.findMyOrder(
       userData,
       query,
     );
