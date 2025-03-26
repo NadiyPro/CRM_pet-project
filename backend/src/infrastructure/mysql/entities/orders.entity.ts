@@ -85,5 +85,5 @@ export class OrdersEntity {
 
   @ManyToOne(() => GroupEntity, (entity) => entity.orders, { nullable: true })
   @JoinColumn({ name: 'group_id' })
-  group_id?: GroupEntity | null;
+  group_name?: GroupEntity | null;
 }

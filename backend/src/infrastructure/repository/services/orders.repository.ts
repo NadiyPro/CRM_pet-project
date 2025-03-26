@@ -17,12 +17,9 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       'orders',
     )
       .leftJoinAndSelect('orders.manager', 'manager')
-      .leftJoinAndSelect('orders.group_id', 'group_id')
-      // .leftJoin('orders.manager', 'manager')
-      // .leftJoin('orders.group_id', 'groupOrders')
+      // доступаюсь до колонки та кажу що буду працювати з таблицею підвязаною до цієї колонки
+      .leftJoinAndSelect('orders.group_name', 'group_name')
       .leftJoinAndSelect('orders.messages', 'messages');
-    // .addSelect('manager.surname', 'manager')
-    // .addSelect('groupOrders.group_name', 'group_name');
 
     if (query.search) {
       qb.andWhere(
@@ -39,7 +36,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search 
-          OR manager.surname LIKE :search OR group_id.group_name LIKE :search
+          OR manager.surname LIKE :search OR group_name.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -61,13 +58,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'alreadyPaid',
         'created_at',
         'manager',
-        'group_id',
+        'group_name',
       ];
       const column =
         query.sortField === 'manager'
           ? 'manager.surname'
-          : query.sortField === 'group_id'
-            ? 'group_id.group_name'
+          : query.sortField === 'group_name'
+            ? 'group_name.group_name'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -95,15 +92,10 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
       'orders',
     )
-      .leftJoin('orders.manager', 'users')
-      .leftJoin('orders.group_id', 'groupOrders')
-      .leftJoinAndSelect('orders.messages', 'messages')
-      .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_name')
-      // .leftJoinAndSelect('orders.manager', 'manager')
-      .andWhere('users.id = :userId', { userId: userData.userId });
-    // .leftJoinAndSelect('orders.group', 'group')
-    // .leftJoinAndSelect('orders.messages', 'messages');
+      .leftJoinAndSelect('orders.manager', 'manager')
+      .andWhere('manager.id = :userId', { userId: userData.userId })
+      .leftJoinAndSelect('orders.group_name', 'group_name')
+      .leftJoinAndSelect('orders.messages', 'messages');
 
     if (query.search) {
       qb.andWhere(
@@ -120,7 +112,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
-          users.surname LIKE :search OR groupOrders.group_name LIKE :search
+          manager.surname LIKE :search OR group_name.group_name LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -143,14 +135,14 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'created_at',
         'managerId',
         'manager',
-        'group',
+        'group_name',
       ];
 
       const column =
         query.sortField === 'manager'
-          ? 'users.surname'
-          : query.sortField === 'group'
-            ? 'groupOrders.group_name'
+          ? 'manager.surname'
+          : query.sortField === 'group_name'
+            ? 'group_name.group_name'
             : allowedColumns.includes(query.sortField)
               ? `orders.${query.sortField}`
               : 'orders.created_at';
@@ -171,14 +163,9 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.createQueryBuilder('orders')
-      .leftJoin('orders.manager', 'users')
-      .leftJoin('orders.group_id', 'groupOrders')
-      // .leftJoinAndSelect('orders.messages', 'messages')
-      .addSelect('users.surname', 'manager')
-      .addSelect('groupOrders.group_name', 'group_name')
-      // .leftJoinAndSelect('orders.manager', 'manager')
-      // .leftJoinAndSelect('orders.group', 'group')
-      // .addSelect(['manager.surname', 'group.group'])
+      .leftJoinAndSelect('orders.manager', 'manager')
+      .leftJoinAndSelect('orders.group_name', 'group_name')
+      .leftJoinAndSelect('orders.messages', 'messages')
       .addOrderBy('orders.created_at', 'DESC')
       .getManyAndCount();
   }
@@ -192,22 +179,24 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
         'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
         'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
+        'COUNT(CASE WHEN orders.status = "null" THEN orders.id END) as null',
       ])
       .getRawOne();
   }
 
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.createQueryBuilder('orders')
-      .leftJoin('orders.manager', 'users')
+      .leftJoin('orders.manager', 'manager')
       .select([
-        'users.id',
-        'users.surname',
+        'manager.id',
+        'manager.surname',
         'COUNT(orders.id) as total',
         'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
         'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',
         'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
         'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
         'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
+        'COUNT(CASE WHEN orders.status = "null" THEN orders.id END) as null',
       ])
       .groupBy('orders.manager.id')
       .getRawMany();

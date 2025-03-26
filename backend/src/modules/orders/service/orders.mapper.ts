@@ -21,7 +21,7 @@ export class OrdersMapper {
       alreadyPaid: order.alreadyPaid,
       created_at: order.created_at,
       manager: order.manager?.surname ?? null,
-      group: order.group_id?.group_name ?? null,
+      group: order.group_name?.group_name ?? null,
     };
   }
 
@@ -53,7 +53,7 @@ export class OrdersMapper {
       alreadyPaid: student.alreadyPaid,
       created_at: student.created_at,
       manager: student.manager?.surname ?? null,
-      group: student.group_id?.group_name ?? null,
+      group: student.group_name?.group_name ?? null,
       // manager: student.manager.surname,
       // group: student.group_id.group_name,
     };
