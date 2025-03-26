@@ -19,6 +19,4 @@ export interface BaseOrdersResDto {
   created_at: Date;
   manager: string | null;
   group: string | null;
-  // manager: string | null;
-  // group: string | null;
 }

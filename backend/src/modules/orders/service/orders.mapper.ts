@@ -54,8 +54,6 @@ export class OrdersMapper {
       created_at: student.created_at,
       manager: student.manager?.surname ?? null,
       group: student.group_name?.group_name ?? null,
-      // manager: student.manager.surname,
-      // group: student.group_id.group_name,
     };
   }
 

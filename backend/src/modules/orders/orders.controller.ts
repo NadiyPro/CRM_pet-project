@@ -75,7 +75,11 @@ export class OrdersController {
       'то буде автоматично змінено status на In_Work та підтягнеться Призвіще менеджера.' +
       '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)' +
       '*можна залишати пусті поля' +
-      '*сортування по замовченню по полю created_at, DESC',
+      '*сортування по замовченню по полю created_at, DESC' +
+      "*course може бути: FS, QACX, JCX', JSCX, FE, PCX\n" +
+      '*course_format може бути: static, online\n' +
+      '*course_type може бути: pro, minimal, premium, incubator, vip\n' +
+      '*status може бути: In_work, New, Aggre, Disaggre, Dubbing\n',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
