@@ -68,7 +68,7 @@ export class OrdersGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // const request = context.switchToHttp().getRequest<RequestWithUser>();
-    const request = context.switchToHttp().getRequest<RequestWithUser>(); // Додаємо типізацію
+    const request = context.switchToHttp().getRequest<RequestWithUser>();
     // return request.res.locals.user as IUserData;
     const userData = request.res.locals.user as IUserData;
     const orderId = request.params.orderId;
