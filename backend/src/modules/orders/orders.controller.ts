@@ -25,6 +25,7 @@ import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { UpdateOrdersResDto } from './models/dto/res/updateOrders.res.dto';
 import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
+import { CreateOrdersReqDto } from './models/dto/req/createOrders.req.dto';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -43,7 +44,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get()
   public async findAll(
     @Query() query: ListOrdersQueryReqDto,
@@ -58,13 +59,13 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Post()
   public async createOrder(
     @CurrentUser() userData: IUserData,
-    @Body() updateOrdersReqDto: UpdateOrdersReqDto,
+    @Body() createOrdersReqDto: CreateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
-    return await this.ordersService.createOrder(userData, updateOrdersReqDto);
+    return await this.ordersService.createOrder(userData, createOrdersReqDto);
   }
 
   @ApiOperation({
@@ -83,7 +84,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Put(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
@@ -105,7 +106,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('myOrder')
   public async findMyOrder(
     @CurrentUser() userData: IUserData,
@@ -126,7 +127,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('resetFilters')
   public async resetFilters(): Promise<ListOrdersResQueryDto> {
     const [entities, total] = await this.ordersService.resetFilters();
@@ -139,7 +140,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Delete(':orderId')
   public async deleteId(@Param('orderId') orderId: number): Promise<string> {
     return await this.ordersService.deleteId(orderId);
@@ -153,7 +154,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Get('ordersStatisticAll')
   public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
     return await this.ordersService.ordersStatisticAll();
@@ -169,7 +170,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Get('ordersStatisticManager')
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.ordersService.ordersStatisticManager();

@@ -20,7 +20,7 @@ export class UsersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Post('role')
   async giveRole(@Body() giveRoleDto: GiveRoleDto): Promise<UserResDto> {
     const result = await this.usersService.giveRole(giveRoleDto);

@@ -9,6 +9,7 @@ import { StatusEnum } from '../../../infrastructure/mysql/entities/enums/status.
 import { OrdersStatisticResDto } from '../models/dto/res/ordersStatistic.res.dto';
 import { UpdateOrdersReqDto } from '../models/dto/req/updateOrder.req.dto';
 import { OrdersMapper } from './orders.mapper';
+import { CreateOrdersReqDto } from '../models/dto/req/createOrders.req.dto';
 
 @Injectable()
 export class OrdersService {
@@ -25,7 +26,7 @@ export class OrdersService {
 
   public async createOrder(
     userData: IUserData,
-    updateOrdersReqDto: UpdateOrdersReqDto,
+    createOrdersReqDto: CreateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
@@ -34,7 +35,7 @@ export class OrdersService {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
     const order = this.ordersRepository.create({
-      ...updateOrdersReqDto,
+      ...createOrdersReqDto,
       manager: user,
     });
     await this.ordersRepository.save(order);

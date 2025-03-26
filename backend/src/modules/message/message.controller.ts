@@ -34,7 +34,7 @@ export class MessageController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get(':orderId')
   public async findId(
     @Param('orderId') orderId: number,
@@ -52,7 +52,7 @@ export class MessageController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Post(':orderId')
   public async createMessage(
     @CurrentUser() userData: IUserData,
@@ -72,7 +72,7 @@ export class MessageController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Delete(':messageId')
   public async deleteId(
     @Param('messageId') messageId: number,

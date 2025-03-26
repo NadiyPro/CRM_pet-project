@@ -28,7 +28,7 @@ export class GroupController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get()
   public async findAll(
     query: ListGroupQueryReqDto,
@@ -42,7 +42,7 @@ export class GroupController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
-  @Role(RoleTypeEnum.ADMIN || RoleTypeEnum.MANAGER)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Post(':orderId')
   public async create(
     // @CurrentUser() userData: IUserData,
@@ -58,7 +58,7 @@ export class GroupController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role(RoleTypeEnum.ADMIN)
+  @Role([RoleTypeEnum.ADMIN])
   @Delete(':groupId')
   public async deleteId(@Param('groupId') groupId: number): Promise<string> {
     return await this.groupService.deleteId(groupId);
