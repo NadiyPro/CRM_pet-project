@@ -181,7 +181,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
         'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
         'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
-        'COUNT(CASE WHEN orders.status = "null" THEN orders.id END) as null',
+        'COUNT(CASE WHEN orders.status IS NULL THEN orders.id END) as No_status',
       ])
       .getRawOne();
   }
@@ -198,7 +198,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
         'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
         'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
-        'COUNT(CASE WHEN orders.status = "null" THEN orders.id END) as null',
+        'COUNT(CASE WHEN orders.status IS NULL THEN orders.id END) as No_status',
       ])
       .groupBy('orders.manager.id')
       .getRawMany();

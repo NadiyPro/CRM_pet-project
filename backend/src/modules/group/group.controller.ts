@@ -6,6 +6,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GroupService } from './service/group.service';
@@ -16,6 +17,7 @@ import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
+import { BaseGroupReqDto } from './models/dto/req/baseGroup.req.dto';
 
 @ApiTags(TableNameEnum.GROUP)
 @Controller(TableNameEnum.GROUP)
@@ -31,7 +33,7 @@ export class GroupController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get()
   public async findAll(
-    query: ListGroupQueryReqDto,
+    @Query() query: ListGroupQueryReqDto,
   ): Promise<BaseGroupResDto[] | null> {
     return await this.groupService.findAll(query);
   }
@@ -45,11 +47,9 @@ export class GroupController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Post()
   public async create(
-    // @CurrentUser() userData: IUserData,
-    // @Param('studentId', ParseUUIDPipe) studentId: string,
-    @Body() group: string,
+    @Body() group_name: BaseGroupReqDto,
   ): Promise<BaseGroupResDto> {
-    return await this.groupService.create(group);
+    return await this.groupService.create(group_name);
   }
 
   @ApiOperation({
