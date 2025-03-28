@@ -32,7 +32,7 @@ export class GroupController {
   @Get()
   public async findAll(
     query: ListGroupQueryReqDto,
-  ): Promise<BaseGroupResDto[]> {
+  ): Promise<BaseGroupResDto[] | null> {
     return await this.groupService.findAll(query);
   }
 
@@ -43,7 +43,7 @@ export class GroupController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Post(':orderId')
+  @Post()
   public async create(
     // @CurrentUser() userData: IUserData,
     // @Param('studentId', ParseUUIDPipe) studentId: string,

@@ -54,6 +54,27 @@ export class OrdersController {
   }
 
   @ApiOperation({
+    summary: 'Для фільтрації та сортуванню своїх заявок по orders',
+    description:
+      'Для фільтрації та сортуванню своїх заявок по orders. ' +
+      '*сортування по замовченню по полю created_at, DESC',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Get('myOrder')
+  public async findMyOrder(
+    @CurrentUser() userData: IUserData,
+    @Query() query: ListOrdersQueryReqDto,
+  ): Promise<ListOrdersResQueryDto> {
+    const [entities, total] = await this.ordersService.findMyOrder(
+      userData,
+      query,
+    );
+    return OrdersMapper.toAllResDtoList(entities, total, query);
+  }
+
+  @ApiOperation({
     summary: 'Admin може додати новий orders до списку',
     description: 'Admin може додати новий orders до списку',
   })
@@ -66,6 +87,51 @@ export class OrdersController {
     @Body() createOrdersReqDto: CreateOrdersReqDto,
   ): Promise<UpdateOrdersResDto> {
     return await this.ordersService.createOrder(userData, createOrdersReqDto);
+  }
+
+  @ApiOperation({
+    summary: 'Для того, щоб скинути всі фільтри та сортування.',
+    description:
+      'Для того, щоб скинути всі фільтри та сортування. ' +
+      '*сортування по замовченню по полю created_at, DESC',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Get('resetFilters')
+  public async resetFilters(): Promise<ListOrdersResQueryDto> {
+    const [entities, total] = await this.ordersService.resetFilters();
+    return OrdersMapper.resetFiltersAllResDtoList(entities, total);
+  }
+
+  @ApiOperation({
+    summary:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+    description:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Get('ordersStatisticAll')
+  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+    return await this.ordersService.ordersStatisticAll();
+  }
+
+  @ApiOperation({
+    summary:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+      'по конкретному менеджеру (по id менеджера)',
+    description:
+      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+      'по конкретному менеджеру (по id менеджера)',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Get('ordersStatisticManager')
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    return await this.ordersService.ordersStatisticManager();
   }
 
   @ApiOperation({
@@ -99,39 +165,17 @@ export class OrdersController {
   }
 
   @ApiOperation({
-    summary: 'Для фільтрації та сортуванню своїх заявок по orders',
-    description:
-      'Для фільтрації та сортуванню своїх заявок по orders. ' +
-      '*сортування по замовченню по полю created_at, DESC',
+    summary: 'Для відображення інформації по order за його id',
+    description: 'Для відображення інформації по order за його id',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
+  @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Get('myOrder')
-  public async findMyOrder(
-    @CurrentUser() userData: IUserData,
-    @Query() query: ListOrdersQueryReqDto,
-  ): Promise<ListOrdersResQueryDto> {
-    const [entities, total] = await this.ordersService.findMyOrder(
-      userData,
-      query,
-    );
-    return OrdersMapper.toAllResDtoList(entities, total, query);
-  }
-
-  @ApiOperation({
-    summary: 'Для того, щоб скинути всі фільтри та сортування.',
-    description:
-      'Для того, щоб скинути всі фільтри та сортування. ' +
-      '*сортування по замовченню по полю created_at, DESC',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Get('resetFilters')
-  public async resetFilters(): Promise<ListOrdersResQueryDto> {
-    const [entities, total] = await this.ordersService.resetFilters();
-    return OrdersMapper.resetFiltersAllResDtoList(entities, total);
+  @Get(':orderId')
+  public async findOneOrder(
+    @Param('orderId', ParseIntPipe) orderId: number,
+  ): Promise<UpdateOrdersResDto> {
+    return await this.ordersService.findOneOrder(orderId);
   }
 
   @ApiOperation({
@@ -142,37 +186,9 @@ export class OrdersController {
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
   @Delete(':orderId')
-  public async deleteId(@Param('orderId') orderId: number): Promise<string> {
+  public async deleteId(
+    @Param('orderId', ParseIntPipe) orderId: number,
+  ): Promise<string> {
     return await this.ordersService.deleteId(orderId);
-  }
-
-  @ApiOperation({
-    summary:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів',
-    description:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN])
-  @Get('ordersStatisticAll')
-  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
-    return await this.ordersService.ordersStatisticAll();
-  }
-
-  @ApiOperation({
-    summary:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
-      'по конкретному менеджеру (по id менеджера)',
-    description:
-      'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
-      'по конкретному менеджеру (по id менеджера)',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN])
-  @Get('ordersStatisticManager')
-  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
-    return await this.ordersService.ordersStatisticManager();
   }
 }

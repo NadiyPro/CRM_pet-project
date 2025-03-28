@@ -2,6 +2,7 @@ import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/c
 import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
 import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
 import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
+import { MessageEntity } from '../../../../../infrastructure/mysql/entities/message.entity';
 
 export interface BaseOrdersResDto {
   id: number | null;
@@ -19,4 +20,5 @@ export interface BaseOrdersResDto {
   created_at: Date;
   manager: string | null;
   group: string | null;
+  messages: MessageEntity[] | null;
 }

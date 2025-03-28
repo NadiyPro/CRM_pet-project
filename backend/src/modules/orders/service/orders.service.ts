@@ -24,6 +24,34 @@ export class OrdersService {
     return await this.ordersRepository.findAll(query);
   }
 
+  public async resetFilters(): Promise<[OrdersEntity[], number]> {
+    return await this.ordersRepository.resetFilters();
+  }
+
+  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+    return await this.ordersRepository.ordersStatisticAll();
+  }
+
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    const statisticAll = await this.ordersRepository.ordersStatisticManager();
+    return statisticAll.map((item) => ({
+      manager: item.manager,
+      total: Number(item.total) || null,
+      In_work: Number(item.In_work) || null,
+      New: Number(item.New) || null,
+      Aggre: Number(item.Aggre) || null,
+      Disaggre: Number(item.Disaggre) || null,
+      Dubbing: Number(item.Dubbing) || null,
+    }));
+  }
+
+  public async findMyOrder(
+    userData: IUserData,
+    query: ListOrdersQueryReqDto,
+  ): Promise<[OrdersEntity[], number]> {
+    return await this.ordersRepository.findMyOrder(userData, query);
+  }
+
   public async createOrder(
     userData: IUserData,
     createOrdersReqDto: CreateOrdersReqDto,
@@ -34,6 +62,7 @@ export class OrdersService {
     if (!user) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+
     const order = this.ordersRepository.create({
       ...createOrdersReqDto,
       manager: user,
@@ -41,7 +70,7 @@ export class OrdersService {
     await this.ordersRepository.save(order);
     return await this.ordersRepository.findOne({
       where: { id: order.id },
-      relations: ['manager'], // Додаємо `manager`
+      relations: ['manager'],
     });
   }
 
@@ -87,42 +116,21 @@ export class OrdersService {
     return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
   }
 
-  // public async findMySOrder(
-  //   userData: IUserData,
-  //   query: ListOrdersQueryReqDto,
-  // ): Promise<[OrdersEntity[], number]> {
-  //   return await this.ordersRepository.findMySOrder(userData, query);
-  // }
-  public async findMyOrder(
-    userData: IUserData,
-    query: ListOrdersQueryReqDto,
-  ): Promise<[OrdersEntity[], number]> {
-    return await this.ordersRepository.findMyOrder(userData, query);
-  }
+  public async findOneOrder(orderId: number): Promise<UpdateOrdersResDto> {
+    const order = await this.ordersRepository.findOne({
+      where: { id: orderId },
+      relations: ['manager'],
+    });
 
-  public async resetFilters(): Promise<[OrdersEntity[], number]> {
-    return await this.ordersRepository.resetFilters();
+    if (!order) {
+      throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+    }
+
+    return OrdersMapper.toUpdatedOrderResDto(order);
   }
 
   public async deleteId(orderId: number): Promise<string> {
     await this.ordersRepository.delete({ id: orderId });
     return 'The user in the table (db) was successfully deleted';
-  }
-
-  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
-    return await this.ordersRepository.ordersStatisticAll();
-  }
-
-  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
-    const statisticAll = await this.ordersRepository.ordersStatisticManager();
-    return statisticAll.map((item) => ({
-      manager: item.manager,
-      total: Number(item.total) || null,
-      In_work: Number(item.In_work) || null,
-      New: Number(item.New) || null,
-      Aggre: Number(item.Aggre) || null,
-      Disaggre: Number(item.Disaggre) || null,
-      Dubbing: Number(item.Dubbing) || null,
-    }));
   }
 }

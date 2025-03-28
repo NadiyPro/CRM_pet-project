@@ -22,6 +22,7 @@ export class OrdersMapper {
       created_at: order.created_at,
       manager: order.manager?.surname ?? null,
       group: order.group_name?.group_name ?? null,
+      messages: order.messages ?? null,
     };
   }
 
@@ -54,6 +55,7 @@ export class OrdersMapper {
       created_at: student.created_at,
       manager: student.manager?.surname ?? null,
       group: student.group_name?.group_name ?? null,
+      messages: student.messages ?? null,
     };
   }
 

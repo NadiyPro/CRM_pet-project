@@ -7,5 +7,5 @@ export class BaseGroupReqDto {
   @Length(3, 20)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
-  group: string;
+  group_name: string;
 }

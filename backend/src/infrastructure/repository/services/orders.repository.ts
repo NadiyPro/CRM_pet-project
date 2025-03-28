@@ -150,15 +150,17 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       const order =
         query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
       qb.orderBy(column, order);
-
-      const limit = query.limit || 25;
-      const page = query.page || 1;
-
-      qb.take(query.limit);
-      qb.skip((page - 1) * limit);
-
-      return await qb.getManyAndCount();
+    } else {
+      qb.orderBy('orders.created_at', 'DESC');
     }
+
+    const limit = query.limit || 25;
+    const page = query.page || 1;
+
+    qb.take(query.limit);
+    qb.skip((page - 1) * limit);
+
+    return await qb.getManyAndCount();
   }
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {

@@ -12,14 +12,15 @@ export class GroupService {
   }
 
   public async create(group: string): Promise<BaseGroupResDto> {
-    const new_group = await this.groupRepository.findOneBy({
+    let new_group = await this.groupRepository.findOneBy({
       group_name: group,
     });
     if (new_group) {
       throw new HttpException('Group already exists', HttpStatus.CONFLICT);
     }
     const createdGroup = await this.groupRepository.save({ group_name: group });
-    return { id: +createdGroup.id, group_name: createdGroup.group_name };
+    new_group = await this.groupRepository.findOneBy({ id: createdGroup.id });
+    return new_group;
   }
 
   public async deleteId(groupId: number): Promise<string> {
