@@ -16,7 +16,6 @@ import { CourseTypeEnum } from './enums/courseType.enum';
 import { StatusEnum } from './enums/status.enum';
 import { UserEntity } from './user.entity';
 import { MessageEntity } from './message.entity';
-import { GroupEntity } from './group.entity';
 
 @Index(['name'])
 @Entity(TableNameEnum.ORDERS)
@@ -78,6 +77,9 @@ export class OrdersEntity {
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
+  @Column({ type: 'varchar', nullable: true, unique: true })
+  group_name: string | null;
+
   @ManyToOne(() => UserEntity, (entity) => entity.orders, { nullable: true })
   @JoinColumn({ name: 'manager_id' })
   manager: UserEntity | null;
@@ -86,8 +88,4 @@ export class OrdersEntity {
     nullable: true,
   })
   messages?: MessageEntity[] | null;
-
-  @ManyToOne(() => GroupEntity, (entity) => entity.orders, { nullable: true })
-  @JoinColumn({ name: 'group_id' })
-  group_name?: GroupEntity | null;
 }

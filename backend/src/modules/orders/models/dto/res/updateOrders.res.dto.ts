@@ -18,6 +18,7 @@ export interface UpdateOrdersResDto {
   sum: number | null;
   alreadyPaid: number | null;
   created_at: Date;
-  updated_at: Date | null;
+  updated_at?: Date | null;
   manager: UserEntity;
+  group: string | null;
 }

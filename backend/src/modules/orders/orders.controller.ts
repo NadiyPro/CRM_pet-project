@@ -27,6 +27,7 @@ import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto'
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { CreateOrdersReqDto } from './models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from './models/dto/res/ordersStatisticAll.res.dto';
+import { OrdersEntity } from '../../infrastructure/mysql/entities/orders.entity';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -86,7 +87,7 @@ export class OrdersController {
   public async createOrder(
     @CurrentUser() userData: IUserData,
     @Body() createOrdersReqDto: CreateOrdersReqDto,
-  ): Promise<UpdateOrdersResDto> {
+  ): Promise<OrdersEntity> {
     return await this.ordersService.createOrder(userData, createOrdersReqDto);
   }
 
@@ -133,6 +134,23 @@ export class OrdersController {
   @Get('ordersStatisticManager')
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.ordersService.ordersStatisticManager();
+  }
+
+  @ApiOperation({
+    summary: 'Для додавання group до order',
+    description:
+      'Для додавання group до order по group_id ' +
+      '*(витягаємо всі групи з таблиці group та обираємо потрібну нам, зберігаємо значення). ',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard, OrdersGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Post(':orderId')
+  public async addGroup(
+    @Param('orderId', ParseIntPipe) orderId: number,
+    @Param('group_name') group_name: string,
+  ): Promise<OrdersEntity> {
+    return await this.ordersService.addGroup(orderId, group_name);
   }
 
   @ApiOperation({

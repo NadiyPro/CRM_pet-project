@@ -1,4 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { OrdersRepository } from '../../../infrastructure/repository/services/orders.repository';
 import { ListOrdersQueryReqDto } from '../models/dto/req/listOrdersQuery.req.dto';
 import { OrdersEntity } from '../../../infrastructure/mysql/entities/orders.entity';
@@ -11,12 +16,14 @@ import { UpdateOrdersReqDto } from '../models/dto/req/updateOrder.req.dto';
 import { OrdersMapper } from './orders.mapper';
 import { CreateOrdersReqDto } from '../models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from '../models/dto/res/ordersStatisticAll.res.dto';
+import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
 
 @Injectable()
 export class OrdersService {
   constructor(
     private readonly ordersRepository: OrdersRepository,
     private readonly userRepository: UserRepository,
+    private readonly groupRepository: GroupRepository,
   ) {}
 
   public async findAll(
@@ -55,7 +62,7 @@ export class OrdersService {
   public async createOrder(
     userData: IUserData,
     createOrdersReqDto: CreateOrdersReqDto,
-  ): Promise<UpdateOrdersResDto> {
+  ): Promise<OrdersEntity> {
     const user = await this.userRepository.findOne({
       where: { id: userData.userId },
     });
@@ -67,6 +74,31 @@ export class OrdersService {
       ...createOrdersReqDto,
       manager: user,
     });
+    await this.ordersRepository.save(order);
+    return await this.ordersRepository.findOne({
+      where: { id: order.id },
+      relations: ['manager'],
+    });
+  }
+
+  public async addGroup(
+    orderId: number,
+    group_name: string,
+  ): Promise<OrdersEntity> {
+    const order = await this.ordersRepository.findOne({
+      where: { id: orderId },
+    });
+    if (!order) {
+      throw new NotFoundException(`Order with id ${orderId} not found`);
+    }
+
+    const group = await this.groupRepository.findOne({
+      where: { group_name: group_name },
+    });
+    if (!group) {
+      throw new NotFoundException(`Group with id ${group_name} not found`);
+    }
+    order.group_name = group.group_name;
     await this.ordersRepository.save(order);
     return await this.ordersRepository.findOne({
       where: { id: order.id },

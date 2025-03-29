@@ -24,19 +24,4 @@ export class GroupRepository extends Repository<GroupEntity> {
 
     return qb.getRawMany();
   }
-
-  // public async findAll(query: ListGroupQueryReqDto): Promise<GroupEntity[]> {
-  //   const qb = this.createQueryBuilder('group');
-  //   if (query.search) {
-  //     qb.andWhere(
-  //       `(
-  //        group.group_name LIKE :search
-  //       )`,
-  //       { search: `%${query.search}%` },
-  //     );
-  //   }
-  //
-  //   qb.orderBy('group.created_at', 'DESC');
-  //   return await qb.getMany();
-  // }
 }

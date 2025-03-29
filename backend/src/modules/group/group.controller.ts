@@ -15,7 +15,6 @@ import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
-import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { BaseGroupReqDto } from './models/dto/req/baseGroup.req.dto';
 
@@ -44,8 +43,8 @@ export class GroupController {
     description: 'Admin / manager створити нову group',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard, OrdersGuard)
-  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
   @Post()
   public async create(
     @Body() group_name: BaseGroupReqDto,
