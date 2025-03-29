@@ -32,7 +32,6 @@ export class OrdersService {
   public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.ordersRepository.ordersStatisticAll();
   }
-
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     const statisticAll = await this.ordersRepository.ordersStatisticManager();
     return statisticAll.map((item) => ({

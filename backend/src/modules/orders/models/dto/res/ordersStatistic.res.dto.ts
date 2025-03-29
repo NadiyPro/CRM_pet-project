@@ -1,7 +1,5 @@
-import { UserEntity } from '../../../../../infrastructure/mysql/entities/user.entity';
-
 export interface OrdersStatisticResDto {
-  manager: UserEntity | null;
+  manager: string | null;
   total: number | null;
   In_work: number | null;
   New: number | null;

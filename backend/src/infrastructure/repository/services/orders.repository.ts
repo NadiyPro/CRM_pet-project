@@ -191,8 +191,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     return await this.createQueryBuilder('orders')
       .leftJoin('orders.manager', 'manager')
       .select([
-        'manager.id',
-        'manager.surname',
+        'manager.id AS manager',
         'COUNT(orders.id) as total',
         "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'in_work' THEN orders.id END) as In_work",
         "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'new' THEN orders.id END) as New",
