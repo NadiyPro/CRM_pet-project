@@ -25,6 +25,18 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @ApiOperation({
+    summary: 'Для виваннтаження всіх messages',
+    description: 'Для виваннтаження всіх messages',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Get()
+  public async findAll(): Promise<BaseMessageResDto[]> {
+    return await this.messageService.findAll();
+  }
+
+  @ApiOperation({
     summary:
       'Admin | manager може переглядати всі коментарі, ' +
       'які відносяться до кокретного студента за його studentId',

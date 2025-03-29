@@ -26,6 +26,7 @@ import { UpdateOrdersResDto } from './models/dto/res/updateOrders.res.dto';
 import { OrdersStatisticResDto } from './models/dto/res/ordersStatistic.res.dto';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { CreateOrdersReqDto } from './models/dto/req/createOrders.req.dto';
+import { OrdersStatisticAllResDto } from './models/dto/res/ordersStatisticAll.res.dto';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -114,7 +115,7 @@ export class OrdersController {
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
   @Get('ordersStatisticAll')
-  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+  public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.ordersService.ordersStatisticAll();
   }
 

@@ -4,6 +4,7 @@ import { OrdersEntity } from '../../mysql/entities/orders.entity';
 import { ListOrdersQueryReqDto } from '../../../modules/orders/models/dto/req/listOrdersQuery.req.dto';
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
 import { OrdersStatisticResDto } from '../../../modules/orders/models/dto/res/ordersStatistic.res.dto';
+import { OrdersStatisticAllResDto } from '../../../modules/orders/models/dto/res/ordersStatisticAll.res.dto';
 
 @Injectable()
 export class OrdersRepository extends Repository<OrdersEntity> {
@@ -172,16 +173,16 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .getManyAndCount();
   }
 
-  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+  public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.createQueryBuilder('orders')
       .select([
         'COUNT(orders.id) as total',
-        'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
-        'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',
-        'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
-        'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
-        'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
-        'COUNT(CASE WHEN orders.status IS NULL THEN orders.id END) as No_status',
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'in_work' THEN orders.id END) as In_work",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'new' THEN orders.id END) as New",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'aggre' THEN orders.id END) as Aggre",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'disaggre' THEN orders.id END) as Disaggre",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'dubbing' THEN orders.id END) as Dubbing",
+        "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
       ])
       .getRawOne();
   }
@@ -193,14 +194,14 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'manager.id',
         'manager.surname',
         'COUNT(orders.id) as total',
-        'COUNT(CASE WHEN orders.status = "In work" THEN orders.id END) as In_work',
-        'COUNT(CASE WHEN orders.status = "New" THEN orders.id END) as New',
-        'COUNT(CASE WHEN orders.status = "Aggre" THEN orders.id END) as Aggre',
-        'COUNT(CASE WHEN orders.status = "Disaggre" THEN orders.id END) as Disaggre',
-        'COUNT(CASE WHEN orders.status = "Dubbing" THEN orders.id END) as Dubbing',
-        'COUNT(CASE WHEN orders.status IS NULL THEN orders.id END) as No_status',
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'in_work' THEN orders.id END) as In_work",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'new' THEN orders.id END) as New",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'aggre' THEN orders.id END) as Aggre",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'disaggre' THEN orders.id END) as Disaggre",
+        "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'dubbing' THEN orders.id END) as Dubbing",
+        "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
       ])
-      .groupBy('orders.manager.id')
+      .groupBy('manager.id, manager.surname')
       .getRawMany();
   }
 }

@@ -10,6 +10,7 @@ import { OrdersStatisticResDto } from '../models/dto/res/ordersStatistic.res.dto
 import { UpdateOrdersReqDto } from '../models/dto/req/updateOrder.req.dto';
 import { OrdersMapper } from './orders.mapper';
 import { CreateOrdersReqDto } from '../models/dto/req/createOrders.req.dto';
+import { OrdersStatisticAllResDto } from '../models/dto/res/ordersStatisticAll.res.dto';
 
 @Injectable()
 export class OrdersService {
@@ -28,14 +29,14 @@ export class OrdersService {
     return await this.ordersRepository.resetFilters();
   }
 
-  public async ordersStatisticAll(): Promise<OrdersStatisticResDto> {
+  public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.ordersRepository.ordersStatisticAll();
   }
 
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     const statisticAll = await this.ordersRepository.ordersStatisticManager();
     return statisticAll.map((item) => ({
-      manager: item.manager,
+      manager: item.manager || null,
       total: Number(item.total) || null,
       In_work: Number(item.In_work) || null,
       New: Number(item.New) || null,

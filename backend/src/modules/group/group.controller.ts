@@ -25,8 +25,9 @@ export class GroupController {
   constructor(private readonly groupService: GroupService) {}
 
   @ApiOperation({
-    summary: 'Для вивантаження всіх group',
-    description: 'Admin / manager може вивантажити всі group',
+    summary: 'Для вивантаження всіх group та пошуку по назві group  ',
+    description:
+      'Admin / manager може вивантажити всі group та здійснити пошук по назві group',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
