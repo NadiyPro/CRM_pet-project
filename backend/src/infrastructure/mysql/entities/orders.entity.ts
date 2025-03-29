@@ -7,6 +7,7 @@ import {
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { TableNameEnum } from './enums/tableName.enum';
 import { CourseEnum } from './enums/course.enum';
@@ -64,6 +65,9 @@ export class OrdersEntity {
 
   @CreateDateColumn({ type: 'datetime', nullable: true })
   created_at: Date | null;
+
+  @UpdateDateColumn({ type: 'datetime', nullable: true })
+  updated_at?: Date | null;
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   utm: string | null;
