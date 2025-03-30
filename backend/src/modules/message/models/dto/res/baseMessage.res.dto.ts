@@ -1,10 +1,8 @@
-import { UserEntity } from '../../../../../infrastructure/mysql/entities/user.entity';
-
 export interface BaseMessageResDto {
   id: number;
   messages: string;
   orderId: number;
-  manager: UserEntity;
+  manager: string | null;
   created_at: Date;
-  updated_at: Date;
+  updated_at: Date | null;
 }

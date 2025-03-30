@@ -25,10 +25,10 @@ export class MessageService {
       return {
         id: message.id,
         messages: message.messages,
-        orderId: message.orderId,
-        manager: message.manager,
+        orderId: orderId,
+        manager: message.manager?.surname ?? null,
         created_at: message.created_at,
-        updated_at: message.updated_at,
+        updated_at: message.updated_at ?? null,
       };
     });
   }
@@ -42,49 +42,37 @@ export class MessageService {
     const manager = await this.userRepository.findOneBy({
       id: userData.userId,
     });
+
     if (!manager) throw new Error('Manager not found');
+    if (!order) throw new Error('Order not found');
 
     const newMessage = this.messageRepository.create({
       messages: dataMessage.messages,
-      orderId: order.id,
-      manager,
+      order: order,
+      manager: manager,
     });
-    if (order.status === StatusEnum.NEW || order.status === null) {
+
+    if (order.status !== StatusEnum.NEW && order.status !== null) {
       await this.ordersRepository.update(orderId, {
-        manager: userData,
+        manager: manager,
+      });
+    } else {
+      await this.ordersRepository.update(orderId, {
+        manager: manager,
         status: StatusEnum.IN_WORK,
       });
-      const saveMessage = await this.messageRepository.save(newMessage);
-      return {
-        id: saveMessage.id,
-        messages: saveMessage.messages,
-        orderId: saveMessage.orderId,
-        manager: saveMessage.manager,
-        created_at: saveMessage.created_at,
-        updated_at: saveMessage.updated_at,
-      };
     }
-    // const order = await this.ordersRepository.findOneBy({ id: orderId });
-    // const mewMessage = this.messageRepository.create({
-    //   messages: dataMessage.messages,
-    //   orderId: order.id,
-    //   manager: userData,
-    // });
-    // if (order.status === StatusEnum.NEW || order.status === null) {
-    //   await this.ordersRepository.update(orderId, {
-    //     manager: userData,
-    //     status: StatusEnum.IN_WORK,
-    //   });
-    //   const saveMessage = await this.messageRepository.save(mewMessage);
-    //   return {
-    //     id: saveMessage.id,
-    //     messages: saveMessage.messages,
-    //     orderId: saveMessage.orderId,
-    //     manager: saveMessage.manager,
-    //     created_at: saveMessage.created_at,
-    //     updated_at: saveMessage.updated_at,
-    //   };
-    // }
+
+    const savedMessage = await this.messageRepository.save(newMessage);
+
+    return {
+      id: savedMessage.id,
+      messages: savedMessage.messages,
+      orderId: orderId,
+      manager: savedMessage.manager?.surname ?? null,
+      created_at: savedMessage.created_at,
+      updated_at: savedMessage.updated_at,
+    };
   }
 
   public async deleteId(messageId: number): Promise<string> {

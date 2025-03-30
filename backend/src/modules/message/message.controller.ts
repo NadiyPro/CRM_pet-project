@@ -5,6 +5,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -49,7 +50,7 @@ export class MessageController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get(':orderId')
   public async findId(
-    @Param('orderId') orderId: number,
+    @Param('orderId', ParseIntPipe) orderId: number,
   ): Promise<BaseMessageResDto[]> {
     return await this.messageService.findId(orderId);
   }
@@ -68,7 +69,7 @@ export class MessageController {
   @Post(':orderId')
   public async createMessage(
     @CurrentUser() userData: IUserData,
-    @Param('orderId') orderId: number,
+    @Param('orderId', ParseIntPipe) orderId: number,
     @Body() dataMessage: BaseMessageReqDto,
   ): Promise<BaseMessageResDto> {
     return await this.messageService.createMessage(
@@ -87,7 +88,7 @@ export class MessageController {
   @Role([RoleTypeEnum.ADMIN])
   @Delete(':messageId')
   public async deleteId(
-    @Param('messageId') messageId: number,
+    @Param('messageId', ParseIntPipe) messageId: number,
   ): Promise<string> {
     return await this.messageService.deleteId(messageId);
   }

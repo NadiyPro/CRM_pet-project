@@ -34,8 +34,10 @@ export class AuthService {
           this.userRepository.create({
             ...dto,
             password,
+            name: 'admin_name',
+            surname: 'admin_surname',
             role: RoleTypeEnum.ADMIN,
-            is_active: true, // Автоматично активуємо
+            is_active: true,
           }),
         );
       }

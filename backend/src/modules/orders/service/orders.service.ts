@@ -128,11 +128,18 @@ export class OrdersService {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
 
-    await this.ordersRepository.update(orderId, {
-      ...updateOrdersReqDto,
-      manager: user,
-      status: StatusEnum.IN_WORK,
-    });
+    if (order.status !== StatusEnum.NEW && order.status !== null) {
+      await this.ordersRepository.update(orderId, {
+        ...updateOrdersReqDto,
+        manager: user,
+      });
+    } else {
+      await this.ordersRepository.update(orderId, {
+        ...updateOrdersReqDto,
+        manager: user,
+        status: StatusEnum.IN_WORK,
+      });
+    }
 
     const updatedOrder = await this.ordersRepository.findOne({
       where: { id: orderId },

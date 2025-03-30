@@ -25,13 +25,11 @@ export class MessageEntity {
   @UpdateDateColumn({ type: 'datetime', nullable: true })
   updated_at?: Date | null;
 
-  @Column({ nullable: true })
-  orderId: number;
   @ManyToOne(() => OrdersEntity, (student) => student.messages)
   @JoinColumn({ name: 'orderId' })
   order: OrdersEntity;
 
-  @ManyToOne(() => UserEntity, (entity) => entity.messages)
+  @ManyToOne(() => UserEntity, (entity) => entity.messages, { nullable: true })
   @JoinColumn({ name: 'manager_id' })
-  manager?: UserEntity;
+  manager?: UserEntity | null;
 }
