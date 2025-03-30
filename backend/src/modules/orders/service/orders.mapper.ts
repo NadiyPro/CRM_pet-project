@@ -91,6 +91,7 @@ export class OrdersMapper {
       updated_at: updatedOrder.updated_at,
       manager: updatedOrder.manager,
       group: updatedOrder?.group_name ?? null,
+      messages: updatedOrder.messages ?? null,
     };
   }
 }

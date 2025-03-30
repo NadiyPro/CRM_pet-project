@@ -28,7 +28,6 @@ export class MessageService {
         orderId: orderId,
         manager: message.manager?.surname ?? null,
         created_at: message.created_at,
-        updated_at: message.updated_at ?? null,
       };
     });
   }
@@ -71,7 +70,6 @@ export class MessageService {
       orderId: orderId,
       manager: savedMessage.manager?.surname ?? null,
       created_at: savedMessage.created_at,
-      updated_at: savedMessage.updated_at,
     };
   }
 

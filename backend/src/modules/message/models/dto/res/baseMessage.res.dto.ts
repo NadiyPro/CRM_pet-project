@@ -4,5 +4,4 @@ export interface BaseMessageResDto {
   orderId: number;
   manager: string | null;
   created_at: Date;
-  updated_at: Date | null;
 }

@@ -27,6 +27,6 @@ export class MessageRepository extends Repository<MessageEntity> {
       .where('message.orderId = :orderId', { orderId })
       .orderBy('message.created_at', 'DESC');
     // .getMany();
-    return qb.getRawMany();
+    return qb.getMany();
   }
 }

@@ -143,7 +143,7 @@ export class OrdersService {
 
     const updatedOrder = await this.ordersRepository.findOne({
       where: { id: orderId },
-      relations: ['manager'],
+      relations: ['manager', 'messages'],
     });
     if (!updatedOrder) {
       throw new HttpException(
@@ -158,7 +158,7 @@ export class OrdersService {
   public async findOneOrder(orderId: number): Promise<UpdateOrdersResDto> {
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
-      relations: ['manager'],
+      relations: ['manager', 'messages'],
     });
 
     if (!order) {
