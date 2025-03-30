@@ -39,25 +39,25 @@ export class OrdersMapper {
     };
   }
 
-  public static resetFiltersResDto(student: OrdersEntity): BaseOrdersResDto {
+  public static resetFiltersResDto(order: OrdersEntity): BaseOrdersResDto {
     return {
-      id: student.id,
-      name: student.name,
-      surname: student.surname,
-      email: student.email,
-      phone: student.phone,
-      age: student.age,
-      course: student.course,
-      course_format: student.course_format,
-      course_type: student.course_type,
-      status: student.status,
-      sum: student.sum,
-      alreadyPaid: student.alreadyPaid,
-      created_at: student.created_at,
-      updated_at: student.updated_at,
-      manager: student.manager?.surname ?? null,
-      group: student?.group_name ?? null,
-      messages: student.messages ?? null,
+      id: order.id,
+      name: order.name,
+      surname: order.surname,
+      email: order.email,
+      phone: order.phone,
+      age: order.age,
+      course: order.course,
+      course_format: order.course_format,
+      course_type: order.course_type,
+      status: order.status,
+      sum: order.sum,
+      alreadyPaid: order.alreadyPaid,
+      created_at: order.created_at,
+      updated_at: order.updated_at,
+      manager: order.manager?.surname ?? null,
+      group: order?.group_name ?? null,
+      messages: order.messages ?? null,
     };
   }
 
