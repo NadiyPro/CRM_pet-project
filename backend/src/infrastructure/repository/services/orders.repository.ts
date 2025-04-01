@@ -35,7 +35,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.course_type LIKE :search OR
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
-          CAST(orders.alreadyPaid AS CHAR) LIKE :search 
+          CAST(orders.alreadyPaid AS CHAR) LIKE :search
           OR manager.surname LIKE :search
         )`,
         { search: `%${query.search}%` },

@@ -1,3 +1,4 @@
+import { Response } from 'express'; // додай це на початку файлу
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import {
   Body,
@@ -9,6 +10,7 @@ import {
   Post,
   Put,
   Query,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { OrdersService } from './service/orders.service';
@@ -28,6 +30,7 @@ import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableNa
 import { CreateOrdersReqDto } from './models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from './models/dto/res/ordersStatisticAll.res.dto';
 import { OrdersEntity } from '../../infrastructure/mysql/entities/orders.entity';
+import { Workbook } from 'exceljs';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -56,6 +59,48 @@ export class OrdersController {
   }
 
   @ApiOperation({
+    summary: 'Експорт всіх заявок з урахуванням обраних фільтрів в Excel',
+    description: 'Експорт всіх заявок з урахуванням обраних фільтрів в Excel',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Get('export')
+  public async exportOrders(
+    @Query() query: ListOrdersQueryReqDto,
+    @Res() res: Response,
+  ) {
+    const [orders] = await this.ordersService.findAll(query);
+    const workbook = new Workbook(); // створює новий порожній Excel
+    const worksheet = workbook.addWorksheet('Orders'); // створює нову сторінку в Excel з назвою Orders
+    // worksheet.addRow додає значення в табл Excel
+    orders.forEach((order) => {
+      worksheet.addRow([
+        order.id,
+        order.name,
+        order.surname,
+        order.email,
+        order.phone,
+        order.course,
+        order.status,
+        order.sum,
+        order.alreadyPaid,
+        order.created_at,
+      ]);
+    });
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    ); // вказує, що відповідь буде у форматі Excel (.xlsx)
+    res.setHeader('Content-Disposition', 'attachment; filename=orders.xlsx');
+    // вказує, що файл повинен бути завантажений під назвою orders.xlsx
+    await workbook.xlsx.write(res);
+    // записуємо вже заповнений Excel (.xlsx) та передаємо його у res
+    res.end(); // віддаємо відповідь клієнту
+  }
+
+  @ApiOperation({
     summary: 'Для фільтрації та сортуванню своїх заявок по orders',
     description:
       'Для фільтрації та сортуванню своїх заявок по orders. ' +
@@ -74,6 +119,48 @@ export class OrdersController {
       query,
     );
     return OrdersMapper.toAllResDtoList(entities, total, query);
+  }
+
+  @ApiOperation({
+    summary: 'Експорт всіх моїх заявок з урахуванням обраних фільтрів в Excel',
+    description:
+      'Експорт всіх моїх заявок з урахуванням обраних фільтрів в Excel',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Get('export/myOrder')
+  public async exportMyOrders(
+    @CurrentUser() userData: IUserData,
+    @Query() query: ListOrdersQueryReqDto,
+    @Res() res: Response,
+  ) {
+    const [orders] = await this.ordersService.findMyOrder(userData, query);
+    const workbook = new Workbook();
+    const worksheet = workbook.addWorksheet('My Orders');
+
+    orders.forEach((order) => {
+      worksheet.addRow([
+        order.id,
+        order.name,
+        order.surname,
+        order.email,
+        order.phone,
+        order.course,
+        order.status,
+        order.sum,
+        order.alreadyPaid,
+        order.created_at,
+      ]);
+    });
+
+    res.setHeader(
+      'Content-Type',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    );
+    res.setHeader('Content-Disposition', 'attachment; filename=my_orders.xlsx');
+    await workbook.xlsx.write(res);
+    res.end();
   }
 
   @ApiOperation({
