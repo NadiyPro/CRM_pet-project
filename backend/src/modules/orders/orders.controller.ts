@@ -73,6 +73,22 @@ export class OrdersController {
     const [orders] = await this.ordersService.findAll(query);
     const workbook = new Workbook(); // створює новий порожній Excel
     const worksheet = workbook.addWorksheet('Orders'); // створює нову сторінку в Excel з назвою Orders
+
+    worksheet.addRow([
+      'ID',
+      'Name',
+      'Surname',
+      'Email',
+      'Phone',
+      'Course',
+      'Status',
+      'Sum',
+      'Already Paid',
+      'Created At',
+      'Manager',
+      'Group Name',
+    ]);
+
     // worksheet.addRow додає значення в табл Excel
     orders.forEach((order) => {
       worksheet.addRow([
@@ -86,6 +102,8 @@ export class OrdersController {
         order.sum,
         order.alreadyPaid,
         order.created_at,
+        order.manager,
+        order.group_name,
       ]);
     });
 
@@ -136,11 +154,26 @@ export class OrdersController {
     @Res() res: Response,
   ) {
     const [orders] = await this.ordersService.findMyOrder(userData, query);
-    const workbook = new Workbook();
-    const worksheet = workbook.addWorksheet('My Orders');
+    const workbookMy = new Workbook();
+    const worksheetMy = workbookMy.addWorksheet('My Orders');
+
+    worksheetMy.addRow([
+      'ID',
+      'Name',
+      'Surname',
+      'Email',
+      'Phone',
+      'Course',
+      'Status',
+      'Sum',
+      'Already Paid',
+      'Created At',
+      'Manager',
+      'Group Name',
+    ]);
 
     orders.forEach((order) => {
-      worksheet.addRow([
+      worksheetMy.addRow([
         order.id,
         order.name,
         order.surname,
@@ -151,6 +184,8 @@ export class OrdersController {
         order.sum,
         order.alreadyPaid,
         order.created_at,
+        order.manager,
+        order.group_name,
       ]);
     });
 
@@ -159,7 +194,7 @@ export class OrdersController {
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     );
     res.setHeader('Content-Disposition', 'attachment; filename=my_orders.xlsx');
-    await workbook.xlsx.write(res);
+    await workbookMy.xlsx.write(res);
     res.end();
   }
 
