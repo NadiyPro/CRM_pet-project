@@ -35,8 +35,10 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.course_type LIKE :search OR
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
-          CAST(orders.alreadyPaid AS CHAR) LIKE :search
-          OR manager.surname LIKE :search
+          CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
+          orders.group_id LIKE :search OR
+          orders.group_name LIKE :search OR
+          manager.surname LIKE :search
         )`,
         { search: `%${query.search}%` },
       );
@@ -57,6 +59,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
+        'group_id',
+        'group_name',
         'manager',
       ];
       const column =
@@ -108,6 +112,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
           orders.status LIKE :search OR
           CAST(orders.sum AS CHAR) LIKE :search OR
           CAST(orders.alreadyPaid AS CHAR) LIKE :search OR
+          orders.group_id LIKE :search OR
+          orders.group_name LIKE :search OR
           manager.surname LIKE :search
         )`,
         { search: `%${query.search}%` },
@@ -129,7 +135,8 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         'sum',
         'alreadyPaid',
         'created_at',
-        'managerId',
+        'group_id',
+        'group_name',
         'manager',
       ];
 

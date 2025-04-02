@@ -77,7 +77,10 @@ export class OrdersEntity {
   @Column({ type: 'enum', enum: StatusEnum, nullable: true })
   status: StatusEnum | null;
 
-  @Column({ type: 'varchar', nullable: true, unique: true })
+  @Column({ type: 'integer', nullable: true })
+  group_id: number | null;
+
+  @Column({ type: 'varchar', nullable: true })
   group_name: string | null;
 
   @ManyToOne(() => UserEntity, (entity) => entity.orders, { nullable: true })

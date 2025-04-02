@@ -40,10 +40,10 @@ export class MessageController {
   @ApiOperation({
     summary:
       'Admin | manager може переглядати всі коментарі, ' +
-      'які відносяться до кокретного студента за його studentId',
+      'які відносяться до кокретного order за його orderId',
     description:
       'Admin | manager може переглядати всі коментарі, ' +
-      'які відносяться до кокретного студента за його studentId',
+      'які відносяться до кокретного order за його orderId',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

@@ -87,6 +87,7 @@ export class OrdersController {
       'Created At',
       'Manager id',
       'Manager surname',
+      'Group id',
       'Group Name',
     ]);
 
@@ -105,6 +106,7 @@ export class OrdersController {
         order.created_at,
         order.manager?.id ?? '',
         order.manager?.surname ?? '',
+        order.group_id,
         order.group_name,
       ]);
     });
@@ -172,6 +174,7 @@ export class OrdersController {
       'Created At',
       'Manager id',
       'Manager surname',
+      'Group id',
       'Group Name',
     ]);
 
@@ -189,6 +192,7 @@ export class OrdersController {
         order.created_at,
         order.manager?.id ?? '',
         order.manager?.surname ?? '',
+        order.group_id,
         order.group_name,
       ]);
     });
@@ -274,9 +278,9 @@ export class OrdersController {
   @Post(':orderId')
   public async addGroup(
     @Param('orderId', ParseIntPipe) orderId: number,
-    @Param('group_name') group_name: string,
+    @Param('group_id', ParseIntPipe) group_id: number,
   ): Promise<OrdersEntity> {
-    return await this.ordersService.addGroup(orderId, group_name);
+    return await this.ordersService.addGroup(orderId, group_id);
   }
 
   @ApiOperation({

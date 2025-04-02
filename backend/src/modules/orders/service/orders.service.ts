@@ -83,7 +83,7 @@ export class OrdersService {
 
   public async addGroup(
     orderId: number,
-    group_name: string,
+    group_id: number,
   ): Promise<OrdersEntity> {
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
@@ -93,11 +93,12 @@ export class OrdersService {
     }
 
     const group = await this.groupRepository.findOne({
-      where: { group_name: group_name },
+      where: { id: group_id },
     });
     if (!group) {
-      throw new NotFoundException(`Group with id ${group_name} not found`);
+      throw new NotFoundException(`Group with id ${group_id} not found`);
     }
+    order.group_id = group.id;
     order.group_name = group.group_name;
     await this.ordersRepository.save(order);
     return await this.ordersRepository.findOne({
