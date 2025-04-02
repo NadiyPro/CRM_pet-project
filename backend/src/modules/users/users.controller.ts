@@ -1,25 +1,32 @@
-// import { ApiTags } from '@nestjs/swagger';
-// import { Controller } from '@nestjs/common';
-// import { UsersService } from './service/users.service';
-// import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
-//
-// @ApiTags(TableNameEnum.USERS)
-// @Controller(TableNameEnum.USERS)
-// export class UsersController {
-//   constructor(private readonly usersService: UsersService) {}
-  //
-  // @ApiOperation({
-  //   summary: 'Для видачі ролей',
-  //   description: 'Користувач з ролю admin може видавати ролі',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role([RoleTypeEnum.ADMIN])
-  // @Post('role')
-  // async giveRole(@Body() giveRoleDto: GiveRoleDto): Promise<UserResDto> {
-  //   const result = await this.usersService.giveRole(giveRoleDto);
-  //   return UserMapper.toResDto(result);
-  // }
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { UsersService } from './service/users.service';
+import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
+import { RoleTypeEnum } from 'src/infrastructure/mysql/entities/enums/roleType.enum';
+import { GiveRoleDto } from './models/dto/req/giveRole.dto';
+import { UserMapper } from './service/user.mapper';
+import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
+import { UserResDto } from './models/dto/res/user.res.dto';
+import { Role } from '../guards/decorator/role.decorator';
+
+@ApiTags(TableNameEnum.USERS)
+@Controller(TableNameEnum.USERS)
+export class UsersController {
+  constructor(private readonly usersService: UsersService) {}
+
+  @ApiOperation({
+    summary: 'Для видачі ролей',
+    description: 'Користувач з ролю admin може видавати ролі',
+    deprecated: true,
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Post('role')
+  async giveRole(@Body() giveRoleDto: GiveRoleDto): Promise<UserResDto> {
+    const result = await this.usersService.giveRole(giveRoleDto);
+    return UserMapper.toResDto(result);
+  }
 
   // @ApiOperation({
   //   summary: 'Для отримання інформацію про всі облікові записи користувачів',
@@ -70,4 +77,4 @@
   // ): Promise<string> {
   //   return await this.usersService.deleteId(userId);
   // }
-// }
+}
