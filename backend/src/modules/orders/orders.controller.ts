@@ -85,7 +85,8 @@ export class OrdersController {
       'Sum',
       'Already Paid',
       'Created At',
-      'Manager',
+      'Manager id',
+      'Manager surname',
       'Group Name',
     ]);
 
@@ -102,7 +103,8 @@ export class OrdersController {
         order.sum,
         order.alreadyPaid,
         order.created_at,
-        order.manager,
+        order.manager?.id ?? '',
+        order.manager?.surname ?? '',
         order.group_name,
       ]);
     });
@@ -168,7 +170,8 @@ export class OrdersController {
       'Sum',
       'Already Paid',
       'Created At',
-      'Manager',
+      'Manager id',
+      'Manager surname',
       'Group Name',
     ]);
 
@@ -184,7 +187,8 @@ export class OrdersController {
         order.sum,
         order.alreadyPaid,
         order.created_at,
-        order.manager,
+        order.manager?.id ?? '',
+        order.manager?.surname ?? '',
         order.group_name,
       ]);
     });
