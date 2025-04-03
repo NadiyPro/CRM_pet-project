@@ -1,0 +1,34 @@
+APP_PORT=3000
+APP_HOST=localhost
+
+MYSQL_HOST=185.69.152.209
+MYSQL_PORT=3306
+MYSQL_USER=nadiamysql
+MYSQL_PASSWORD=password
+MYSQL_DB=nadiamysql
+
+REDIS_HOST=final_project-redis
+REDIS_PORT=6379
+REDIS_PASSWORD=redispass
+
+JWT_ACCESS_SECRET=tyb45dhkawewmtyyt8brt
+JWT_ACCESS_EXPIRES_IN=360000
+JWT_REFRESH_SECRET=dtyh15&yts5@*4112tre
+JWT_REFRESH_EXPIRES_IN=7dcurl http://localhost:3000
+
+AWS_S3_BUCKET_AVATAR="nest-exam-avatar"
+AWS_S3_BUCKET_CARS="nest-exam-cars"
+AWS_S3_REGION="us-east-2"
+AWS_ACCESS_KEY="user"
+AWS_SECRET_KEY="password"
+AWS_S3_ACL="public-read"
+AWS_S3_ENDPOINT="http://localhost:8000"
+
+SMTP_EMAIL="siroviyn13@gmail.com"
+SMTP_PASSWORD="prbe mhwc fupi uiki"
+
+ENTITIES_PATH=dist/infrastructure/mysql/entities/*.js
+MIGRATIONS_PATH=dist/infrastructure/mysql/migrations/*.js
+DB_LOGGING=false
+
+
