@@ -275,12 +275,14 @@ export class OrdersController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Post(':orderId')
+  @Post(':orderId/:group_id')
   public async addGroup(
-    @Param('orderId', ParseIntPipe) orderId: number,
-    @Param('group_id', ParseIntPipe) group_id: number,
+    @Param('orderId', ParseIntPipe) orderId: string,
+    @Param('group_id', ParseIntPipe) group_id: string,
   ): Promise<OrdersEntity> {
-    return await this.ordersService.addGroup(orderId, group_id);
+    const orderNumber = +orderId;
+    const group_idNumber = +group_id;
+    return await this.ordersService.addGroup(orderNumber, group_idNumber);
   }
 
   @ApiOperation({
