@@ -41,5 +41,4 @@ export class UserMapper {
   ): ListResQueryDto {
     return { users: users.map((user) => this.toResDto(user)), total, ...query };
   }
-  // кількість юзерів, поля query передані в моделі (limit, page)
 }

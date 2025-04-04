@@ -9,7 +9,6 @@ export class ListOrdersQueryReqDto {
   @Min(1)
   @IsOptional()
   limit?: number = 25;
-  // ліміт відображення
 
   @Type(() => Number)
   @IsInt()

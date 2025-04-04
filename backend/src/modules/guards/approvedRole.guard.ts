@@ -23,9 +23,7 @@ export class ApprovedRoleGuard implements CanActivate {
     );
     if (!roles) return true;
 
-    // Типізуємо `request` через `RequestWithUser`
     const request = context.switchToHttp().getRequest<RequestWithUser>();
-    console.log('Request user:', request.res.locals.user);
 
     const user = request.res.locals.user;
 

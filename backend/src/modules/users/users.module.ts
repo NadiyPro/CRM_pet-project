@@ -7,7 +7,7 @@ import { UserEntity } from '../../infrastructure/mysql/entities/user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([UserEntity]), // Підключаємо UserEntity
+    TypeOrmModule.forFeature([UserEntity]),
     forwardRef(() => AuthModule),
   ],
   // імпортуємо інший модуль з використанням функції forwardRef.

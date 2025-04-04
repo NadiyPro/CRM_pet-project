@@ -26,8 +26,8 @@ export class MessageController {
   constructor(private readonly messageService: MessageService) {}
 
   @ApiOperation({
-    summary: 'Для виваннтаження всіх messages',
-    description: 'Для виваннтаження всіх messages',
+    summary: 'Для вивантаження всіх messages',
+    description: 'Для вивантаження всіх messages',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -40,10 +40,10 @@ export class MessageController {
   @ApiOperation({
     summary:
       'Admin | manager може переглядати всі коментарі, ' +
-      'які відносяться до кокретного order за його orderId',
+      'які відносяться до коректного order за його orderId',
     description:
       'Admin | manager може переглядати всі коментарі, ' +
-      'які відносяться до кокретного order за його orderId',
+      'які відносяться до коректного order за його orderId',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -56,9 +56,9 @@ export class MessageController {
   }
 
   @ApiOperation({
-    summary: 'Admin | manager може створити коменнтар.',
+    summary: 'Admin | manager може створити коментар.',
     description:
-      'Admin | manager може створити коменнтар, ' +
+      'Admin | manager може створити коментар, ' +
       'якщо до цього status === New, або status === null,' +
       'то буде автоматично змінено status на In_Work та підтягнеться Призвіще менеджера.' +
       '(якщо заявка status ==== New або null або знаходиться в роботі у даного admin | manager)',

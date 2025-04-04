@@ -1,4 +1,4 @@
 export enum RoleTypeEnum {
-  MANAGER = 'manager', // менеджер
-  ADMIN = 'admin', // адміністратор
+  MANAGER = 'manager',
+  ADMIN = 'admin',
 }

@@ -49,6 +49,5 @@ console.log('ENV TEST:', process.env.MYSQL_PORT);
       inject: [ConfigService],
     }),
   ],
-  // exports: [TypeOrmModule, DataSource],
 })
 export class MySqlModule {}

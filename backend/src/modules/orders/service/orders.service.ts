@@ -102,8 +102,6 @@ export class OrdersService {
       order.group_id = group.id;
       order.group_name = group.group_name;
     }
-    // order.group_id = group.id;
-    // order.group_name = group.group_name;
     await this.ordersRepository.save(order);
     return await this.ordersRepository.findOne({
       where: { id: order.id },

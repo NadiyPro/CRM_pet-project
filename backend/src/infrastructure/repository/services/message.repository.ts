@@ -21,12 +21,10 @@ export class MessageRepository extends Repository<MessageEntity> {
 
   public async findId(orderId: number): Promise<MessageEntity[]> {
     const qb = this.createQueryBuilder('message')
-      // return await this.createQueryBuilder('message')
       .leftJoinAndSelect('message.manager', 'manager')
       .leftJoinAndSelect('message.order', 'order')
       .where('message.orderId = :orderId', { orderId })
       .orderBy('message.created_at', 'DESC');
-    // .getMany();
     return qb.getMany();
   }
 }

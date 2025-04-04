@@ -12,27 +12,6 @@ import {
 import { RoleTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
 
-// import {
-//   ValidatorConstraint,
-//   ValidatorConstraintInterface,
-// } from 'class-validator';
-//
-// @ValidatorConstraint({ name: 'isValidPassword', async: false })
-// export class IsValidPassword implements ValidatorConstraintInterface {
-//   validate(password: string) {
-//     console.log('Validating password:', password);
-//     return (
-//       password === 'admin' ||
-//       /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$_!%*#?&]{8,}$/.test(
-//         password,
-//       )
-//     );
-//   }
-//   defaultMessage() {
-//     return 'Password must be at least 8 characters long, contain letters, a number, and a special character, or be "admin".';
-//   }
-// } //
-
 export class BaseUserReqDto {
   @IsString()
   @Length(3, 50)
