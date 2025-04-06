@@ -83,6 +83,16 @@ export class AuthService {
     return { user: UserMapper.toResDto(userEntity), tokens };
   }
 
+  // public async logOut(userData: IUserData): Promise<void> {
+  //   await Promise.all([
+  //     this.authCacheService.deleteTokenUserId(userData.userId),
+  //     this.refreshTokenRepository.delete({
+  //       user_id: userData.userId,
+  //       deviceId: userData.deviceId,
+  //     }),
+  //   ]);
+  // }
+
   // activateRecoveryPassword створення access токену (тривалість дії 30 хв та відправа його на пошту новому user)
   //
   // в registration перевіряємо токен activateRecoveryPassword, якщо все ок, то видаляємо цей токен,

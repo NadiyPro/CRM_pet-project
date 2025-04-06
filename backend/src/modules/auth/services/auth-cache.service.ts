@@ -68,6 +68,6 @@ export class AuthCacheService {
   // щоб у кожного юзера (userId) на конкретному пристрої (deviceId) був свій унікальний ключ
 
   private getKeyUserId(userId: string): string {
-    return `ACCESS_TOKEN:${userId}`;
+    return `ACCESS_TOKEN:${userId}:*`;
   }
 }

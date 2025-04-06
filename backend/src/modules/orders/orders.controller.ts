@@ -156,7 +156,7 @@ export class OrdersController {
     @CurrentUser() userData: IUserData,
     @Query() query: ListOrdersQueryReqDto,
     @Res() res: Response,
-  ) {
+  ): Promise<void> {
     const [orders] = await this.ordersService.findMyOrder(userData, query);
     const workbookMy = new Workbook();
     const worksheetMy = workbookMy.addWorksheet('My Orders');

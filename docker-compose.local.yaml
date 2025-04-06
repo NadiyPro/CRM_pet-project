@@ -12,14 +12,12 @@ services:
     working_dir: /app
     volumes:
       - ./backend:/app
-#      - .:/app
       - /app/node_modules
-#      - dist-volume:/app/dist
     restart: on-failure
     depends_on:
       - final_project-mysql
       - final_project-redis
-      - final_project-file-s3
+#      - final_project-file-s3
     command: >
       sh -c "if [ ! -d dist ]; then npm run build; fi && node dist/src/main.js"
 
@@ -73,29 +71,29 @@ services:
     networks:
       - default
 
-  final_project-file-s3:
-    container_name: final_project-file-s3
-    image: quay.io/minio/minio:latest
-    restart: unless-stopped
-    env_file:
-      - ./backend/.env
-    command: server /data --console-address ":9001"
-    volumes:
-      - ./final_project-file-api-s3-data:/data
-    environment:
-      MINIO_ROOT_USER: user
-      MINIO_ROOT_PASSWORD: password
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-    networks:
-      - default
+#  final_project-file-s3:
+#    container_name: final_project-file-s3
+#    image: quay.io/minio/minio:latest
+#    restart: unless-stopped
+#    env_file:
+#      - ./backend/.env
+#    command: server /data --console-address ":9001"
+#    volumes:
+#      - ./final_project-file-api-s3-data:/data
+#    environment:
+#      MINIO_ROOT_USER: user
+#      MINIO_ROOT_PASSWORD: password
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 3
+#    networks:
+#      - default
 
 volumes:
   mysql_data:
-  minio_data:
+#  minio_data:
   dist-volume:
 
 networks:

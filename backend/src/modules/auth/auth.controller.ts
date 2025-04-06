@@ -29,6 +29,18 @@ export class AuthController {
   }
 
   // @ApiOperation({
+  //   summary: 'Для видалення токенів користувача (вихід з акаунту)',
+  //   description: 'Для видалення токенів користувача (вихід з акаунту)',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  // @Post('logOut')
+  // public async logOut(@CurrentUser() userData: IUserData): Promise<void> {
+  //   return await this.authService.logOut(userData);
+  // }
+
+  // @ApiOperation({
   //   summary: 'Для видачі токена новому users',
   //   description:
   //     'Admin активує (is_active: true) роль для нового manage / admin, ' +
@@ -57,23 +69,6 @@ export class AuthController {
   //   @Body() dto: RegistrationReqDto,
   // ): Promise<AuthResDto> {
   //   return await this.authService.registration(dto);
-  // }
-
-  // @ApiOperation({
-  //   summary:
-  //     'Для видалення токенів користувача за його user_id ("бан")',
-  //   description:
-  //     'Admin може видалити токени для входу в акаунт користувача за його user_id, ' +
-  //     'таким чином поставити користувача в "бан". (!is_active)',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Post('sign-outBLock/:user_id,')
-  // public async signOutUserId(
-  //   @Param('user_id', ParseUUIDPipe) user_id: string,
-  // ): Promise<void> {
-  //   return await this.authService.signOutUserId(user_id);
   // }
 
   // @ApiOperation({
