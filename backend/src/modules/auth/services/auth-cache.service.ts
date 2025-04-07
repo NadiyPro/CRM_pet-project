@@ -6,6 +6,7 @@ import { RedisService } from '../../../infrastructure/redis/services/redis.servi
 
 @Injectable()
 export class AuthCacheService {
+  [x: string]: any;
   private jwtConfig: JwtConfig;
   // запис над конструктором дозволяє оголосити і
   // типізувати цю властивість заздалегідь,
@@ -56,18 +57,17 @@ export class AuthCacheService {
     await this.redisService.deleteByKey(key);
     // видалити всі токени, збережені для цього ключа
   }
-  public async deleteTokenUserId(userId: string): Promise<void> {
-    const key = this.getKeyUserId(userId);
-    await this.redisService.deleteByKey(key);
-    // видалити всі токени, збережені для цього ключа
-  }
 
   private getKey(userId: string, deviceId: string): string {
     return `ACCESS_TOKEN:${userId}:${deviceId}`;
   } // створює унікальний ключ для зберігання токенів у Redis
   // щоб у кожного юзера (userId) на конкретному пристрої (deviceId) був свій унікальний ключ
 
-  private getKeyUserId(userId: string): string {
-    return `ACCESS_TOKEN:${userId}:*`;
+  public async deleteTokenUserId(userId: string): Promise<void> {
+    const pattern = `ACCESS_TOKEN:${userId}:*`;
+    const keys = await this.redisService.getKeys(pattern);
+    if (keys.length > 0) {
+      await this.redisService.deleteMultipleKeys(keys);
+    }
   }
 }

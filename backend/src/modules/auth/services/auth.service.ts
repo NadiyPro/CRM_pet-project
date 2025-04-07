@@ -10,6 +10,7 @@ import { AuthResDto } from '../models/dto/res/auth.res.dto';
 import { AuthCacheService } from './auth-cache.service';
 import { TokenService } from './token.service';
 import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
+import { IUserData } from '../models/interfaces/user_data.interface';
 
 @Injectable()
 export class AuthService {
@@ -83,15 +84,12 @@ export class AuthService {
     return { user: UserMapper.toResDto(userEntity), tokens };
   }
 
-  // public async logOut(userData: IUserData): Promise<void> {
-  //   await Promise.all([
-  //     this.authCacheService.deleteTokenUserId(userData.userId),
-  //     this.refreshTokenRepository.delete({
-  //       user_id: userData.userId,
-  //       deviceId: userData.deviceId,
-  //     }),
-  //   ]);
-  // }
+  public async logOut(userData: IUserData): Promise<void> {
+    await Promise.all([
+      this.authCacheService.deleteTokenUserId(userData.userId),
+      this.refreshTokenRepository.delete({ user_id: userData.userId }),
+    ]);
+  }
 
   // activateRecoveryPassword створення access токену (тривалість дії 30 хв та відправа його на пошту новому user)
   //

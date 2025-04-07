@@ -3,6 +3,7 @@ import { Redis } from 'ioredis';
 
 @Injectable()
 export class RedisService {
+  [x: string]: any;
   constructor(
     @Inject('REDIS_CLIENT')
     private readonly redisClient: Redis,
@@ -26,5 +27,13 @@ export class RedisService {
 
   public expire(key: string, time: number): Promise<number> {
     return this.redisClient.expire(key, time);
+  }
+
+  public async getKeys(pattern: string): Promise<string[]> {
+    return this.redisClient.keys(pattern);
+  }
+
+  public async deleteMultipleKeys(keys: string[]): Promise<number> {
+    return this.redisClient.del(...keys);
   }
 }

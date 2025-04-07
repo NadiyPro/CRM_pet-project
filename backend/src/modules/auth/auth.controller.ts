@@ -1,11 +1,16 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { SkipAuth } from './decorators/skip_auth.decorator';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
 import { AuthResDto } from './models/dto/res/auth.res.dto';
 import { AuthService } from './services/auth.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
+import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
+import { Role } from '../guards/decorator/role.decorator';
+import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
+import { CurrentUser } from './decorators/current_user.decorator';
+import { IUserData } from './models/interfaces/user_data.interface';
 
 @ApiTags(TableNameEnum.AUTH)
 @Controller(TableNameEnum.AUTH)
@@ -28,17 +33,18 @@ export class AuthController {
     return await this.authService.login(dto);
   }
 
-  // @ApiOperation({
-  //   summary: 'Для видалення токенів користувача (вихід з акаунту)',
-  //   description: 'Для видалення токенів користувача (вихід з акаунту)',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  // @Post('logOut')
-  // public async logOut(@CurrentUser() userData: IUserData): Promise<void> {
-  //   return await this.authService.logOut(userData);
-  // }
+  @ApiOperation({
+    summary: 'Для видалення токенів користувача (вихід з акаунту)',
+    description: 'Для видалення токенів користувача (вихід з акаунту)',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @Post('logOut')
+  public async logOut(@CurrentUser() userData: IUserData): Promise<{ message: string }> {
+    await this.authService.logOut(userData);
+    return { message: 'Tokens deleted successfully' };
+  }
 
   // @ApiOperation({
   //   summary: 'Для видачі токена новому users',
