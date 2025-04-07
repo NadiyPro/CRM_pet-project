@@ -41,7 +41,9 @@ export class AuthController {
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Post('logOut')
-  public async logOut(@CurrentUser() userData: IUserData): Promise<{ message: string }> {
+  public async logOut(
+    @CurrentUser() userData: IUserData,
+  ): Promise<{ message: string }> {
     await this.authService.logOut(userData);
     return { message: 'Tokens deleted successfully' };
   }
