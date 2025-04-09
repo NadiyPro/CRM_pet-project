@@ -10,6 +10,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtAccessGuard } from './guards/jwt_access.guard';
 import { UsersModule } from '../users/users.module';
 import { OrdersModule } from '../orders/orders.module';
+import { EmailModule } from '../email/email.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { OrdersModule } from '../orders/orders.module';
     RedisModule,
     forwardRef(() => UsersModule),
     forwardRef(() => OrdersModule),
+    EmailModule,
   ],
   controllers: [AuthController],
   providers: [

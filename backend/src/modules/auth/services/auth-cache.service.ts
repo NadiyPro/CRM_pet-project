@@ -36,6 +36,21 @@ export class AuthCacheService {
     await this.redisService.expire(key, this.jwtConfig.accessExpiresIn);
     // Встановлює час життя ключа (expire), використовуючи налаштування accessExpiresIn із jwtConfig
   }
+
+  public async saveActiveToken(token: string, userId: string): Promise<void> {
+    const key = `ACCESS_TOKEN:${userId}:*`;
+    // Зберігає токен доступу (token) у Redis за допомогою ключа,
+    // який базується на ідентифікаторі користувача (userId) і пристрої (deviceId)
+    // завдяки ключу ми зможемо швидко шукати потрібні нам записи в Redis,
+    // бо чим унікальніші ключі, тим швидше вибірка буде працювати
+    await this.redisService.deleteByKey(key);
+    // Спочатку видаляє можливі попередні значення цього ключа (deleteByKey)
+    await this.redisService.addOneToSet(key, token);
+    // Додає новий токен до множини (addOneToSet)
+    await this.redisService.expire(key, this.jwtConfig.accessExpiresIn);
+    // Встановлює час життя ключа (expire), використовуючи налаштування accessExpiresIn із jwtConfig
+  }
+
   public async isAccessTokenExist(
     userId: string,
     deviceId: string,

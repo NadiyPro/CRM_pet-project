@@ -19,22 +19,21 @@ export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 25, nullable: true })
-  name: string | null;
+  @Column({ type: 'varchar', length: 25 })
+  name: string;
 
-  @Column({ type: 'varchar', length: 25, nullable: true })
-  surname: string | null;
+  @Column({ type: 'varchar', length: 25 })
+  surname: string;
 
   @Column({
     type: 'varchar',
     length: 100,
-    nullable: true,
     unique: true,
   })
   email: string;
 
-  @Column({ type: 'varchar', select: false })
-  password: string;
+  @Column({ type: 'varchar', select: false, nullable: true })
+  password: string | null;
 
   @Column({ type: 'enum', default: RoleTypeEnum.ADMIN, enum: RoleTypeEnum })
   role: RoleTypeEnum;

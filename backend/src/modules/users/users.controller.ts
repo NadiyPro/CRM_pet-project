@@ -17,7 +17,6 @@ export class UsersController {
   @ApiOperation({
     summary: 'Для видачі ролей',
     description: 'Користувач з ролю admin може видавати ролі',
-    deprecated: true,
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

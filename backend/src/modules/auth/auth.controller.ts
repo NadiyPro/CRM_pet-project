@@ -1,6 +1,12 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-
 import { SkipAuth } from './decorators/skip_auth.decorator';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
 import { AuthResDto } from './models/dto/res/auth.res.dto';
@@ -46,6 +52,21 @@ export class AuthController {
   ): Promise<{ message: string }> {
     await this.authService.logOut(userData);
     return { message: 'Tokens deleted successfully' };
+  }
+
+  @ApiOperation({
+    summary: 'Для видачі токена новому user (manager)',
+    description:
+      'Admin активує (is_active: true) роль для нового manager / admin, ' +
+      'після чого на його email надходить лист з токеном, який діє 30 хв ' +
+      'Після переходу по даному посиланню, новий user (manager) виконує реєстрацію (реєструє пароль)',
+  })
+  @SkipAuth()
+  @Get(':managerId')
+  public async activate(
+    @Param('managerId') managerId: string,
+  ): Promise<AuthResDto> {
+    return await this.authService.activate(managerId);
   }
 
   // @ApiOperation({

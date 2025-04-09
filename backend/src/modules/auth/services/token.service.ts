@@ -125,6 +125,25 @@ export class TokenService {
   } // генеруємо пару токенів accessToken та refreshToken
   // на основі наданого payload (даних, які включаються в токен)
 
+  public async generateActiveTokens(payload: {
+    userId: string;
+  }): Promise<ITokenPair> {
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.jwtConfig.accessSecret,
+      // ключ, який використовується для підпису токена доступу
+      expiresIn: this.jwtConfig.accessExpiresIn,
+      // термін дії токена доступу
+    });
+    // signAsync створює асинхронно JWT-токен з вказаними даними і налаштуваннями
+
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: this.jwtConfig.refreshSecret,
+      expiresIn: this.jwtConfig.refreshExpiresIn,
+    });
+    return { accessToken, refreshToken };
+  } // генеруємо пару токенів accessToken та refreshToken
+  // на основі наданого payload (даних, які включаються в токен)
+
   public async verifyToken(
     token: string,
     type: TokenType,

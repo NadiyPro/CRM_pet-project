@@ -1,5 +1,4 @@
 import { PickType } from '@nestjs/swagger';
-
 import { BaseUserReqDto } from '../../../../users/models/dto/req/baseUser.req.dto';
 import { IsNotEmpty, IsString } from 'class-validator';
 

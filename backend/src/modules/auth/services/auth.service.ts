@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
@@ -11,6 +15,8 @@ import { AuthCacheService } from './auth-cache.service';
 import { TokenService } from './token.service';
 import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { IUserData } from '../models/interfaces/user_data.interface';
+import { EmailTypeEnum } from '../../email/enums/email.enum';
+import { EmailService } from '../../email/service/email.service';
 
 @Injectable()
 export class AuthService {
@@ -20,6 +26,7 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly usersService: UsersService,
     private readonly refreshTokenRepository: RefreshTokenRepository,
+    private readonly emailService: EmailService,
   ) {}
 
   public async login(dto: LoginReqDto): Promise<AuthResDto> {
@@ -89,6 +96,39 @@ export class AuthService {
       this.authCacheService.deleteTokenUserId(userData.userId),
       this.refreshTokenRepository.delete({ user_id: userData.userId }),
     ]);
+  }
+
+  public async activate(managerId: string): Promise<AuthResDto> {
+    const user = await this.userRepository.findOneBy({ id: managerId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const tokens = await this.tokenService.generateActiveTokens({
+      userId: user.id,
+    });
+    // генеруємо пару токенів для нового юзера (accessToken та refreshToken)
+    await Promise.all([
+      this.authCacheService.saveActiveToken(tokens.accessToken, user.id),
+      // зберігаємо accessToken для нового юзера в кеш (Redis)
+      this.refreshTokenRepository.save(
+        this.refreshTokenRepository.create({
+          user_id: user.id,
+          refreshToken: tokens.refreshToken,
+        }),
+      ),
+    ]);
+    await this.emailService.sendMail(
+      EmailTypeEnum.ACTIVE,
+      'siroviyn13@gmail.com',
+      // user.email,
+      {
+        surname: user.surname,
+        name: user.name,
+        registration_password: `/auth/password/${tokens.accessToken}`,
+      },
+    );
+    return { user: UserMapper.toResDto(user), tokens };
   }
 
   // activateRecoveryPassword створення access токену (тривалість дії 30 хв та відправа його на пошту новому user)

@@ -9,6 +9,7 @@ import { UsersModule } from './modules/users/users.module';
 import { GroupModule } from './modules/group/group.module';
 import { MessageModule } from './modules/message/message.module';
 import { MySqlModule } from './infrastructure/mysql/mysql.module';
+import { EmailModule } from './modules/email/email.module';
 
 @Module({
   imports: [
@@ -24,7 +25,7 @@ import { MySqlModule } from './infrastructure/mysql/mysql.module';
     OrdersModule,
     GroupModule,
     MessageModule,
-    // EmailModule,
+    EmailModule,
   ],
 })
 export class AppModule {}
