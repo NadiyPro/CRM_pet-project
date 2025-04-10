@@ -125,7 +125,7 @@ export class AuthService {
       {
         surname: user.surname,
         name: user.name,
-        registration_password: `/auth/password/${tokens.accessToken}`,
+        registration_password: `http://localhost:3000/auth/password/${tokens.accessToken}`,
       },
     );
     return { user: UserMapper.toResDto(user), tokens };
