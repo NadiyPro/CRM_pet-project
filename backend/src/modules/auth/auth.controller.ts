@@ -54,7 +54,9 @@ export class AuthController {
       'після чого на його email надходить лист з токеном, який діє 30 хв ' +
       'Після переходу по даному посиланню, новий user (manager) виконує реєстрацію (реєструє пароль)',
   })
-  @SkipAuth()
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
   @Get(':managerId')
   public async activate(
     @Param('managerId') managerId: string,

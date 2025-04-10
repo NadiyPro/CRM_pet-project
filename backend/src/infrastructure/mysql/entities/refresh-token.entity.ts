@@ -18,8 +18,8 @@ export class RefreshTokenEntity extends CreateUpdateModel {
   @Column('text')
   refreshToken: string;
 
-  @Column('text')
-  deviceId: string;
+  @Column('text', { nullable: true })
+  deviceId?: string | null;
 
   @Column({ type: 'uuid' })
   user_id: string;
