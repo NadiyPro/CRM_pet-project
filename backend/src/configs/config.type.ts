@@ -41,6 +41,7 @@ export type AwsConfig = {
 export type JwtConfig = {
   accessSecret: string;
   accessExpiresIn: number;
+  accessActiveExpiresIn: number;
   refreshSecret: string;
   refreshExpiresIn: number;
 };

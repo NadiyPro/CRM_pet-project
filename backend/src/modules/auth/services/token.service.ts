@@ -131,7 +131,7 @@ export class TokenService {
     const accessToken = await this.jwtService.signAsync(payload, {
       secret: this.jwtConfig.accessSecret,
       // ключ, який використовується для підпису токена доступу
-      expiresIn: this.jwtConfig.accessExpiresIn,
+      expiresIn: this.jwtConfig.accessActiveExpiresIn,
       // термін дії токена доступу
     });
     // signAsync створює асинхронно JWT-токен з вказаними даними і налаштуваннями

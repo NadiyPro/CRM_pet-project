@@ -10,6 +10,7 @@ import { Role } from '../guards/decorator/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { CurrentUser } from './decorators/current_user.decorator';
 import { IUserData } from './models/interfaces/user_data.interface';
+import { ActivatePasswordReqDto } from './models/dto/req/activatePassword.req.dto';
 
 @ApiTags(TableNameEnum.AUTH)
 @Controller(TableNameEnum.AUTH)
@@ -48,11 +49,12 @@ export class AuthController {
   }
 
   @ApiOperation({
-    summary: 'Для видачі токена новому user (manager)',
+    summary: 'Для видачі токена user (manager) для активації',
     description:
-      'Admin активує (is_active: true) роль для нового manager / admin, ' +
+      'Admin активує (is_active: true) роль для нового manager ' +
+      '/ натискає на кнопку для відновлення паролю manager, ' +
       'після чого на його email надходить лист з токеном, який діє 30 хв ' +
-      'Після переходу по даному посиланню, новий user (manager) виконує реєстрацію (реєструє пароль)',
+      '*Після переходу по даному посиланню, новий user (manager) виконує активацію нового паролю',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -62,6 +64,24 @@ export class AuthController {
     @Param('managerId') managerId: string,
   ): Promise<AuthResDto> {
     return await this.authService.activate(managerId);
+  }
+
+  @ApiOperation({
+    summary: 'Для активації паролю manager',
+    description:
+      'Manager переходить за посиланням отриманим на email при активації ролі ' +
+      'або відновлені паролю та вводить новий пароль, підтверджує його',
+  })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  @SkipAuth()
+  @Post('activate/:token')
+  public async activatePassword(
+    @Param('token') token: string,
+    @Body() dto: ActivatePasswordReqDto,
+  ): Promise<AuthResDto> {
+    return await this.authService.activatePassword(token, dto);
   }
 
   // @ApiOperation({

@@ -19,18 +19,19 @@ export class UserEntity extends CreateUpdateModel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 25 })
-  name: string;
+  @Column({ type: 'varchar', length: 25, nullable: true })
+  name: string | null;
 
-  @Column({ type: 'varchar', length: 25 })
-  surname: string;
+  @Column({ type: 'varchar', length: 25, nullable: true })
+  surname: string | null;
 
   @Column({
     type: 'varchar',
     length: 100,
     unique: true,
+    nullable: true,
   })
-  email: string;
+  email: string | null;
 
   @Column({ type: 'varchar', select: false, nullable: true })
   password: string | null;

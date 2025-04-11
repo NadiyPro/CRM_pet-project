@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
@@ -17,6 +18,8 @@ import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleT
 import { IUserData } from '../models/interfaces/user_data.interface';
 import { EmailTypeEnum } from '../../email/enums/email.enum';
 import { EmailService } from '../../email/service/email.service';
+import { ActivatePasswordReqDto } from '../models/dto/req/activatePassword.req.dto';
+import { TokenType } from '../enums/token_type.enum';
 
 @Injectable()
 export class AuthService {
@@ -125,63 +128,57 @@ export class AuthService {
       {
         surname: user.surname,
         name: user.name,
-        registration_password: `http://localhost:3000/auth/password/${tokens.accessToken}`,
+        registration_password: `http://localhost:3000/auth/activate/${tokens.accessToken}`,
       },
     );
     return { user: UserMapper.toResDto(user), tokens };
   }
 
-  // activateRecoveryPassword створення access токену (тривалість дії 30 хв та відправа його на пошту новому user)
-  //
-  // в registration перевіряємо токен activateRecoveryPassword, якщо все ок, то видаляємо цей токен,
-  // шукаємо в БД email, потім дістаємо з dto Password та Confirm Password перевіряємо щоб вони співпадали,
-  // після чого формуємо токени, зберігаємо дані в БД та змінюємо статус is_active: true
-  // public async registration(dto: RegistrationReqDto): Promise<AuthResDto> {
-  //   await this.isEmailNotExistOrThrow(dto.email, dto.password);
-  //   const password = await bcrypt.hash(dto.password, 10);
-  //   // const user = await this.userRepository.save(
-  //   //   this.userRepository.create({ ...dto, password }),
-  //   // );
-  //   const user = await this.userRepository.save(
-  //     this.userRepository.create({
-  //       ...dto,
-  //       password,
-  //       role: RoleTypeEnum.ADMIN,
-  // is_active: true,
-  //     }),
-  //   );
-  //
-  //   const tokens = await this.tokenService.generateAuthTokens({
-  //     userId: user.id,
-  //     deviceId: dto.deviceId,
-  //   });
-  //   // генеруємо пару токенів для нового юзера (accessToken та refreshToken)
-  //   await Promise.all([
-  //     this.authCacheService.saveToken(
-  //       tokens.accessToken,
-  //       user.id,
-  //       dto.deviceId,
-  //     ),
-  //     // зберігаємо accessToken для нового юзера в кеш (Redis)
-  //     this.refreshTokenRepository.save(
-  //       this.refreshTokenRepository.create({
-  //         user_id: user.id,
-  //         deviceId: dto.deviceId,
-  //         refreshToken: tokens.refreshToken,
-  //       }),
-  //     ),
-  //   ]);
-  //   return { user: UserMapper.toResDto(user), tokens };
-  // }
+  public async activatePassword(
+    token: string,
+    dto: ActivatePasswordReqDto,
+  ): Promise<AuthResDto> {
+    const payload = await this.tokenService.verifyToken(
+      token,
+      TokenType.ACCESS,
+    );
+    let user = await this.userRepository.findOneBy({ id: payload.userId });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    if (dto.password !== dto.confirm_password) {
+      throw new BadRequestException(
+        'The entered password does not match the confirmation password.',
+      );
+    }
+    user.password = await bcrypt.hash(dto.password, 10);
+    user.is_active = true;
+    user = await this.userRepository.save(user);
 
-  // private async isEmailNotExistOrThrow(email: string) {
-  //   const userEmail = await this.userRepository.findOneBy({ email });
-  //   if (userEmail) {
-  //     throw new Error('Email already exists');
-  //   }
-  // }
+    const tokens = await this.tokenService.generateAuthTokens({
+      userId: user.id,
+      deviceId: dto.deviceId,
+    });
+    // генеруємо пару токенів для нового юзера (accessToken та refreshToken)
+    await Promise.all([
+      this.authCacheService.saveToken(
+        tokens.accessToken,
+        user.id,
+        dto.deviceId,
+      ),
+      // зберігаємо accessToken для нового юзера в кеш (Redis)
+      this.refreshTokenRepository.save(
+        this.refreshTokenRepository.create({
+          user_id: user.id,
+          deviceId: dto.deviceId,
+          refreshToken: tokens.refreshToken,
+        }),
+      ),
+    ]);
+    return { user: UserMapper.toResDto(user), tokens };
+  }
 
-  // // видаляємо токени юзера (бан)
+  // // видаляємо токени юзера (бан) змінюємо статус в БД is_active на false
   // public async signOutId(user_id: string): Promise<void> {
   //   const banUser = await this.userRepository.findOneBy({ id: user_id });
   //   await Promise.all([
