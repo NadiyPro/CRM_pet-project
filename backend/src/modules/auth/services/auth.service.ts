@@ -20,6 +20,8 @@ import { EmailTypeEnum } from '../../email/enums/email.enum';
 import { EmailService } from '../../email/service/email.service';
 import { ActivatePasswordReqDto } from '../models/dto/req/activatePassword.req.dto';
 import { TokenType } from '../enums/token_type.enum';
+import { AuthUserResDto } from '../models/dto/res/auth_user.res.dto';
+import { TokenPairResDto } from '../models/dto/res/token_pair.res.dto';
 
 @Injectable()
 export class AuthService {
@@ -178,57 +180,54 @@ export class AuthService {
     return { user: UserMapper.toResDto(user), tokens };
   }
 
-  // // видаляємо токени юзера (бан) змінюємо статус в БД is_active на false
-  // public async signOutId(user_id: string): Promise<void> {
-  //   const banUser = await this.userRepository.findOneBy({ id: user_id });
-  //   await Promise.all([
-  //     await this.userRepository.save({ ...banUser, is_active: false }),
-  //     this.authCacheService.deleteTokenUserId(user_id),
-  //     this.refreshTokenRepository.delete({
-  //       user_id: user_id,
-  //     }),
-  //     this.usersService.deleteId(user_id),
-  //   ]);
-  // }
+  public async ban(managerId: string): Promise<AuthUserResDto> {
+    let user = await this.userRepository.findOneBy({ id: managerId });
+    user.is_active = false;
+    user = await this.userRepository.save(user);
+    await this.refreshTokenRepository.delete({
+      user_id: user.id,
+    });
+    return user;
+  }
 
-  // // змінюємо статус в БД is_active на true
-  // (більше нічого не робимо, бо в нас в БД юзер є в тепер він зможе залогінитися)
-  // public async signUnBlock(user_id: string): Promise<void> {
-  // const unBlock = await this.userRepository.findOneBy({ id: user_id });
-  // await this.userRepository.save({ ...unBlock, is_active: true }),
-  // }
+  public async unban(managerId: string): Promise<AuthUserResDto> {
+    let user = await this.userRepository.findOneBy({ id: managerId });
+    user.is_active = true;
+    user = await this.userRepository.save(user);
+    return user;
+  }
 
-  // public async refresh(userData: IUserData): Promise<TokenPairResDto> {
-  //   await Promise.all([
-  //     this.authCacheService.deleteToken(userData.userId, userData.deviceId),
-  //     // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
-  //     this.refreshTokenRepository.delete({
-  //       user_id: userData.userId,
-  //       deviceId: userData.deviceId,
-  //     }), // видаляємо всі refreshToken,
-  //     // що зберігаються в базі даних для конкретного користувача та його пристрою
-  //   ]);
-  //
-  //   const tokens = await this.tokenService.generateAuthTokens({
-  //     userId: userData.userId,
-  //     deviceId: userData.deviceId,
-  //   });
-  //   // генеруємо пару токенів accessToken і refreshToken на основі userId та deviceId
-  //   await Promise.all([
-  //     this.authCacheService.saveToken(
-  //       tokens.accessToken,
-  //       userData.userId,
-  //       userData.deviceId,
-  //     ),
-  //     // зберігаємо access токен в кеш (Redis)
-  //     this.refreshTokenRepository.save(
-  //       this.refreshTokenRepository.create({
-  //         user_id: userData.userId,
-  //         deviceId: userData.deviceId,
-  //         refreshToken: tokens.refreshToken,
-  //       }),
-  //     ),
-  //   ]);
-  //   return tokens; // повертаємо пару токенів accessToken і refreshToken
-  // }
+  public async refresh(userData: IUserData): Promise<TokenPairResDto> {
+    await Promise.all([
+      this.authCacheService.deleteToken(userData.userId, userData.deviceId),
+      // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
+      this.refreshTokenRepository.delete({
+        user_id: userData.userId,
+        deviceId: userData.deviceId,
+      }), // видаляємо всі refreshToken,
+      // що зберігаються в базі даних для конкретного користувача та його пристрою
+    ]);
+
+    const tokens = await this.tokenService.generateAuthTokens({
+      userId: userData.userId,
+      deviceId: userData.deviceId,
+    });
+    // генеруємо пару токенів accessToken і refreshToken на основі userId та deviceId
+    await Promise.all([
+      this.authCacheService.saveToken(
+        tokens.accessToken,
+        userData.userId,
+        userData.deviceId,
+      ),
+      // зберігаємо access токен в кеш (Redis)
+      this.refreshTokenRepository.save(
+        this.refreshTokenRepository.create({
+          user_id: userData.userId,
+          deviceId: userData.deviceId,
+          refreshToken: tokens.refreshToken,
+        }),
+      ),
+    ]);
+    return tokens; // повертаємо пару токенів accessToken і refreshToken
+  }
 }

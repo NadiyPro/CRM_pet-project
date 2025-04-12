@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Put,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { SkipAuth } from './decorators/skip_auth.decorator';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
@@ -11,6 +19,9 @@ import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType
 import { CurrentUser } from './decorators/current_user.decorator';
 import { IUserData } from './models/interfaces/user_data.interface';
 import { ActivatePasswordReqDto } from './models/dto/req/activatePassword.req.dto';
+import { AuthUserResDto } from './models/dto/res/auth_user.res.dto';
+import { TokenPairResDto } from './models/dto/res/token_pair.res.dto';
+import { JwtRefreshGuard } from './guards/jwt_refresh.guard';
 
 @ApiTags(TableNameEnum.AUTH)
 @Controller(TableNameEnum.AUTH)
@@ -34,8 +45,8 @@ export class AuthController {
   }
 
   @ApiOperation({
-    summary: 'Для видалення токенів користувача (вихід з акаунту)',
-    description: 'Для видалення токенів користувача (вихід з акаунту)',
+    summary: 'Для виходу з акаунту та видалення токенів користувача',
+    description: 'Для виходу з акаунта та видалення токенів користувача',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
@@ -81,16 +92,46 @@ export class AuthController {
     return await this.authService.activatePassword(token, dto);
   }
 
-  // @ApiOperation({
-  //   summary: 'Для отримання нової пари токенів',
-  //   description: 'Для отримання нової пари токенів.',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(Jwt_refreshGuard)
-  // @Post('refresh')
-  // public async refresh(
-  //   @CurrentUser() userData: IUserData,
-  // ): Promise<TokenPairResDto> {
-  //   return await this.authService.refresh(userData);
-  // }
+  @ApiOperation({
+    summary:
+      'Для блокування user (manager) (is_active = false) та видалення його токенів',
+    description:
+      'Для блокування user (manager) (is_active = false) та видалення його токенів',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Put(':managerId')
+  public async ban(
+    @Param('managerId') managerId: string,
+  ): Promise<AuthUserResDto> {
+    return await this.authService.ban(managerId);
+  }
+
+  @ApiOperation({
+    summary: 'Для розблокування user (manager) (is_active = true)',
+    description: 'Для розблокування user (manager) (is_active = true)',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Put(':managerId')
+  public async unban(
+    @Param('managerId') managerId: string,
+  ): Promise<AuthUserResDto> {
+    return await this.authService.unban(managerId);
+  }
+
+  @ApiOperation({
+    summary: 'Для отримання нової пари токенів',
+    description: 'Для отримання нової пари токенів.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh')
+  public async refresh(
+    @CurrentUser() userData: IUserData,
+  ): Promise<TokenPairResDto> {
+    return await this.authService.refresh(userData);
+  }
 }

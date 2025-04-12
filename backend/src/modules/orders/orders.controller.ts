@@ -37,6 +37,27 @@ import { Workbook } from 'exceljs';
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
+  // @ApiOperation({
+  //   summary: 'Для отримання інформацію про всі orders',
+  //   description:
+  //     'Admin | manager може отримати інформацію про всі orders, ' +
+  //     'сортувати ASC | DESC за кожним полем та фільтрувати по кожному полю (за замовченням DESC)' +
+  //     'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка (за замовченням 25 шт), ' +
+  //     'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
+  //     'sortField - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
+  //     'Приклад запиту: GET /orders?limit=10&page=2&search=john&sortField=name&sortASCOrDESC=ASC',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  // @Get()
+  // public async findAll(
+  //   @Query() query: ListOrdersQueryReqDto,
+  // ): Promise<ListOrdersResQueryDto> {
+  //   const [entities, total] = await this.ordersService.findAll(query);
+  //   return OrdersMapper.toAllResDtoList(entities, total, query);
+  // }
+
   @ApiOperation({
     summary: 'Для отримання інформацію про всі orders',
     description:
@@ -52,9 +73,10 @@ export class OrdersController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get()
   public async findAll(
+    @CurrentUser() userData: IUserData,
     @Query() query: ListOrdersQueryReqDto,
   ): Promise<ListOrdersResQueryDto> {
-    const [entities, total] = await this.ordersService.findAll(query);
+    const [entities, total] = await this.ordersService.findAll(userData, query);
     return OrdersMapper.toAllResDtoList(entities, total, query);
   }
 
@@ -67,10 +89,11 @@ export class OrdersController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('export')
   public async exportOrders(
+    @CurrentUser() userData: IUserData,
     @Query() query: ListOrdersQueryReqDto,
     @Res() res: Response,
   ) {
-    const [orders] = await this.ordersService.findAll(query);
+    const [orders] = await this.ordersService.findAll(userData, query);
     const workbook = new Workbook(); // створює новий порожній Excel
     const worksheet = workbook.addWorksheet('Orders'); // створює нову сторінку в Excel з назвою Orders
 
@@ -121,6 +144,70 @@ export class OrdersController {
     // записуємо вже заповнений Excel (.xlsx) та передаємо його у res
     res.end(); // віддаємо відповідь клієнту
   }
+
+  // @ApiOperation({
+  //   summary: 'Експорт всіх заявок з урахуванням обраних фільтрів в Excel',
+  //   description: 'Експорт всіх заявок з урахуванням обраних фільтрів в Excel',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  // @Get('export')
+  // public async exportOrders(
+  //   @Query() query: ListOrdersQueryReqDto,
+  //   @Res() res: Response,
+  // ) {
+  //   const [orders] = await this.ordersService.findAll(query);
+  //   const workbook = new Workbook(); // створює новий порожній Excel
+  //   const worksheet = workbook.addWorksheet('Orders'); // створює нову сторінку в Excel з назвою Orders
+  //
+  //   worksheet.addRow([
+  //     'ID',
+  //     'Name',
+  //     'Surname',
+  //     'Email',
+  //     'Phone',
+  //     'Course',
+  //     'Status',
+  //     'Sum',
+  //     'Already Paid',
+  //     'Created At',
+  //     'Manager id',
+  //     'Manager surname',
+  //     'Group id',
+  //     'Group Name',
+  //   ]);
+  //
+  //   // worksheet.addRow додає значення в табл Excel
+  //   orders.forEach((order) => {
+  //     worksheet.addRow([
+  //       order.id,
+  //       order.name,
+  //       order.surname,
+  //       order.email,
+  //       order.phone,
+  //       order.course,
+  //       order.status,
+  //       order.sum,
+  //       order.alreadyPaid,
+  //       order.created_at,
+  //       order.manager?.id ?? '',
+  //       order.manager?.surname ?? '',
+  //       order.group_id,
+  //       order.group_name,
+  //     ]);
+  //   });
+  //
+  //   res.setHeader(
+  //     'Content-Type',
+  //     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  //   ); // вказує, що відповідь буде у форматі Excel (.xlsx)
+  //   res.setHeader('Content-Disposition', 'attachment; filename=orders.xlsx');
+  //   // вказує, що файл повинен бути завантажений під назвою orders.xlsx
+  //   await workbook.xlsx.write(res);
+  //   // записуємо вже заповнений Excel (.xlsx) та передаємо його у res
+  //   res.end(); // віддаємо відповідь клієнту
+  // }
 
   @ApiOperation({
     summary: 'Для фільтрації та сортуванню своїх заявок по orders',

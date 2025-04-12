@@ -25,12 +25,17 @@ export class OrdersService {
     private readonly userRepository: UserRepository,
     private readonly groupRepository: GroupRepository,
   ) {}
-
   public async findAll(
+    userData: IUserData,
     query: ListOrdersQueryReqDto,
   ): Promise<[OrdersEntity[], number]> {
-    return await this.ordersRepository.findAll(query);
+    return await this.ordersRepository.findAll(userData, query);
   }
+  // public async findAll(
+  //   query: ListOrdersQueryReqDto,
+  // ): Promise<[OrdersEntity[], number]> {
+  //   return await this.ordersRepository.findAll(query);
+  // }
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.ordersRepository.resetFilters();
