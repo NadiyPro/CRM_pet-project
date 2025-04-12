@@ -72,9 +72,6 @@ export class AuthController {
       'Manager переходить за посиланням отриманим на email при активації ролі ' +
       'або відновлені паролю та вводить новий пароль, підтверджує його',
   })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @SkipAuth()
   @Post('activate/:token')
   public async activatePassword(
@@ -83,53 +80,6 @@ export class AuthController {
   ): Promise<AuthResDto> {
     return await this.authService.activatePassword(token, dto);
   }
-
-  // @ApiOperation({
-  //   summary: 'Для видачі токена новому users',
-  //   description:
-  //     'Admin активує (is_active: true) роль для нового manage / admin, ' +
-  //     'після чого на його email надходить лист з токеном, який діє 30 хв ' +
-  //     'Після переходу по даному посиланню, новий user виконує реєстрацію '
-  // })
-  // @SkipAuth()
-  // @Post()
-  // public async activateRecoveryPassword(
-  //   @Body() dto: RegistrationReqDto,
-  // ): Promise<AuthResDto> {
-  //   return await this.authService.activateRecoveryPassword(dto);
-  // }
-
-  // @ApiOperation({
-  //   summary: 'Для реєстрації нового користувача',
-  //   description:
-  //     'Користувач переходить за посиланням,
-  //     яке йому надійшло на email (сформоване при активації користувача адміном),
-  //     далі вводить придуманий ним пароль та підтверджує його '
-  // })
-  // @SkipAuth()
-  // @Post('registration')
-  // public async registration(
-  // @CurrentUser() userRegistration: IUserRegistration,
-  //   @Body() dto: RegistrationReqDto,
-  // ): Promise<AuthResDto> {
-  //   return await this.authService.registration(dto);
-  // }
-
-  // @ApiOperation({
-  //   summary:
-  //     'Для відновлення доступу до акаунту користувача за його user_id ',
-  //   description:
-  //     'Admin може відновити доступ для входу в акаунт користувача за його user_id (!is_active)',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Post('sign-unBLock/:user_id,')
-  // public async signUnBlock(
-  //   @Param('user_id', ParseUUIDPipe) user_id: string,
-  // ): Promise<void> {
-  //   return await this.authService.signUnBlock(user_id);
-  // }
 
   // @ApiOperation({
   //   summary: 'Для отримання нової пари токенів',
