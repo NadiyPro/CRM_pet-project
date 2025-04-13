@@ -8,7 +8,11 @@ export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {
     super(RefreshTokenEntity, dataSource.manager);
   }
 
+  // public async isRefreshTokenExist(refreshToken: string): Promise<boolean> {
+  //   return this.existsBy({ refreshToken });
+  // }
   public async isRefreshTokenExist(refreshToken: string): Promise<boolean> {
-    return this.existsBy({ refreshToken });
+    const token = await this.findOneBy({ refreshToken });
+    return !!token;
   }
 }

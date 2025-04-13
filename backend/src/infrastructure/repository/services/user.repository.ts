@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { UserEntity } from '../../mysql/entities/user.entity';
+import { ListUsersQueryReqDto } from '../../../modules/users/models/dto/req/listUsersQuery.req.dto';
 
 @Injectable()
 export class UserRepository extends Repository<UserEntity> {
@@ -13,19 +14,18 @@ export class UserRepository extends Repository<UserEntity> {
     // (дозволяє використовувати всі методи create/findAll/findOne/update/remove/delete і т.п)
   }
 
-  // додати статистику по заявкам з табл студентів
-  // public async findAll(
-  //   query: ListUsersQueryReqDto,
-  // ): Promise<[UserEntity[], number]> {
-  //   const qb = this.createQueryBuilder('users');
-  //   qb.where('users.deleted IS NULL');
-  // const limit = query.limit || 10;
-  // const page = query.page || 1;
-  //
-  // qb.take(query.limit);
-  // qb.skip((page - 1) * limit);
-  //
-  //   qb.orderBy('created', 'DESC');
-  //   return await qb.getManyAndCount();
-  // }
+  public async findAll(
+    query: ListUsersQueryReqDto,
+  ): Promise<[UserEntity[], number]> {
+    const qb = this.createQueryBuilder('users');
+    qb.where('users.deleted IS NULL');
+    const limit = query.limit || 10;
+    const page = query.page || 1;
+
+    qb.take(query.limit);
+    qb.skip((page - 1) * limit);
+
+    qb.orderBy('created_at', 'DESC');
+    return await qb.getManyAndCount();
+  }
 }

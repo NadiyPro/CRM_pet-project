@@ -1,5 +1,15 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Query,
+  UseGuards,
+} from '@nestjs/common';
 import { UsersService } from './service/users.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { RoleTypeEnum } from 'src/infrastructure/mysql/entities/enums/roleType.enum';
@@ -8,6 +18,8 @@ import { UserMapper } from './service/user.mapper';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { UserResDto } from './models/dto/res/user.res.dto';
 import { Role } from '../guards/decorator/role.decorator';
+import { ListUsersQueryReqDto } from './models/dto/req/listUsersQuery.req.dto';
+import { ListResQueryDto } from './models/dto/res/listUsersQuery.res.dto';
 
 @ApiTags(TableNameEnum.USERS)
 @Controller(TableNameEnum.USERS)
@@ -27,53 +39,34 @@ export class UsersController {
     return UserMapper.toResDto(result);
   }
 
-  // @ApiOperation({
-  //   summary: 'Для отримання інформацію про всі облікові записи користувачів',
-  //   description:
-  //     'Admin може отримати інформацію про всі облікові записи користувачів',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Get('all')
-  // public async findAll(
-  //   @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
-  // ): Promise<ListResQueryDto> {
-  //   const [entities, total] = await this.usersService.findAll(query);
-  //   return UserMapper.toAllResDtoList(entities, total, query);
-  // }
+  @ApiOperation({
+    summary: 'Для отримання інформацію по всім managers',
+    description: 'Admin може отримати інформацію по всім managers',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Get('all')
+  public async findAll(
+    @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
+  ): Promise<ListResQueryDto> {
+    const [entities, total] = await this.usersService.findAll(query);
+    return UserMapper.toAllResDtoList(entities, total, query);
+  }
 
-  // @ApiOperation({
-  //   summary:
-  //     'Для отримання інформацію статистику по заявках користувача за його id',
-  //   description:
-  //     'Admin може отримати інформацію про статистику по заявкам будь якого користувача по його id.'
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Get(':userId')
-  // public async findOne(
-  //   @Param('userId', ParseUUIDPipe) userId: string,
-  //   @Query() query: ListUsersQueryReqDto, // Параметри передаються через @Query
-  // ): Promise<статистика> {
-  //   const [entities, total]  = await this.usersService.findOne(userId, query);
-  //    return UserMapper.toAllResDtoListId(entities, total, query);
-  // }
-
-  // @ApiOperation({
-  //   summary: 'Для видалення облікового запису користувача за його id',
-  //   description:
-  //     'Admin може видалити обліковий запис іншого користувача по його id ' +
-  //     '*в БД в стовбчику deleted буде вказано дату видалення користувача.'
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role(RoleTypeEnum.ADMIN)
-  // @Delete(':userId')
-  // public async deleteId(
-  //   @Param('userId', ParseUUIDPipe) userId: string,
-  // ): Promise<string> {
-  //   return await this.usersService.deleteId(userId);
-  // }
+  @ApiOperation({
+    summary: 'Для видалення облікового запису користувача (manager)',
+    description:
+      'Admin може видалити обліковий запис іншого користувача (manager) по його id ' +
+      '*в БД в стовбчику deleted буде вказано дату видалення користувача.',
+  })
+  @ApiBearerAuth()
+  @UseGuards(ApprovedRoleGuard)
+  @Role([RoleTypeEnum.ADMIN])
+  @Delete(':managerId')
+  public async deleteId(
+    @Param('managerId', ParseUUIDPipe) managerId: string,
+  ): Promise<string> {
+    return await this.usersService.deleteId(managerId);
+  }
 }

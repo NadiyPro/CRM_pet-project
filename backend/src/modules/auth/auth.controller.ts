@@ -126,6 +126,7 @@ export class AuthController {
     summary: 'Для отримання нової пари токенів',
     description: 'Для отримання нової пари токенів.',
   })
+  @SkipAuth()
   @ApiBearerAuth()
   @UseGuards(JwtRefreshGuard)
   @Post('refresh')
