@@ -1,34 +1,11 @@
 import { Transform, Type } from 'class-transformer';
-import {
-  IsBoolean,
-  IsEnum,
-  IsInt,
-  IsOptional,
-  IsString,
-  Max,
-  Min,
-} from 'class-validator';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
+import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SortFieldEnum } from '../../../enums/sortField.enum';
 import { SortASCOrDESCEnum } from '../../../enums/sortASCOrDESC.enum';
 
-export class ListOrdersQueryReqDto {
-  @ApiProperty({ default: '25' })
-  @Type(() => Number)
-  @IsInt()
-  @Max(100)
-  @Min(1)
-  @IsOptional()
-  limit?: number = 25;
-
-  @ApiProperty({ default: '1' })
-  @Type(() => Number)
-  @IsInt()
-  @Min(1)
-  @IsOptional()
-  page?: number = 1;
-
+export class ListOrdersExportReqDto {
   @Transform(({ value }) =>
     TransformHelper.toLowerCase({ value: value as string }),
   )

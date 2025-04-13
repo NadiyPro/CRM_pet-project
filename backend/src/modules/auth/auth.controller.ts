@@ -70,7 +70,7 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
-  @Get(':managerId')
+  @Get('activate/:managerId')
   public async activate(
     @Param('managerId') managerId: string,
   ): Promise<AuthResDto> {
@@ -101,7 +101,7 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
-  @Put(':managerId')
+  @Put('ban/:managerId')
   public async ban(
     @Param('managerId') managerId: string,
   ): Promise<AuthUserResDto> {
@@ -115,7 +115,7 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
-  @Put(':managerId')
+  @Put('unban/:managerId')
   public async unban(
     @Param('managerId') managerId: string,
   ): Promise<AuthUserResDto> {

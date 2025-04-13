@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsNotEmpty,
   IsString,
   Length,
@@ -23,9 +22,9 @@ export class LoginReqDto {
   @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
   password: string;
 
-  @ApiProperty({ example: false })
-  @IsBoolean()
-  is_active: boolean;
+  // @ApiProperty({ example: false })
+  // @IsBoolean()
+  // is_active: boolean;
 
   @ApiProperty({ example: 'deviceId' })
   @IsNotEmpty()

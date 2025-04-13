@@ -31,6 +31,7 @@ import { CreateOrdersReqDto } from './models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from './models/dto/res/ordersStatisticAll.res.dto';
 import { OrdersEntity } from '../../infrastructure/mysql/entities/orders.entity';
 import { Workbook } from 'exceljs';
+import { ListOrdersExportReqDto } from './models/dto/req/listOrdersExportReqDto.req.dto';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -69,10 +70,10 @@ export class OrdersController {
   @Get('export')
   public async exportOrders(
     @CurrentUser() userData: IUserData,
-    @Query() query: ListOrdersQueryReqDto,
+    @Query() query: ListOrdersExportReqDto,
     @Res() res: Response,
   ) {
-    const [orders] = await this.ordersService.findAll(userData, query);
+    const [orders] = await this.ordersService.findAllExport(userData, query);
     const workbook = new Workbook(); // створює новий порожній Excel
     const worksheet = workbook.addWorksheet('Orders'); // створює нову сторінку в Excel з назвою Orders
 

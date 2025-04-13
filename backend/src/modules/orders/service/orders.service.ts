@@ -17,6 +17,7 @@ import { OrdersMapper } from './orders.mapper';
 import { CreateOrdersReqDto } from '../models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from '../models/dto/res/ordersStatisticAll.res.dto';
 import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
+import { ListOrdersExportReqDto } from '../models/dto/req/listOrdersExportReqDto.req.dto';
 
 @Injectable()
 export class OrdersService {
@@ -31,11 +32,13 @@ export class OrdersService {
   ): Promise<[OrdersEntity[], number]> {
     return await this.ordersRepository.findAll(userData, query);
   }
-  // public async findAll(
-  //   query: ListOrdersQueryReqDto,
-  // ): Promise<[OrdersEntity[], number]> {
-  //   return await this.ordersRepository.findAll(query);
-  // }
+
+  public async findAllExport(
+    userData: IUserData,
+    query: ListOrdersExportReqDto,
+  ): Promise<[OrdersEntity[], number]> {
+    return await this.ordersRepository.findAllExport(userData, query);
+  }
 
   public async resetFilters(): Promise<[OrdersEntity[], number]> {
     return await this.ordersRepository.resetFilters();
@@ -55,13 +58,6 @@ export class OrdersService {
       Disaggre: Number(item.Disaggre) || null,
       Dubbing: Number(item.Dubbing) || null,
     }));
-  }
-
-  public async findMyOrder(
-    userData: IUserData,
-    query: ListOrdersQueryReqDto,
-  ): Promise<[OrdersEntity[], number]> {
-    return await this.ordersRepository.findMyOrder(userData, query);
   }
 
   public async createOrder(

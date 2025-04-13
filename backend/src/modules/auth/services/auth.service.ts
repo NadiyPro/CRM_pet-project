@@ -9,7 +9,6 @@ import * as bcrypt from 'bcryptjs';
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UserMapper } from '../../users/service/user.mapper';
-import { UsersService } from '../../users/service/users.service';
 import { LoginReqDto } from '../models/dto/req/login.req.dto';
 import { AuthResDto } from '../models/dto/res/auth.res.dto';
 import { AuthCacheService } from './auth-cache.service';
@@ -29,7 +28,6 @@ export class AuthService {
     private readonly authCacheService: AuthCacheService,
     private readonly tokenService: TokenService,
     private readonly userRepository: UserRepository,
-    private readonly usersService: UsersService,
     private readonly refreshTokenRepository: RefreshTokenRepository,
     private readonly emailService: EmailService,
   ) {}
