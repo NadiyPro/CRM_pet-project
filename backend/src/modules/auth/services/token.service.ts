@@ -66,8 +66,8 @@ export class TokenService {
       return await this.jwtService.verifyAsync(token, {
         secret: this.getSecret(type),
       });
-    } catch {
-      throw new UnauthorizedException('Invalid token');
+    } catch (e) {
+      throw new UnauthorizedException(e);
     }
   }
 
