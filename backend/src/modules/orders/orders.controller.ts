@@ -140,20 +140,20 @@ export class OrdersController {
     return await this.ordersService.createOrder(userData, createOrdersReqDto);
   }
 
-  @ApiOperation({
-    summary: 'Для того, щоб скинути всі фільтри та сортування.',
-    description:
-      'Для того, щоб скинути всі фільтри та сортування. ' +
-      '*сортування по замовченню по полю created_at, DESC',
-  })
-  @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Get('resetFilters')
-  public async resetFilters(): Promise<ListOrdersResQueryDto> {
-    const [entities, total] = await this.ordersService.resetFilters();
-    return OrdersMapper.resetFiltersAllResDtoList(entities, total);
-  }
+  // @ApiOperation({
+  //   summary: 'Для того, щоб скинути всі фільтри та сортування.',
+  //   description:
+  //     'Для того, щоб скинути всі фільтри та сортування. ' +
+  //     '*сортування по замовченню по полю created_at, DESC',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
+  // @Get('resetFilters')
+  // public async resetFilters(): Promise<ListOrdersResQueryDto> {
+  //   const [entities, total] = await this.ordersService.resetFilters();
+  //   return OrdersMapper.resetFiltersAllResDtoList(entities, total);
+  // }
 
   @ApiOperation({
     summary:
