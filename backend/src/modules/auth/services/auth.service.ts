@@ -196,15 +196,15 @@ export class AuthService {
   }
 
   public async refresh(userData: IUserData): Promise<TokenPairResDto> {
-    // await Promise.all([
-    //   this.authCacheService.deleteToken(userData.userId, userData.deviceId),
-    //   // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
-    //   this.refreshTokenRepository.delete({
-    //     user_id: userData.userId,
-    //     deviceId: userData.deviceId,
-    //   }), // видаляємо всі refreshToken,
-    //   // що зберігаються в базі даних для конкретного користувача та його пристрою
-    // ]);
+    await Promise.all([
+      this.authCacheService.deleteToken(userData.userId, userData.deviceId),
+      // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
+      this.refreshTokenRepository.delete({
+        user_id: userData.userId,
+        deviceId: userData.deviceId,
+      }), // видаляємо всі refreshToken,
+      // що зберігаються в базі даних для конкретного користувача та його пристрою
+    ]);
 
     const tokens = await this.tokenService.generateAuthTokens({
       userId: userData.userId,
@@ -226,15 +226,15 @@ export class AuthService {
         }),
       ),
     ]);
-    await Promise.all([
-      this.authCacheService.deleteToken(userData.userId, userData.deviceId),
-      // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
-      this.refreshTokenRepository.delete({
-        user_id: userData.userId,
-        deviceId: userData.deviceId,
-      }), // видаляємо всі refreshToken,
-      // що зберігаються в базі даних для конкретного користувача та його пристрою
-    ]);
+    // await Promise.all([
+    //   this.authCacheService.deleteToken(userData.userId, userData.deviceId),
+    //   // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
+    //   this.refreshTokenRepository.delete({
+    //     user_id: userData.userId,
+    //     deviceId: userData.deviceId,
+    //   }), // видаляємо всі refreshToken,
+    //   // що зберігаються в базі даних для конкретного користувача та його пристрою
+    // ]);
     return tokens; // повертаємо пару токенів accessToken і refreshToken
   }
 }
