@@ -1,6 +1,6 @@
+# 🌟 Final_project (Back-end)
+Серверна частина CRM системи для управління заявками на курси, ролями користувачів (admin, manager), групами, розсилками, а також для генерації статистики та експорту в Excel. Проєкт побудований на фреймворку **NestJS**, з використанням **MySQL**, **Redis**, **Docker** та **JWT-автентифікації**.
 
-
-Серверна частина проєкту, побудована на **NestJS**, з використанням **MySQL**, **Redis**, **Docker**, **JWT аутентифікації**, авторизації, електронної пошти, та іншого. Система підтримує ролі користувачів, роботу з ордерами, повідомленнями, групами та міграціями.
 ## ⚙️ Технології
 + NestJS — серверний фреймворк
 + TypeORM — ORM для MySQL
@@ -11,7 +11,7 @@
 + Swagger — авто-документація API
 + nodemailer — email-розсилка
 
-##  🔧 The structure of the project
+##  🔧 Структура проекту
 ```
 final_project/
 ├── .husky/
@@ -114,22 +114,105 @@ http://localhost:3000/api
 ```
 Генерується автоматично на основі декораторів.
 
-## Postman
+## 📜 Postman
 Колекція для Postman збережена в теці 
 ```
 /backend/src/infrastructure/repository/postman_collection/
 ```
-## 🧠 Redis
+## 📕 Redis
 Redis використовується для:
 + Зберігання access токенів
 + Кешування даних (опційно)
 + Інтегровано через окремий модуль redis.module.ts
 
+## 🔐 Авторизація та Ролі
+Використовується JWT з розділенням на:
+ + access -  коротокостроковий, зберігається в Redis
+ + refresh токени - довготривалий, зберігається БД
 
+Ролі реалізовано через:
++ @Roles('admin')/@Roles('manager')
++ RolesGuard
 
+Користувачі мають ролі:
++ ADMIN – повний доступ, керування користувачами, заявками, статистикою
++ MANAGER – обробка заявок
 
+Захист маршрутів через кастомні Guards:
++ @UseGuards(JwtAccessGuard)
++ @UseGuards(JwtRefreshGuard)
 
+## 🧩 Сутності
+UserEntity - користувачі
++ Поля: id, name, surname, email, password, role, is_active, deleted
++ Зв’язки: 
+  + refreshTokens – один до багатьох з RefreshTokenEntity
+  + orders – один до багатьох з OrdersEntity
+  + messages – один до багатьох з MessageEntity
 
+OrdersEntity - заявки (ордери)
++ Поля: id, name, surname, email, phone, age, course, course_format, course_type, sum, alreadyPaid, utm, msg, status, group_id, group_name
++ Наслідує CreateUpdateModel
++ Зв’язки:
+  + manager – багато до одного з UserEntity
+  + messages – один до багатьох з MessageEntity
+
+MessageEntity - коментарі (повідомлення)
++ Поля: id, messages, created_at, updated_at
++ Зв’язки:
+  + order – багато до одного з OrdersEntity
+  + manager – багато до одного з UserEntity
+
+RefreshTokenEntity - зберігаємо refresh токени
++ Поля: id, refreshToken, deviceId, user_id
++ Наслідує CreateUpdateModel
++ Зв’язок:
+  + user – багато до одного з UserEntity
+
+GroupEntity - групи нна які розподілені заявки
++ Поля: id, group_name
++ Наслідує CreateUpdateModel
+
+CreateUpdateModel - дати створення та оновлення даних
++ Поля: created_at, updated_at
+
+## 🧾 Enums
++ CourseEnum - назва курсу
+  + FS, QACX, JCX, JSCX, FE, PCX
++ CourseFormatEnum - вид навчання
+  + static, online
++ CourseTypeEnum - тип курсу
+  + pro, minimal, premium, incubator, vip
++ RoleTypeEnum - ролі для користувачів
+  + manager, admin
++ StatusEnum - статус договору
+  + In_work, New, Aggre, Disaggre, Dubbing
++ TableNameEnum - назви таблиць (сутностей)
+  + refresh_tokens, users, orders, message, group, auth
+
+## 📨 Email
++ Надсилання листів реалізовано через nodemailer
++ Email-конфігурація зчитується з .env
+
+## 📊 Експорт у Excel
+Формує файл orders.xlsx із поточними фільтрами, сортуванням та заявками (можна вивантажити всі заявки, а можна вивантажити лише свої заявки з урахуванням фільтрів, без прив'язки до пагінації)
+Доступний ендпоінт:
+```
+GET /orders/export
+```
+## 📦 Приклади ендпоінтів
++ POST /users/role — видача ролі
++ GET /users/all — перегляд усіх менеджерів
++ DELETE /users/:managerId — видалити менеджера
++ GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
++ GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
++ POST /orders — створити заявку
++ GET /orders/ordersStatisticAll — статистика по всім заявкам
++ GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
++ POST /orders/:orderId/:group_id — прив'язка заявки до групи
++ PUT /:orderId — для оновлення даних по заявці
++ GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
++ Delete /:orderId - для видалення заявки згідно її orderId
 
 ## Run tests
 
@@ -143,43 +226,3 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
-```bash
-$ npm install -g mau
-$ mau deploy
-```
-
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
-
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
