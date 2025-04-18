@@ -1,49 +1,135 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Серверна частина проєкту, побудована на **NestJS**, з використанням **MySQL**, **Redis**, **Docker**, **JWT аутентифікації**, авторизації, електронної пошти, та іншого. Система підтримує ролі користувачів, роботу з ордерами, повідомленнями, групами та міграціями.
+## ⚙️ Технології
++ NestJS — серверний фреймворк
++ TypeORM — ORM для MySQL
++ MySQL — реляційна база даних
++ Redis — для зберігання токенів/кешу
++ JWT — аутентифікація/авторизація
++ Docker — контейнеризація
++ Swagger — авто-документація API
++ nodemailer — email-розсилка
 
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
-
-```bash
-$ npm install
+##  🔧 The structure of the project
+```
+final_project/
+├── .husky/
+├── backend/
+│   ├── dist/                      # Скомпільовані JS-файли
+│   ├── src/
+│   │   ├── common/
+│   │   │   └── helpers/           # Допоміжні функції (Swagger, трансформації)
+│   │   ├── configs/               # Конфігураційні файли
+│   │   ├── infrastructure/        # Зовнішні сервіси та ресурси
+│   │   │   ├── mysql/             # Підключення до MySQL (TypeORM)
+│   │   │   ├── redis/             # Підключення до Redis
+│   │   │   └── repository/        # Сервіси роботи з базами, postman_collection
+│   │   ├── modules/               # Основні модулі системи
+│   │   │   ├── auth/              # Авторизація/Аутентифікація (JWT)
+│   │   │   ├── email/             # Логіка для надсилання email
+│   │   │   ├── group/             # Робота з групами
+│   │   │   ├── guards/            # NestJS Guards
+│   │   │   ├── message/           # Повідомлення
+│   │   │   ├── orders/            # Замовлення
+│   │   │   └── users/             # Користувачі
+│   │   ├── app.module.ts          # Головний модуль додатку
+│   │   ├── main.ts                # Точка входу в застосунок
+│   ├── .env
+│   ├── .env.example
+│   ├── eslint.config.mjs
+│   ├── nest-cli.json
+│   ├── ormconfig.ts
+│   ├── tsconfig.json
+│   └── package.json
+├── test/                          # Тестові файли
+├── Dockerfile                     # Dockerfile
+├── docker-compose.yml            # Docker Compose конфіг
 ```
 
-## Compile and run the project
+## 🚀 Запуск проєкту
+1. Перейди в папку **backend**:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+cd backend
 ```
+
+2. Встанови залежності:
+
+```bash
+npm install
+```
+
+3. Створи файл `.env` зі змінними середовищами:
+
+```
+APP_PORT=
+APP_HOST=
+
+MYSQL_HOST=
+MYSQL_PORT=
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DB=
+
+REDIS_HOST=
+REDIS_PORT=
+REDIS_PASSWORD=
+
+JWT_ACCESS_SECRET=
+JWT_ACCESS_EXPIRES_IN=
+JWT_ACCESS_ACTIVE_EXPIRES_IN=
+JWT_REFRESH_SECRET=
+JWT_REFRESH_EXPIRES_IN=
+
+SMTP_EMAIL=
+SMTP_PASSWORD=
+```
+4. Проєкт повністю контейнеризовано. Запуск проекту:
+```bash
+$ docker-compose -f ../docker-compose.local.yaml up -d --build
+```
+Це підніме наступні сервіси:
++ backend — NestJS API
++ mysql — база даних
++ redis — кеш-сервер
+
+## 🧱 Міграції
+Міграції створюються через TypeORM CLI:
+```bash
+cd backend
+typeorm-ts-node-commonjs --dataSource ./ormconfig.ts
+cross-var npm run typeorm -- migration:generate ./src/infrastructure/mysql/migrations/$npm_config_name
+npm run typeorm -- migration:run
+```
+Файли з міграціями знаходяться у: 
+```
+/backend/src/infrastructure/mysql/migrations/
+```
+
+## 📜 Swagger
+Swagger доступний за адресою:
+```bash
+http://localhost:3000/api
+```
+Генерується автоматично на основі декораторів.
+
+## Postman
+Колекція для Postman збережена в теці 
+```
+/backend/src/infrastructure/repository/postman_collection/
+```
+## 🧠 Redis
+Redis використовується для:
++ Зберігання access токенів
++ Кешування даних (опційно)
++ Інтегровано через окремий модуль redis.module.ts
+
+
+
+
+
+
 
 ## Run tests
 
