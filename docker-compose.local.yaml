@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  app:
+  backend:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-        - "3000:3000"
+#    ports:
+#        - "3000:3000"
     env_file:
       - ./backend/.env
     working_dir: /app
@@ -23,6 +23,35 @@ services:
     networks:
       - default
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.frontend
+    container_name: final_project-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    working_dir: /app
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - backend
+    networks:
+      - final_project_net
+
+  nginx:
+    image: nginx:latest
+    container_name: final_project-nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - final_project_net
+
   final_project-mysql:
     container_name: final_project-mysql
     image: mysql:8.0
@@ -36,8 +65,8 @@ services:
       MYSQL_DATABASE: nadiamysql
     tmpfs:
       - /var/lib/mysql
-    ports:
-      - "3306:3306"
+#    ports:
+#      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
