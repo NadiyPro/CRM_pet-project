@@ -206,10 +206,10 @@ GET /orders/export
 ### /auth
 >+ POST /auth/login — для логінації на платформі
 >+ POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
->+ POST /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
+>+ GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
 >+ POST /auth/activate/:token — для активації паролю менеджером
->+ POST /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
->+ POST /auth/unban/:managerId — для розблокування менеджера (is_active = true)
+>+ PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
+>+ PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
 >+ POST /auth/refresh — для отримання нової пари токенів
 ### /users
 >+ POST /users/role — видача ролі
