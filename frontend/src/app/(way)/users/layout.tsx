@@ -6,7 +6,7 @@ export const metadata: Metadata = {
 
 type Props = { children: React.ReactNode }
 
-const usersLayout= ({children}: Props) => {
+const UsersLayout= ({children}: Props) => {
   return (
     <div>
       {children}
@@ -14,4 +14,4 @@ const usersLayout= ({children}: Props) => {
   );
 };
 
-export default usersLayout;
+export default UsersLayout;

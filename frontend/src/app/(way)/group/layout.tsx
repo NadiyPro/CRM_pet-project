@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 type Props = { children: React.ReactNode }
 
-const groupLayout= ({children}: Props) => {
+const GroupLayout= ({children}: Props) => {
   return (
     <div>
       {children}
@@ -15,4 +15,4 @@ const groupLayout= ({children}: Props) => {
   );
 };
 
-export default groupLayout;
+export default GroupLayout;

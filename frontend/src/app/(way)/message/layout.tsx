@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 type Props = { children: React.ReactNode }
 
-const messageLayout= ({children}: Props) => {
+const MessageLayout= ({children}: Props) => {
   return (
     <div>
       {children}
@@ -15,4 +15,4 @@ const messageLayout= ({children}: Props) => {
   );
 };
 
-export default messageLayout;
+export default MessageLayout;

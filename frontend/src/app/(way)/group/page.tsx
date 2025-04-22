@@ -1,9 +1,8 @@
-export default function groupPage() {
+const GroupPage =  () => {
   return (
     <div>
-      <main>
 
-      </main>
     </div>
   );
 }
+export default GroupPage;

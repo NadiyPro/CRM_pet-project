@@ -1,9 +1,8 @@
-export default function ordersPage() {
+const OrdersPage =  () => {
   return (
     <div>
-      <main>
 
-      </main>
     </div>
   );
 }
+export default OrdersPage;

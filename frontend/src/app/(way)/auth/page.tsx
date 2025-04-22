@@ -1,9 +1,8 @@
-export default function authPage() {
+const AuthPage =  () => {
   return (
     <div>
-      <main>
 
-      </main>
     </div>
   );
 }
+export default AuthPage;

@@ -1,9 +1,8 @@
-export default function usersPage() {
+const UsersPage =  () => {
   return (
     <div>
-      <main>
 
-      </main>
     </div>
   );
 }
+export default UsersPage;
