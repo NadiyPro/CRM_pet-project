@@ -15,9 +15,9 @@ const authLoginValidator = Joi.object({
     "string.max": "max is 300 allowed",
     "string.pattern.base": "Пароль повинен містити принаймні одну літеру, одну цифру та один спеціальний символ, і бути не менше 8 символів"
   }),
-  deviceId: Joi.string().messages({
-    "string.empty": "Поле має бути заповнене",
-  })
+  // deviceId: Joi.string().messages({
+  //   "string.empty": "Поле має бути заповнене",
+  // })
 });
 
 export default authLoginValidator;
