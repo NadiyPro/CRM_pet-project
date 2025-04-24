@@ -1,19 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadLogin } from '../reducers/loadLogin';
+import { AuthLoginModule } from '../../module/authLoginModule';
 
 interface AuthSliceInterface {
-  access: string;
-  refresh: string;
-  dto: {
-    email: string;
-    password: string;
-    deviceId: string;
-  }
+  isValid: boolean;
+  dto: AuthLoginModule
 }
 
 const initialState: AuthSliceInterface = {
-  access: '',
-  refresh: '',
+  isValid: false,
   dto:{
     email: '',
     password: '',
@@ -49,8 +44,7 @@ export const authSlice = createSlice({
     builder
       .addCase(
         loadLogin.fulfilled, (state, action) => {
-      state.access = action.payload;
-      state.refresh = action.payload;
+          state.isValid = action.payload;
     })
   }
 });
