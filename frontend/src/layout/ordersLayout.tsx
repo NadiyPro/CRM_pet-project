@@ -1,10 +1,11 @@
 import { ReactNode } from 'react';
+import { Outlet } from 'react-router-dom';
 
-const OrdersLayout = ({ children }: { children: ReactNode }) => {
+const OrdersLayout = () => {
 
 return(
   <div>
-    {children}
+    <Outlet/>
   </div>
 )
 };

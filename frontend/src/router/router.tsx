@@ -14,13 +14,12 @@ export const router = createBrowserRouter([
     element: <AuthLoginPage/>,
     errorElement: <ErrorElement/>,
     children: [
-      { path: '/', element:
-          <OrdersLayout>
-          <OrdersAllPage />
-          </OrdersLayout>},
-      // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
-      // { path: '/users', element: <AdminPage/> },
-      // { path: '/users/all', element: <AdminAllPage/> },
+      { path: '/', element: <OrdersLayout/>, children: [
+          { path: '/orders', element: <OrdersAllPage/> },
+          // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
+          // { path: '/users', element: <AdminPage/> },
+          // { path: '/users/all', element: <AdminAllPage/> },
+        ]},
     ]
   }
 ]);
