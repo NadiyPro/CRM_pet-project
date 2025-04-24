@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadLogin } from '../reducers/loadLogin';
+import { loadLogin } from '../reducers/authLoad/loadLogin';
 import { AuthLoginModule } from '../../module/authLoginModule';
+import { loadLogOut } from '../reducers/authLoad/loadLogOut';
 
 interface AuthSliceInterface {
   isValid: boolean;
@@ -46,10 +47,15 @@ export const authSlice = createSlice({
         loadLogin.fulfilled, (state, action) => {
           state.isValid = action.payload;
     })
+      .addCase(
+        loadLogOut.fulfilled, (state) => {
+          state.isValid = false;
+        })
   }
 });
 
 export const authAction = {
   ...authSlice.actions,
-  loadLogin
+  loadLogin,
+  loadLogOut
 }

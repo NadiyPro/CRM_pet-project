@@ -3,12 +3,12 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import authLoginValidator from '../validator/authLogin.validator';
 import { AuthLoginModule } from '../module/authLoginModule';
 import { useAppDispatch } from '../redux/store';
-import { loadLogin } from '../redux/reducers/loadLogin';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { authAction } from '../redux/slices/authSlice';
 
 const AuthLoginPage = () => {
-  const {handleSubmit, register, formState: { errors, isValid}} = useForm<AuthLoginModule>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
+  const {handleSubmit, register, formState: {isValid}} = useForm<AuthLoginModule>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +27,7 @@ const AuthLoginPage = () => {
     try {
       setLoading(true);
       setError(null);
-      const isValid = await dispatch(loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
+      const isValid = await dispatch(authAction.loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
       if (isValid) {
         navigate(`/`);
       }

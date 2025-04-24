@@ -22,6 +22,11 @@ const authService = {
     const refreshToken = retrieveLocalStorage<AuthTokenModule>('tokenPair').refresh;
     const response = await axiosInstance.post<AuthTokenModule>('/auth/refresh', {refresh:refreshToken})
     localStorage.setItem('tokenPair', JSON.stringify(response.data))
+  },
+  authLogOut: async (): Promise<boolean> => {
+    await axiosInstance.post('/auth/logOut');
+    localStorage.removeItem('tokenPair');
+    return true;
   }
 }
 

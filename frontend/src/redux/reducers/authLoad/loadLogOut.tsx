@@ -1,0 +1,20 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { authService } from '../../../service/api.service';
+import { AxiosError } from 'axios';
+
+const loadLogOut = createAsyncThunk(
+  'authLogOut',
+  async  (_, thunkAPI) => {
+    try {
+      let response = await authService.authLogOut();
+      return thunkAPI.fulfillWithValue(response);
+    } catch (e) {
+      let error = e as AxiosError;
+      return thunkAPI.rejectWithValue(error?.response?.data);
+    }
+  }
+);
+
+export {
+  loadLogOut
+}
