@@ -29,7 +29,7 @@ const AuthLoginPage = () => {
       setError(null);
       const isValid = await dispatch(loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
       if (isValid) {
-        navigate(`/orders`);
+        navigate(`/`);
       }
     } catch (e) {
       setLoading(false);

@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
-import AuthLoginPage from '../layout/authLogin';
-import AuthPasswordPage from '../page/authPassword';
-import OrdersAllPage from '../page/ordersAll';
+import AuthLoginPage from '../page/authLoginPage';
+import AuthPasswordPage from '../page/authPasswordPage';
+import OrdersAllPage from '../page/ordersAllPage';
 import AdminPage from '../page/adminPage';
 import AdminAllPage from '../page/adminAllPage';
 import ErrorElement from '../layout/errorElement';
+import OrdersLayout from '../layout/ordersLayout';
 
 
 export const router = createBrowserRouter([
@@ -13,7 +14,10 @@ export const router = createBrowserRouter([
     element: <AuthLoginPage/>,
     errorElement: <ErrorElement/>,
     children: [
-      { path: '/orders', element: <OrdersAllPage/> },
+      { path: '/', element:
+          <OrdersLayout>
+          <OrdersAllPage />
+          </OrdersLayout>},
       // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
       // { path: '/users', element: <AdminPage/> },
       // { path: '/users/all', element: <AdminAllPage/> },
