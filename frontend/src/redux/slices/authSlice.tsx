@@ -1,35 +1,61 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { loadLogin } from '../reducers/loadLogin';
 
 interface AuthSliceInterface {
-  email: string;
-  password: string;
-  deviceId: string;
-  name: string;
-  surname: string;
-  is_active: boolean;
-  role: string;
-};
+  access: string;
+  refresh: string;
+  dto: {
+    email: string;
+    password: string;
+    deviceId: string;
+  }
+}
 
 const initialState: AuthSliceInterface = {
-  email: '',
-  password: '',
-  deviceId: '',
-  name: '',
-  surname: '',
-  is_active: false,
-  role: '',
+  access: '',
+  refresh: '',
+  dto:{
+    email: '',
+    password: '',
+    deviceId: '',
+  }
 };
+
+// interface AuthSliceInterface {
+//   email: string;
+//   password: string;
+//   deviceId: string;
+//   name: string;
+//   surname: string;
+//   is_active: boolean;
+//   role: string;
+// }
+//
+// const initialState: AuthSliceInterface = {
+//   email: '',
+//   password: '',
+//   deviceId: '',
+//   name: '',
+//   surname: '',
+//   is_active: false,
+//   role: '',
+// };
 
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState: initialState,
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers:  (builder) => {
     builder
-      .addCase()
+      .addCase(
+        loadLogin.fulfilled, (state, action) => {
+      state.access = action.payload;
+      state.refresh = action.payload;
+    })
   }
 });
 
 export const authAction = {
-  ...authSlice.actions
+  ...authSlice.actions,
+  loadLogin
 }

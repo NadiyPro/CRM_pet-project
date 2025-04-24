@@ -24,3 +24,7 @@ const authService = {
     localStorage.setItem('tokenPair', JSON.stringify(response.data))
   }
 }
+
+export {
+  authService
+}
