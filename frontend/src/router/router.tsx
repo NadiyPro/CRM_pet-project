@@ -13,8 +13,8 @@ export const router = createBrowserRouter([
     element: <AuthLoginPage/>,
     errorElement: <ErrorElement/>,
     children: [
+      { path: '/orders', element: <OrdersAllPage/> },
       // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
-      // { path: '/orders', element: <OrdersAllPage/> },
       // { path: '/users', element: <AdminPage/> },
       // { path: '/users/all', element: <AdminAllPage/> },
     ]

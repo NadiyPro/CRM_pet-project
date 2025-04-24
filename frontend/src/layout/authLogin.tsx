@@ -4,10 +4,15 @@ import authLoginValidator from '../validator/authLogin.validator';
 import { AuthLoginModule } from '../module/authLoginModule';
 import { useAppDispatch } from '../redux/store';
 import { loadLogin } from '../redux/reducers/loadLogin';
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const AuthLoginPage = () => {
   const {handleSubmit, register, formState: { errors, isValid}} = useForm<AuthLoginModule>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const getDeviceId = (): string => {
     let deviceId = localStorage.getItem('deviceId');
@@ -18,28 +23,30 @@ const AuthLoginPage = () => {
     return deviceId;
   };
 
-  const dto = (data: AuthLoginModule) => {
-    dispatch(loadLogin({ ...data, deviceId: getDeviceId() }));
+  const dto = async (data: AuthLoginModule) => {
+    try {
+      setLoading(true);
+      setError(null);
+      const isValid = await dispatch(loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
+      if (isValid) {
+        navigate(`/orders`);
+      }
+    } catch (e) {
+      setLoading(false);
+      setError('Користувач за вказаними даними не зареєстрований. Будь ласка, перевірте коректність введених даних.');
+    }
   };
 
-  // const dto: SubmitHandler<AuthLoginModule> = (data) => {
-  //   const fullData = { ...data, deviceId: getDeviceId() };
-  //   dispatch(loadLogin(fullData));
-  // };
   return(
-    <div>
+    <div className={'divLogin'}>
       <form onSubmit={handleSubmit(dto)}>
         <label htmlFor={'email'}>Email</label>
         <input type={'email'} {...register('email')}/>
         <label htmlFor={'password'}>Password</label>
         <input type={'password'} {...register('password')}/>
-        <button type="submit" disabled={!isValid}>LOGIN</button>
+        <button type="submit" disabled={!isValid || loading}> {loading ? 'Loading...' : 'LOGIN'}</button>
       </form>
-      {!isValid && (
-        <p>
-          Користувач за вказаними даними не зареєстрований. Будь ласка, перевірте коректність введених даних.
-        </p>
-      )}
+      {error && <div className="errorLogin">{error}</div>}
     </div>
   )
 };
