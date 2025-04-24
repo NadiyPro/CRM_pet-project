@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import AuthLoginPage from '../page/authLoginPage';
 import AuthPasswordPage from '../page/authPasswordPage';
 import OrdersAllPage from '../page/ordersAllPage';
@@ -10,16 +10,23 @@ import OrdersLayout from '../layout/ordersLayout';
 
 export const router = createBrowserRouter([
   {
-    path: '/auth/login',
-    element: <AuthLoginPage/>,
-    errorElement: <ErrorElement/>,
+    path: '/auth',
+    errorElement: <ErrorElement />,
     children: [
-      { path: '/', element: <OrdersLayout/>, children: [
-          { index: true, element: <OrdersAllPage/> },
-          // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
-          // { path: '/users', element: <AdminPage/> },
-          // { path: '/users/all', element: <AdminAllPage/> },
-        ]},
-    ]
-  }
+      { index: true, element: <Navigate to="/login" replace />},
+      { path: 'login', element: <AuthLoginPage /> },
+      // { path: 'activate/:token', element: <AuthPasswordPage /> },
+    ],
+  },
+  {
+    path: '/',
+    element: <OrdersLayout />,
+    errorElement: <ErrorElement />,
+    children: [
+      { index: true, element: <Navigate to="/orders" replace /> },
+      { path: 'orders', element: <OrdersAllPage/> },
+      // { path: '/users', element: <AdminPage/> },
+      // { path: '/users/all', element: <AdminAllPage/> },
+    ],
+  },
 ]);

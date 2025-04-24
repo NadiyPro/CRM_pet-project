@@ -7,16 +7,16 @@ const OrdersLayout = () => {
 
 return(
   <div>
-    <div>
+    <header>
       <div>
-        <p>NadiyPro</p>
+        <h2>NadiyPro</h2>
       </div>
-      <div>
+      <nav>
         <OrdersPanelComponent />
         <AdminPanelComponent />
         <LogOutComponent />
-      </div>
-    </div>
+      </nav>
+    </header>
 
     <div>
       <Outlet />
