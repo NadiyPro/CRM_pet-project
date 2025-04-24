@@ -15,7 +15,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorElement/>,
     children: [
       { path: '/', element: <OrdersLayout/>, children: [
-          { path: '/orders', element: <OrdersAllPage/> },
+          { index: true, element: <OrdersAllPage/> },
           // { path: '/auth/activate/:token', element: <AuthPasswordPage/> },
           // { path: '/users', element: <AdminPage/> },
           // { path: '/users/all', element: <AdminAllPage/> },
