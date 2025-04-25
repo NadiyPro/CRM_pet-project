@@ -15,10 +15,10 @@ import { AuthCacheService } from './auth-cache.service';
 import { TokenService } from './token.service';
 import { RoleTypeEnum } from '../../../infrastructure/mysql/entities/enums/roleType.enum';
 import { IUserData } from '../models/interfaces/user_data.interface';
-import { EmailTypeEnum } from '../../email/enums/email.enum';
+import { EmailTypeEnum } from '../../enums/email.enum';
 import { EmailService } from '../../email/service/email.service';
 import { ActivatePasswordReqDto } from '../models/dto/req/activatePassword.req.dto';
-import { TokenType } from '../enums/token_type.enum';
+import { TokenType } from '../../enums/token_type.enum';
 import { AuthUserResDto } from '../models/dto/res/auth_user.res.dto';
 import { TokenPairResDto } from '../models/dto/res/token_pair.res.dto';
 

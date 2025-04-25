@@ -14,9 +14,9 @@ import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableNa
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { OrdersGuard } from '../guards/statuseOrders.guard';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
-import { Role } from '../guards/decorator/role.decorator';
+import { Role } from '../decorators/role.decorator';
 import { BaseMessageResDto } from './models/dto/res/baseMessage.res.dto';
-import { CurrentUser } from '../auth/decorators/current_user.decorator';
+import { CurrentUser } from '../decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { BaseMessageReqDto } from './models/dto/req/baseMessage.req.dto';
 

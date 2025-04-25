@@ -5,7 +5,7 @@ import { ListOrdersQueryReqDto } from '../../../modules/orders/models/dto/req/li
 import { IUserData } from '../../../modules/auth/models/interfaces/user_data.interface';
 import { OrdersStatisticResDto } from '../../../modules/orders/models/dto/res/ordersStatistic.res.dto';
 import { OrdersStatisticAllResDto } from '../../../modules/orders/models/dto/res/ordersStatisticAll.res.dto';
-import { SortFieldEnum } from '../../../modules/orders/enums/sortField.enum';
+import { SortFieldEnum } from '../../../modules/enums/sortField.enum';
 import { ListOrdersExportReqDto } from '../../../modules/orders/models/dto/req/listOrdersExportReqDto.req.dto';
 
 @Injectable()

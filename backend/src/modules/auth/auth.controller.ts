@@ -8,15 +8,15 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { SkipAuth } from './decorators/skip_auth.decorator';
+import { SkipAuth } from '../decorators/skip_auth.decorator';
 import { LoginReqDto } from './models/dto/req/login.req.dto';
 import { AuthResDto } from './models/dto/res/auth.res.dto';
 import { AuthService } from './services/auth.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
-import { Role } from '../guards/decorator/role.decorator';
+import { Role } from '../decorators/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
-import { CurrentUser } from './decorators/current_user.decorator';
+import { CurrentUser } from '../decorators/current_user.decorator';
 import { IUserData } from './models/interfaces/user_data.interface';
 import { ActivatePasswordReqDto } from './models/dto/req/activatePassword.req.dto';
 import { AuthUserResDto } from './models/dto/res/auth_user.res.dto';

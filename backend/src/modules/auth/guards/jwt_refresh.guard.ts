@@ -10,7 +10,7 @@ import { Request, Response } from 'express';
 import { RefreshTokenRepository } from '../../../infrastructure/repository/services/refresh-token.repository';
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UserMapper } from '../../users/service/user.mapper';
-import { TokenType } from '../enums/token_type.enum';
+import { TokenType } from '../../enums/token_type.enum';
 import { TokenService } from '../services/token.service';
 
 @Injectable()

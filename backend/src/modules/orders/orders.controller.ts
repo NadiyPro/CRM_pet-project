@@ -15,12 +15,12 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './service/orders.service';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
-import { Role } from '../guards/decorator/role.decorator';
+import { Role } from '../decorators/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { ListOrdersQueryReqDto } from './models/dto/req/listOrdersQuery.req.dto';
 import { ListOrdersResQueryDto } from './models/dto/res/listOrdersQuery.res.dto';
 import { OrdersMapper } from './service/orders.mapper';
-import { CurrentUser } from '../auth/decorators/current_user.decorator';
+import { CurrentUser } from '../decorators/current_user.decorator';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { UpdateOrdersReqDto } from './models/dto/req/updateOrder.req.dto';
 import { OrdersGuard } from '../guards/statuseOrders.guard';

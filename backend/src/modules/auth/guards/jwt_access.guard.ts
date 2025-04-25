@@ -10,8 +10,8 @@ import { Request, Response } from 'express';
 
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UserMapper } from '../../users/service/user.mapper';
-import { SKIP_AUTH } from '../decorators/skip_auth.decorator';
-import { TokenType } from '../enums/token_type.enum';
+import { SKIP_AUTH } from '../../decorators/skip_auth.decorator';
+import { TokenType } from '../../enums/token_type.enum';
 import { TokenService } from '../services/token.service';
 import { AuthCacheService } from '../services/auth-cache.service';
 

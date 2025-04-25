@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import * as path from 'node:path';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { EmailPayloadCombined } from '../types/email_payload.type';
-import { EmailTypeEnum } from '../enums/email.enum';
+import { EmailTypeEnum } from '../../enums/email.enum';
 import { emailConstants } from '../constants/email.constants';
 import { Transporter } from 'nodemailer';
 import * as nodemailer from 'nodemailer';

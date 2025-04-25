@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { GroupService } from './service/group.service';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
-import { Role } from '../guards/decorator/role.decorator';
+import { Role } from '../decorators/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
 import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';

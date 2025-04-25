@@ -3,7 +3,7 @@ import { ConfigService } from '@nestjs/config/dist/config.service';
 import { JwtService } from '@nestjs/jwt';
 
 import { Config, JwtConfig } from '../../../configs/config.type';
-import { TokenType } from '../enums/token_type.enum';
+import { TokenType } from '../../enums/token_type.enum';
 import { IJwtPayload } from '../models/interfaces/jwt_payload.interface';
 import { ITokenPair } from '../models/interfaces/token_pair.interface';
 

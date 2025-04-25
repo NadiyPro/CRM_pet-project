@@ -17,7 +17,7 @@ import { GiveRoleDto } from './models/dto/req/giveRole.dto';
 import { UserMapper } from './service/user.mapper';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { UserResDto } from './models/dto/res/user.res.dto';
-import { Role } from '../guards/decorator/role.decorator';
+import { Role } from '../decorators/role.decorator';
 import { ListUsersQueryReqDto } from './models/dto/req/listUsersQuery.req.dto';
 import { ListResQueryDto } from './models/dto/res/listUsersQuery.res.dto';
 

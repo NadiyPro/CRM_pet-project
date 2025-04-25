@@ -2,8 +2,8 @@ import { Transform, Type } from 'class-transformer';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
 import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { SortFieldEnum } from '../../../enums/sortField.enum';
-import { SortASCOrDESCEnum } from '../../../enums/sortASCOrDESC.enum';
+import { SortFieldEnum } from '../../../../enums/sortField.enum';
+import { SortASCOrDESCEnum } from '../../../../enums/sortASCOrDESC.enum';
 
 export class ListOrdersExportReqDto {
   @Transform(({ value }) =>

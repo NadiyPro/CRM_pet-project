@@ -10,8 +10,8 @@ import {
 } from 'class-validator';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
 import { ApiProperty } from '@nestjs/swagger';
-import { SortFieldEnum } from '../../../enums/sortField.enum';
-import { SortASCOrDESCEnum } from '../../../enums/sortASCOrDESC.enum';
+import { SortFieldEnum } from '../../../../enums/sortField.enum';
+import { SortASCOrDESCEnum } from '../../../../enums/sortASCOrDESC.enum';
 
 export class ListOrdersQueryReqDto {
   @ApiProperty({ default: '25' })
