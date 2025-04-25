@@ -202,63 +202,63 @@ CreateUpdateModel - дати створення та оновлення дани
 ```
 GET /orders/export
 ```
-## 📦 Приклади ендпоінтів
+## 📦 Приклади ендпоінтів та DTO
 ### auth
->POST /auth/login — для логінації на платформі 
+> POST /auth/login — для логінації на платформі 
 >
->+ Request DTO: LoginReqDto  
->Приймає:
+> + Request DTO: LoginReqDto  
+> Приймає:
 >```
->{
->email: string; // email користувача
->password: string; // пароль
->deviceId: string; // ідентифікатор пристрою
->}
+> {
+> email: string; // email користувача
+> password: string; // пароль
+> deviceId: string; // ідентифікатор пристрою
+> }
 >```
->+ Response DTO: AuthResDto  
->Повертає:
+> + Response DTO: AuthResDto  
+> Повертає:
 >```
->{
->tokens: {
-> accessToken: string;
-> refreshToken: string;
->},
->user: {
-> id: string;
-> email: string;
-> name: string;
-> surname: string;
-> is_active: boolean;
-> role: RoleTypeEnum;
->}
+> {
+> tokens: {
+>  accessToken: string;
+>  refreshToken: string;
+> },
+> user: {
+>  id: string;
+>  email: string;
+>  name: string;
+>  surname: string;
+>  is_active: boolean;
+>  role: RoleTypeEnum;
+> }
 >```
->POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
+> POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
 >
 > + Request: немає тіла запиту, токен користувача зчитується з запиту (заголовку).  
     Response:
 >```
->{ message: 'Tokens deleted successfully' }
+> { message: 'Tokens deleted successfully' }
 >``` 
->GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
+> GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
 > 
 > + Request:  
 > параметр `managerId`  у URL - вказуємо id user якому видаємо токен
 > + Response DTO: AuthResDto  
->Повертає:
+> Повертає:
 >```
->{
->tokens: {
-> accessToken: string;
-> refreshToken: string;
->},
->user: {
-> id: string;
-> email: string;
-> name: string;
-> surname: string;
-> is_active: boolean; // статус користувача (true/false)
-> role: RoleTypeEnum; // роль користувача (manager/admin)
->}
+> {
+> tokens: {
+>  accessToken: string;
+>  refreshToken: string;
+> },
+> user: {
+>  id: string;
+>  email: string;
+>  name: string;
+>  surname: string;
+>  is_active: boolean; // статус користувача (true/false)
+>  role: RoleTypeEnum; // роль користувача (manager/admin)
+> }
 >```
 > POST /auth/activate/:token — для активації паролю менеджером
 >
@@ -267,30 +267,30 @@ GET /orders/export
 >  + ActivatePasswordReqDto  
    Приймає:
 >```
->{
->password: string; // пароль
->confirm_password: string; // повторюємо пароль для перевірки
->deviceId: string; // ідентифікатор пристрою
->}
+> {
+> password: string; // пароль
+> confirm_password: string; // повторюємо пароль для перевірки
+> deviceId: string; // ідентифікатор пристрою
+> }
 >```
->+ Response DTO: AuthResDto  
+> + Response DTO: AuthResDto  
     Повертає:
 >```
->{
->tokens: {
-> accessToken: string;
-> refreshToken: string;
->},
->user: {
-> id: string;
-> email: string;
-> name: string;
-> surname: string;
-> is_active: boolean;
-> role: RoleTypeEnum;
->}
+> {
+> tokens: {
+>  accessToken: string;
+>  refreshToken: string;
+> },
+> user: {
+>  id: string;
+>  email: string;
+>  name: string;
+>  surname: string;
+>  is_active: boolean;
+>  role: RoleTypeEnum;
+> }
 >```
->PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
+> PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
 >
 > + Request:  
 > параметр `managerId`  у URL - вказуємо id user якому видаємо токен
@@ -309,7 +309,7 @@ GET /orders/export
 > PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
 >
 > + Request:  
-    > параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+    параметр `managerId`  у URL - вказуємо id user якому видаємо токен
 > + Response DTO: AuthUserResDto  
     Повертає користувача зі статусом is_active: true.
 > ```
@@ -333,28 +333,28 @@ GET /orders/export
 > }
 > ```
 ### users
->+ POST /users/role — видача ролі
->+ GET /users/all — перегляд усіх менеджерів
->+ DELETE /users/:managerId — видалити менеджера
+> + POST /users/role — видача ролі
+> + GET /users/all — перегляд усіх менеджерів
+> + DELETE /users/:managerId — видалити менеджера
 ### orders
->+ GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
->+ GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
->+ POST /orders — створити заявку
->+ GET /orders/ordersStatisticAll — статистика по всім заявкам
->+ GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
->+ POST /orders/:orderId/:group_id — прив'язка заявки до групи
->+ PUT /orders/:orderId — для оновлення даних по заявці
->+ GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
->+ Delete /orders/:orderId - для видалення заявки згідно її orderId
+> + GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
+> + GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
+> + POST /orders — створити заявку
+> + GET /orders/ordersStatisticAll — статистика по всім заявкам
+> + GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
+> + POST /orders/:orderId/:group_id — прив'язка заявки до групи
+> + PUT /orders/:orderId — для оновлення даних по заявці
+> + GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
+> + Delete /orders/:orderId - для видалення заявки згідно її orderId
 ### group
->+ GET /group - відображення всіх group та пошуку по назві group
->+ POST /group - для створення нової group
->+ Delete /group/:groupId - для видалення групи пор її groupId
+> + GET /group - відображення всіх group та пошуку по назві group
+> + POST /group - для створення нової group
+> + Delete /group/:groupId - для видалення групи пор її groupId
 ### message
->+ GET /message - для відображення всіх коментарів (повідомлень)
->+ GET /message/:orderId - для перегляду всіх коментарів, по конкретній заявці за її orderId
->+ POST /message - для створення коментаря
->+ Delete /message/:messageId - для видалення коментаря по його messageId
+> + GET /message - для відображення всіх коментарів (повідомлень)
+> + GET /message/:orderId - для перегляду всіх коментарів, по конкретній заявці за її orderId
+> + POST /message - для створення коментаря
+> + Delete /message/:messageId - для видалення коментаря по його messageId
 
 ## Run tests
 
