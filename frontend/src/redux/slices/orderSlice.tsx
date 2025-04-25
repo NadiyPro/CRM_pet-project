@@ -1,19 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadOrdersAll } from '../reducers/orderLoad/loadOrdersAll';
-import { BaseOrdersDto } from '../../module/baseOrders.dto';
+import { ListOrdersDto } from '../../module/baseOrders.dto';
 import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
+import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 
 interface OrderSliceInterface {
-  dto:ListOrdersAllDto;
-  total: number;
-  orders: BaseOrdersDto[]
+  dto: ListOrdersAllDto;
+  data: ListOrdersDto;
 }
 const initialState: OrderSliceInterface = {
-  total: 0,
-  orders: [],
+  data: {
+    total: 0,
+    orders: []
+  },
   dto:{
     limit: 25,
     page: 1,
+    searchField: null,
     search: '',
     sortField: null,
     sortASCOrDESC: null,
@@ -24,12 +27,27 @@ const initialState: OrderSliceInterface = {
 export const orderSlice = createSlice({
   name: 'orderSlice',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setSearchField(state, action: PayloadAction<SortFieldEnum | null>) {
+      state.dto.searchField = action.payload;
+    },
+    setSearchValue(state, action: PayloadAction<string>) {
+      state.dto.search = action.payload;
+    },
+    setPage(state, action: PayloadAction<number>) {
+      state.dto.page = action.payload;
+    },
+    resetFilter(state) {
+      state.dto.search = '';
+      state.dto.searchField = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
         loadOrdersAll.fulfilled,(state, action) => {
-          // state.orders = action.payload;
+          state.data.orders = action.payload.orders;
+          state.data.total = action.payload.total;
     }
       )
   }

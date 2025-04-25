@@ -6,6 +6,12 @@ import { SortFieldEnum } from '../../../../enums/sortField.enum';
 import { SortASCOrDESCEnum } from '../../../../enums/sortASCOrDESC.enum';
 
 export class ListOrdersExportReqDto {
+  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
+  @Type(() => String)
+  @IsEnum(SortFieldEnum)
+  @IsOptional()
+  searchField?: SortFieldEnum | null;
+
   @Transform(({ value }) =>
     TransformHelper.toLowerCase({ value: value as string }),
   )

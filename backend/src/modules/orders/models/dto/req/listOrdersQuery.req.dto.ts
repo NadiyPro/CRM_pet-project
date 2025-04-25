@@ -29,6 +29,12 @@ export class ListOrdersQueryReqDto {
   @IsOptional()
   page?: number = 1;
 
+  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
+  @Type(() => String)
+  @IsEnum(SortFieldEnum)
+  @IsOptional()
+  searchField?: SortFieldEnum | null;
+
   @Transform(({ value }) =>
     TransformHelper.toLowerCase({ value: value as string }),
   )
