@@ -206,8 +206,7 @@ GET /orders/export
 ### auth
 > POST /auth/login — для логінації на платформі 
 >
-> + Request DTO: LoginReqDto  
-> Приймає:
+> + Request: LoginReqDto
 >```
 > {
 > email: string; // email користувача
@@ -215,8 +214,7 @@ GET /orders/export
 > deviceId: string; // ідентифікатор пристрою
 > }
 >```
-> + Response DTO: AuthResDto  
-> Повертає:
+> + Response: AuthResDto
 >```
 > {
 > tokens: {
@@ -241,10 +239,8 @@ GET /orders/export
 >``` 
 > GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
 > 
-> + Request:  
-> параметр `managerId`  у URL - вказуємо id user якому видаємо токен
-> + Response DTO: AuthResDto  
-> Повертає:
+> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response: AuthResDto
 >```
 > {
 > tokens: {
@@ -262,10 +258,9 @@ GET /orders/export
 >```
 > POST /auth/activate/:token — для активації паролю менеджером
 >
-> + Request DTO: 
+> + Request: 
 >  + параметр `token` у URL - вказуємо токен, який отримав користувач на пошту в запиті /auth/activate/:managerId
->  + ActivatePasswordReqDto  
-   Приймає:
+>  + ActivatePasswordReqDto
 >```
 > {
 > password: string; // пароль
@@ -273,8 +268,7 @@ GET /orders/export
 > deviceId: string; // ідентифікатор пристрою
 > }
 >```
-> + Response DTO: AuthResDto  
-    Повертає:
+> + Response: AuthResDto
 >```
 > {
 > tokens: {
@@ -292,9 +286,8 @@ GET /orders/export
 >```
 > PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
 >
-> + Request:  
-> параметр `managerId`  у URL - вказуємо id user якому видаємо токен
-> + Response DTO: AuthUserResDto  
+> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response: AuthUserResDto  
     Повертає користувача зі статусом is_active: false.
 > ```
 > {
@@ -308,9 +301,8 @@ GET /orders/export
 > ```
 > PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
 >
-> + Request:  
-    параметр `managerId`  у URL - вказуємо id user якому видаємо токен
-> + Response DTO: AuthUserResDto  
+> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response: AuthUserResDto  
     Повертає користувача зі статусом is_active: true.
 > ```
 > {
@@ -324,8 +316,7 @@ GET /orders/export
 > ```
 > POST /auth/refresh — для отримання нової пари токенів
 > + Request: немає тіла запиту, вказуємо валідний refreshToken у запиті (заголовку).
-> + Response DTO: TokenPairResDto
-    Повертає:
+> + Response: TokenPairResDto
 > ```
 > {
 > accessToken: string;
@@ -333,9 +324,53 @@ GET /orders/export
 > }
 > ```
 ### users
-> + POST /users/role — видача ролі
-> + GET /users/all — перегляд усіх менеджерів
-> + DELETE /users/:managerId — видалити менеджера
+> POST /users/role — видача ролі
+> 
+> + Request: GiveRoleDto
+> ```
+> {
+> name: string;
+> surname: string;
+> email: string;
+> }
+> ```
+> + Response: UserResDto
+> ```
+> {
+> id: string;
+> name: string;
+> surname: string;
+> email: string;
+> is_active: boolean;
+> role: RoleTypeEnum;
+> deleted: Date | null;
+> }
+> ```
+> GET /users/all — перегляд усіх менеджерів
+> 
+> + Request: вказуємо в URL query ListUsersQueryReqDto, за замовченням limit = 10, page = 1
+> + Response: ListResQueryDto
+> ```
+> {
+> users: {
+>  id: string;
+>  name: string;
+>  surname: string;
+>  email: string;
+>  is_active: boolean;
+>  role: RoleTypeEnum;
+>  deleted: Date | null;
+> },
+> total: number;
+> }
+> ```
+> DELETE /users/:managerId — видалити менеджера
+> 
+> + Request: параметр `managerId`  у URL - вказуємо id user, якого видаляємо
+> + Response:
+>```
+> { message: 'The user in the table (db) has been successfully marked as deleted' }
+>``` 
 ### orders
 > + GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
 > + GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
