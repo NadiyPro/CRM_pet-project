@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authService } from '../../../service/api.service';
+import { authService } from '../../../service/auth.service';
 import { AxiosError } from 'axios';
 
 const loadLogOut = createAsyncThunk(

@@ -3,7 +3,7 @@ import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { AuthTokenDto } from '../module/authToken.dto';
 import { AuthLoginDto } from '../module/authLogin.dto';
 
-let axiosInstance = axios.create({
+export let axiosInstance = axios.create({
   baseURL: 'http://localhost:3000'
 });
 axiosInstance.interceptors.request.use(request => {

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { AuthLoginDto } from '../../../module/authLogin.dto';
-import { authService } from '../../../service/api.service';
+import { authService } from '../../../service/auth.service';
 
 const loadLogin = createAsyncThunk(
   'authLogin',

@@ -29,7 +29,7 @@ export const orderSlice = createSlice({
     builder
       .addCase(
         loadOrdersAll.fulfilled,(state, action) => {
-          state.orders = action.payload;
+          // state.orders = action.payload;
     }
       )
   }
