@@ -190,6 +190,14 @@ CreateUpdateModel - дати створення та оновлення дани
   + In_work, New, Aggre, Disaggre, Dubbing
 + TableNameEnum - назви таблиць (сутностей)
   + refresh_tokens, users, orders, message, group, auth
++ EmailTypeEnum - тип email розсилки
+  + active
++ SortASCOrDESCEnum - тип сортування
+  + ASC, DESC
++ SortFieldEnum - назви полів для роботи з заявками (orders)
+  + id, name, surname, email, phone, age, course, course_format, course_type, status, sum, alreadyPaid, created_at, group_id, group_name, manager
++ TokenType - тип токену
+  + access, refresh
 
 ## 📨 Email
 Сервіс для надсилання листів (підтвердження реєстрації через зміну пароля)
@@ -348,7 +356,13 @@ GET /orders/export
 > ```
 > GET /users/all — перегляд усіх менеджерів
 > 
-> + Request: вказуємо в URL query ListUsersQueryReqDto, за замовченням limit = 10, page = 1
+> + Request: вказуємо в URL query ListUsersQueryReqDto, за замовченням: limit = 10, page = 1
+> ``` 
+> {
+> limit?: number;
+> page?: number;
+> }
+> ```
 > + Response: ListResQueryDto
 > ```
 > {
@@ -372,8 +386,66 @@ GET /orders/export
 > { message: 'The user in the table (db) has been successfully marked as deleted' }
 >``` 
 ### orders
-> + GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
-> + GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
+> GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
+>
+> + Request: 
+>  + зчитуємо id user із запиту
+>  + вказуємо в URL query ListOrdersQueryReqDto, за замовченням: limit = 25, page = 1, sortField = created_at, sortASCOrDESC = DESC, me = false
+>```
+> {
+> limit?: number;
+> page?: number;
+> searchField?: SortFieldEnum | null; // описано в розділі Enums
+> search?: string;
+> sortField?: SortFieldEnum | null;
+> sortASCOrDESC?: SortASCOrDESCEnum | null;
+> me?: boolean = false;
+> }
+>```
+> + Response: ListOrdersResQueryDto
+>```
+> {
+> orders: {
+>  id: number | null;
+>  name: string | null;
+>  surname: string | null;
+>  email: string | null;
+>  phone: string | null;
+>  age: number | null;
+>  course: CourseEnum | null; // описано в розділі Enums
+>  course_format: CourseFormatEnum | null;
+>  course_type: CourseTypeEnum | null;
+>  status: StatusEnum | null;
+>  sum: number | null;
+>  alreadyPaid: number | null;
+>  created_at: Date;
+>  updated_at: Date | null;
+>  manager: string | null;
+>  group_id: number | null;
+>  group: string | null;
+>  messages: MessageEntity[] | null;
+> },
+> total: number;
+> }
+>```
+> 
+> GET /orders/export - вивантажити orders.xlsx із врахуванням фільтрів, сортуванням та заявками, без прив'язки до пагінації
+> 
+> + Request: 
+>  + зчитуємо id user із запиту
+>  + зчитуємо res: Response
+>  + вказуємо в URL query ListOrdersExportReqDto, за замовченням: sortField = created_at, sortASCOrDESC = DESC, me = false
+>```
+> {
+> searchField?: SortFieldEnum | null; // описано в розділі Enums
+> search?: string;
+> sortField?: SortFieldEnum | null;
+> sortASCOrDESC?: SortASCOrDESCEnum | null;
+> me?: boolean = false;
+> }
+>```
+> + Response: документ для завантаження в форматі .xlsx (Excel), завантажуємо все БЕЗ привязки до limit та page
+>
 > + POST /orders — створити заявку
 > + GET /orders/ordersStatisticAll — статистика по всім заявкам
 > + GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
