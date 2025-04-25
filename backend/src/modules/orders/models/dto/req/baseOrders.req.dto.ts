@@ -17,20 +17,20 @@ import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/s
 
 export class BaseOrdersReqDto {
   @IsString()
-  @Length(3, 25)
+  @Length(0, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   name: string | null;
 
   @IsString()
-  @Length(3, 25)
+  @Length(0, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   surname: string | null;
 
   @ApiProperty({ example: 'admin@gmail.com' })
   @IsString()
-  @Length(6, 100)
+  @Length(0, 100)
   @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
   email: string | null;
 
