@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { AuthTokenDto } from '../module/authToken.dto';
 import { axiosInstance } from './auth.service';
