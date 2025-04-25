@@ -1,10 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ListOrdersAll } from '../../../module/listOrdersAll';
 import { AxiosError } from 'axios';
+import { ListOrdersAllDto } from '../../../module/listOrdersAll.dto';
 
 const loadOrdersAll = createAsyncThunk(
   'loadOrdersAll',
-  async (dto: ListOrdersAll, thunkAPI) => {
+  async (dto: ListOrdersAllDto, thunkAPI) => {
     try {
       const response = await orderService.ordersAll(dto);
       return thunkAPI.fulfillWithValue(response);

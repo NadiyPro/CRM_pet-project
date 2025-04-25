@@ -1,11 +1,11 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { AuthLoginModule } from '../../../module/authLoginModule';
+import { AuthLoginDto } from '../../../module/authLogin.dto';
 import { authService } from '../../../service/api.service';
 
 const loadLogin = createAsyncThunk(
   'authLogin',
-  async  (dto:AuthLoginModule, thunkAPI) => {
+  async  (dto:AuthLoginDto, thunkAPI) => {
     try {
       let response = await authService.authentication(dto);
       return thunkAPI.fulfillWithValue(response);

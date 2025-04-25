@@ -1,13 +1,12 @@
-import { ListOrdersAll } from '../../module/listOrdersAll';
 import { createSlice } from '@reduxjs/toolkit';
-import { authAction } from './authSlice';
 import { loadOrdersAll } from '../reducers/orderLoad/loadOrdersAll';
-import { BaseOrdersResDto } from '../../module/baseOrdersResDto';
+import { BaseOrdersDto } from '../../module/baseOrders.dto';
+import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
 
 interface OrderSliceInterface {
-  dto:ListOrdersAll;
+  dto:ListOrdersAllDto;
   total: number;
-  orders: BaseOrdersResDto[]
+  orders: BaseOrdersDto[]
 }
 const initialState: OrderSliceInterface = {
   total: 0,

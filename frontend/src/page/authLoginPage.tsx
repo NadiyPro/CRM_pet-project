@@ -1,14 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import authLoginValidator from '../validator/authLogin.validator';
-import { AuthLoginModule } from '../module/authLoginModule';
+import { AuthLoginDto } from '../module/authLogin.dto';
 import { useAppDispatch } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { authAction } from '../redux/slices/authSlice';
 
 const AuthLoginPage = () => {
-  const {handleSubmit, register, formState: {isValid}} = useForm<AuthLoginModule>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
+  const {handleSubmit, register, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -23,7 +23,7 @@ const AuthLoginPage = () => {
     return deviceId;
   };
 
-  const dto = async (data: AuthLoginModule) => {
+  const dto = async (data: AuthLoginDto) => {
     try {
       setLoading(true);
       setError(null);

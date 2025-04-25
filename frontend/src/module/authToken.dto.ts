@@ -1,4 +1,4 @@
-export interface AuthTokenModule{
+export interface AuthTokenDto {
   access:	string,
   refresh: string
 }

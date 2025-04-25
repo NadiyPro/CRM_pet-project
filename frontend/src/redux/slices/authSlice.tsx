@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadLogin } from '../reducers/authLoad/loadLogin';
-import { AuthLoginModule } from '../../module/authLoginModule';
+import { AuthLoginDto } from '../../module/authLogin.dto';
 import { loadLogOut } from '../reducers/authLoad/loadLogOut';
 
 interface AuthSliceInterface {
   isValid: boolean;
-  dto: AuthLoginModule
+  dto: AuthLoginDto
 }
 
 const initialState: AuthSliceInterface = {

@@ -2,8 +2,9 @@ import { CourseEnum } from './enums/courseEnum';
 import { CourseFormatEnum } from './enums/courseFormatEnum';
 import { CourseTypeEnum } from './enums/courseTypeEnum';
 import { StatusEnum } from './enums/statusEnum';
+import { MessageDto } from './message.dto';
 
-export interface BaseOrdersResDto {
+export interface BaseOrdersDto {
   id: number | null;
   name: string | null;
   surname: string | null;
@@ -16,10 +17,10 @@ export interface BaseOrdersResDto {
   status: StatusEnum | null;
   sum: number | null;
   alreadyPaid: number | null;
-  created_at: Date;
-  updated_at: Date | null;
+  created_at: string;
+  updated_at: string | null;
   manager: string | null;
   group_id: number | null;
   group: string | null;
-  messages: MessageEntity[] | null;
+  messages: MessageDto[] | null;
 }
