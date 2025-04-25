@@ -52,7 +52,7 @@ export class BaseOrdersReqDto {
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseEnum, {
-    message: 'course can be one of: FS, QACX, JCX, JSCX, FE, PCX',
+    message: 'Курс повинен бути один з: FS, QACX, JCX, JSCX, FE, PCX',
   })
   course: CourseEnum | null;
 
@@ -60,7 +60,7 @@ export class BaseOrdersReqDto {
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseFormatEnum, {
-    message: 'course_format can be one of: static, online',
+    message: 'course_format повинен бути один з: static, online',
   })
   course_format: CourseFormatEnum | null;
 
@@ -68,7 +68,8 @@ export class BaseOrdersReqDto {
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(CourseTypeEnum, {
-    message: 'course_type can be one of: pro, minimal, premium, incubator, vip',
+    message:
+      'course_type повинен бути один з: pro, minimal, premium, incubator, vip',
   })
   course_type: CourseTypeEnum | null;
 
@@ -86,7 +87,8 @@ export class BaseOrdersReqDto {
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(StatusEnum, {
-    message: 'status can be one of: In_work, New, Aggre, Disaggre, Dubbing ',
+    message:
+      'status повинен бути один з: In_work, New, Aggre, Disaggre, Dubbing ',
   })
   status: StatusEnum | null;
 }
