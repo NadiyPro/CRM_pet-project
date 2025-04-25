@@ -399,7 +399,7 @@ GET /orders/export
 > search?: string;
 > sortField?: SortFieldEnum | null;
 > sortASCOrDESC?: SortASCOrDESCEnum | null;
-> me?: boolean = false;
+> me?: boolean;
 > }
 >```
 > + Response: ListOrdersResQueryDto
@@ -441,7 +441,7 @@ GET /orders/export
 > search?: string;
 > sortField?: SortFieldEnum | null;
 > sortASCOrDESC?: SortASCOrDESCEnum | null;
-> me?: boolean = false;
+> me?: boolean;
 > }
 >```
 > + Response: документ для завантаження в форматі .xlsx (Excel), завантажуємо все БЕЗ привязки до limit та page
