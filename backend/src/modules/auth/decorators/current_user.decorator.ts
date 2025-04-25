@@ -4,7 +4,7 @@ import { IUserData } from '../models/interfaces/user_data.interface';
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext) => {
-    const request = context.switchToHttp().getRequest<Request>(); // Додаємо типізацію
+    const request = context.switchToHttp().getRequest<Request>();
     return request.res.locals.user as IUserData;
   },
 );

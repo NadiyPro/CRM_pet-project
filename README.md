@@ -204,13 +204,134 @@ GET /orders/export
 ```
 ## 📦 Приклади ендпоінтів
 ### auth
->+ POST /auth/login — для логінації на платформі
->+ POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
->+ GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
->+ POST /auth/activate/:token — для активації паролю менеджером
->+ PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
->+ PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
->+ POST /auth/refresh — для отримання нової пари токенів
+>POST /auth/login — для логінації на платформі 
+>
+>+ Request DTO: LoginReqDto  
+>Приймає:
+>```
+>{
+>email: string; // email користувача
+>password: string; // пароль
+>deviceId: string; // ідентифікатор пристрою
+>}
+>```
+>+ Response DTO: AuthResDto  
+>Повертає:
+>```
+>{
+>tokens: {
+> accessToken: string;
+> refreshToken: string;
+>},
+>user: {
+> id: string;
+> email: string;
+> name: string;
+> surname: string;
+> is_active: boolean;
+> role: RoleTypeEnum;
+>}
+>```
+>POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
+>
+> + Request: немає тіла запиту, токен користувача зчитується з запиту (заголовку).  
+    Response:
+>```
+>{ message: 'Tokens deleted successfully' }
+>``` 
+>GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
+> 
+> + Request:  
+> параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response DTO: AuthResDto  
+>Повертає:
+>```
+>{
+>tokens: {
+> accessToken: string;
+> refreshToken: string;
+>},
+>user: {
+> id: string;
+> email: string;
+> name: string;
+> surname: string;
+> is_active: boolean; // статус користувача (true/false)
+> role: RoleTypeEnum; // роль користувача (manager/admin)
+>}
+>```
+> POST /auth/activate/:token — для активації паролю менеджером
+>
+> + Request DTO: 
+>  + параметр `token` у URL - вказуємо токен, який отримав користувач на пошту в запиті /auth/activate/:managerId
+>  + ActivatePasswordReqDto  
+   Приймає:
+>```
+>{
+>password: string; // пароль
+>confirm_password: string; // повторюємо пароль для перевірки
+>deviceId: string; // ідентифікатор пристрою
+>}
+>```
+>+ Response DTO: AuthResDto  
+    Повертає:
+>```
+>{
+>tokens: {
+> accessToken: string;
+> refreshToken: string;
+>},
+>user: {
+> id: string;
+> email: string;
+> name: string;
+> surname: string;
+> is_active: boolean;
+> role: RoleTypeEnum;
+>}
+>```
+>PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
+>
+> + Request:  
+> параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response DTO: AuthUserResDto  
+    Повертає користувача зі статусом is_active: false.
+> ```
+> {
+> id: string;
+> email: string;
+> name: string;
+> surname: string;
+> is_active: boolean; //  в данному енндпоінті, повертає користувача зі статусом is_active: false.
+> role: RoleTypeEnum;
+> }
+> ```
+> PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
+>
+> + Request:  
+    > параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Response DTO: AuthUserResDto  
+    Повертає користувача зі статусом is_active: true.
+> ```
+> {
+> id: string;
+> email: string;
+> name: string;
+> surname: string;
+> is_active: boolean; //  в данному енндпоінті, повертає користувача зі статусом is_active: true.
+> role: RoleTypeEnum;
+> }
+> ```
+> POST /auth/refresh — для отримання нової пари токенів
+> + Request: немає тіла запиту, вказуємо валідний refreshToken у запиті (заголовку).
+> + Response DTO: TokenPairResDto
+    Повертає:
+> ```
+> {
+> accessToken: string;
+> refreshToken: string;
+> }
+> ```
 ### users
 >+ POST /users/role — видача ролі
 >+ GET /users/all — перегляд усіх менеджерів

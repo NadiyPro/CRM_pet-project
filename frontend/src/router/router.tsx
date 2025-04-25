@@ -13,7 +13,7 @@ export const router = createBrowserRouter([
     path: '/auth',
     errorElement: <ErrorElement />,
     children: [
-      { index: true, element: <Navigate to="/login" replace />},
+      { index: true, element: <Navigate to="/auth/login" replace />},
       { path: 'login', element: <AuthLoginPage /> },
       // { path: 'activate/:token', element: <AuthPasswordPage /> },
     ],
@@ -25,8 +25,8 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/orders" replace /> },
       { path: 'orders', element: <OrdersAllPage/> },
-      // { path: '/users', element: <AdminPage/> },
-      // { path: '/users/all', element: <AdminAllPage/> },
+      { path: 'admin', element: <AdminPage/> },
+      // { path: 'users/all', element: <AdminAllPage/> },
     ],
   },
 ]);

@@ -1,13 +1,16 @@
-import { useAppDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { GrUserSettings } from "react-icons/gr";
 
 const AdminPanelComponent = () => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  const goToAdminPanel = () => {
+    navigate('/admin');
+  }
+
   return(
     <div>
-      <button>
+      <button type={'button'} onClick={goToAdminPanel}>
         <div>
           <GrUserSettings size={20} color={'white'} />
           {/*<img*/}
