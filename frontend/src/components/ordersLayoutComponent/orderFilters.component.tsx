@@ -7,6 +7,7 @@ import { StatusEnum } from '../../module/enums/statusEnum';
 import { GrPowerReset } from "react-icons/gr";
 import { GrDocumentExcel } from "react-icons/gr";
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { loadOrdersExel } from '../../redux/reducers/orderLoad/loadOrdersExel';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
@@ -29,6 +30,12 @@ const OrdersFiltersComponent = () => {
   const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(orderAction.setMe(e.target.checked));
   };
+
+  const handleOrdersExel = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(orderAction.setPage(1));
+    dispatch(orderAction.loadOrdersExel(dto));
+  }
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
@@ -109,7 +116,7 @@ const OrdersFiltersComponent = () => {
           <label htmlFor={'myCheckbox'} >My</label>
           <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox}/>
         </div>
-        <button type="button">
+        <button type="button" onClick={handleOrdersExel}>
           <GrDocumentExcel size={20} color={'white'}/>
         </button>
       </div>
