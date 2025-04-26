@@ -13,21 +13,19 @@ const OrdersFiltersComponent = () => {
   const { dto, data } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  // Обробник вибору поля для пошуку
+  // Обробник зміни значення в інпуті
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
+    dispatch(orderAction.setSearchValue({ [field]: e.target.value }));
+  };
+
+  // Обробник зміни вибору поля для пошуку (для селектів)
+  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(orderAction.setSearchValue({ course: e.target.value }));
+  };
+
+  // Обробник зміни вибору поля для пошуку (для селектів)
   const handleFieldChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(orderAction.setSearchField(e.target.value as SortFieldEnum));
-  };
-
-  // Обробник зміни значення пошуку
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(orderAction.setSearchValue(e.target.value));
-  };
-
-  // Обробник відправки форми
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch(orderAction.setPage(1)); // Повертаємось на першу сторінку при новому пошуку
-    dispatch(orderAction.loadOrdersAll(dto)); // Завантажуємо всі замовлення з новим фільтром
+    dispatch(orderAction.setSearchField(e.target.value));
   };
 
   // Обробник для скидання фільтрів
@@ -37,33 +35,74 @@ const OrdersFiltersComponent = () => {
     dispatch(orderAction.loadOrdersAll({
       ...dto,
       search: '',
-      searchField: null,
+      searchField: '',
       page: 1,
       me: false,
     }));
   };
 
+  // Обробник відправки форми
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    dispatch(orderAction.setPage(1)); // Повертаємось на першу сторінку при новому пошуку
+    dispatch(orderAction.loadOrdersAll(dto)); // Завантажуємо всі замовлення з новим фільтром
+  };
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        {/* Вибір поля для пошуку */}
 
-        <select value={dto.searchField || ''} onChange={handleFieldChange}>
-          <option value="">{'Select Field'}</option>
-          <option value={SortFieldEnum.NAME}>{SortFieldEnum.NAME}</option>
-          <option value={SortFieldEnum.EMAIL}>{SortFieldEnum.EMAIL}</option>
-          <option value={SortFieldEnum.PHONE}>{SortFieldEnum.PHONE}</option>
-          <option value={SortFieldEnum.ID}>{SortFieldEnum.ID}</option>
-          {/* Додаткові поля */}
-        </select>
+          <input
+            type="text"
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, 'name') && dto.searchField === 'name'}
+            placeholder="Search by Name"
+          />
 
-        {/* Поле для введення значення пошуку */}
-        <input
-          type="search"
-          value={dto.search || ''}
-          onChange={handleSearchChange}
-          placeholder="Search"
-        />
+        {dto.searchField === 'email' && (
+          <input
+            type="text"
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, 'email')}
+            placeholder="Search by Email"
+          />
+        )}
+        {dto.searchField === 'phone' && (
+          <input
+            type="text"
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, 'phone')}
+            placeholder="Search by Phone"
+          />
+        )}
+        {dto.searchField === 'id' && (
+          <input
+            type="text"
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, 'id')}
+            placeholder="Search by ID"
+          />
+        )}
+        {dto.searchField === 'course' && (
+          <select value={dto.search || ''} onChange={handleCourseChange}>
+            <option value="">Select Course</option>
+            <option value="Course 1">Course 1</option>
+            <option value="Course 2">Course 2</option>
+            <option value="Course 3">Course 3</option>
+            {/* Додаткові варіанти */}
+          </select>
+        )}
+
+        {/*/!* Вибір поля для пошуку *!/*/}
+        {/*<select value={dto.searchField || ''} onChange={handleFieldChange}>*/}
+        {/*  <option value="">Select Field</option>*/}
+        {/*  <option value="name">Name</option>*/}
+        {/*  <option value="email">Email</option>*/}
+        {/*  <option value="phone">Phone</option>*/}
+        {/*  <option value="id">ID</option>*/}
+        {/*  <option value="course">Course</option>*/}
+        {/*  /!* Додаткові поля *!/*/}
+        {/*</select>*/}
       </form>
 
         <button type="button" onClick={handleReset}>
