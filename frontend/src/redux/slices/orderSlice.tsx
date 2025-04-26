@@ -43,6 +43,7 @@ export const orderSlice = createSlice({
     resetFilter(state) {
       state.dto.search = '';
       state.dto.searchField = null;
+      state.dto.me = false;
     },
   },
   extraReducers: (builder) => {

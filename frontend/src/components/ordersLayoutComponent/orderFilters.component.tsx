@@ -9,6 +9,7 @@ import { StatusEnum } from '../../module/enums/statusEnum';
 import { GrPowerReset } from "react-icons/gr";
 import { GrDocumentExcel } from "react-icons/gr";
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { fail } from 'node:assert';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
@@ -40,6 +41,7 @@ const OrdersFiltersComponent = () => {
       search: '',
       searchField: null,
       page: 1,
+      me: false,
     }));
   };
 
