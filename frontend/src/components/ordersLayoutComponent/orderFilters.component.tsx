@@ -8,10 +8,11 @@ import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import { StatusEnum } from '../../module/enums/statusEnum';
 import { GrPowerReset } from "react-icons/gr";
 import { GrDocumentExcel } from "react-icons/gr";
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 const OrdersFiltersComponent = () => {
-  const { dto } = useSelector((state: RootState) => state.orderSlice);
-  const dispatch = useDispatch();
+  const { dto } = useAppSelector((state) => state.orderStore);
+  const dispatch = useAppDispatch();
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(orderAction.setSearchField(e.target.value as SortFieldEnum));
@@ -25,6 +26,10 @@ const OrdersFiltersComponent = () => {
     e.preventDefault();
     dispatch(orderAction.setPage(1)); // Повертаємося на першу сторінку при новому пошуку
     dispatch(orderAction.loadOrdersAll(dto));
+  };
+
+  const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(orderAction.setMe(e.target.checked));
   };
 
   const handleReset = () => {
@@ -102,8 +107,8 @@ const OrdersFiltersComponent = () => {
           <GrPowerReset size={20} color={'white'}/>
         </button>
         <div>
-          <label htmlFor={'myCheckbox'}>My</label>
-          <input type={'checkbox'} name={'myCheckbox'} />
+          <label htmlFor={'myCheckbox'} >My</label>
+          <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox}/>
         </div>
         <button type="button">
           <GrDocumentExcel size={20} color={'white'}/>

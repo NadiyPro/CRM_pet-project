@@ -37,6 +37,9 @@ export const orderSlice = createSlice({
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;
     },
+    setMe(state, action: PayloadAction<boolean>) {
+      state.dto.me = action.payload;
+    },
     resetFilter(state) {
       state.dto.search = '';
       state.dto.searchField = null;
