@@ -26,6 +26,6 @@ export interface BaseOrdersDto {
   updated_at: string | null;
   manager: string | null;
   group_id: number | null;
-  group: string | null;
+  group_name: string | null;
   messages: MessageDto[] | null;
 }

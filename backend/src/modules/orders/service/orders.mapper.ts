@@ -23,7 +23,7 @@ export class OrdersMapper {
       updated_at: order.updated_at,
       manager: order.manager?.surname ?? null,
       group_id: order?.group_id ?? null,
-      group: order?.group_name ?? null,
+      group_name: order?.group_name ?? null,
       messages: order.messages ?? null,
     };
   }
@@ -58,7 +58,7 @@ export class OrdersMapper {
       updated_at: order.updated_at,
       manager: order.manager?.surname ?? null,
       group_id: order?.group_id ?? null,
-      group: order?.group_name ?? null,
+      group_name: order?.group_name ?? null,
       messages: order.messages ?? null,
     };
   }
@@ -93,7 +93,7 @@ export class OrdersMapper {
       updated_at: updatedOrder.updated_at,
       manager: updatedOrder.manager,
       group_id: updatedOrder?.group_id ?? null,
-      group: updatedOrder?.group_name ?? null,
+      group_name: updatedOrder?.group_name ?? null,
       messages: updatedOrder.messages ?? null,
     };
   }
