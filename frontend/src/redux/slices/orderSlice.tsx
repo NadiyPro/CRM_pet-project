@@ -4,23 +4,19 @@ import { ListOrdersDto } from '../../module/baseOrders.dto';
 import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
+import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
   data: ListOrdersDto;
+  dataExel: string;
 }
 const initialState: OrderSliceInterface = {
+  dataExel: '',
   data: {
     total: 0,
     orders: []
   },
-  // dtoExel: {
-  //   searchField: null,
-  //   search: '',
-  //   sortField: null,
-  //   sortASCOrDESC: null,
-  //   me: false,
-  // },
   dto:{
     limit: 25,
     page: 1,
@@ -36,6 +32,12 @@ export const orderSlice = createSlice({
   name: 'orderSlice',
   initialState: initialState,
   reducers: {
+    setSortField(state, action: PayloadAction<SortFieldEnum | null>) {
+      state.dto.sortField = action.payload;
+    },
+    setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum | null>) {
+      state.dto.sortASCOrDESC = action.payload;
+    },
     setSearchField(state, action: PayloadAction<SortFieldEnum | null>) {
       state.dto.searchField = action.payload;
     },
@@ -49,6 +51,7 @@ export const orderSlice = createSlice({
       state.dto.me = action.payload;
     },
     resetFilter(state) {
+      state.dto.page = 1;
       state.dto.search = '';
       state.dto.searchField = null;
       state.dto.me = false;
@@ -64,7 +67,7 @@ export const orderSlice = createSlice({
       )
       .addCase(
         loadOrdersExel.fulfilled,(state, action) => {
-          state.data = action.payload
+          state.dataExel = action.payload;
         }
       )
   }
