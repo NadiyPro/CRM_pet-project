@@ -30,10 +30,6 @@ const orderService = {
     link.click();
     link.remove();
   },
-  // ordersExel: async (dto: ListOrdersExelDto) : Promise<void> => {
-  //   const response = await axiosInstance.get('/orders/export', { params: dto })
-  //   return response.data;
-  // }
 }
 
 export {
