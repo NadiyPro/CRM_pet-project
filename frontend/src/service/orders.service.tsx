@@ -16,10 +16,24 @@ const orderService = {
     const response = await axiosInstance.get('/orders', { params: dto })
     return response.data;
   },
-  ordersExel: async (dto: ListOrdersExelDto) : Promise<void> => {
-    const response = await axiosInstance.get('/orders/export', { params: dto })
-    return response.data;
-  }
+  ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {
+    const response = await axiosInstance.get('/orders/export', {
+      params: dto,
+      responseType: 'blob',
+    });
+
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', 'orders.xlsx');
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  },
+  // ordersExel: async (dto: ListOrdersExelDto) : Promise<void> => {
+  //   const response = await axiosInstance.get('/orders/export', { params: dto })
+  //   return response.data;
+  // }
 }
 
 export {
