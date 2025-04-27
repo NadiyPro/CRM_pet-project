@@ -13,6 +13,8 @@ interface OrderSliceInterface {
     total: number;
   }
   dataExel: string;
+  loading: boolean;
+  exportSuccess: boolean;
 }
 
 const initialState: OrderSliceInterface = {
@@ -30,6 +32,8 @@ const initialState: OrderSliceInterface = {
     sortASCOrDESC: null,
     me: false,
   },
+  loading: false,
+  exportSuccess: false,
 };
 
 export const orderSlice = createSlice({
@@ -62,6 +66,12 @@ export const orderSlice = createSlice({
         searchField: null,
         me: false,
       };
+    },
+    setLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
+    setExportSuccess(state, action: PayloadAction<boolean>) {
+      state.exportSuccess = action.payload;
     },
   },
   extraReducers: (builder) => {
