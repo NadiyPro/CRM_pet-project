@@ -52,66 +52,66 @@ const OrdersFiltersComponent = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(handleForm)}>
+        <form onSubmit={handleSubmit(handleForm)}>
 
-        <input
-          type="text" {...register(SortFieldEnum.NAME)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
-          placeholder="Name"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.NAME)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
+            placeholder="Name"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.SURNAME)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
-          placeholder="Surname"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.SURNAME)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
+            placeholder="Surname"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.EMAIL)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
-          placeholder="Email"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.EMAIL)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
+            placeholder="Email"
+          />
 
 
-        <input
-          type="text" {...register(SortFieldEnum.PHONE)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
-          placeholder="Phone"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.PHONE)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
+            placeholder="Phone"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.AGE)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
-          placeholder="Age"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.AGE)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
+            placeholder="Age"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.CREATED_AT)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
-          placeholder="Created_at"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.CREATED_AT)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+            placeholder="Created_at"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.GROUP_NAME)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
-          placeholder="Group_name"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.GROUP_NAME)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
+            placeholder="Group_name"
+          />
 
-        <input
-          type="text" {...register(SortFieldEnum.MANAGER)}
-          value={dto.search || ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
-          placeholder="Manager"
-        />
+          <input
+            type="text" {...register(SortFieldEnum.MANAGER)}
+            value={dto.search || ''}
+            onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
+            placeholder="Manager"
+          />
 
-          <select {...register(SortFieldEnum.COURSE)} value={dto.search || ''} onChange={handleCourseChange} >
+          <select {...register(SortFieldEnum.COURSE)} value={dto.search || ''} onChange={handleCourseChange}>
             <option value="">all course</option>
             <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
             <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
@@ -120,19 +120,19 @@ const OrdersFiltersComponent = () => {
             <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
             <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
           </select>
-        )
+          )
 
-      </form>
+        </form>
 
-      <button type="button" onClick={handleReset}>
-        <GrPowerReset size={20} color={'white'} />
-      </button>
-      <div>
-        <label htmlFor={'myCheckbox'}>My</label>
-        <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
+        <button type="button" onClick={handleReset}>
+          <GrPowerReset size={20} color={'white'} />
+        </button>
+        <div>
+          <label htmlFor={'myCheckbox'}>My</label>
+          <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
         </div>
 
-      <OrderExelComponent />
+        <OrderExelComponent />
     </div>
   );
 };
