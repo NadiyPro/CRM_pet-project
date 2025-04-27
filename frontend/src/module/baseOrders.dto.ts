@@ -4,11 +4,6 @@ import { CourseTypeEnum } from './enums/courseTypeEnum';
 import { StatusEnum } from './enums/statusEnum';
 import { MessageDto } from './message.dto';
 
-export interface ListOrdersDto {
-  orders: BaseOrdersDto[];
-  total: number;
-}
-
 export interface BaseOrdersDto {
   id: number | null;
   name: string | null;

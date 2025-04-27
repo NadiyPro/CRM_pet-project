@@ -1,119 +1,138 @@
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
-import { CourseEnum } from '../../module/enums/courseEnum';
-import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
-import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
-import { StatusEnum } from '../../module/enums/statusEnum';
 import { GrPowerReset } from "react-icons/gr";
 import { GrDocumentExcel } from "react-icons/gr";
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import OrderExelComponent from './orderExel.component';
+import { CourseEnum } from '../../module/enums/courseEnum';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { joiResolver } from '@hookform/resolvers/joi';
+import orderValidator from '../../validator/order.validator';
+import { BaseOrdersDto } from '../../module/baseOrders.dto';
 
 const OrdersFiltersComponent = () => {
-  const { dto, data } = useAppSelector((state) => state.orderStore);
+  const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
+  const {handleSubmit, register} = useForm<BaseOrdersDto>({ mode: 'all', resolver: joiResolver(orderValidator) });
 
   // Обробник зміни значення в інпуті
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
-    dispatch(orderAction.setSearchValue({ [field]: e.target.value }));
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: SortFieldEnum) => {
+    dispatch(orderAction.setSearchValue(e.target.value));
+    dispatch(orderAction.setSearchField(field));
   };
 
   // Обробник зміни вибору поля для пошуку (для селектів)
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(orderAction.setSearchValue({ course: e.target.value }));
+    dispatch(orderAction.setSearchValue(e.target.value));
+    dispatch(orderAction.setSearchField(SortFieldEnum.COURSE));
   };
 
-  // Обробник зміни вибору поля для пошуку (для селектів)
-  const handleFieldChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    dispatch(orderAction.setSearchField(e.target.value));
-  };
-
-  // Обробник для скидання фільтрів
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
     dispatch(orderAction.setPage(1));
     dispatch(orderAction.loadOrdersAll({
-      ...dto,
-      search: '',
-      searchField: '',
+      limit: 25,
       page: 1,
+      searchField: null,
+      search: '',
+      sortField: null,
+      sortASCOrDESC: null,
       me: false,
     }));
   };
 
-  // Обробник відправки форми
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    dispatch(orderAction.setPage(1)); // Повертаємось на першу сторінку при новому пошуку
-    dispatch(orderAction.loadOrdersAll(dto)); // Завантажуємо всі замовлення з новим фільтром
+  const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(orderAction.setMe(e.target.checked));
+  };
+
+
+  const handleForm: SubmitHandler<BaseOrdersDto> = () => {
+    dispatch(orderAction.setPage(1));
+    dispatch(orderAction.loadOrdersAll(dto));
   };
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(handleForm)}>
 
-          <input
-            type="text"
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, 'name') && dto.searchField === 'name'}
-            placeholder="Search by Name"
-          />
+        <input
+          type="text" {...register(SortFieldEnum.NAME)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
+          placeholder="Name"
+        />
 
-        {dto.searchField === 'email' && (
-          <input
-            type="text"
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, 'email')}
-            placeholder="Search by Email"
-          />
-        )}
-        {dto.searchField === 'phone' && (
-          <input
-            type="text"
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, 'phone')}
-            placeholder="Search by Phone"
-          />
-        )}
-        {dto.searchField === 'id' && (
-          <input
-            type="text"
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, 'id')}
-            placeholder="Search by ID"
-          />
-        )}
-        {dto.searchField === 'course' && (
-          <select value={dto.search || ''} onChange={handleCourseChange}>
-            <option value="">Select Course</option>
-            <option value="Course 1">Course 1</option>
-            <option value="Course 2">Course 2</option>
-            <option value="Course 3">Course 3</option>
-            {/* Додаткові варіанти */}
+        <input
+          type="text" {...register(SortFieldEnum.SURNAME)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
+          placeholder="Surname"
+        />
+
+        <input
+          type="text" {...register(SortFieldEnum.EMAIL)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
+          placeholder="Email"
+        />
+
+
+        <input
+          type="text" {...register(SortFieldEnum.PHONE)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
+          placeholder="Phone"
+        />
+
+        <input
+          type="text" {...register(SortFieldEnum.AGE)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
+          placeholder="Age"
+        />
+
+        <input
+          type="text" {...register(SortFieldEnum.CREATED_AT)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+          placeholder="Created_at"
+        />
+
+        <input
+          type="text" {...register(SortFieldEnum.GROUP_NAME)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
+          placeholder="Group_name"
+        />
+
+        <input
+          type="text" {...register(SortFieldEnum.MANAGER)}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
+          placeholder="Manager"
+        />
+
+          <select {...register(SortFieldEnum.COURSE)} value={dto.search || ''} onChange={handleCourseChange} >
+            <option value="">all course</option>
+            <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
+            <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
+            <option value={CourseEnum.JCX}>{CourseEnum.JCX}</option>
+            <option value={CourseEnum.JSCX}>{CourseEnum.JSCX}</option>
+            <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
+            <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
           </select>
-        )}
+        )
 
-        {/*/!* Вибір поля для пошуку *!/*/}
-        {/*<select value={dto.searchField || ''} onChange={handleFieldChange}>*/}
-        {/*  <option value="">Select Field</option>*/}
-        {/*  <option value="name">Name</option>*/}
-        {/*  <option value="email">Email</option>*/}
-        {/*  <option value="phone">Phone</option>*/}
-        {/*  <option value="id">ID</option>*/}
-        {/*  <option value="course">Course</option>*/}
-        {/*  /!* Додаткові поля *!/*/}
-        {/*</select>*/}
       </form>
 
-        <button type="button" onClick={handleReset}>
-          <GrPowerReset size={20} color={'white'} />
-        </button>
-        <div>
-          <label htmlFor={'myCheckbox'}>My</label>
-          <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
+      <button type="button" onClick={handleReset}>
+        <GrPowerReset size={20} color={'white'} />
+      </button>
+      <div>
+        <label htmlFor={'myCheckbox'}>My</label>
+        <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
         </div>
 
-      {/* Інші елементи */}
       <OrderExelComponent />
     </div>
   );

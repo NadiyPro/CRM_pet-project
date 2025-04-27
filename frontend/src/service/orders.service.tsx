@@ -2,8 +2,8 @@ import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { AuthTokenDto } from '../module/authToken.dto';
 import { axiosInstance } from './auth.service';
 import { ListOrdersAllDto } from '../module/listOrdersAll.dto';
-import { ListOrdersDto } from '../module/baseOrders.dto';
 import { ListOrdersExelDto } from '../module/listOrdersExel.dto';
+import { ListOrdersTotalDto } from '../module/listOrdersTotal.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -12,7 +12,7 @@ axiosInstance.interceptors.request.use(request => {
 });
 
 const orderService = {
-  ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersDto> => {
+  ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
     const response = await axiosInstance.get('/orders', { params: dto })
     return response.data;
   },
