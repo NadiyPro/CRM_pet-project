@@ -31,10 +31,11 @@ const OrdersTableComponent = () => {
           {Object.values(SortFieldEnum)
             .filter((field) => field !== SortFieldEnum.GROUP_ID)
             .map((field) => (
-              <th key={field} onClick={() => handleSubmit(field)}>
+              <th color={'white'} key={field} onClick={() => handleSubmit(field)}>
                 {field}
                 {dto.sortField === field && (
-                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? ' 🔽' : ' 🔼'
+                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? ' &#9660' : ' &#9650'
+                  // ' 🔽' : ' 🔼'
                 )}
               </th>
             ))}
