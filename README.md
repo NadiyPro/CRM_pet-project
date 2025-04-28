@@ -247,7 +247,7 @@ GET /orders/export
 >``` 
 > GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
 > 
-> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Request: вказуємо у URL параметр `managerId` id user якому видаємо токен
 > + Response: AuthResDto
 >```
 > {
@@ -267,7 +267,7 @@ GET /orders/export
 > POST /auth/activate/:token — для активації паролю менеджером
 >
 > + Request: 
->  + параметр `token` у URL - вказуємо токен, який отримав користувач на пошту в запиті /auth/activate/:managerId
+>  + вказуємо у URL параметр `token`  - токен, який отримав користувач на пошту в запиті /auth/activate/:managerId
 >  + ActivatePasswordReqDto
 >```
 > {
@@ -294,7 +294,7 @@ GET /orders/export
 >```
 > PUT /auth/ban/:managerId — для блокування менеджера (is_active = false) та видалення його токенів
 >
-> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Request: вказуємо у URL параметр  `managerId` id user якому видаємо токен
 > + Response: AuthUserResDto  
     Повертає користувача зі статусом is_active: false.
 > ```
@@ -309,7 +309,7 @@ GET /orders/export
 > ```
 > PUT /auth/unban/:managerId — для розблокування менеджера (is_active = true)
 >
-> + Request: параметр `managerId`  у URL - вказуємо id user якому видаємо токен
+> + Request: вказуємо у URL параметр `managerId` id user якому видаємо токен
 > + Response: AuthUserResDto  
     Повертає користувача зі статусом is_active: true.
 > ```
@@ -380,7 +380,7 @@ GET /orders/export
 > ```
 > DELETE /users/:managerId — видалити менеджера
 > 
-> + Request: параметр `managerId`  у URL - вказуємо id user, якого видаляємо
+> + Request: вказуємо у URL параметр `managerId` id user, якого видаляємо
 > + Response:
 >```
 > { message: 'The user in the table (db) has been successfully marked as deleted' }
@@ -446,11 +446,108 @@ GET /orders/export
 >```
 > + Response: документ для завантаження в форматі .xlsx (Excel), завантажуємо все БЕЗ привязки до limit та page
 >
-> + POST /orders — створити заявку
-> + GET /orders/ordersStatisticAll — статистика по всім заявкам
-> + GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
-> + POST /orders/:orderId/:group_id — прив'язка заявки до групи
-> + PUT /orders/:orderId — для оновлення даних по заявці
+> POST /orders — створити заявку
+> 
+> + Request: зчитуємо id user із запиту, CreateOrdersReqDto
+>```
+> {
+> name: string | null;
+> surname: string | null;
+> email: string | null;
+> phone: string | null;
+> age: number | null;
+> course: CourseEnum | null; // описано в розділі Enums
+> course_format: CourseFormatEnum | null;
+> course_type: CourseTypeEnum | null;
+> sum: number | null;
+> alreadyPaid: number | null;
+> status: StatusEnum | null;
+> }
+>```
+> + Response: OrdersEntity (опис в розділі "Сутності")
+> 
+> GET /orders/ordersStatisticAll — статистика по всім заявкам
+> 
+> + Request: немає тіла запиту
+> + Response: OrdersStatisticAllResDto> 
+>```
+> {
+> total: number | null;
+> In_work: number | null;
+> New: number | null;
+> Aggre: number | null;
+> Disaggre: number | null;
+> Dubbing: number | null;
+> }
+>```
+> 
+> GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
+> 
+> + Request: немає тіла запиту
+> + Response: OrdersStatisticResDto[]
+>```
+> {
+> manager: string | null;
+> total: number | null;
+> In_work: number | null;
+> New: number | null;
+> Aggre: number | null;
+> Disaggre: number | null;
+> Dubbing: number | null;
+> }
+>```
+> POST /orders/:orderId/:group_id — прив'язка заявки до групи
+> 
+> + Request: 
+> вказуємо у URL параметр: 
+>  + `orderId` - id заявки
+>  + `group_id` - id групи
+> + Response: OrdersEntity (опис в розділі "Сутності")
+> 
+> PUT /orders/:orderId — для оновлення даних по заявці
+> 
+> + Request: 
+>  + зчитуємо id user із запиту
+>  + вказуємо у URL параметр `orderId` (id заявки)
+>  + UpdateOrdersReqDto
+>```
+> {
+> name: string | null;
+> surname: string | null;
+> email: string | null;
+> phone: string | null;
+> age: number | null;
+> course: CourseEnum | null; // описано в розділі Enums
+> course_format: CourseFormatEnum | null;
+> course_type: CourseTypeEnum | null;
+> sum: number | null;
+> alreadyPaid: number | null;
+> status: StatusEnum | null;
+> }
+>``` 
+> + Response: 
+>``` 
+> {
+> id: number | null;
+> name: string | null;
+> surname: string | null;
+> email: string | null;
+> phone: string | null;
+> age: number | null;
+> course: CourseEnum | null;
+> course_format: CourseFormatEnum | null;
+> course_type: CourseTypeEnum | null;
+> status: StatusEnum | null;
+> sum: number | null;
+> alreadyPaid: number | null;
+> created_at: Date;
+> updated_at?: Date | null;
+> manager: UserEntity;
+> group_id: number | null;
+> group_name: string | null;
+> messages: MessageEntity[] | null;
+> } 
+>``` 
 > + GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
 > + Delete /orders/:orderId - для видалення заявки згідно її orderId
 ### group
