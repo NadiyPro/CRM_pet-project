@@ -14,13 +14,11 @@ const OrdersFiltersComponent = () => {
   const dispatch = useAppDispatch();
   const {handleSubmit, register} = useForm<BaseOrdersDto>({ mode: 'all', resolver: joiResolver(orderValidator) });
 
-  // Обробник зміни значення в інпуті
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: SortFieldEnum) => {
     dispatch(orderAction.setSearchValue(e.target.value));
     dispatch(orderAction.setSearchField(field));
   };
 
-  // Обробник зміни вибору поля для пошуку (для селектів)
   const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     dispatch(orderAction.setSearchValue(e.target.value));
     dispatch(orderAction.setSearchField(SortFieldEnum.COURSE));
