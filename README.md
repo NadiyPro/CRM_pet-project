@@ -525,7 +525,7 @@ GET /orders/export
 > status: StatusEnum | null;
 > }
 >``` 
-> + Response: 
+> + Response: UpdateOrdersResDto
 >``` 
 > {
 > id: number | null;
