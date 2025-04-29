@@ -5,9 +5,10 @@ const PaginationComponent = () => {
   const { dto, data } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  const currentPage = dto.page ?? 1;
+  const currentPage = dto.page ?? 1; // початкова сторінка, за замовченням 1
   const limit = dto.limit ?? 25;
   const totalPages = Math.ceil(data.total / limit);
+  // обчислюємо кількість сторінок (наприклад, якщо в нас 500 елементів і ліміт 25, то сторінок буде 20)
 
   const handlePageClick = (page: number) => {
     dispatch(orderAction.setPage(page));
@@ -18,14 +19,20 @@ const PaginationComponent = () => {
   };
 
   const renderPages = () => {
+    // якщо всього 7 сторінок або менше — рендеримо всі сторінки
     if (totalPages <= 7) {
-      return Array.from({ length: totalPages }, (_, idx) => (
+      // Array.from — створює маси з довжиною { length: totalPages },
+      // і для кожного індексу масиву довжиною totalPages (<= 7 сторінок) створюємо свій button,
+      // таким чинном ми виконуємо мапінг (ітерацію) кнопок для кожної сторінки
+      // в нас callback функція, яка повинна містити два аргументи, щоб дістатись до індекса,
+      // тому в якості першого аргументу вкажемо _ , бо ми його не використовуємо, а другим в нас буде index
+      return Array.from({ length: totalPages }, (_, index) => (
         <button
-          key={idx + 1}
-          onClick={() => handlePageClick(idx + 1)}
-          disabled={currentPage === idx + 1}
+          key={index + 1}
+          onClick={() => handlePageClick(index + 1)}
+          disabled={currentPage === index + 1}
         >
-          {idx + 1}
+          {index + 1}
         </button>
       ));
     }
@@ -33,13 +40,13 @@ const PaginationComponent = () => {
     if (currentPage <= 7) {
       return (
         <>
-          {Array.from({ length: 7 }, (_, idx) => (
+          {Array.from({ length: 7 }, (_, index) => (
             <button
-              key={idx + 1}
-              onClick={() => handlePageClick(idx + 1)}
-              disabled={currentPage === idx + 1}
+              key={index + 1}
+              onClick={() => handlePageClick(index + 1)}
+              disabled={currentPage === index + 1}
             >
-              {idx + 1}
+              {index + 1}
             </button>
           ))}
           <span>...</span>
