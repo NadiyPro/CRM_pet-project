@@ -68,11 +68,12 @@ const PaginationComponent = () => {
       );
       pages.push(<span key="dots-start">...</span>);
 
+      // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
       if (currentPage < totalPages - 3) {
         startPage = currentPage - 3;
       }
-      startPage = Math.max(startPage, 2);
+      startPage = Math.max(startPage, 2); //// щоб не показати сторінку менше ніж 2 (бо 1 вже показана)
 
       const endPage = Math.min(startPage + 6, totalPages);
 
