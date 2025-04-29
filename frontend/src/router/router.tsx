@@ -27,7 +27,6 @@ export const router = createBrowserRouter([
       { index: true, element: <Navigate to="/orders" replace /> },
       { path: 'orders', element: <OrdersAllPage/> },
       { path: 'admin', element: <AdminPage/> },
-      // { path: 'users/all', element: <AdminAllPage/> },
     ],
   },
 ]);

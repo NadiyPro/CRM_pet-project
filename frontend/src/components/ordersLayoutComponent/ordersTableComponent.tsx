@@ -34,7 +34,7 @@ const OrdersTableComponent = () => {
               <th color={'white'} key={field} onClick={() => handleSubmit(field)}>
                 {field}
                 {dto.sortField === field && (
-                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? ' &#9660' : ' &#9650'
+                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? <span>'&#9660;'</span> : <span>' &#9650;'</span>
                   // ' 🔽' : ' 🔼'
                 )}
               </th>
