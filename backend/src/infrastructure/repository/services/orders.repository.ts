@@ -370,7 +370,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'dubbing' THEN orders.id END) as Dubbing",
         "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
       ])
-      .groupBy('manager.id, manager.surname')
+      .groupBy('manager.id')
       .getRawMany();
   }
 }
