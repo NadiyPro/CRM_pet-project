@@ -5,7 +5,6 @@ import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
-import { loadOrdersStatisticAll } from '../reducers/adminLoad/LoadOrdersStatisticAll';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -21,8 +20,8 @@ interface OrderSliceInterface {
 const initialState: OrderSliceInterface = {
   dataExel: '',
   data: {
-    total: 0,
     orders: [],
+    total: 0,
   },
   dto: {
     limit: 25,

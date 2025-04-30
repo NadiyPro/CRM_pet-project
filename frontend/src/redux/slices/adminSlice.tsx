@@ -1,12 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { loadOrdersStatisticAll } from '../reducers/adminLoad/LoadOrdersStatisticAll';
+import { loadOrdersStatisticAll } from '../reducers/adminLoad/loadOrdersStatisticAll';
 import { OrdersStatisticAllDto } from '../../module/ordersStatisticAll.dto';
 import { OrdersStatisticManagerDto } from '../../module/ordersStatisticManager.dto';
-import { loadOrdersStatisticManager } from '../reducers/adminLoad/LoadOrdersStatisticManager';
+import { loadOrdersStatisticManager } from '../reducers/adminLoad/loadOrdersStatisticManager';
+import { BaseUsersDto } from '../../module/baseUsers.dto';
+import { loadUsersAll } from '../reducers/adminLoad/loadUsersAll';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
-  ordersStatisticManager: OrdersStatisticManagerDto
+  ordersStatisticManager: OrdersStatisticManagerDto,
+  data:{
+    users: BaseUsersDto[],
+    total: number;
+  }
 }
 
 const initialState : AdminSliceInterface = {
@@ -26,6 +32,10 @@ const initialState : AdminSliceInterface = {
     Aggre: null,
     Disaggre: null,
     Dubbing: null,
+  },
+  data:{
+    users: [],
+    total: 0
   }
 };
 
@@ -41,6 +51,12 @@ export const adminSlice = createSlice({
         }
       )
       .addCase(
+        loadUsersAll.fulfilled, (state, action) => {
+          state.data.users = action.payload.users;
+          state.data.total = action.payload.total;
+        }
+      )
+      .addCase(
         loadOrdersStatisticManager.fulfilled, (state, action) => {
           state.ordersStatisticManager = action.payload;
         }
@@ -51,5 +67,6 @@ export const adminSlice = createSlice({
 export const adminAction = {
   ...adminSlice.actions,
   loadOrdersStatisticAll,
+  loadUsersAll,
   loadOrdersStatisticManager
 }
