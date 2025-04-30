@@ -65,7 +65,7 @@ const PaginationComponent = () => {
           1
         </button>
       );
-      const dotsStart = <span key="dots-start">...</span>;
+      const dots = <span key="dots">...</span>;
       // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
       // якщо ми зараз знаходимось на сторінці, яка знаходиться десь посередині,
@@ -98,7 +98,7 @@ const PaginationComponent = () => {
           </button>
         );
       });
-      return [firstPage, dotsStart, ...middlePages];
+      return [firstPage, dots, ...middlePages];
     }
   };
 
