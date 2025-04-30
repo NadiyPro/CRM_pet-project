@@ -84,10 +84,10 @@ const PaginationComponent = () => {
       // тут пишемо умову щоб кінцева сторінка в нас максимум була totalPages
       // ми обираємо менше з двох значень
       const endPage = Math.min(startPage + 6, totalPages);
-      const middlePages = Array.from({ length: endPage - startPage + 1 }, (_, idx) => {
+      const middlePages = Array.from({ length: endPage - startPage + 1 }, (_, index) => {
         // startPage + 1, тут + 1 потрібен, бо Array.from не включає кінцеве значення,
         // тому нам треба вручну додати ще один елемент, щоб останній номер також потрапив у список
-        const pageNumber = startPage + idx;
+        const pageNumber = startPage + index;
         return (
           <button
             key={pageNumber}
