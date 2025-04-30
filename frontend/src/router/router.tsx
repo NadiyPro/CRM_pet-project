@@ -1,13 +1,10 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import AuthLoginPage from '../page/authLoginPage';
-import AuthPasswordPage from '../page/authPasswordPage';
-import AdminPage from '../page/adminPage';
-import AdminAllPage from '../page/adminAllPage';
-import ErrorElement from '../layout/errorElement';
-import OrdersLayout from '../layout/ordersLayout';
 import React from 'react';
+import ErrorElement from '../layout/errorElement';
+import AuthLoginPage from '../page/authLoginPage';
+import MainLayout from '../layout/mainLayout';
 import OrdersAllPage from '../page/ordersAllPage';
-
+import AdminPage from '../page/adminPage';
 
 export const router = createBrowserRouter([
   {
@@ -21,7 +18,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: <OrdersLayout />,
+    element: <MainLayout />,
     errorElement: <ErrorElement />,
     children: [
       { index: true, element: <Navigate to="/orders" replace /> },

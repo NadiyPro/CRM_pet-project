@@ -1,5 +1,5 @@
-import OrdersFiltersComponent from '../components/ordersLayoutComponent/orderFilters.component';
-import OrdersTableComponent from '../components/ordersLayoutComponent/ordersTableComponent';
+import OrdersFiltersComponent from '../components/ordersComponents/orderFilters.component';
+import OrdersTableComponent from '../components/ordersComponents/ordersTableComponent';
 import PaginationComponent from '../components/paginationComponent';
 
 const OrdersAllPage = () => {
