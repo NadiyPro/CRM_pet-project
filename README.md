@@ -481,13 +481,13 @@ GET /orders/export
 > }
 >```
 > 
-> GET /orders/ordersStatisticManager — статистика по заявкам конкретного менеджера
+> GET /orders/ordersStatisticManager/:managerId — статистика по заявкам конкретного менеджера
 > 
-> + Request: немає тіла запиту
+> + Request: вказуємо у URL параметр `managerId` id user
 > + Response: OrdersStatisticResDto[]
 >```
 > {
-> manager: string | null;
+> manager: string | null; // id user
 > total: number | null;
 > In_work: number | null;
 > New: number | null;

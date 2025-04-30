@@ -12,7 +12,8 @@ const adminService = {
   ordersStatisticAll: async () => {
     const response = await axiosInstance.get('/orders/ordersStatisticAll');
     return response.data;
-  }
+  },
+
 }
 
 export {
