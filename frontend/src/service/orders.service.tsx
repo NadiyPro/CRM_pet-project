@@ -13,7 +13,7 @@ axiosInstance.interceptors.request.use(request => {
 
 const orderService = {
   ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
-    const response = await axiosInstance.get('/orders', { params: dto })
+    const response = await axiosInstance.get('/orders', { params: dto });
     return response.data;
   },
   ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {
@@ -29,7 +29,7 @@ const orderService = {
     document.body.appendChild(link);
     link.click();
     link.remove();
-  },
+  }
 }
 
 export {

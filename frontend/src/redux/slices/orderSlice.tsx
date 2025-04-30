@@ -5,6 +5,7 @@ import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
+import { loadOrdersStatisticAll } from '../reducers/adminLoad/LoadOrdersStatisticAll';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -86,7 +87,7 @@ export const orderSlice = createSlice({
         loadOrdersExel.fulfilled, (state, action) => {
           state.dataExel = action.payload;
         },
-      );
+      )
   },
 });
 

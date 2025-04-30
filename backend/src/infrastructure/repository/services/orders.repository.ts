@@ -315,13 +315,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
   //   return await qbExport.getManyAndCount();
   // }
 
-  public async resetFilters(): Promise<[OrdersEntity[], number]> {
-    return await this.createQueryBuilder('orders')
-      .leftJoinAndSelect('orders.manager', 'manager')
-      .leftJoinAndSelect('orders.messages', 'messages')
-      .addOrderBy('orders.created_at', 'DESC')
-      .getManyAndCount();
-  }
+  // public async resetFilters(): Promise<[OrdersEntity[], number]> {
+  //   return await this.createQueryBuilder('orders')
+  //     .leftJoinAndSelect('orders.manager', 'manager')
+  //     .leftJoinAndSelect('orders.messages', 'messages')
+  //     .addOrderBy('orders.created_at', 'DESC')
+  //     .getManyAndCount();
+  // }
 
   public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.createQueryBuilder('orders')
@@ -337,9 +337,29 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .getRawOne();
   }
 
-  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+  // public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+  //   return await this.createQueryBuilder('orders')
+  //     .leftJoin('orders.manager', 'manager')
+  //     .select([
+  //       'manager.id AS manager',
+  //       'COUNT(orders.id) as total',
+  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'in_work' THEN orders.id END) as In_work",
+  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'new' THEN orders.id END) as New",
+  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'aggre' THEN orders.id END) as Aggre",
+  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'disaggre' THEN orders.id END) as Disaggre",
+  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'dubbing' THEN orders.id END) as Dubbing",
+  //       "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
+  //     ])
+  //     .groupBy('manager.id, manager.surname')
+  //     .getRawMany();
+  // }
+
+  public async ordersStatisticManager(
+    managerId: string,
+  ): Promise<OrdersStatisticResDto[]> {
     return await this.createQueryBuilder('orders')
       .leftJoin('orders.manager', 'manager')
+      .andWhere('manager.id = :userId', { userId: managerId })
       .select([
         'manager.id AS manager',
         'COUNT(orders.id) as total',
