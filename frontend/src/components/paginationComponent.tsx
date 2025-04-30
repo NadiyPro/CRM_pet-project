@@ -66,7 +66,7 @@ const PaginationComponent = () => {
           1
         </button>
       );
-      pages.push(<span key="dots-start">...</span>);
+      pages.push(<span key="dots">...</span>);
 
       // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
