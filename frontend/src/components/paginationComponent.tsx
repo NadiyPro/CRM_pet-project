@@ -59,15 +59,13 @@ const PaginationComponent = () => {
         </>
       );
     } else {
-      const pages = [];
 
-      pages.push(
+      const firstPage = (
         <button key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
           1
         </button>
       );
-      pages.push(<span key="dots">...</span>);
-
+      const dotsStart = <span key="dots-start">...</span>;
       // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
       // якщо ми зараз знаходимось на сторінці, яка знаходиться десь посередині,
@@ -79,25 +77,26 @@ const PaginationComponent = () => {
 
       // так як в else ми окремо завжди світимо 1 сторінку,
       // то для того щоб в нашому списку наступна сторінка була мінімум 2
-      // щоб не дублювати двійчі 1 сторінку ми прописуємо обмежуючу умову
+      // щоб не дублювати двійчі 1 сторінку
+      // ми обираємо більше з двох значень
       startPage = Math.max(startPage, 2);
 
       // тут пишемо умову щоб кінцева сторінка в нас максимум була totalPages
+      // ми обираємо менше з двох значень
       const endPage = Math.min(startPage + 6, totalPages);
-
-      for (let i = startPage; i <= endPage; i++) {
-        pages.push(
+      const middlePages = Array.from({ length: endPage - startPage + 1 }, (_, idx) => {
+        const pageNumber = startPage + idx;
+        return (
           <button
-            key={i}
-            onClick={() => handlePageClick(i)}
-            disabled={currentPage === i}
+            key={pageNumber}
+            onClick={() => handlePageClick(pageNumber)}
+            disabled={currentPage === pageNumber}
           >
-            {i}
+            {pageNumber}
           </button>
         );
-      }
-
-      return pages;
+      });
+      return [firstPage, dotsStart, ...middlePages];
     }
   };
 
