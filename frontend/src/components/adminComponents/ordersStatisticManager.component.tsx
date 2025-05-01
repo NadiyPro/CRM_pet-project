@@ -1,12 +1,50 @@
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { adminAction } from '../../redux/slices/adminSlice';
+import { useEffect } from 'react';
 
 const OrdersStatisticManager = () => {
-  const { data } = useAppSelector((state) => state.adminStore);
+  const { dto, data, ordersStatisticManager } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
-  return(
-    <div>
+  useEffect(() => {
+    dispatch(adminAction.setPage(1));
+    dispatch(adminAction.loadUsersAll(dto));
+  }, [dispatch, dto]);
 
+  useEffect(() => {
+    data.users.forEach(user => {
+      dispatch(adminAction.loadOrdersStatisticManager(user.id));
+    });
+  }, [data.users, dispatch]);
+
+  return (
+    <div>
+      {
+        data.users.map((value) =>
+          <div>
+            <div>
+              <p>{value.id}</p>
+              <p>{value.email}</p>
+              <p>{value.name}</p>
+              <p>{value.surname}</p>
+              <p>{value.is_active}</p>
+            </div>
+
+              {
+                value.id === ordersStatisticManager.manager && (
+                  <div>
+                    <p>{ordersStatisticManager.total}</p>
+                    <p>{ordersStatisticManager.In_work}</p>
+                    <p>{ordersStatisticManager.New}</p>
+                    <p>{ordersStatisticManager.Aggre}</p>
+                    <p>{ordersStatisticManager.Disaggre}</p>
+                    <p>{ordersStatisticManager.Dubbing}</p>
+                  </div>
+                )
+              }
+          </div>
+        )
+      }
     </div>
   )
 };

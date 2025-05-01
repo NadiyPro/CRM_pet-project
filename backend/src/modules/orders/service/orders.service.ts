@@ -50,18 +50,18 @@ export class OrdersService {
 
   public async ordersStatisticManager(
     managerId: string,
-  ): Promise<OrdersStatisticResDto[]> {
+  ): Promise<OrdersStatisticResDto> {
     const statisticAll =
       await this.ordersRepository.ordersStatisticManager(managerId);
-    return statisticAll.map((item) => ({
-      manager: item.manager || null,
-      total: Number(item.total) || null,
-      In_work: Number(item.In_work) || null,
-      New: Number(item.New) || null,
-      Aggre: Number(item.Aggre) || null,
-      Disaggre: Number(item.Disaggre) || null,
-      Dubbing: Number(item.Dubbing) || null,
-    }));
+    return {
+      manager: statisticAll.manager || null,
+      total: Number(statisticAll.total) || null,
+      In_work: Number(statisticAll.In_work) || null,
+      New: Number(statisticAll.New) || null,
+      Aggre: Number(statisticAll.Aggre) || null,
+      Disaggre: Number(statisticAll.Disaggre) || null,
+      Dubbing: Number(statisticAll.Dubbing) || null,
+    };
   }
 
   // public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {

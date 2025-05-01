@@ -185,7 +185,7 @@ export class OrdersController {
   @Get('ordersStatisticManager/:managerId')
   public async ordersStatisticManager(
     @Param('managerId', ParseUUIDPipe) managerId: string,
-  ): Promise<OrdersStatisticResDto[]> {
+  ): Promise<OrdersStatisticResDto> {
     return await this.ordersService.ordersStatisticManager(managerId);
   }
 

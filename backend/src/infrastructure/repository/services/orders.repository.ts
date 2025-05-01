@@ -356,7 +356,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
   public async ordersStatisticManager(
     managerId: string,
-  ): Promise<OrdersStatisticResDto[]> {
+  ): Promise<OrdersStatisticResDto> {
     return await this.createQueryBuilder('orders')
       .leftJoin('orders.manager', 'manager')
       .andWhere('manager.id = :userId', { userId: managerId })
@@ -371,6 +371,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
       ])
       .groupBy('manager.id')
-      .getRawMany();
+      .getRawOne();
   }
 }
