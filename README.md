@@ -381,7 +381,7 @@ GET /orders/export
 > DELETE /users/:managerId — видалити менеджера
 > 
 > + Request: вказуємо у URL параметр `managerId` id user, якого видаляємо
-> + Response:
+> + Response: string
 >```
 > { message: 'The user in the table (db) has been successfully marked as deleted' }
 >``` 
@@ -484,7 +484,7 @@ GET /orders/export
 > GET /orders/ordersStatisticManager/:managerId — статистика по заявкам конкретного менеджера
 > 
 > + Request: вказуємо у URL параметр `managerId` id user
-> + Response: OrdersStatisticResDto[]
+> + Response: OrdersStatisticResDto
 >```
 > {
 > manager: string | null; // id user
@@ -548,8 +548,42 @@ GET /orders/export
 > messages: MessageEntity[] | null;
 > } 
 >``` 
-> + GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
-> + Delete /orders/:orderId - для видалення заявки згідно її orderId
+> 
+> GET /orders/:orderId - для відображення інформації по конкретній заявці (orderId)
+> 
+> + Request: вказуємо у URL параметр `orderId` (id заявки)
+> + Response: UpdateOrdersResDto
+>``` 
+> {
+> id: number | null;
+> name: string | null;
+> surname: string | null;
+> email: string | null;
+> phone: string | null;
+> age: number | null;
+> course: CourseEnum | null;
+> course_format: CourseFormatEnum | null;
+> course_type: CourseTypeEnum | null;
+> status: StatusEnum | null;
+> sum: number | null;
+> alreadyPaid: number | null;
+> created_at: Date;
+> updated_at?: Date | null;
+> manager: UserEntity;
+> group_id: number | null;
+> group_name: string | null;
+> messages: MessageEntity[] | null;
+> }
+>``` 
+> 
+> Delete /orders/:orderId - для видалення заявки згідно її orderId
+> 
+> + Request: вказуємо у URL параметр `orderId` (id заявки)
+> + Response: string
+>```
+> { message: 'The user in the table (db) was successfully deleted' }
+>``` 
+
 ### group
 > + GET /group - відображення всіх group та пошуку по назві group
 > + POST /group - для створення нової group
