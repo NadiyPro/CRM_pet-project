@@ -1,4 +1,9 @@
 const AuthPasswordPage = () => {
+  return(
+    <div>
+
+    </div>
+  )
 
 };
 
