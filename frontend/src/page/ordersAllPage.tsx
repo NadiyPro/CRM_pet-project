@@ -1,6 +1,6 @@
 import OrdersFiltersComponent from '../components/ordersComponents/orderFilters.component';
-import OrdersTableComponent from '../components/ordersComponents/ordersTableComponent';
-import PaginationComponent from '../components/paginationComponent';
+import OrdersTableComponent from '../components/ordersComponents/ordersTable.component';
+import PaginationComponent from '../components/ordersComponents/pagination.component';
 
 const OrdersAllPage = () => {
 

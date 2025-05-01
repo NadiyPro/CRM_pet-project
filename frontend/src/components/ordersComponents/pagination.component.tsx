@@ -1,5 +1,5 @@
-import { orderAction } from '../redux/slices/orderSlice';
-import { useAppDispatch, useAppSelector } from '../redux/store';
+import { orderAction } from '../../redux/slices/orderSlice';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 const PaginationComponent = () => {
   const { dto, data } = useAppSelector((state) => state.orderStore);

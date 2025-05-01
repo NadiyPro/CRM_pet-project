@@ -1,14 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadOrdersStatisticAll } from '../reducers/adminLoad/loadOrdersStatisticAll';
 import { OrdersStatisticAllDto } from '../../module/ordersStatisticAll.dto';
 import { OrdersStatisticManagerDto } from '../../module/ordersStatisticManager.dto';
 import { loadOrdersStatisticManager } from '../reducers/adminLoad/loadOrdersStatisticManager';
 import { BaseUsersDto } from '../../module/baseUsers.dto';
 import { loadUsersAll } from '../reducers/adminLoad/loadUsersAll';
+import { ListUsersQueryDto } from '../../module/listUsersQuery.dto';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
   ordersStatisticManager: OrdersStatisticManagerDto,
+  dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
     total: number;
@@ -33,6 +35,10 @@ const initialState : AdminSliceInterface = {
     Disaggre: null,
     Dubbing: null,
   },
+  dto: {
+    limit: 10,
+    page: 1,
+  },
   data:{
     users: [],
     total: 0
@@ -42,7 +48,11 @@ const initialState : AdminSliceInterface = {
 export const adminSlice = createSlice({
   name: 'adminSlice',
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setPage(state, action: PayloadAction<number>) {
+      state.dto.page = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(
