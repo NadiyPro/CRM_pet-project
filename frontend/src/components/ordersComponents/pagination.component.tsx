@@ -26,23 +26,28 @@ const PaginationComponent = () => {
       // таким чином ми виконуємо мапінг (ітерацію) кнопок для кожної сторінки
       // в нас callback функція, яка повинна містити два аргументи, щоб дістатись до індекса,
       // тому в якості першого аргументу вкажемо _ , бо ми його не використовуємо, а другим в нас буде index
-      return Array.from({ length: totalPages }, (_, index) => (
-        <button
-          key={index + 1} // 0+1, 1+1 ...
-          onClick={() => handlePageClick(index + 1)}
-          disabled={currentPage === index + 1}
-          // disabled={true} кнопку відключено (користувач вже на цій сторінці)
-          // disabled={false} кнопку можна натиснути, щоб перейти на цю сторінку
-        >
-          {index + 1}
-        </button>
-      ));
+      return (
+        <div>
+          {
+        Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1} // 0+1, 1+1 ...
+            onClick={() => handlePageClick(index + 1)}
+            disabled={currentPage === index + 1}
+            // disabled={true} кнопку відключено (користувач вже на цій сторінці)
+            // disabled={false} кнопку можна натиснути, щоб перейти на цю сторінку
+          >
+            {index + 1}
+          </button>))
+          }
+        </div>
+      )
     }
 
     // якщо поточна сторінка <= 7 — показуємо 7 перших + "..." + остання
     if (currentPage <= 7) {
       return (
-        <>
+        <div>
           {Array.from({ length: 7 }, (_, index) => (
             <button
               key={index + 1}
@@ -56,7 +61,7 @@ const PaginationComponent = () => {
           <button onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
             {totalPages}
           </button>
-        </>
+        </div>
       );
     } else {
 
@@ -87,31 +92,30 @@ const PaginationComponent = () => {
       const middlePages = Array.from({ length: endPage - startPage + 1 }, (_, index) => {
         // startPage + 1, тут + 1 потрібен, бо Array.from не включає кінцеве значення,
         // тому нам треба вручну додати ще один елемент, щоб останній номер також потрапив у список
-        const pageNumber = startPage + index;
         return (
           <button
-            key={pageNumber}
-            onClick={() => handlePageClick(pageNumber)}
-            disabled={currentPage === pageNumber}
+            key={startPage + index}
+            onClick={() => handlePageClick(startPage + index)}
+            disabled={currentPage === startPage + index}
           >
-            {pageNumber}
+            {startPage + index}
           </button>
         );
       });
-      return [firstPage, dots, ...middlePages];
+      return <div>{[firstPage, dots, ...middlePages]}</div>;
     }
   };
 
   return (
     <div style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
       {currentPage > 1 && (
-        <button onClick={() => handlePageClick(currentPage - 1)}>
+        <button key={currentPage - 1} onClick={() => handlePageClick(currentPage - 1)}>
           {'<'}
         </button>
       )}
       {renderPages()}
       {currentPage < totalPages && (
-        <button onClick={() => handlePageClick(currentPage + 1)}>
+        <button key={currentPage + 1} onClick={() => handlePageClick(currentPage + 1)}>
           {'>'}
         </button>
       )}
