@@ -34,7 +34,11 @@ const adminService = {
   banUser: async (managerId: string): Promise<AuthUserDto> => {
     const response = await axiosInstance.put(`/auth/ban/${managerId}`)
     return response.data;
-}
+  },
+  unbanUser: async (managerId: string): Promise<AuthUserDto> => {
+    const response = await axiosInstance.put(`/auth/unban/${managerId}`)
+    return response.data;
+  },
 }
 
 export {

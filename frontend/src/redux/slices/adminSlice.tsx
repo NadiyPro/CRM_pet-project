@@ -11,6 +11,7 @@ import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
 import { AuthResDto } from '../../module/authRes.dto';
 import { loadBanUser } from '../reducers/adminLoad/loadBanUser';
 import { AuthUserDto } from '../../module/authUser.dto';
+import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
@@ -112,6 +113,11 @@ export const adminSlice = createSlice({
           state.userBanUnban = action.payload;
         }
       )
+      .addCase(
+        loadUnbanUser.fulfilled, (state, action) => {
+          state.userBanUnban = action.payload;
+        }
+      )
   }
 })
 
@@ -122,4 +128,5 @@ export const adminAction = {
   loadOrdersStatisticManager,
   loadActivateUser,
   loadBanUser,
+  loadUnbanUser,
 }
