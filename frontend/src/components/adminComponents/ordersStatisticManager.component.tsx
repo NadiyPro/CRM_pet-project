@@ -12,58 +12,57 @@ const OrdersStatisticManager = () => {
   }, [dispatch, dto]);
 
   useEffect(() => {
-    data.users.forEach(user => {
-      dispatch(adminAction.loadOrdersStatisticManager(user.id));
+    data.users.forEach(value => {
+      dispatch(adminAction.loadOrdersStatisticManager(value.id));
     });
   }, [data.users, dispatch]);
 
-
   const handleActive = (managerId: string, is_active: boolean) => {
-      dispatch(adminAction.loadActivateUser(managerId));
-
-  }
+    dispatch(adminAction.loadActivateUser(managerId));
+  };
 
   const handleBan = (managerId: string) => {
     dispatch(adminAction.loadBanUser(managerId));
-  }
+  };
 
   const handleUnban = (managerId: string) => {
     dispatch(adminAction.loadUnbanUser(managerId));
-  }
+  };
 
   return (
     <div>
-      {
-        data.users.map((value) =>
+      {data.users.map((value) => (
+        <div key={value.id}>
           <div>
-            <div>
-              <p>{value.id}</p>
-              <p>{value.email}</p>
-              <p>{value.name}</p>
-              <p>{value.surname}</p>
-              <p>{value.is_active}</p>
-            </div>
+            <p>{value.id}</p>
+            <p>{value.email}</p>
+            <p>{value.name}</p>
+            <p>{value.surname}</p>
+            <p>{value.is_active}</p>
+          </div>
 
-            {
-              value.id === ordersStatisticManager.manager && (
-                <div>
-                  <p>{ordersStatisticManager.total}</p>
-                  <p>{ordersStatisticManager.In_work}</p>
-                  <p>{ordersStatisticManager.New}</p>
-                  <p>{ordersStatisticManager.Aggre}</p>
-                  <p>{ordersStatisticManager.Disaggre}</p>
-                  <p>{ordersStatisticManager.Dubbing}</p>
-                </div>
-              )
-            }
-            <button onClick={() => handleActive(value.id, value.is_active)}> {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}</button>
+          {ordersStatisticManager[value.id] && (
+            <div>
+              <p>Total: {ordersStatisticManager[value.id].total}</p>
+              <p>In Work: {ordersStatisticManager[value.id].In_work}</p>
+              <p>New: {ordersStatisticManager[value.id].New}</p>
+              <p>Agreed: {ordersStatisticManager[value.id].Aggre}</p>
+              <p>Disagreed: {ordersStatisticManager[value.id].Disaggre}</p>
+              <p>Dubbing: {ordersStatisticManager[value.id].Dubbing}</p>
+            </div>
+          )}
+
+          <div style={{ marginTop: '10px' }}>
+            <button onClick={() => handleActive(value.id, value.is_active)}>
+              {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
+            </button>
             <button onClick={() => handleBan(value.id)}>BAN</button>
             <button onClick={() => handleUnban(value.id)}>UNBAN</button>
           </div>
-        )
-      }
+        </div>
+      ))}
     </div>
-  )
+  );
 };
 
 export default OrdersStatisticManager;

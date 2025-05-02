@@ -27,10 +27,18 @@ export const authSlice = createSlice({
         loadLogin.fulfilled, (state, action) => {
           state.isValid = action.payload;
     })
+      .addCase(loadLogin.rejected, (state, action) => {
+          console.error('Помилка при авторизації користувача:', action.payload);
+        }
+      )
       .addCase(
         loadLogOut.fulfilled, (state) => {
           state.isValid = false;
         })
+      .addCase(loadLogin.rejected, (state, action) => {
+          console.error('Помилка при виході користувача з платформи:', action.payload);
+        }
+      )
   }
 });
 

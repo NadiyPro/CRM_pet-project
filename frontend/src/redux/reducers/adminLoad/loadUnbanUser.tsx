@@ -3,7 +3,7 @@ import { adminService } from '../../../service/admin.service';
 import { AxiosError } from 'axios';
 
 const loadUnbanUser = createAsyncThunk(
-  'loadBanUser',
+  'loadUnbanUser',
   async (managerId: string, thunkAPI) => {
     try {
       const response = await adminService.unbanUser(managerId);

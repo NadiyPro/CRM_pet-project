@@ -5,6 +5,7 @@ import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
+import { loadLogin } from '../reducers/authLoad/loadLogin';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -82,10 +83,18 @@ export const orderSlice = createSlice({
           state.data.total = action.payload.total;
         },
       )
+      .addCase(loadLogin.rejected, (state, action) => {
+          console.error('Помилка завантаження всіх заявок:', action.payload);
+        }
+      )
       .addCase(
         loadOrdersExel.fulfilled, (state, action) => {
           state.dataExel = action.payload;
         },
+      )
+      .addCase(loadOrdersExel.rejected, (state, action) => {
+          console.error('Помилка завантаження заявок в Exel:', action.payload);
+        }
       )
   },
 });

@@ -15,7 +15,7 @@ import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
-  ordersStatisticManager: OrdersStatisticManagerDto,
+  ordersStatisticManager: Record<string, OrdersStatisticManagerDto>,
   dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
@@ -34,15 +34,7 @@ const initialState : AdminSliceInterface = {
     Disaggre: null,
     Dubbing: null,
   },
-  ordersStatisticManager: {
-    manager: null,
-    total: null,
-    In_work: null,
-    New: null,
-    Aggre: null,
-    Disaggre: null,
-    Dubbing: null,
-  },
+  ordersStatisticManager: {},
   dto: {
     limit: 10,
     page: 1,
@@ -90,15 +82,27 @@ export const adminSlice = createSlice({
           state.ordersStatisticAll = action.payload;
         }
       )
+      .addCase(loadOrdersStatisticAll.rejected, (state, action) => {
+        console.error('Помилка завантаження загальної статистики по заявкам:', action.payload);
+      }
+      )
       .addCase(
         loadUsersAll.fulfilled, (state, action) => {
           state.data.users = action.payload.users;
           state.data.total = action.payload.total;
         }
       )
-      .addCase(
-        loadOrdersStatisticManager.fulfilled, (state, action) => {
-          state.ordersStatisticManager = action.payload;
+      .addCase(loadUsersAll.rejected, (state, action) => {
+          console.error('Помилка завантаження списку користувачів:', action.payload);
+        }
+      )
+      .addCase(loadOrdersStatisticManager.fulfilled, (state, action) => {
+        const managerId = action.meta.arg;
+        // action.meta.arg - зберігаємо аргумент id, який я передала в createAsyncThunk
+        state.ordersStatisticManager[managerId] = action.payload;
+      })
+      .addCase(loadOrdersStatisticManager.rejected, (state, action) => {
+          console.error('Помилка завантаження статистики по менеджеру:', action.payload);
         }
       )
       .addCase(
@@ -108,14 +112,26 @@ export const adminSlice = createSlice({
           state.authTokens.user = action.payload.user;
         }
       )
+      .addCase(loadActivateUser.rejected, (state, action) => {
+          console.error('Помилка активації користувача:', action.payload);
+        }
+      )
       .addCase(
         loadBanUser.fulfilled, (state, action) => {
           state.userBanUnban = action.payload;
         }
       )
+      .addCase(loadBanUser.rejected, (state, action) => {
+          console.error('Помилка блокування користувача:', action.payload);
+        }
+      )
       .addCase(
         loadUnbanUser.fulfilled, (state, action) => {
           state.userBanUnban = action.payload;
+        }
+      )
+      .addCase(loadUnbanUser.rejected, (state, action) => {
+          console.error('Помилка розблокування користувача:', action.payload);
         }
       )
   }
