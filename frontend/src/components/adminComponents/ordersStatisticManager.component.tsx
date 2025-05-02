@@ -48,7 +48,7 @@ const OrdersStatisticManager = () => {
                 )
               }
             {
-              <button onClick={() => handleActive(value.id)}></button>
+              <button onClick={() => handleActive(value.id)}>ACTIVATE</button>
             }
           </div>
         )
