@@ -17,8 +17,8 @@ const OrdersStatisticManager = () => {
     });
   }, [data.users, dispatch]);
 
-  const handleActive = (managerId: string, is_active: boolean) => {
-    dispatch(adminAction.loadActivateUser(managerId));
+  const handleActive = (managerId: string) => {
+      dispatch(adminAction.loadActivateUser(managerId));
   };
 
   const handleBan = (managerId: string) => {
@@ -53,7 +53,7 @@ const OrdersStatisticManager = () => {
           )}
 
           <div style={{ marginTop: '10px' }}>
-            <button onClick={() => handleActive(value.id, value.is_active)}>
+            <button onClick={() => handleActive(value.id)}>
               {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
             </button>
             <button onClick={() => handleBan(value.id)}>BAN</button>
