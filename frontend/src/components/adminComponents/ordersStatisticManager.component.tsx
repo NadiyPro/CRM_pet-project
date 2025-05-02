@@ -27,29 +27,30 @@ const OrdersStatisticManager = () => {
       {
         data.users.map((value) =>
           <div>
-              <div>
-                <p>{value.id}</p>
-                <p>{value.email}</p>
-                <p>{value.name}</p>
-                <p>{value.surname}</p>
-                <p>{value.is_active}</p>
-              </div>
+            <div>
+              <p>{value.id}</p>
+              <p>{value.email}</p>
+              <p>{value.name}</p>
+              <p>{value.surname}</p>
+              <p>{value.is_active}</p>
+            </div>
 
-              {
-                value.id === ordersStatisticManager.manager && (
-                  <div>
-                    <p>{ordersStatisticManager.total}</p>
-                    <p>{ordersStatisticManager.In_work}</p>
-                    <p>{ordersStatisticManager.New}</p>
-                    <p>{ordersStatisticManager.Aggre}</p>
-                    <p>{ordersStatisticManager.Disaggre}</p>
-                    <p>{ordersStatisticManager.Dubbing}</p>
-                  </div>
-                )
-              }
             {
-              <button onClick={() => handleActive(value.id)}>ACTIVATE</button>
+              value.id === ordersStatisticManager.manager && (
+                <div>
+                  <p>{ordersStatisticManager.total}</p>
+                  <p>{ordersStatisticManager.In_work}</p>
+                  <p>{ordersStatisticManager.New}</p>
+                  <p>{ordersStatisticManager.Aggre}</p>
+                  <p>{ordersStatisticManager.Disaggre}</p>
+                  <p>{ordersStatisticManager.Dubbing}</p>
+                </div>
+              )
             }
+            <button onClick={() => handleActive(value.id)}>ACTIVATE</button>
+            <button onClick={() => handleBan(value.id)}>BAN</button>
+            <button onClick={() => handleUnban(value.id)}>UNBAN</button>
+
           </div>
         )
       }
