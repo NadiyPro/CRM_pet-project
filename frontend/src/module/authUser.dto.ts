@@ -7,5 +7,4 @@ export interface AuthUserDto {
   email: string;
   is_active: boolean;
   role: RoleTypeEnum;
-  deleted: string | null;
 }

@@ -22,6 +22,14 @@ const OrdersStatisticManager = () => {
       dispatch(adminAction.loadActivateUser(managerId));
   }
 
+  const handleBan = (managerId: string) => {
+    dispatch(adminAction.loadActivateUser(managerId));
+  }
+
+  const handleUnban = (managerId: string) => {
+    dispatch(adminAction.loadActivateUser(managerId));
+  }
+
   return (
     <div>
       {
@@ -50,7 +58,6 @@ const OrdersStatisticManager = () => {
             <button onClick={() => handleActive(value.id)}>ACTIVATE</button>
             <button onClick={() => handleBan(value.id)}>BAN</button>
             <button onClick={() => handleUnban(value.id)}>UNBAN</button>
-
           </div>
         )
       }
