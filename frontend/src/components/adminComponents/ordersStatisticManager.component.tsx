@@ -17,18 +17,23 @@ const OrdersStatisticManager = () => {
     });
   }, [data.users, dispatch]);
 
+
+  const handleActive = (managerId: string) => {
+      dispatch(adminAction.loadActivateUser(managerId));
+  }
+
   return (
     <div>
       {
         data.users.map((value) =>
           <div>
-            <div>
-              <p>{value.id}</p>
-              <p>{value.email}</p>
-              <p>{value.name}</p>
-              <p>{value.surname}</p>
-              <p>{value.is_active}</p>
-            </div>
+              <div>
+                <p>{value.id}</p>
+                <p>{value.email}</p>
+                <p>{value.name}</p>
+                <p>{value.surname}</p>
+                <p>{value.is_active}</p>
+              </div>
 
               {
                 value.id === ordersStatisticManager.manager && (
@@ -42,6 +47,9 @@ const OrdersStatisticManager = () => {
                   </div>
                 )
               }
+            {
+              <button onClick={() => handleActive(value.id)}></button>
+            }
           </div>
         )
       }
