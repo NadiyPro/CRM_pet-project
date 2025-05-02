@@ -6,6 +6,9 @@ import { loadOrdersStatisticManager } from '../reducers/adminLoad/loadOrdersStat
 import { BaseUsersDto } from '../../module/baseUsers.dto';
 import { loadUsersAll } from '../reducers/adminLoad/loadUsersAll';
 import { ListUsersQueryDto } from '../../module/listUsersQuery.dto';
+import { loadActivateUser } from '../reducers/adminLoad/loadActivateUser';
+import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
+import { AuthResDto } from '../../module/authRes.dto';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
@@ -13,8 +16,9 @@ interface AdminSliceInterface {
   dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
-    total: number;
-  }
+    total: number,
+  },
+  authTokens: AuthResDto;
 }
 
 const initialState : AdminSliceInterface = {
@@ -42,6 +46,21 @@ const initialState : AdminSliceInterface = {
   data:{
     users: [],
     total: 0
+  },
+  authTokens: {
+    tokens: {
+      access:	'',
+      refresh: '',
+    },
+    user: {
+      id: '',
+      name: '',
+      surname: '',
+      email: '',
+      is_active: false,
+      role: RoleTypeEnum.ADMIN,
+      deleted: null,
+    }
   }
 };
 
@@ -71,6 +90,13 @@ export const adminSlice = createSlice({
           state.ordersStatisticManager = action.payload;
         }
       )
+      .addCase(
+        loadActivateUser.fulfilled, (state, action) => {
+          state.authTokens.tokens.access = action.payload.tokens.access;
+          state.authTokens.tokens.refresh = action.payload.tokens.refresh;
+          state.authTokens.user = action.payload.user;
+        }
+      )
   }
 })
 
@@ -78,5 +104,6 @@ export const adminAction = {
   ...adminSlice.actions,
   loadOrdersStatisticAll,
   loadUsersAll,
-  loadOrdersStatisticManager
+  loadOrdersStatisticManager,
+  loadActivateUser
 }
