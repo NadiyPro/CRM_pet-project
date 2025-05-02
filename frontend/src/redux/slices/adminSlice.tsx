@@ -59,7 +59,6 @@ const initialState : AdminSliceInterface = {
       email: '',
       is_active: false,
       role: RoleTypeEnum.ADMIN,
-      deleted: null,
     }
   }
 };
