@@ -23,7 +23,7 @@ const OrdersStatisticManager = () => {
   }
 
   const handleBan = (managerId: string) => {
-    dispatch(adminAction.loadActivateUser(managerId));
+    dispatch(adminAction.loadBanUser(managerId));
   }
 
   const handleUnban = (managerId: string) => {

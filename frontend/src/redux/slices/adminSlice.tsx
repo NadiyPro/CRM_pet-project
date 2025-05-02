@@ -9,6 +9,8 @@ import { ListUsersQueryDto } from '../../module/listUsersQuery.dto';
 import { loadActivateUser } from '../reducers/adminLoad/loadActivateUser';
 import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
 import { AuthResDto } from '../../module/authRes.dto';
+import { loadBanUser } from '../reducers/adminLoad/loadBanUser';
+import { AuthUserDto } from '../../module/authUser.dto';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
@@ -19,6 +21,7 @@ interface AdminSliceInterface {
     total: number,
   },
   authTokens: AuthResDto;
+  userBanUnban: AuthUserDto;
 }
 
 const initialState : AdminSliceInterface = {
@@ -60,6 +63,14 @@ const initialState : AdminSliceInterface = {
       is_active: false,
       role: RoleTypeEnum.ADMIN,
     }
+  },
+  userBanUnban: {
+    id: '',
+    name: '',
+    surname: '',
+    email: '',
+    is_active: false,
+    role: RoleTypeEnum.ADMIN,
   }
 };
 
@@ -96,6 +107,11 @@ export const adminSlice = createSlice({
           state.authTokens.user = action.payload.user;
         }
       )
+      .addCase(
+        loadBanUser.fulfilled, (state, action) => {
+          state.userBanUnban = action.payload;
+        }
+      )
   }
 })
 
@@ -104,5 +120,6 @@ export const adminAction = {
   loadOrdersStatisticAll,
   loadUsersAll,
   loadOrdersStatisticManager,
-  loadActivateUser
+  loadActivateUser,
+  loadBanUser,
 }

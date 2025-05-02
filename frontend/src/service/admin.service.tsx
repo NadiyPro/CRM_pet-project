@@ -6,6 +6,7 @@ import { OrdersStatisticAllDto } from '../module/ordersStatisticAll.dto';
 import { ListUsersAllDto } from '../module/listUsersAll.dto';
 import { ListUsersQueryDto } from '../module/listUsersQuery.dto';
 import { AuthResDto } from '../module/authRes.dto';
+import { AuthUserDto } from '../module/authUser.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -29,7 +30,11 @@ const adminService = {
   activateUser: async (managerId: string): Promise<AuthResDto> => {
     const response = await axiosInstance.get(`/auth/activate/${managerId}`);
     return response.data;
-  }
+  },
+  banUser: async (managerId: string): Promise<AuthUserDto> => {
+    const response = await axiosInstance.put(`/auth/ban/${managerId}`)
+    return response.data;
+}
 }
 
 export {
