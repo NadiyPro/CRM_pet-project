@@ -28,7 +28,20 @@ const GiveRoleComponent = () => {
       <button type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
 
       {isGiveRoleModalOpen && (
-        <div>
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0,
+          width: '100vw', height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999}}>
+        <div style={{
+          background: '#fff',
+          padding: '20px',
+          borderRadius: '8px',
+          width: '400px',
+          boxShadow: '0 0 10px rgba(0,0,0,0.25)'
+        }}>
           <form onSubmit={handleSubmit(handleRole)}>
             <label htmlFor={'email'}>Email</label>
             <input type={'email'} {...register('email')} required />
@@ -45,6 +58,7 @@ const GiveRoleComponent = () => {
             </div>
           </form>
           <p>{statusGiveRole}</p>
+        </div>
         </div>
       )
       }
