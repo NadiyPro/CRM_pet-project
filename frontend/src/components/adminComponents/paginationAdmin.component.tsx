@@ -77,7 +77,9 @@ const PaginationAdminComponent = () => {
           {currentPage - 1}
         </button>
       )}
+
       {renderPage()}
+
       {currentPage < totalPages && (
         <button key={currentPage + 1} onClick={() => handlePageClick(currentPage + 1)}>
           {'>'}

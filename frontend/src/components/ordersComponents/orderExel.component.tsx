@@ -21,8 +21,8 @@ const OrderExelComponent = () => {
       <button type="button" onClick={handleOrdersExel} disabled={loadingExel}>
         <GrDocumentExcel size={20} color={'white'} />
       </button>
-      {<div>{exportSuccess}</div>}
-      {loadingExel && <div>loading...</div>}
+      {<p>{exportSuccess}</p>}
+      {loadingExel && <p>loading...</p>}
     </div>
   )
 }

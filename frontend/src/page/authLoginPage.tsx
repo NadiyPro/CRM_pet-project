@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { authAction } from '../redux/slices/authSlice';
 
 const AuthLoginPage = () => {
-  const {handleSubmit, register, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
+  const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
   const {loadingLogin, errorLogin} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -26,18 +26,21 @@ const AuthLoginPage = () => {
       if (isValid) {
         navigate(`/`);
       }
+    reset();
   };
 
   return(
     <div className={'divLogin'}>
       <form onSubmit={handleSubmit(dto)}>
         <label htmlFor={'email'}>Email</label>
-        <input type={'email'} {...register('email')}/>
+        <input type={'email'} {...register('email')} required/>
+
         <label htmlFor={'password'}>Password</label>
-        <input type={'password'} {...register('password')}/>
-        <button type="submit" disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
+        <input type={'password'} {...register('password')} required/>
+
+        <button type={'submit'} disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
       </form>
-      {errorLogin && <div className="errorLogin">{errorLogin}</div>}
+      {errorLogin && <p className="errorLogin">{errorLogin}</p>}
     </div>
   )
 };

@@ -1,8 +1,38 @@
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { useForm } from 'react-hook-form';
+import { GiveRoleDto } from '../../module/giveRole.dto';
+import { joiResolver } from '@hookform/resolvers/joi';
+import giveRoleValidator from '../../validator/giveRole.validator';
+import { adminAction } from '../../redux/slices/adminSlice';
+
 const GiveRoleComponent = () => {
+  const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
+  const {statusGiveRole} = useAppSelector((state) => state.adminStore)
+  const dispatch = useAppDispatch();
+
+  const handleRole = (dtoRole:GiveRoleDto) => {
+    dispatch(adminAction.loadGiveRole(dtoRole));
+    reset(); // скидуємо значення після сабміту
+  }
 
   return(
     <div>
+      <form onSubmit={handleSubmit(handleRole)}>
+        <label htmlFor={'email'}>Email</label>
+        <input type={'email'} {...register('email')} required />
 
+        <label htmlFor={'name'}>Name</label>
+        <input type={'text'} {...register('name')} required />
+
+        <label htmlFor={'surname'}>Surname</label>
+        <input type={'text'} {...register('surname')} required />
+
+        <div>
+          <button  type={'submit'} disabled={!isValid}>CREATE</button>
+          <button type={'button'} >CANCEL</button>
+        </div>
+      </form>
+      <p>{statusGiveRole}</p>
     </div>
   )
 }

@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { authAction } from '../redux/slices/authSlice';
 
 const AuthPasswordPage = () => {
-  const {handleSubmit, register, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
+  const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
   const {refresh} = useAppSelector((state) => state.adminStore.authTokens.tokens)
   const {loadingPassword, errorPassword} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch()
@@ -22,6 +22,7 @@ const AuthPasswordPage = () => {
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
     await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, refresh })).unwrap();
+    reset();
   };
 
   return(
@@ -29,11 +30,13 @@ const AuthPasswordPage = () => {
       <form onSubmit={handleSubmit(dtoPassword)}>
         <label htmlFor={'password'}>Password</label>
         <input type={'password'} {...register('password')} />
+
         <label htmlFor={'confirm_password'}>Confirm password</label>
         <input type={'password'} {...register('confirm_password')} />
-        <button type="submit" disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
+
+        <button type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
       </form>
-      {errorPassword && <div className="errorPassword">{errorPassword}</div>}
+      {errorPassword && <p className="errorPassword">{errorPassword}</p>}
     </div>
   )
 

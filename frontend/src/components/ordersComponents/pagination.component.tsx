@@ -113,7 +113,9 @@ const PaginationComponent = () => {
           {'<'}
         </button>
       )}
+
       {renderPages()}
+
       {currentPage < totalPages && (
         <button key={currentPage + 1} onClick={() => handlePageClick(currentPage + 1)}>
           {'>'}
