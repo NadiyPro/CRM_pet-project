@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { loadLogin } from '../reducers/authLoad/loadLogin';
 import { AuthLoginDto } from '../../module/authLogin.dto';
 import { loadLogOut } from '../reducers/authLoad/loadLogOut';
@@ -29,11 +29,7 @@ const initialState: AuthSliceInterface = {
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState: initialState,
-  reducers: {
-    setLoadingPassword(state, action: PayloadAction<boolean>) {
-      state.loadingPassword = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers:  (builder) => {
     builder
       .addCase(

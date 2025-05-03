@@ -3,6 +3,7 @@ import { AuthPasswordDto } from '../module/authPassword.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import authPasswordValidator from '../validator/authPassword.validator';
 import { useAppDispatch, useAppSelector } from '../redux/store';
+import { authAction } from '../redux/slices/authSlice';
 
 const AuthPasswordPage = () => {
   const {handleSubmit, register, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
@@ -20,13 +21,8 @@ const AuthPasswordPage = () => {
   }
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
-    // setLoadingPassword(true);
-    // setErrorPassword(null);
-  }
-
-  // const dtoPassword = (authPasswordDto) => {
-  //   dispatch(authAction.loadActivatePassword({ refresh, authPasswordDto }))
-  // }
+    await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, refresh })).unwrap();
+  };
 
   return(
     <div>
