@@ -35,7 +35,7 @@ const GiveRoleComponent = () => {
           background: 'rgba(0,0,0,0.5)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           zIndex: 9999}}>
-        <div style={{
+        <div  style={{
           background: '#fff',
           padding: '20px',
           borderRadius: '8px',
