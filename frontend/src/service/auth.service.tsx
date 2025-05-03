@@ -29,8 +29,8 @@ const authService = {
     localStorage.removeItem('tokenPair');
     return true;
   },
-  activatePassword: async (token: string, authPasswordDto: AuthPasswordDto): Promise<boolean> => {
-    const response = await axiosInstance.post<AuthTokenDto>(`/auth/activate/${token}`, authPasswordDto);
+  activatePassword: async (refresh: string, authPasswordDto: AuthPasswordDto): Promise<boolean> => {
+    const response = await axiosInstance.post<AuthTokenDto>(`/auth/activate/${refresh}`, authPasswordDto);
     return !!(response?.data?.access && response?.data?.refresh);
 }
 }

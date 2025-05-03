@@ -5,9 +5,9 @@ import { LoadActivatePasswordDto } from '../../../module/loadActivatePassword.dt
 
 const loadActivatePassword = createAsyncThunk(
   'loadActivatePassword',
-  async ({ token, authPasswordDto } : LoadActivatePasswordDto, thunkApi) => {
+  async ({ refresh, authPasswordDto } : LoadActivatePasswordDto, thunkApi) => {
     try {
-      const response = await authService.activatePassword(token, authPasswordDto);
+      const response = await authService.activatePassword(refresh, authPasswordDto);
       return thunkApi.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
