@@ -12,6 +12,7 @@ import { AuthResDto } from '../../module/authRes.dto';
 import { loadBanUser } from '../reducers/adminLoad/loadBanUser';
 import { AuthUserDto } from '../../module/authUser.dto';
 import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
+import { loadGiveRole } from '../reducers/adminLoad/loadGiveRole';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
@@ -23,6 +24,8 @@ interface AdminSliceInterface {
   },
   authTokens: AuthResDto;
   userBanUnban: AuthUserDto;
+  giveRoleUser: BaseUsersDto,
+  statusGiveRole: string;
 }
 
 const initialState : AdminSliceInterface = {
@@ -64,7 +67,17 @@ const initialState : AdminSliceInterface = {
     email: '',
     is_active: false,
     role: RoleTypeEnum.ADMIN,
-  }
+  },
+  giveRoleUser: {
+    id: '',
+    name: '',
+    surname: '',
+    email: '',
+    is_active: false,
+    role: RoleTypeEnum.MANAGER,
+    deleted: null
+  },
+  statusGiveRole: ''
 };
 
 export const adminSlice = createSlice({
@@ -73,6 +86,9 @@ export const adminSlice = createSlice({
   reducers: {
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;
+    },
+    setStatusGiveRole(state, action: PayloadAction<string>) {
+      state.statusGiveRole = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -134,6 +150,15 @@ export const adminSlice = createSlice({
           console.error('Помилка розблокування користувача:', action.payload);
         }
       )
+      .addCase(
+        loadGiveRole.fulfilled, (state, action) => {
+          state.giveRoleUser = action.payload;
+        }
+      )
+      .addCase(loadGiveRole.rejected, (state, action) => {
+          console.error('Помилка при видачі ролі новому користувачу:', action.payload);
+        }
+      )
   }
 })
 
@@ -145,4 +170,5 @@ export const adminAction = {
   loadActivateUser,
   loadBanUser,
   loadUnbanUser,
+  loadGiveRole
 }

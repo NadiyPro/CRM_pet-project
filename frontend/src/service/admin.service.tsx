@@ -7,6 +7,8 @@ import { ListUsersAllDto } from '../module/listUsersAll.dto';
 import { ListUsersQueryDto } from '../module/listUsersQuery.dto';
 import { AuthResDto } from '../module/authRes.dto';
 import { AuthUserDto } from '../module/authUser.dto';
+import { BaseUsersDto } from '../module/baseUsers.dto';
+import { GiveRoleDto } from '../module/giveRole.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -32,13 +34,17 @@ const adminService = {
     return response.data;
   },
   banUser: async (managerId: string): Promise<AuthUserDto> => {
-    const response = await axiosInstance.put(`/auth/ban/${managerId}`)
+    const response = await axiosInstance.put(`/auth/ban/${managerId}`);
     return response.data;
   },
   unbanUser: async (managerId: string): Promise<AuthUserDto> => {
-    const response = await axiosInstance.put(`/auth/unban/${managerId}`)
+    const response = await axiosInstance.put(`/auth/unban/${managerId}`);
     return response.data;
   },
+  giveRole: async (dtoRole:GiveRoleDto): Promise<BaseUsersDto> => {
+    const response = await axiosInstance.post('/users/role', dtoRole);
+    return response.data;
+  }
 }
 
 export {

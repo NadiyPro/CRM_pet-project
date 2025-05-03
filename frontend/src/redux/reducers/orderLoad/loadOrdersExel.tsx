@@ -16,7 +16,7 @@ const loadOrdersExel = createAsyncThunk(
       return thunkAPI.fulfillWithValue('Export success');
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(orderAction.setExportSuccess('Ooops, виникла помилка при завантаженні файла'));
+      thunkAPI.dispatch(orderAction.setExportSuccess('Виникла помилка при завантаженні файла'));
       setTimeout(() => {
         thunkAPI.dispatch(orderAction.setExportSuccess(''));
       }, 10000);

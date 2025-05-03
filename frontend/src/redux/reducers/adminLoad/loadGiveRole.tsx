@@ -1,0 +1,30 @@
+import { createAsyncThunk } from '@reduxjs/toolkit';
+import { GiveRoleDto } from '../../../module/giveRole.dto';
+import { adminService } from '../../../service/admin.service';
+import { AxiosError } from 'axios';
+import { adminAction } from '../../slices/adminSlice';
+
+const loadGiveRole = createAsyncThunk(
+  'loadGiveRole',
+  async (dtoRole:GiveRoleDto, thunkAPI) => {
+    try {
+      const response = await adminService.giveRole(dtoRole);
+      thunkAPI.dispatch(adminAction.setStatusGiveRole('Роль успішно видана. Користувачу відправлене на email посилання для активації паролю'));
+      setTimeout(()=>{
+        thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
+      }, 10000)
+      return thunkAPI.fulfillWithValue(response);
+    } catch (e) {
+      const error = e as AxiosError;
+      thunkAPI.dispatch(adminAction.setStatusGiveRole('При видачі ролі виникла помилка. Будь ласка, перевірте коректність введених даних'));
+      setTimeout(() => {
+        thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
+      }, 10000)
+      return thunkAPI.rejectWithValue(error?.response?.data)
+    }
+  }
+)
+
+export {
+  loadGiveRole
+}
