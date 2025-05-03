@@ -29,10 +29,10 @@ const AuthPasswordPage = () => {
     <div>
       <form onSubmit={handleSubmit(dtoPassword)}>
         <label htmlFor={'password'}>Password</label>
-        <input type={'password'} {...register('password')} />
+        <input type={'password'} {...register('password')} required/>
 
         <label htmlFor={'confirm_password'}>Confirm password</label>
-        <input type={'password'} {...register('confirm_password')} />
+        <input type={'password'} {...register('confirm_password')} required/>
 
         <button type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
       </form>
