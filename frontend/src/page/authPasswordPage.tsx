@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 const AuthPasswordPage = () => {
   const {handleSubmit, register, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
   const {refresh} = useAppSelector((state) => state.adminStore.authTokens.tokens)
-  const {loadingPassword} = useAppSelector((state) => state.authStore);
+  const {loadingPassword, errorPassword} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch()
 
   const getDeviceId = (): string => {
@@ -37,6 +37,7 @@ const AuthPasswordPage = () => {
         <input type={'password'} {...register('confirm_password')} />
         <button type="submit" disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
       </form>
+      {errorPassword && <div className="errorPassword">{errorPassword}</div>}
     </div>
   )
 

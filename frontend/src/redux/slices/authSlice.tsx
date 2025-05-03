@@ -10,6 +10,7 @@ interface AuthSliceInterface {
   loadingLogin: boolean;
   loadingPassword: boolean;
   errorLogin: string | null;
+  errorPassword: string | null;
 }
 
 const initialState: AuthSliceInterface = {
@@ -21,7 +22,8 @@ const initialState: AuthSliceInterface = {
   },
   loadingLogin: false,
   loadingPassword: false,
-  errorLogin: null
+  errorLogin: null,
+  errorPassword: null
 };
 
 export const authSlice = createSlice({
@@ -46,7 +48,7 @@ export const authSlice = createSlice({
       })
       .addCase(loadLogin.rejected, (state, action) => {
         state.loadingLogin = false;
-        state.errorLogin = 'Користувач за вказаними даними не зареєстрований. Будь ласка, перевірте коректність введених даних.'
+        state.errorLogin = 'Помилка, невірний email або пароль. Будь ласка, перевірте коректність введених даних.'
         console.error('Помилка, невірний email або пароль:', action.payload);
         }
       )
@@ -54,16 +56,24 @@ export const authSlice = createSlice({
         loadLogOut.fulfilled, (state) => {
           state.isValid = false;
         })
-      .addCase(loadLogin.rejected, (state, action) => {
+      .addCase(loadLogOut.rejected, (state, action) => {
           console.error('Помилка при виході користувача з платформи:', action.payload);
         }
       )
       .addCase(
         loadActivatePassword.fulfilled, (state, action) => {
           state.isValid = action.payload;
+          state.loadingPassword = false;
+          state.errorPassword = null;
         })
-      .addCase(loadLogin.rejected, (state, action) => {
-          console.error('Помилка при введені паролю для реєстрації / зміни:', action.payload);
+      .addCase(loadActivatePassword.pending, (state) => {
+        state.loadingPassword = true;
+        state.errorPassword = null;
+      })
+      .addCase(loadActivatePassword.rejected, (state, action) => {
+          state.loadingPassword = false;
+          state.errorPassword = 'Помилка при введені паролю для реєстрації / зміни паролю. Будь ласка, перевірте чи збігаються password та confirm_password / и невичерпаний термін дії посилання для реєстрації / зміни паролю.'
+          console.error('Помилка при введені паролю для реєстрації / зміни паролю:', action.payload);
         }
       )
   }
