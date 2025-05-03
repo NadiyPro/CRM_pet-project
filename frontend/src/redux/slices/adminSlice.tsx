@@ -20,7 +20,7 @@ interface AdminSliceInterface {
   dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
-    total: number,
+    total: number | null,
   },
   authTokens: AuthResDto;
   userBanUnban: AuthUserDto;
@@ -45,7 +45,7 @@ const initialState : AdminSliceInterface = {
   },
   data:{
     users: [],
-    total: 0
+    total: null
   },
   authTokens: {
     tokens: {
