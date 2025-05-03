@@ -424,6 +424,7 @@ GET /orders/export
 >  group_id: number | null;
 >  group: string | null;
 >  messages: MessageEntity[] | null;
+>  utm: string | null;
 > },
 > total: number;
 > }
@@ -546,6 +547,7 @@ GET /orders/export
 > group_id: number | null;
 > group_name: string | null;
 > messages: MessageEntity[] | null;
+> utm: string | null;
 > } 
 >``` 
 > 
@@ -573,6 +575,7 @@ GET /orders/export
 > group_id: number | null;
 > group_name: string | null;
 > messages: MessageEntity[] | null;
+> utm: string | null;
 > }
 >``` 
 > 
