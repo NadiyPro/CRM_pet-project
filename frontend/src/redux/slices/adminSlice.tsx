@@ -26,6 +26,7 @@ interface AdminSliceInterface {
   userBanUnban: AuthUserDto;
   giveRoleUser: BaseUsersDto,
   statusGiveRole: string;
+  isGiveRoleModalOpen: boolean;
 }
 
 const initialState : AdminSliceInterface = {
@@ -77,7 +78,8 @@ const initialState : AdminSliceInterface = {
     role: RoleTypeEnum.MANAGER,
     deleted: null
   },
-  statusGiveRole: ''
+  statusGiveRole: '',
+  isGiveRoleModalOpen: false
 };
 
 export const adminSlice = createSlice({
@@ -90,6 +92,12 @@ export const adminSlice = createSlice({
     setStatusGiveRole(state, action: PayloadAction<string>) {
       state.statusGiveRole = action.payload;
     },
+    setOpenGiveRoleModal(state) {
+      state.isGiveRoleModalOpen = true;
+    },
+    setCloseGiveRoleModal(state) {
+      state.isGiveRoleModalOpen = false;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -153,6 +161,7 @@ export const adminSlice = createSlice({
       .addCase(
         loadGiveRole.fulfilled, (state, action) => {
           state.giveRoleUser = action.payload;
+          state.isGiveRoleModalOpen = false; // закриваю модальне вікно після успішної видачі ролі
         }
       )
       .addCase(loadGiveRole.rejected, (state, action) => {

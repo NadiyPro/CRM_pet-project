@@ -7,7 +7,7 @@ import { adminAction } from '../../redux/slices/adminSlice';
 
 const GiveRoleComponent = () => {
   const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
-  const {statusGiveRole} = useAppSelector((state) => state.adminStore)
+  const {statusGiveRole, isGiveRoleModalOpen } = useAppSelector((state) => state.adminStore)
   const dispatch = useAppDispatch();
 
   const handleRole = (dtoRole:GiveRoleDto) => {
@@ -15,24 +15,39 @@ const GiveRoleComponent = () => {
     reset(); // скидуємо значення після сабміту
   }
 
+  const handleRoleModalOpen = () => {
+    dispatch(adminAction.setOpenGiveRoleModal())
+  }
+
+  const handleCloseGiveRoleModal = () => {
+    dispatch(adminAction.setCloseGiveRoleModal())
+  }
+
   return(
     <div>
-      <form onSubmit={handleSubmit(handleRole)}>
-        <label htmlFor={'email'}>Email</label>
-        <input type={'email'} {...register('email')} required />
+      <button type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
 
-        <label htmlFor={'name'}>Name</label>
-        <input type={'text'} {...register('name')} required />
-
-        <label htmlFor={'surname'}>Surname</label>
-        <input type={'text'} {...register('surname')} required />
-
+      {isGiveRoleModalOpen && (
         <div>
-          <button  type={'submit'} disabled={!isValid}>CREATE</button>
-          <button type={'button'} >CANCEL</button>
+          <form onSubmit={handleSubmit(handleRole)}>
+            <label htmlFor={'email'}>Email</label>
+            <input type={'email'} {...register('email')} required />
+
+            <label htmlFor={'name'}>Name</label>
+            <input type={'text'} {...register('name')} required />
+
+            <label htmlFor={'surname'}>Surname</label>
+            <input type={'text'} {...register('surname')} required />
+
+            <div>
+              <button type={'submit'} disabled={!isValid}>CREATE</button>
+              <button type={'button'} onClick={handleCloseGiveRoleModal}>CANCEL</button>
+            </div>
+          </form>
+          <p>{statusGiveRole}</p>
         </div>
-      </form>
-      <p>{statusGiveRole}</p>
+      )
+      }
     </div>
   )
 }
