@@ -25,6 +25,7 @@ export class OrdersMapper {
       group_id: order?.group_id ?? null,
       group_name: order?.group_name ?? null,
       messages: order.messages ?? null,
+      utm: order.utm ?? null,
     };
   }
 
@@ -60,6 +61,7 @@ export class OrdersMapper {
       group_id: order?.group_id ?? null,
       group_name: order?.group_name ?? null,
       messages: order.messages ?? null,
+      utm: order.utm ?? null,
     };
   }
 
@@ -95,6 +97,7 @@ export class OrdersMapper {
       group_id: updatedOrder?.group_id ?? null,
       group_name: updatedOrder?.group_name ?? null,
       messages: updatedOrder.messages ?? null,
+      utm: updatedOrder.utm ?? null,
     };
   }
 }
