@@ -14,8 +14,8 @@ interface OrderSliceInterface {
     total: number;
   }
   dataExel: string;
-  loading: boolean;
-  exportSuccess: boolean;
+  loadingExel: boolean;
+  exportSuccess: string;
 }
 
 const initialState: OrderSliceInterface = {
@@ -33,8 +33,8 @@ const initialState: OrderSliceInterface = {
     sortASCOrDESC: null,
     me: false,
   },
-  loading: false,
-  exportSuccess: false,
+  loadingExel: false,
+  exportSuccess: '',
 };
 
 export const orderSlice = createSlice({
@@ -68,10 +68,7 @@ export const orderSlice = createSlice({
         me: false,
       };
     },
-    setLoading(state, action: PayloadAction<boolean>) {
-      state.loading = action.payload;
-    },
-    setExportSuccess(state, action: PayloadAction<boolean>) {
+    setExportSuccess(state, action: PayloadAction<string>) {
       state.exportSuccess = action.payload;
     },
   },
@@ -90,10 +87,16 @@ export const orderSlice = createSlice({
       .addCase(
         loadOrdersExel.fulfilled, (state, action) => {
           state.dataExel = action.payload;
+          state.loadingExel = false;
         },
       )
+      .addCase(loadOrdersExel.pending, (state) => {
+        state.loadingExel = true;
+        state.exportSuccess = '';
+      })
       .addCase(loadOrdersExel.rejected, (state, action) => {
-          console.error('Помилка завантаження заявок в Exel:', action.payload);
+        state.loadingExel = false;
+          console.error('Помилка завантаження заявок в Exel файл:', action.payload);
         }
       )
   },
