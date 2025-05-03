@@ -2,6 +2,7 @@ import axios from 'axios';
 import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { AuthTokenDto } from '../module/authToken.dto';
 import { AuthLoginDto } from '../module/authLogin.dto';
+import { AuthPasswordDto } from '../module/authPassword.dto';
 
 export let axiosInstance = axios.create({
   baseURL: 'http://localhost:3000'
@@ -13,7 +14,7 @@ axiosInstance.interceptors.request.use(request => {
 });
 
 const authService = {
-  authentication: async (dto: AuthLoginDto): Promise<boolean> => {
+  authLogin: async (dto: AuthLoginDto): Promise<boolean> => {
     const response = await axiosInstance.post<AuthTokenDto>('/auth/login', dto);
     localStorage.setItem('tokenPair', JSON.stringify(response.data));
     return !!(response?.data?.access && response?.data?.refresh);
@@ -27,7 +28,11 @@ const authService = {
     await axiosInstance.post('/auth/logOut');
     localStorage.removeItem('tokenPair');
     return true;
-  }
+  },
+  activatePassword: async (token: string, authPasswordDto: AuthPasswordDto): Promise<boolean> => {
+    const response = await axiosInstance.post<AuthTokenDto>(`/auth/activate/${token}`, authPasswordDto);
+    return !!(response?.data?.access && response?.data?.refresh);
+}
 }
 
 export {

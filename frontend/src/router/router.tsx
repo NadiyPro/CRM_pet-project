@@ -5,6 +5,7 @@ import AuthLoginPage from '../page/authLoginPage';
 import MainLayout from '../layout/mainLayout';
 import OrdersAllPage from '../page/ordersAllPage';
 import AdminPage from '../page/adminPage';
+import AuthPasswordPage from '../page/authPasswordPage';
 
 export const router = createBrowserRouter([
   {
@@ -13,7 +14,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <Navigate to="/auth/login" replace />},
       { path: 'login', element: <AuthLoginPage /> },
-      // { path: 'activate/:token', element: <AuthPasswordPage /> },
+      { path: 'activate/:token', element: <AuthPasswordPage /> },
     ],
   },
   {
