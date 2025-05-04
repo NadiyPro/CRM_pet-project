@@ -383,7 +383,7 @@ GET /orders/export
 > + Request: вказуємо у URL параметр `managerId` id user, якого видаляємо
 > + Response: string
 >```
-> { message: 'The user in the table (db) has been successfully marked as deleted' }
+> 'The user in the table (db) has been successfully marked as deleted' 
 >``` 
 ### orders
 > GET /orders — відобразити всі заявки, присутня фільтрація + пагінація + сортування заявок
@@ -449,7 +449,9 @@ GET /orders/export
 >
 > POST /orders — створити заявку
 > 
-> + Request: зчитуємо id user із запиту, CreateOrdersReqDto
+> + Request: 
+>  + зчитуємо id user із запиту
+>  + CreateOrdersReqDto
 >```
 > {
 > name: string | null;
@@ -470,7 +472,7 @@ GET /orders/export
 > GET /orders/ordersStatisticAll — статистика по всім заявкам
 > 
 > + Request: немає тіла запиту
-> + Response: OrdersStatisticAllResDto> 
+> + Response: OrdersStatisticAllResDto 
 >```
 > {
 > total: number | null;
@@ -584,13 +586,13 @@ GET /orders/export
 > + Request: вказуємо у URL параметр `orderId` (id заявки)
 > + Response: string
 >```
-> { message: 'The order in the table (db) was successfully deleted' }
+> 'The order in the table (db) was successfully deleted' 
 >``` 
 
 ### group
 > GET /group - відображення всіх group та пошуку по назві group
 > 
-> + Request: ListGroupQueryReqDto
+> + Request: для пошуку в URL вказуємо query ListGroupQueryReqDto
 >``` 
 > {
 >  search?: string;
@@ -619,12 +621,12 @@ GET /orders/export
 >  group_name: string;
 > }
 >```
-> DELETE /group/:groupId - для видалення групи пор її groupId
+> DELETE /group/:groupId - для видалення групи по її groupId
 > 
 > + Request: вказуємо у URL параметр `groupId` (id групи)
 > + Response: string
 >```
-> { message: 'The group in the table (db) was successfully deleted' }
+> 'The group in the table (db) was successfully deleted'
 >``` 
 ### message
 > GET /message - для відображення всіх коментарів (повідомлень)
@@ -680,7 +682,7 @@ GET /orders/export
 > + Request: вказуємо у URL параметр `managerId` id user
 > + Response: string
 >```
-> { message: 'The message in the table (db) was successfully deleted' }
+> 'The message in the table (db) was successfully deleted'
 >``` 
 
 ## Run tests

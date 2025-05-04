@@ -11,7 +11,7 @@ interface OrderSliceInterface {
   dto: ListOrdersAllDto;
   data: {
     orders: BaseOrdersDto[];
-    total: number | null;
+    total: number;
   }
   dataExel: string;
   loadingExel: boolean;
@@ -22,7 +22,7 @@ const initialState: OrderSliceInterface = {
   dataExel: '',
   data: {
     orders: [],
-    total: null,
+    total: 0,
   },
   dto: {
     limit: 25,
