@@ -240,10 +240,10 @@ GET /orders/export
 >```
 > POST /auth/logOut — для виходу з акаунту та видалення токенів користувача
 >
-> + Request: немає тіла запиту, токен користувача зчитується з запиту (заголовку).  
-    Response:
+> + Request: зчитуємо id user із запиту
+    Response: string
 >```
-> { message: 'Tokens deleted successfully' }
+> 'Tokens deleted successfully' 
 >``` 
 > GET /auth/activate/:managerId — для видачі токена менеджеру для активації (надсилаємо на email)
 > 
@@ -323,7 +323,7 @@ GET /orders/export
 > }
 > ```
 > POST /auth/refresh — для отримання нової пари токенів
-> + Request: немає тіла запиту, вказуємо валідний refreshToken у запиті (заголовку).
+> + Request: зчитуємо id user із запиту
 > + Response: TokenPairResDto
 > ```
 > {
