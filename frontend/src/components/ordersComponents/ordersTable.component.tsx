@@ -23,6 +23,10 @@ const OrdersTableComponent = () => {
     }
   };
 
+  const handleMessagesOrderId = () => {
+
+  }
+
   return (
     <div>
       <table>
@@ -43,7 +47,7 @@ const OrdersTableComponent = () => {
         </thead>
         <tbody>
         {orders.map((value: BaseOrdersDto) => (
-          <tr key={value.id}>
+          <tr key={value.id} onClick={handleMessagesOrderId}>
             <td>{value.id}</td>
             <td>{value.name}</td>
             <td>{value.surname}</td>
