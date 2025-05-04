@@ -30,6 +30,6 @@ export class GroupService {
 
   public async deleteId(groupId: number): Promise<string> {
     await this.groupRepository.delete({ id: groupId });
-    return 'The user in the table (db) was successfully deleted';
+    return 'The group in the table (db) was successfully deleted';
   }
 }

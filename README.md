@@ -588,14 +588,100 @@ GET /orders/export
 >``` 
 
 ### group
-> + GET /group - відображення всіх group та пошуку по назві group
-> + POST /group - для створення нової group
-> + Delete /group/:groupId - для видалення групи пор її groupId
+> GET /group - відображення всіх group та пошуку по назві group
+> 
+> + Request: ListGroupQueryReqDto
+>``` 
+> {
+>  search?: string;
+> }
+>```  
+> + Response: BaseGroupResDto[] | null
+>```
+> {
+>  id: number;
+>  group_name: string;
+> }
+>```
+>
+> POST /group - для створення нової group
+> 
+> + Request: BaseGroupReqDto
+>```
+> {
+>  group_name: string;
+> }
+>```
+> + Response: 
+>```
+> {
+>  id: number;
+>  group_name: string;
+> }
+>```
+> Delete /group/:groupId - для видалення групи пор її groupId
+> 
+> + Request: вказуємо у URL параметр `groupId` (id групи)
+> + Response: string
+>```
+> { message: 'The group in the table (db) was successfully deleted' }
+>``` 
 ### message
-> + GET /message - для відображення всіх коментарів (повідомлень)
-> + GET /message/:orderId - для перегляду всіх коментарів, по конкретній заявці за її orderId
-> + POST /message - для створення коментаря
-> + Delete /message/:messageId - для видалення коментаря по його messageId
+> GET /message - для відображення всіх коментарів (повідомлень)
+> 
+> + Request: нічого не приймає
+> + Response: BaseMessageResDto[]
+>```
+> {
+>  id: number;
+>  messages: string;
+>  orderId: number;
+>  manager: string | null;
+>  created_at: Date;
+> }
+>```
+> GET /message/:orderId - для перегляду всіх коментарів, по конкретній заявці за її orderId
+> 
+> + Request: вказуємо у URL параметр `orderId` (id заявки)
+> + Response: BaseMessageResDto[]
+>```
+> {
+>  id: number;
+>  messages: string;
+>  orderId: number;
+>  manager: string | null;
+>  created_at: Date;
+> }
+>```
+> POST /message - для створення коментаря
+> 
+> + Request:
+>  + зчитуємо id user із запиту
+>  + вказуємо у URL параметр `orderId` (id заявки)
+>  + BaseMessageReqDto
+>```
+> {
+> messages: string | null;
+> }
+>```
+> + Response: BaseMessageResDto
+>```
+> {
+>  id: number;
+>  messages: string;
+>  orderId: number;
+>  manager: string | null;
+>  created_at: Date;
+> }
+>```
+>
+> Delete /message/:messageId - для видалення коментаря по його messageId
+> 
+> + Request: вказуємо у URL параметр `managerId` id user
+> + Response: string
+>```
+> { message: 'The message in the table (db) was successfully deleted' }
+>``` 
 
 ## Run tests
 
