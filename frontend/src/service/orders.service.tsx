@@ -4,6 +4,8 @@ import { axiosInstance } from './auth.service';
 import { ListOrdersAllDto } from '../module/listOrdersAll.dto';
 import { ListOrdersExelDto } from '../module/listOrdersExel.dto';
 import { ListOrdersTotalDto } from '../module/listOrdersTotal.dto';
+import { MessageResDto } from '../module/messageRes.dto';
+import { CreateMessageDto } from '../module/createMessage.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -29,6 +31,14 @@ const orderService = {
     document.body.appendChild(link);
     link.click();
     link.remove();
+  },
+  messagesOrderId: async (orderId: number):Promise<MessageResDto[]> => {
+    const response = await axiosInstance.get(`/message/${orderId}`);
+    return response.data;
+  },
+  createMessage: async (orderId: number, dataMessage: CreateMessageDto): Promise<MessageResDto> => {
+    const response = await axiosInstance.post(`/message/${orderId}`, dataMessage);
+    return response.data;
   }
 }
 

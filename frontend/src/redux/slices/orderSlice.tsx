@@ -6,6 +6,9 @@ import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { loadLogin } from '../reducers/authLoad/loadLogin';
+import { loadMessagesOrderId } from '../reducers/orderLoad/loadMessagesOrderId';
+import { loadCreateMessage } from '../reducers/orderLoad/loadCreateMessage';
+import { MessageResDto } from '../../module/messageRes.dto';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -16,6 +19,8 @@ interface OrderSliceInterface {
   dataExel: string;
   loadingExel: boolean;
   exportSuccess: string;
+  messagesOrderId: MessageResDto[];
+  createMessage: MessageResDto;
 }
 
 const initialState: OrderSliceInterface = {
@@ -35,6 +40,14 @@ const initialState: OrderSliceInterface = {
   },
   loadingExel: false,
   exportSuccess: '',
+  messagesOrderId: [],
+  createMessage: {
+    id: 0,
+    messages: '',
+    orderId: 0,
+    manager: null,
+    created_at: '',
+  },
 };
 
 export const orderSlice = createSlice({
@@ -99,6 +112,20 @@ export const orderSlice = createSlice({
           console.error('Помилка завантаження заявок в Exel файл:', action.payload);
         }
       )
+      .addCase(loadMessagesOrderId.fulfilled, (state, action) => {
+        state.messagesOrderId = action.payload;
+      })
+      .addCase(loadMessagesOrderId.rejected, (state, action) => {
+          console.error('Помилка завантаження messages:', action.payload);
+        }
+      )
+      .addCase(loadCreateMessage.fulfilled, (state, action) => {
+        state.createMessage = action.payload;
+      })
+      .addCase(loadCreateMessage.rejected, (state, action) => {
+          console.error('Помилка при створенні message:', action.payload);
+        }
+      )
   },
 });
 
@@ -106,4 +133,6 @@ export const orderAction = {
   ...orderSlice.actions,
   loadOrdersAll,
   loadOrdersExel,
+  loadMessagesOrderId,
+  loadCreateMessage
 };
