@@ -191,6 +191,6 @@ export class OrdersService {
 
   public async deleteId(orderId: number): Promise<string> {
     await this.ordersRepository.delete({ id: orderId });
-    return 'The user in the table (db) was successfully deleted';
+    return 'The order in the table (db) was successfully deleted';
   }
 }

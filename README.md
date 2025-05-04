@@ -579,12 +579,12 @@ GET /orders/export
 > }
 >``` 
 > 
-> Delete /orders/:orderId - для видалення заявки згідно її orderId
+> DELETE /orders/:orderId - для видалення заявки згідно її orderId
 > 
 > + Request: вказуємо у URL параметр `orderId` (id заявки)
 > + Response: string
 >```
-> { message: 'The user in the table (db) was successfully deleted' }
+> { message: 'The order in the table (db) was successfully deleted' }
 >``` 
 
 ### group
@@ -619,7 +619,7 @@ GET /orders/export
 >  group_name: string;
 > }
 >```
-> Delete /group/:groupId - для видалення групи пор її groupId
+> DELETE /group/:groupId - для видалення групи пор її groupId
 > 
 > + Request: вказуємо у URL параметр `groupId` (id групи)
 > + Response: string
@@ -675,7 +675,7 @@ GET /orders/export
 > }
 >```
 >
-> Delete /message/:messageId - для видалення коментаря по його messageId
+> DELETE /message/:messageId - для видалення коментаря по його messageId
 > 
 > + Request: вказуємо у URL параметр `managerId` id user
 > + Response: string
