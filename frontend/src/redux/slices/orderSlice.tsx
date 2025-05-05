@@ -178,6 +178,7 @@ export const orderSlice = createSlice({
       )
       .addCase(loadFindOneOrder.fulfilled, (state, action) => {
         state.findOneOrder = action.payload;
+        state.findOneOrder.id = action.payload.id;
       })
       .addCase(loadFindOneOrder.rejected, (state, action) => {
           console.error('Помилка завантаження заявки по її id:', action.payload);

@@ -8,21 +8,25 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import orderValidator from '../../validator/order.validator';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
+import { StatusEnum } from '../../module/enums/statusEnum';
+import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
+import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  const {handleSubmit, register} = useForm<BaseOrdersDto>({ mode: 'all', resolver: joiResolver(orderValidator) });
+  const {handleSubmit} = useForm<BaseOrdersDto>({ mode: 'all', resolver: joiResolver(orderValidator) });
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: SortFieldEnum) => {
     dispatch(orderAction.setSearchValue(e.target.value));
     dispatch(orderAction.setSearchField(field));
   };
 
-  const handleCourseChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSearchelectChange = (e: React.ChangeEvent<HTMLSelectElement>, field: SortFieldEnum) => {
     dispatch(orderAction.setSearchValue(e.target.value));
-    dispatch(orderAction.setSearchField(SortFieldEnum.COURSE));
+    dispatch(orderAction.setSearchField(field));
   };
+
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
@@ -50,87 +54,115 @@ const OrdersFiltersComponent = () => {
 
   return (
     <div>
-        <form onSubmit={handleSubmit(handleForm)}>
+      <form onSubmit={handleSubmit(handleForm)}>
 
-          <input
-            type="text" {...register(SortFieldEnum.NAME)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
-            placeholder="Name"
-          />
+        <input
+          type="text" name={SortFieldEnum.NAME}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
+          placeholder="Name"
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.SURNAME)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
-            placeholder="Surname"
-          />
+        <input
+          type="text" name={SortFieldEnum.SURNAME}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
+          placeholder="Surname"
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.EMAIL)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
-            placeholder="Email"
-          />
+        <input
+          type="text" name={SortFieldEnum.EMAIL}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
+          placeholder="Email"
+        />
 
 
-          <input
-            type="text" {...register(SortFieldEnum.PHONE)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
-            placeholder="Phone"
-          />
+        <input
+          type="text" name={SortFieldEnum.PHONE}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
+          placeholder="Phone"
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.AGE)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
-            placeholder="Age"
-          />
+        <input
+          type="number" name={SortFieldEnum.AGE}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
+          placeholder="Age" min={18} max={100}
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.CREATED_AT)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
-            placeholder="Created_at"
-          />
+        <input
+          type="text" name={SortFieldEnum.CREATED_AT}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+          placeholder="Created_at"
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.GROUP_NAME)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
-            placeholder="Group_name"
-          />
+        <input
+          type="text" name={SortFieldEnum.GROUP_NAME}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
+          placeholder="Group_name"
+        />
 
-          <input
-            type="text" {...register(SortFieldEnum.MANAGER)}
-            value={dto.search || ''}
-            onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
-            placeholder="Manager"
-          />
+        <input
+          type="text" name={SortFieldEnum.MANAGER}
+          value={dto.search || ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
+          placeholder="Manager"
+        />
 
-          <select {...register(SortFieldEnum.COURSE)} value={dto.search || ''} onChange={handleCourseChange}>
-            <option value="">all course</option>
-            <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
-            <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
-            <option value={CourseEnum.JCX}>{CourseEnum.JCX}</option>
-            <option value={CourseEnum.JSCX}>{CourseEnum.JSCX}</option>
-            <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
-            <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
-          </select>
-          )
+        <select name={SortFieldEnum.STATUS}   value={dto.search || ''}
+                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.STATUS)}>
+          <option value="">all status</option>
+          <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
+          <option value={StatusEnum.NEW}>{StatusEnum.NEW}</option>
+          <option value={StatusEnum.AGGRE}>{StatusEnum.AGGRE}</option>
+          <option value={StatusEnum.DISAGGRE}>{StatusEnum.DISAGGRE}</option>
+          <option value={StatusEnum.DUBBING}>{StatusEnum.DUBBING}</option>
+        </select>
 
-        </form>
+        <select name={SortFieldEnum.COURSE} value={dto.search || ''}
+                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE)}>
+          <option value="">all course</option>
+          <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
+          <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
+          <option value={CourseEnum.JCX}>{CourseEnum.JCX}</option>
+          <option value={CourseEnum.JSCX}>{CourseEnum.JSCX}</option>
+          <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
+          <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
+        </select>
 
-        <button type="button" onClick={handleReset}>
-          <GrPowerReset size={20} color={'white'} />
-        </button>
-        <div>
-          <label htmlFor={'myCheckbox'}>My</label>
-          <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
-        </div>
+        <select name={SortFieldEnum.COURSE_FORMAT} value={dto.search || ''}
+                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE_FORMAT)}>
+          <option value="">all course format</option>
+          <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
+          <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
+        </select>
 
-        <OrderExelComponent />
+        <select name={SortFieldEnum.COURSE_TYPE} value={dto.search || ''}
+                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE_TYPE)}>
+          <option value="">all course type</option>
+          <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
+          <option value={CourseTypeEnum.MINIMAL}>{CourseTypeEnum.MINIMAL}</option>
+          <option value={CourseTypeEnum.PREMIUM}>{CourseTypeEnum.PREMIUM}</option>
+          <option value={CourseTypeEnum.INCUBATOR}>{CourseTypeEnum.INCUBATOR}</option>
+          <option value={CourseTypeEnum.VIP}>{CourseTypeEnum.VIP}</option>
+        </select>
+        )
+
+      </form>
+
+      <button type="button" onClick={handleReset}>
+        <GrPowerReset size={20} color={'white'} />
+      </button>
+      <div>
+        <label htmlFor={'myCheckbox'}>My</label>
+        <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
+      </div>
+
+      <OrderExelComponent />
     </div>
   );
 };

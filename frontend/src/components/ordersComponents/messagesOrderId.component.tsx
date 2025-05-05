@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import createMessageValidator from '../../validator/createMessage.validator';
 import { CreateMessageDto } from '../../module/createMessage.dto';
+import EditOrderComponent from './editOrderComponent';
 
 const MessagesOrderIdComponent = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
@@ -35,14 +36,14 @@ const MessagesOrderIdComponent = () => {
         </div>)}
         <form onSubmit={handleSubmit(handleCreateMessage)}>
         <label htmlFor={'messages'}>Create message:</label>
-          <input type={'text'} {...register('messages')}/>
+          <input type={'text'} {...register('messages')} placeholder={'Comment'}/>
           <button type={'submit'} disabled={!isValid}>SUBMIT</button>
         </form>
         <button onClick={handleEditOrder}>EDIT</button>
       </div>
       {isEditOrder &&
         <div>
-
+          <EditOrderComponent/>
         </div>
       }
     </div>
