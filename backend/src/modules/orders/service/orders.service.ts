@@ -18,6 +18,7 @@ import { CreateOrdersReqDto } from '../models/dto/req/createOrders.req.dto';
 import { OrdersStatisticAllResDto } from '../models/dto/res/ordersStatisticAll.res.dto';
 import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
 import { ListOrdersExportReqDto } from '../models/dto/req/listOrdersExportReqDto.req.dto';
+import { BaseOrdersResDto } from '../models/dto/res/baseOrders.res.dto';
 
 @Injectable()
 export class OrdersService {
@@ -176,7 +177,7 @@ export class OrdersService {
     return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
   }
 
-  public async findOneOrder(orderId: number): Promise<UpdateOrdersResDto> {
+  public async findOneOrder(orderId: number): Promise<BaseOrdersResDto> {
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
       relations: ['manager', 'messages'],
@@ -186,7 +187,7 @@ export class OrdersService {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
 
-    return OrdersMapper.toUpdatedOrderResDto(order);
+    return OrdersMapper.toResDto(order);
   }
 
   public async deleteId(orderId: number): Promise<string> {

@@ -24,4 +24,5 @@ export interface BaseOrdersResDto {
   group_name: string | null;
   messages: MessageEntity[] | null;
   utm: string | null;
+  msg: string | null;
 }

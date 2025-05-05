@@ -33,6 +33,7 @@ import { OrdersStatisticAllResDto } from './models/dto/res/ordersStatisticAll.re
 import { OrdersEntity } from '../../infrastructure/mysql/entities/orders.entity';
 import { Workbook } from 'exceljs';
 import { ListOrdersExportReqDto } from './models/dto/req/listOrdersExportReqDto.req.dto';
+import { BaseOrdersResDto } from './models/dto/res/baseOrders.res.dto';
 
 @ApiTags(TableNameEnum.ORDERS)
 @Controller(TableNameEnum.ORDERS)
@@ -248,7 +249,7 @@ export class OrdersController {
   @Get(':orderId')
   public async findOneOrder(
     @Param('orderId', ParseIntPipe) orderId: number,
-  ): Promise<UpdateOrdersResDto> {
+  ): Promise<BaseOrdersResDto> {
     return await this.ordersService.findOneOrder(orderId);
   }
 

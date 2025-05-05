@@ -25,4 +25,5 @@ export interface UpdateOrdersResDto {
   group_name: string | null;
   messages: MessageEntity[] | null;
   utm: string | null;
+  msg: string | null;
 }
