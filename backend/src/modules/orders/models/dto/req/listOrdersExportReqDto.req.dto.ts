@@ -1,23 +1,30 @@
 import { Transform, Type } from 'class-transformer';
 import { TransformHelper } from '../../../../../common/helpers/transform.helper';
-import { IsBoolean, IsEnum, IsOptional, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsBoolean,
+  IsEnum,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { SortFieldEnum } from '../../../../enums/sortField.enum';
 import { SortASCOrDESCEnum } from '../../../../enums/sortASCOrDESC.enum';
 
 export class ListOrdersExportReqDto {
-  @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
-  @Type(() => String)
-  @IsEnum(SortFieldEnum)
+  @Transform(({ value }): SortFieldEnum[] => {
+    if (!value) return [];
+    return Array.isArray(value) ? value : [value];
+  })
   @IsOptional()
-  searchField?: SortFieldEnum | null;
+  @IsArray()
+  @IsEnum(SortFieldEnum, { each: true })
+  search?: SortFieldEnum[];
 
-  @Transform(({ value }) =>
-    TransformHelper.toLowerCase({ value: value as string }),
-  )
-  @IsString()
+  @Transform(({ value }) => TransformHelper.trim({ value: String(value) }))
   @IsOptional()
-  search?: string;
+  @IsString()
+  searchValue?: string;
 
   @ApiProperty({ default: 'created_at', enum: SortFieldEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
