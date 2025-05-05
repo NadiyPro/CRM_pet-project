@@ -4,10 +4,6 @@ import { GrPowerReset } from "react-icons/gr";
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import OrderExelComponent from './orderExel.component';
 import { CourseEnum } from '../../module/enums/courseEnum';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { joiResolver } from '@hookform/resolvers/joi';
-import orderValidator from '../../validator/order.validator';
-import { BaseOrdersDto } from '../../module/baseOrders.dto';
 import { StatusEnum } from '../../module/enums/statusEnum';
 import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
@@ -15,18 +11,13 @@ import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  const {handleSubmit} = useForm<BaseOrdersDto>({ mode: 'all', resolver: joiResolver(orderValidator) });
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>, field: SortFieldEnum) => {
-    dispatch(orderAction.setSearchValue(e.target.value));
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
+    const value = e.target.value;
+    dispatch(orderAction.setSearchValue(value));
     dispatch(orderAction.setSearchField(field));
+    dispatch(orderAction.loadOrdersAll({ ...dto, [field]: value }));
   };
-
-  const handleSearchelectChange = (e: React.ChangeEvent<HTMLSelectElement>, field: SortFieldEnum) => {
-    dispatch(orderAction.setSearchValue(e.target.value));
-    dispatch(orderAction.setSearchField(field));
-  };
-
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
@@ -47,15 +38,9 @@ const OrdersFiltersComponent = () => {
   };
 
 
-  const handleForm: SubmitHandler<BaseOrdersDto> = () => {
-    dispatch(orderAction.setPage(1));
-    dispatch(orderAction.loadOrdersAll(dto));
-  };
-
   return (
     <div>
-      <form onSubmit={handleSubmit(handleForm)}>
-
+      <form>
         <input
           type="text" name={SortFieldEnum.NAME}
           value={dto.search || ''}
@@ -114,7 +99,7 @@ const OrdersFiltersComponent = () => {
         />
 
         <select name={SortFieldEnum.STATUS}   value={dto.search || ''}
-                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.STATUS)}>
+                onChange={(e) => handleSearchChange(e, SortFieldEnum.STATUS)}>
           <option value="">all status</option>
           <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
           <option value={StatusEnum.NEW}>{StatusEnum.NEW}</option>
@@ -124,7 +109,7 @@ const OrdersFiltersComponent = () => {
         </select>
 
         <select name={SortFieldEnum.COURSE} value={dto.search || ''}
-                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE)}>
+                onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE)}>
           <option value="">all course</option>
           <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
           <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
@@ -135,14 +120,14 @@ const OrdersFiltersComponent = () => {
         </select>
 
         <select name={SortFieldEnum.COURSE_FORMAT} value={dto.search || ''}
-                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE_FORMAT)}>
+                onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_FORMAT)}>
           <option value="">all course format</option>
           <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
           <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
         </select>
 
         <select name={SortFieldEnum.COURSE_TYPE} value={dto.search || ''}
-                onChange={(e) => handleSearchelectChange(e, SortFieldEnum.COURSE_TYPE)}>
+                onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_TYPE)}>
           <option value="">all course type</option>
           <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
           <option value={CourseTypeEnum.MINIMAL}>{CourseTypeEnum.MINIMAL}</option>
@@ -151,7 +136,6 @@ const OrdersFiltersComponent = () => {
           <option value={CourseTypeEnum.VIP}>{CourseTypeEnum.VIP}</option>
         </select>
         )
-
       </form>
 
       <button type="button" onClick={handleReset}>
