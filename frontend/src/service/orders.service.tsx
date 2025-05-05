@@ -7,6 +7,7 @@ import { ListOrdersTotalDto } from '../module/listOrdersTotal.dto';
 import { MessageResDto } from '../module/messageRes.dto';
 import { CreateMessageDto } from '../module/createMessage.dto';
 import { BaseOrdersDto } from '../module/baseOrders.dto';
+import { UpdateOrdersReqDto } from '../module/updateOrdersReq.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -44,6 +45,9 @@ const orderService = {
   createMessage: async (orderId: number, dataMessage: CreateMessageDto): Promise<MessageResDto> => {
     const response = await axiosInstance.post(`/message/${orderId}`, dataMessage);
     return response.data;
+  },
+  editOrder: async ( orderId: number, updateOrdersReqDto: UpdateOrdersReqDto): Promise<BaseOrdersDto> => {
+
   }
 }
 

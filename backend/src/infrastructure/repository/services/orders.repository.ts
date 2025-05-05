@@ -315,14 +315,6 @@ export class OrdersRepository extends Repository<OrdersEntity> {
   //   return await qbExport.getManyAndCount();
   // }
 
-  // public async resetFilters(): Promise<[OrdersEntity[], number]> {
-  //   return await this.createQueryBuilder('orders')
-  //     .leftJoinAndSelect('orders.manager', 'manager')
-  //     .leftJoinAndSelect('orders.messages', 'messages')
-  //     .addOrderBy('orders.created_at', 'DESC')
-  //     .getManyAndCount();
-  // }
-
   public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.createQueryBuilder('orders')
       .select([

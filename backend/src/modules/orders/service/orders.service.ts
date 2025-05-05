@@ -41,10 +41,6 @@ export class OrdersService {
     return await this.ordersRepository.findAllExport(userData, query);
   }
 
-  // public async resetFilters(): Promise<[OrdersEntity[], number]> {
-  //   return await this.ordersRepository.resetFilters();
-  // }
-
   public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.ordersRepository.ordersStatisticAll();
   }
