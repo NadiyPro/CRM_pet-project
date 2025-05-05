@@ -10,16 +10,16 @@ const MessagesOrderIdComponent = () => {
   const { messagesOrderId, findOneOrder } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  const handleCloseMessagesOrderId = () => {
-      dispatch(orderAction.setCloseMessagesOrderId());
-    }
-
     const handleCreateMessage = (dataMessage: CreateMessageDto ) => {
     if(findOneOrder.id !== null){
       let orderId = findOneOrder.id;
       dispatch(orderAction.loadCreateMessage({orderId, dataMessage }))
       reset();
     }
+    }
+
+    const handleEditOrder = () => {
+
     }
 
   return(
@@ -38,7 +38,7 @@ const MessagesOrderIdComponent = () => {
           <input type={'text'} {...register('messages')}/>
           <button type={'submit'} disabled={!isValid}>SUBMIT</button>
         </form>
-        <button onClick={handleCloseMessagesOrderId}>EXIT</button>
+        <button onClick={handleEditOrder}>EDIT</button>
       </div>
     </div>
   )
