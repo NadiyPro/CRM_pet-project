@@ -47,8 +47,9 @@ export class OrdersController {
       'сортувати ASC | DESC за кожним полем та фільтрувати по кожному полю (за замовченням DESC)' +
       'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка (за замовченням 25 шт), ' +
       'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
-      'sortField - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
-      'Приклад запиту: GET /orders?limit=10&page=2&search=john&sortField=name&sortASCOrDESC=ASC',
+      'searchValues - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
+      'Приклади запиту: GET /orders?search=name&searchValue=petro\n' +
+      'GET /orders?search=name&search=surname&searchValue=petro',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

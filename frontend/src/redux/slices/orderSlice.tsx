@@ -38,10 +38,10 @@ const initialState: OrderSliceInterface = {
   dto: {
     limit: 25,
     page: 1,
-    searchField: null,
-    search: '',
-    sortField: null,
-    sortASCOrDESC: null,
+    searchValues: '',
+    search: [],
+    sortField: SortFieldEnum.CREATED_AT,
+    sortASCOrDESC: SortASCOrDESCEnum.DESC,
     me: false,
   },
   findOneOrder: {
@@ -106,16 +106,16 @@ export const orderSlice = createSlice({
   name: 'orderSlice',
   initialState: initialState,
   reducers: {
-    setSortField(state, action: PayloadAction<SortFieldEnum | null>) {
+    setSortField(state, action: PayloadAction<SortFieldEnum>) {
       state.dto.sortField = action.payload;
     },
-    setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum | null>) {
+    setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum>) {
       state.dto.sortASCOrDESC = action.payload;
     },
-    setSearchField(state, action: PayloadAction<SortFieldEnum | null>) {
-      state.dto.searchField = action.payload;
-    },
     setSearchValue(state, action: PayloadAction<string>) {
+      state.dto.searchValues = action.payload;
+    },
+    setSearch(state, action: PayloadAction<SortFieldEnum[]>) {
       state.dto.search = action.payload;
     },
     setPage(state, action: PayloadAction<number>) {
@@ -128,8 +128,8 @@ export const orderSlice = createSlice({
       state.dto = {
         ...state.dto,
         page: 1,
-        search: '',
-        searchField: null,
+        search: [],
+        searchValues: '',
         me: false,
       };
     },

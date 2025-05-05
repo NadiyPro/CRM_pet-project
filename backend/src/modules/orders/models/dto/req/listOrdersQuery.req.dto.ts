@@ -49,13 +49,13 @@ export class ListOrdersQueryReqDto {
   @Type(() => String)
   @IsEnum(SortFieldEnum)
   @IsOptional()
-  sortField?: SortFieldEnum | null;
+  sortField?: SortFieldEnum;
 
   @ApiProperty({ default: 'DESC', enum: SortASCOrDESCEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @IsEnum(SortASCOrDESCEnum)
   @IsOptional()
-  sortASCOrDESC?: SortASCOrDESCEnum | null;
+  sortASCOrDESC?: SortASCOrDESCEnum;
 
   @ApiProperty({ default: 'false' })
   @Transform(({ value }) => value === 'true' || value === true)

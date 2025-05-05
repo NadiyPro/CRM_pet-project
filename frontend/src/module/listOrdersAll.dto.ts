@@ -4,9 +4,9 @@ import { SortASCOrDESCEnum } from './enums/sortASCOrDESCEnum';
 export interface ListOrdersAllDto {
   limit?: number,
   page?: number,
-  searchField?: SortFieldEnum | null;
-  search?: string;
-  sortField?: SortFieldEnum | null;
-  sortASCOrDESC?: SortASCOrDESCEnum | null;
+  searchValues?: string;
+  search?: SortFieldEnum[];
+  sortField?: SortFieldEnum;
+  sortASCOrDESC?: SortASCOrDESCEnum;
   me?: boolean;
 }

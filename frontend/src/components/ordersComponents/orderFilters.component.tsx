@@ -7,6 +7,7 @@ import { CourseEnum } from '../../module/enums/courseEnum';
 import { StatusEnum } from '../../module/enums/statusEnum';
 import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
+import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
@@ -15,7 +16,6 @@ const OrdersFiltersComponent = () => {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
     const value = e.target.value;
     dispatch(orderAction.setSearchValue(value));
-    dispatch(orderAction.setSearchField(field));
     dispatch(orderAction.loadOrdersAll({ ...dto, [field]: value }));
   };
 
@@ -25,10 +25,10 @@ const OrdersFiltersComponent = () => {
     dispatch(orderAction.loadOrdersAll({
       limit: 25,
       page: 1,
-      searchField: null,
-      search: '',
-      sortField: null,
-      sortASCOrDESC: null,
+      searchValues: '',
+      search: [],
+      sortField: SortFieldEnum.CREATED_AT,
+      sortASCOrDESC: SortASCOrDESCEnum.DESC,
       me: false,
     }));
   };
