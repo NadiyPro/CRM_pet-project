@@ -3,13 +3,11 @@ import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
-import { useEffect, useRef } from 'react';
 import MessagesOrderIdComponent from './messagesOrderId.component';
 
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  const modalMessage = useRef<HTMLTableRowElement | null>(null);
 
   const handleSubmit = (field: SortFieldEnum) => {
     // Якщо клікаємо на те саме поле, міняємо напрямок сортування
@@ -29,25 +27,6 @@ const OrdersTableComponent = () => {
   const handleMessagesOrderId = () => {
     dispatch(orderAction.setOpenMessagesOrderId())
   }
-
-  const handleCloseMessagesOrderId = (event: MouseEvent) => {
-    if (modalMessage.current && !modalMessage.current.contains(event.target as Node)) {
-      dispatch(orderAction.setCloseMessagesOrderId());
-    }
-    // dispatch(orderAction.setCloseMessagesOrderId())
-  };
-
-  useEffect(() => {
-    if (isMessagesOrderId) {
-      document.addEventListener('mousedown', handleCloseMessagesOrderId);
-    } else {
-      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
-    };
-  }, [isMessagesOrderId]);
 
   return (
     <div>
@@ -88,9 +67,9 @@ const OrdersTableComponent = () => {
         ))}
         {
           isMessagesOrderId && (
-            <tr ref={modalMessage}>
+            <tr>
               <td colSpan={15}>
-                  <MessagesOrderIdComponent/>
+                <MessagesOrderIdComponent />
               </td>
             </tr>
           )
