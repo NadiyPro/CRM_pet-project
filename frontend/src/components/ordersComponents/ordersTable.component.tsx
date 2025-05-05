@@ -9,7 +9,7 @@ import MessagesOrderIdComponent from './messagesOrderId.component';
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  const modalMessage = useRef<HTMLDivElement | null>(null);
+  const modalMessage = useRef<HTMLTableRowElement | null>(null);
 
   const handleSubmit = (field: SortFieldEnum) => {
     // Якщо клікаємо на те саме поле, міняємо напрямок сортування
@@ -88,11 +88,9 @@ const OrdersTableComponent = () => {
         ))}
         {
           isMessagesOrderId && (
-            <tr>
+            <tr ref={modalMessage}>
               <td colSpan={15}>
-                <div ref={modalMessage}>
                   <MessagesOrderIdComponent/>
-                </div>
               </td>
             </tr>
           )
