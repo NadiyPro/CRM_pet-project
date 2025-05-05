@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { orderAction } from '../../redux/slices/orderSlice';
 
 const MessagesOrderIdComponent = () => {
-  const { isMessagesOrderId } = useAppSelector((state) => state.orderStore);
+  const { messagesOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
   const handleCloseMessagesOrderId = () => {
@@ -13,14 +13,15 @@ const MessagesOrderIdComponent = () => {
     <div>
       <div>
         <p>UTM: {}</p>
-        <div>
-          {}
-        </div>
+        <p>Message: </p>
       </div>
       <div>
-        {}
+        {messagesOrderId.map(value => <div>
+          <div>{value.messages}</div>
+          <div>{value.manager} {value.created_at}</div>
+        </div>)}
         <form>
-          <label></label>
+        <label></label>
           <input />
           <button>SUBMIT</button>
         </form>

@@ -24,8 +24,9 @@ const OrdersTableComponent = () => {
     }
   };
 
-  const handleMessagesOrderId = () => {
-    dispatch(orderAction.setOpenMessagesOrderId())
+  const handleMessagesOrderId = (orderId: number) => {
+    dispatch(orderAction.setOpenMessagesOrderId());
+    dispatch(orderAction.loadMessagesOrderId(orderId));
   }
 
   return (
@@ -47,7 +48,7 @@ const OrdersTableComponent = () => {
         </thead>
         <tbody>
         {orders.map((value: BaseOrdersDto) => (
-          <tr key={value.id} onClick={handleMessagesOrderId}>
+          <tr key={value.id} onClick={() => value.id !== null && handleMessagesOrderId(value.id)}>
             <td>{value.id}</td>
             <td>{value.name}</td>
             <td>{value.surname}</td>
