@@ -9,6 +9,7 @@ import { loadMessagesOrderId } from '../reducers/orderLoad/loadMessagesOrderId';
 import { loadCreateMessage } from '../reducers/orderLoad/loadCreateMessage';
 import { MessageResDto } from '../../module/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
+import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -181,5 +182,6 @@ export const orderAction = {
   loadOrdersExel,
   loadFindOneOrder,
   loadMessagesOrderId,
-  loadCreateMessage
+  loadCreateMessage,
+  loadEditOrder
 };

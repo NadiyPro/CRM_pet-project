@@ -8,6 +8,7 @@ import { MessageResDto } from '../module/messageRes.dto';
 import { CreateMessageDto } from '../module/createMessage.dto';
 import { BaseOrdersDto } from '../module/baseOrders.dto';
 import { UpdateOrdersReqDto } from '../module/updateOrdersReq.dto';
+import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -46,8 +47,9 @@ const orderService = {
     const response = await axiosInstance.post(`/message/${orderId}`, dataMessage);
     return response.data;
   },
-  editOrder: async ( orderId: number, updateOrdersReqDto: UpdateOrdersReqDto): Promise<BaseOrdersDto> => {
-
+  editOrder: async ( orderId: number, updateOrdersReqDto: UpdateOrdersReqDto): Promise<UpdateOrdersResDto> => {
+    const response = await axiosInstance.put(`/orders/${orderId}`, updateOrdersReqDto);
+    return response.data;
   }
 }
 
