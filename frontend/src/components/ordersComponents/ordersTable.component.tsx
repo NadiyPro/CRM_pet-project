@@ -4,6 +4,7 @@ import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
 import { useEffect, useRef } from 'react';
+import MessagesOrderIdComponent from './messagesOrderId.component';
 
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
@@ -90,7 +91,7 @@ const OrdersTableComponent = () => {
             <tr>
               <td colSpan={15}>
                 <div ref={modalMessage}>
-
+                  <MessagesOrderIdComponent/>
                 </div>
               </td>
             </tr>
