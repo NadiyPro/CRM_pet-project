@@ -21,6 +21,7 @@ interface OrderSliceInterface {
   exportSuccess: string;
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
+  isMessagesOrderId: boolean;
 }
 
 const initialState: OrderSliceInterface = {
@@ -48,6 +49,7 @@ const initialState: OrderSliceInterface = {
     manager: null,
     created_at: '',
   },
+  isMessagesOrderId: false
 };
 
 export const orderSlice = createSlice({
@@ -84,6 +86,12 @@ export const orderSlice = createSlice({
     setExportSuccess(state, action: PayloadAction<string>) {
       state.exportSuccess = action.payload;
     },
+    setOpenMessagesOrderId(state){
+      state.isMessagesOrderId = true;
+    },
+    setCloseMessagesOrderId(state){
+      state.isMessagesOrderId = false;
+    }
   },
   extraReducers: (builder) => {
     builder

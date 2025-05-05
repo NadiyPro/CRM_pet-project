@@ -3,10 +3,12 @@ import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
+import { useEffect, useRef } from 'react';
 
 const OrdersTableComponent = () => {
-  const {data: { orders }, dto } = useAppSelector((state) => state.orderStore);
+  const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
+  const modalMessage = useRef<HTMLDivElement | null>(null);
 
   const handleSubmit = (field: SortFieldEnum) => {
     // Якщо клікаємо на те саме поле, міняємо напрямок сортування
@@ -24,8 +26,27 @@ const OrdersTableComponent = () => {
   };
 
   const handleMessagesOrderId = () => {
-
+    dispatch(orderAction.setOpenMessagesOrderId())
   }
+
+  const handleCloseMessagesOrderId = (event: MouseEvent) => {
+    if (modalMessage.current && !modalMessage.current.contains(event.target as Node)) {
+      dispatch(orderAction.setCloseMessagesOrderId());
+    }
+    // dispatch(orderAction.setCloseMessagesOrderId())
+  };
+
+  useEffect(() => {
+    if (isMessagesOrderId) {
+      document.addEventListener('mousedown', handleCloseMessagesOrderId);
+    } else {
+      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+    };
+  }, [isMessagesOrderId]);
 
   return (
     <div>
@@ -38,8 +59,7 @@ const OrdersTableComponent = () => {
               <th color={'white'} key={field} onClick={() => handleSubmit(field)}>
                 {field}
                 {dto.sortField === field && (
-                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? <span>'&#9660;'</span> : <span>' &#9650;'</span>
-                  // ' 🔽' : ' 🔼'
+                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? <span style={{ color: 'white' }}>&#9660;</span> : <span style={{ color: 'white' }}>&#9650;</span>
                 )}
               </th>
             ))}
@@ -65,6 +85,17 @@ const OrdersTableComponent = () => {
             <td>{value.manager}</td>
           </tr>
         ))}
+        {
+          isMessagesOrderId && (
+            <tr>
+              <td colSpan={15}>
+                <div ref={modalMessage}>
+
+                </div>
+              </td>
+            </tr>
+          )
+        }
         </tbody>
       </table>
     </div>
