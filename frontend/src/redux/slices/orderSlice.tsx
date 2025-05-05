@@ -197,6 +197,13 @@ export const orderSlice = createSlice({
           console.error('Помилка при створенні message:', action.payload);
         }
       )
+      .addCase(loadEditOrder.fulfilled, (state, action) => {
+        state.editOrder = action.payload;
+      })
+      .addCase(loadEditOrder.rejected, (state, action) => {
+          console.error('Помилка при редагувані заявки:', action.payload);
+        }
+      )
   },
 });
 
