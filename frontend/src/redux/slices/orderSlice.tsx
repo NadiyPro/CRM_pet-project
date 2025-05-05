@@ -10,6 +10,7 @@ import { loadCreateMessage } from '../reducers/orderLoad/loadCreateMessage';
 import { MessageResDto } from '../../module/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
+import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -25,6 +26,7 @@ interface OrderSliceInterface {
   createMessage: MessageResDto;
   isMessagesOrderId: boolean;
   isEditOrder: boolean;
+  editOrder: UpdateOrdersResDto
 }
 
 const initialState: OrderSliceInterface = {
@@ -75,7 +77,29 @@ const initialState: OrderSliceInterface = {
     created_at: '',
   },
   isMessagesOrderId: false,
-  isEditOrder: false
+  isEditOrder: false,
+  editOrder:{
+    id: null,
+    name: null,
+    surname: null,
+    email: null,
+    phone: null,
+    age: null,
+    course: null,
+    course_format: null,
+    course_type: null,
+    status: null,
+    sum: null,
+    alreadyPaid: null,
+    created_at: '',
+    updated_at: null,
+    manager: null,
+    group_id: null,
+    group_name: null,
+    messages: [],
+    utm: null,
+    msg: null,
+  }
 };
 
 export const orderSlice = createSlice({

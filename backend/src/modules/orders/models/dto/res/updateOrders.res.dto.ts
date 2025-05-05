@@ -20,7 +20,7 @@ export interface UpdateOrdersResDto {
   alreadyPaid: number | null;
   created_at: Date;
   updated_at?: Date | null;
-  manager: UserOrderResDto;
+  manager: UserOrderResDto | null;
   group_id: number | null;
   group_name: string | null;
   messages: MessageEntity[] | null;
