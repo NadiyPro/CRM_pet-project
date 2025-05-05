@@ -7,7 +7,7 @@ import { CreateMessageDto } from '../../module/createMessage.dto';
 
 const MessagesOrderIdComponent = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
-  const { messagesOrderId, findOneOrder } = useAppSelector((state) => state.orderStore);
+  const { messagesOrderId, findOneOrder, isEditOrder } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
     const handleCreateMessage = (dataMessage: CreateMessageDto ) => {
@@ -19,7 +19,7 @@ const MessagesOrderIdComponent = () => {
     }
 
     const handleEditOrder = () => {
-
+      dispatch(orderAction.setOpenEditOrderModal())
     }
 
   return(
@@ -40,6 +40,11 @@ const MessagesOrderIdComponent = () => {
         </form>
         <button onClick={handleEditOrder}>EDIT</button>
       </div>
+      {isEditOrder &&
+        <div>
+
+        </div>
+      }
     </div>
   )
 }

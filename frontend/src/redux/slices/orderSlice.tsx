@@ -23,6 +23,7 @@ interface OrderSliceInterface {
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
   isMessagesOrderId: boolean;
+  isEditOrder: boolean;
 }
 
 const initialState: OrderSliceInterface = {
@@ -72,7 +73,8 @@ const initialState: OrderSliceInterface = {
     manager: null,
     created_at: '',
   },
-  isMessagesOrderId: false
+  isMessagesOrderId: false,
+  isEditOrder: false
 };
 
 export const orderSlice = createSlice({
@@ -114,6 +116,12 @@ export const orderSlice = createSlice({
     },
     setCloseMessagesOrderId(state){
       state.isMessagesOrderId = false;
+    },
+    setOpenEditOrderModal(state){
+      state.isEditOrder = true;
+    },
+    setCloseEditOrderModal(state){
+      state.isEditOrder = false;
     }
   },
   extraReducers: (builder) => {
