@@ -127,9 +127,8 @@ export const orderSlice = createSlice({
     resetFilter(state) {
       state.dto = {
         ...state.dto,
-        page: 1,
-        search: [],
         searchValues: '',
+        page: 1,
         me: false,
       };
     },
