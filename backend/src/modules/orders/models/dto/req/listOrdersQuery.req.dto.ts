@@ -1,11 +1,10 @@
 import { Transform, Type } from 'class-transformer';
 import {
-  IsArray,
   IsBoolean,
   IsEnum,
   IsInt,
+  IsObject,
   IsOptional,
-  IsString,
   Max,
   Min,
 } from 'class-validator';
@@ -30,19 +29,16 @@ export class ListOrdersQueryReqDto {
   @IsOptional()
   page?: number = 1;
 
-  @Transform(({ value }): SortFieldEnum[] => {
-    if (!value) return [];
-    return Array.isArray(value) ? value : [value];
+  @Transform(({ value }) => {
+    try {
+      return JSON.parse(value) as Record<SortFieldEnum, string | string[]>;
+    } catch {
+      return {};
+    }
   })
   @IsOptional()
-  @IsArray()
-  @IsEnum(SortFieldEnum, { each: true })
-  search?: SortFieldEnum[];
-
-  @Transform(({ value }) => TransformHelper.trim({ value: String(value) }))
-  @IsOptional()
-  @IsString()
-  searchValue?: string;
+  @IsObject()
+  search?: Record<SortFieldEnum, string | string[]>;
 
   @ApiProperty({ default: 'created_at', enum: SortFieldEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))

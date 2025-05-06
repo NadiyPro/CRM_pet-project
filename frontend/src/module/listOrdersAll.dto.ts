@@ -4,8 +4,7 @@ import { SortASCOrDESCEnum } from './enums/sortASCOrDESCEnum';
 export interface ListOrdersAllDto {
   limit?: number,
   page?: number,
-  searchValues?: string;
-  search?: SortFieldEnum[];
+  search?: Partial<Record<SortFieldEnum, string | string[]>>;
   sortField?: SortFieldEnum;
   sortASCOrDESC?: SortASCOrDESCEnum;
   me?: boolean;

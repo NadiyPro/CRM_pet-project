@@ -18,7 +18,28 @@ axiosInstance.interceptors.request.use(request => {
 
 const orderService = {
   ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
-    const response = await axiosInstance.get('/orders', { params: dto });
+    const queryParams = new URLSearchParams();
+
+    queryParams.set('limit', String(dto.limit ?? 25));
+    queryParams.set('page', String(dto.page ?? 1));
+
+    if (dto.search && Object.keys(dto.search).length > 0) {
+      queryParams.set('search', JSON.stringify(dto.search));
+    }
+
+    if (dto.sortField) {
+      queryParams.set('sortField', dto.sortField);
+    }
+
+    if (dto.sortASCOrDESC) {
+      queryParams.set('sortASCOrDESC', dto.sortASCOrDESC);
+    }
+
+    if (dto.me !== undefined) {
+      queryParams.set('me', String(dto.me));
+    }
+
+    const response = await axiosInstance.get(`/orders?${queryParams.toString()}`);
     return response.data;
   },
   ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {

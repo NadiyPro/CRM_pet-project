@@ -38,8 +38,7 @@ const initialState: OrderSliceInterface = {
   dto: {
     limit: 25,
     page: 1,
-    searchValues: '',
-    search: [],
+    search: {},
     sortField: SortFieldEnum.CREATED_AT,
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
     me: false,
@@ -112,10 +111,7 @@ export const orderSlice = createSlice({
     setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum>) {
       state.dto.sortASCOrDESC = action.payload;
     },
-    setSearchValue(state, action: PayloadAction<string>) {
-      state.dto.searchValues = action.payload;
-    },
-    setSearch(state, action: PayloadAction<SortFieldEnum[]>) {
+    setSearch(state, action: PayloadAction<Partial<Record<SortFieldEnum, string | string[]>>>) {
       state.dto.search = action.payload;
     },
     setPage(state, action: PayloadAction<number>) {
@@ -127,7 +123,7 @@ export const orderSlice = createSlice({
     resetFilter(state) {
       state.dto = {
         ...state.dto,
-        searchValues: '',
+        search: {},
         page: 1,
         me: false,
       };

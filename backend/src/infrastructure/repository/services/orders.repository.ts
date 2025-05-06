@@ -8,25 +8,6 @@ import { OrdersStatisticAllResDto } from '../../../modules/orders/models/dto/res
 import { SortFieldEnum } from '../../../modules/enums/sortField.enum';
 import { ListOrdersExportReqDto } from '../../../modules/orders/models/dto/req/listOrdersExportReqDto.req.dto';
 
-const allowedField = [
-  'id',
-  'name',
-  'surname',
-  'email',
-  'phone',
-  'age',
-  'course',
-  'course_format',
-  'course_type',
-  'status',
-  'sum',
-  'alreadyPaid',
-  'created_at',
-  'group_id',
-  'group_name',
-  'manager',
-];
-
 const numericFields = ['age', 'sum', 'alreadyPaid'];
 
 @Injectable()
@@ -49,34 +30,46 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       qb.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
-    if (query.search?.length && query.searchValue) {
-      const searchElements = query.search.map((searchField, index) => {
+    if (query.search) {
+      Object.entries(query.search).forEach(([key, value], index) => {
+        // Перевірка, чи є key значенням SortFieldEnum
+        const sortFieldKey = key as SortFieldEnum; // Перетворення на SortFieldEnum
+
         const field =
-          searchField === SortFieldEnum.MANAGER
+          sortFieldKey === SortFieldEnum.MANAGER
             ? 'manager.surname'
-            : `orders.${searchField}`;
+            : `orders.${sortFieldKey}`;
 
-        const isNumeric = numericFields.includes(searchField);
-        const param = `search${index}`; // унікальний параметр
+        const isNumeric = numericFields.includes(sortFieldKey);
+        const param = `searchValue${index}`;
 
-        const expression = isNumeric
-          ? `CAST(${field} AS CHAR) LIKE :${param}`
-          : `${field} LIKE :${param}`;
+        let expression = '';
+        if (Array.isArray(value)) {
+          expression = value
+            .map((v, idx) => {
+              const paramName = `${param}_${idx}`;
+              qb.setParameter(paramName, `%${v}%`);
+              return isNumeric
+                ? `CAST(${field} AS CHAR) LIKE :${paramName}`
+                : `${field} LIKE :${paramName}`;
+            })
+            .join(' OR ');
+        } else {
+          qb.setParameter(param, `%${value}%`);
+          expression = isNumeric
+            ? `CAST(${field} AS CHAR) LIKE :${param}`
+            : `${field} LIKE :${param}`;
+        }
 
-        qb.setParameter(param, `%${query.searchValue}%`);
-        return expression;
+        qb.andWhere(`(${expression})`);
       });
-
-      qb.andWhere(`(${searchElements.join(' OR ')})`);
     }
 
     if (query.sortField && query.sortASCOrDESC) {
       const column =
         query.sortField === SortFieldEnum.MANAGER
           ? 'manager.surname'
-          : allowedField.includes(query.sortField)
-            ? `orders.${query.sortField}`
-            : 'orders.created_at';
+          : `orders.${query.sortField}`;
 
       const order =
         query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
