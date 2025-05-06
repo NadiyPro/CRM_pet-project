@@ -111,7 +111,7 @@ export const orderSlice = createSlice({
     setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum>) {
       state.dto.sortASCOrDESC = action.payload;
     },
-    setSearch(state, action: PayloadAction<Partial<Record<SortFieldEnum, string | string[]>>>) {
+    setSearch(state, action: PayloadAction<Partial<Record<SortFieldEnum, string>>>) {
       state.dto.search = action.payload;
     },
     setPage(state, action: PayloadAction<number>) {

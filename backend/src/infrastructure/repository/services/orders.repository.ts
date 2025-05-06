@@ -46,9 +46,9 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         let expression = '';
         if (Array.isArray(value)) {
           expression = value
-            .map((v, idx) => {
-              const paramName = `${param}_${idx}`;
-              qb.setParameter(paramName, `%${v}%`);
+            .map((value, index) => {
+              const paramName = `${param}_${index}`;
+              qb.setParameter(paramName, `%${value}%`);
               return isNumeric
                 ? `CAST(${field} AS CHAR) LIKE :${paramName}`
                 : `${field} LIKE :${paramName}`;
@@ -183,34 +183,45 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       qbExport.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
-    if (query.search?.length && query.searchValue) {
-      const searchElements = query.search.map((searchField, index) => {
+    if (query.search) {
+      Object.entries(query.search).forEach(([key, value], index) => {
+        const sortFieldKey = key as SortFieldEnum;
+
         const field =
-          searchField === SortFieldEnum.MANAGER
+          sortFieldKey === SortFieldEnum.MANAGER
             ? 'manager.surname'
-            : `orders.${searchField}`;
+            : `orders.${sortFieldKey}`;
 
-        const isNumeric = numericFields.includes(searchField);
-        const param = `search${index}`; // унікальний параметр
+        const isNumeric = numericFields.includes(sortFieldKey);
+        const param = `searchValue${index}`;
 
-        const expression = isNumeric
-          ? `CAST(${field} AS CHAR) LIKE :${param}`
-          : `${field} LIKE :${param}`;
+        let expression = '';
+        if (Array.isArray(value)) {
+          expression = value
+            .map((value, index) => {
+              const paramName = `${param}_${index}`;
+              qbExport.setParameter(paramName, `%${value}%`);
+              return isNumeric
+                ? `CAST(${field} AS CHAR) LIKE :${paramName}`
+                : `${field} LIKE :${paramName}`;
+            })
+            .join(' OR ');
+        } else {
+          qbExport.setParameter(param, `%${value}%`);
+          expression = isNumeric
+            ? `CAST(${field} AS CHAR) LIKE :${param}`
+            : `${field} LIKE :${param}`;
+        }
 
-        qbExport.setParameter(param, `%${query.searchValue}%`);
-        return expression;
+        qbExport.andWhere(`(${expression})`);
       });
-
-      qbExport.andWhere(`(${searchElements.join(' OR ')})`);
     }
 
     if (query.sortField && query.sortASCOrDESC) {
       const column =
         query.sortField === SortFieldEnum.MANAGER
           ? 'manager.surname'
-          : allowedField.includes(query.sortField)
-            ? `orders.${query.sortField}`
-            : 'orders.created_at';
+          : `orders.${query.sortField}`;
 
       const order =
         query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';

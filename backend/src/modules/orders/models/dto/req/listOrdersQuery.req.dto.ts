@@ -31,14 +31,14 @@ export class ListOrdersQueryReqDto {
 
   @Transform(({ value }) => {
     try {
-      return JSON.parse(value) as Record<SortFieldEnum, string | string[]>;
+      return JSON.parse(value) as Record<SortFieldEnum, string>;
     } catch {
       return {};
     }
   })
   @IsOptional()
   @IsObject()
-  search?: Record<SortFieldEnum, string | string[]>;
+  search?: Record<SortFieldEnum, string>;
 
   @ApiProperty({ default: 'created_at', enum: SortFieldEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
