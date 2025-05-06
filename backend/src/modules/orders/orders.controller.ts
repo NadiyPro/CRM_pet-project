@@ -48,10 +48,7 @@ export class OrdersController {
       'Для запиту: limit - кількість елементів на сторінці, page - номер сторінка (за замовченням 25 шт), ' +
       'search - по кожному з полів можемо виконувати пошук (фільтр),  ' +
       'searchValues - по якому полю сортуємо, sortASCOrDESC - сортуємо по зростанню чи спаданню.' +
-      'Приклади запиту: GET /orders?limit=25&page=1&search={"name":"John"}\n' +
-      'GET /orders?limit=25&page=1&search={"name":"John","status":"active"}\n' +
-      'GET /orders?limit=25&page=1&sortField=created_at&sortASCOrDESC=ASC\n' +
-      'GET /orders?limit=25&page=1&search={"name":"John","status":"active"}&sortField=created_at&sortASCOrDESC=DESC&me=true',
+      'Приклад запиту: GET /orders?limit=25&page=1&name=John&status=active&sortField=created_at&sortASCOrDESC=DESC&me=true',
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)

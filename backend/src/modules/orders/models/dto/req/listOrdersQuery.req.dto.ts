@@ -3,7 +3,6 @@ import {
   IsBoolean,
   IsEnum,
   IsInt,
-  IsObject,
   IsOptional,
   Max,
   Min,
@@ -12,8 +11,9 @@ import { TransformHelper } from '../../../../../common/helpers/transform.helper'
 import { ApiProperty } from '@nestjs/swagger';
 import { SortFieldEnum } from '../../../../enums/sortField.enum';
 import { SortASCOrDESCEnum } from '../../../../enums/sortASCOrDESC.enum';
+import { BaseOrdersReqDto } from './baseOrders.req.dto';
 
-export class ListOrdersQueryReqDto {
+export class ListOrdersQueryReqDto extends BaseOrdersReqDto {
   @ApiProperty({ default: '25' })
   @Type(() => Number)
   @IsInt()
@@ -28,19 +28,6 @@ export class ListOrdersQueryReqDto {
   @Min(1)
   @IsOptional()
   page?: number = 1;
-
-  @Transform(({ value }) => {
-    try {
-      return JSON.parse(value) as Record<SortFieldEnum, string>;
-    } catch {
-      return {};
-    }
-  })
-  @IsOptional()
-  @IsObject()
-  search?: Record<SortFieldEnum, string>;
-  // Record<Keys, Type> — це вбудований TypeScript тип,
-  // який означає: "Обʼєкт, де ключі мають тип Keys, а значення — тип Type
 
   @ApiProperty({ default: 'created_at', enum: SortFieldEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))

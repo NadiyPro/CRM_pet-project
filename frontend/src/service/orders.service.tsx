@@ -18,28 +18,9 @@ axiosInstance.interceptors.request.use(request => {
 
 const orderService = {
   ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
-    const queryParams = new URLSearchParams();
-
-    queryParams.set('limit', String(dto.limit ?? 25));
-    queryParams.set('page', String(dto.page ?? 1));
-
-    if (dto.search && Object.keys(dto.search).length > 0) {
-      queryParams.set('search', JSON.stringify(dto.search));
-    }
-
-    if (dto.sortField) {
-      queryParams.set('sortField', dto.sortField);
-    }
-
-    if (dto.sortASCOrDESC) {
-      queryParams.set('sortASCOrDESC', dto.sortASCOrDESC);
-    }
-
-    if (dto.me !== undefined) {
-      queryParams.set('me', String(dto.me));
-    }
-
-    const response = await axiosInstance.get(`/orders?${queryParams.toString()}`);
+    const response =
+      await axiosInstance.get(
+        `/orders?limit=${dto.limit}&page=${dto.page}&id=${dto.id}&name=${dto.name}&surname=${dto.surname}&email=${dto.email}&phone=${dto.phone}&age=${dto.age}&course=${dto.course}&course_format=${dto.course_format}&course_type=${dto.course_type}&status=${dto.status}&sum=${dto.sum}&alreadyPaid=${dto.alreadyPaid}&created_at=${dto.created_at}&manager=${dto.manager}&group_id=${dto.group_id}&group_name=${dto.group_name}&sortField=created_at&sortASCOrDESC=DESC&me=${dto.me}`);
     return response.data;
   },
   ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {

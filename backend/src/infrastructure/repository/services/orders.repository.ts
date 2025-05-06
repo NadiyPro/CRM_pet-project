@@ -30,32 +30,34 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       qb.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
-    if (query.search) {
-      Object.entries(query.search).forEach(([key, value], index) => {
-        // Object.entries - це вбудований метод JavaScript,
-        // який перетворює об'єкт на масив пар [ключ, значення]
-        // це нам треба, щоб пройтись циклом forEach по всім поле=значення,
-        // щоб відобразити результат пошуку по декільком полям
-        const sortFieldKey = key as SortFieldEnum;
-        // Перевірка, чи є key значенням SortFieldEnum
+    Object.entries(query).forEach(([key, value], index) => {
+      const sortFieldKey = key as SortFieldEnum;
 
-        const field =
-          sortFieldKey === SortFieldEnum.MANAGER
-            ? 'manager.surname'
-            : `orders.${sortFieldKey}`;
+      // Пропускаємо службові параметри
+      // if ([ListOrdersQueryReqDto].includes(key)) return;
+      if (!Object.keys(new ListOrdersQueryReqDto()).includes(key)) return;
 
-        const isNumeric = numericFields.includes(sortFieldKey);
-        const param = `searchValue${index}`;
+      // Ігноруємо поля, які не дозволені
+      // if (!ListOrdersQueryReqDto.includes(sortFieldKey)) return;
+      if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKey))
+        return;
 
-        qb.setParameter(param, `%${value}%`);
+      const field =
+        sortFieldKey === SortFieldEnum.MANAGER
+          ? 'manager.surname'
+          : `orders.${sortFieldKey}`;
 
-        const expression = isNumeric
-          ? `CAST(${field} AS CHAR) LIKE :${param}`
-          : `${field} LIKE :${param}`;
+      const isNumeric = numericFields.includes(sortFieldKey);
+      const param = `searchValue${index}`;
 
-        qb.andWhere(`(${expression})`);
-      });
-    }
+      qb.setParameter(param, `%${value}%`);
+
+      const expression = isNumeric
+        ? `CAST(${field} AS CHAR) LIKE :${param}`
+        : `${field} LIKE :${param}`;
+
+      qb.andWhere(`(${expression})`);
+    });
 
     if (query.sortField && query.sortASCOrDESC) {
       const column =

@@ -11,6 +11,10 @@ import { MessageResDto } from '../../module/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
 import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
+import { CourseEnum } from '../../module/enums/courseEnum';
+import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
+import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
+import { StatusEnum } from '../../module/enums/statusEnum';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -38,7 +42,22 @@ const initialState: OrderSliceInterface = {
   dto: {
     limit: 25,
     page: 1,
-    search: {},
+    id: null,
+    name: null,
+    surname: null,
+    email: null,
+    phone: null,
+    age: null,
+    course: null,
+    course_format: null,
+    course_type: null,
+    status: null,
+    sum: null,
+    alreadyPaid: null,
+    created_at: '',
+    manager: null,
+    group_id: null,
+    group_name: null,
     sortField: SortFieldEnum.CREATED_AT,
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
     me: false,
@@ -111,9 +130,6 @@ export const orderSlice = createSlice({
     setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum>) {
       state.dto.sortASCOrDESC = action.payload;
     },
-    setSearch(state, action: PayloadAction<Partial<Record<SortFieldEnum, string>>>) {
-      state.dto.search = action.payload;
-    },
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;
     },
@@ -122,9 +138,26 @@ export const orderSlice = createSlice({
     },
     resetFilter(state) {
       state.dto = {
-        ...state.dto,
-        search: {},
+        limit: 25,
         page: 1,
+        id: null,
+        name: null,
+        surname: null,
+        email: null,
+        phone: null,
+        age: null,
+        course: null,
+        course_format: null,
+        course_type: null,
+        status: null,
+        sum: null,
+        alreadyPaid: null,
+        created_at: '',
+        manager: null,
+        group_id: null,
+        group_name: null,
+        sortField: SortFieldEnum.CREATED_AT,
+        sortASCOrDESC: SortASCOrDESCEnum.DESC,
         me: false,
       };
     },
