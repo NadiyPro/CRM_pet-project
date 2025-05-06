@@ -45,25 +45,13 @@ export class OrdersRepository extends Repository<OrdersEntity> {
             : `orders.${sortFieldKey}`;
 
         const isNumeric = numericFields.includes(sortFieldKey);
-        const param = `searchValue${index}`; // робимо унікальними значення для пошуку
+        const param = `searchValue${index}`;
 
-        let expression = '';
-        if (Array.isArray(value)) {
-          expression = value
-            .map((value, index) => {
-              const paramName = `${param}_${index}`;
-              qb.setParameter(paramName, `%${value}%`);
-              return isNumeric
-                ? `CAST(${field} AS CHAR) LIKE :${paramName}`
-                : `${field} LIKE :${paramName}`;
-            })
-            .join(' OR ');
-        } else {
-          qb.setParameter(param, `%${value}%`);
-          expression = isNumeric
-            ? `CAST(${field} AS CHAR) LIKE :${param}`
-            : `${field} LIKE :${param}`;
-        }
+        qb.setParameter(param, `%${value}%`);
+
+        const expression = isNumeric
+          ? `CAST(${field} AS CHAR) LIKE :${param}`
+          : `${field} LIKE :${param}`;
 
         qb.andWhere(`(${expression})`);
       });
@@ -199,23 +187,11 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         const isNumeric = numericFields.includes(sortFieldKey);
         const param = `searchValue${index}`;
 
-        let expression = '';
-        if (Array.isArray(value)) {
-          expression = value
-            .map((value, index) => {
-              const paramName = `${param}_${index}`;
-              qbExport.setParameter(paramName, `%${value}%`);
-              return isNumeric
-                ? `CAST(${field} AS CHAR) LIKE :${paramName}`
-                : `${field} LIKE :${paramName}`;
-            })
-            .join(' OR ');
-        } else {
-          qbExport.setParameter(param, `%${value}%`);
-          expression = isNumeric
-            ? `CAST(${field} AS CHAR) LIKE :${param}`
-            : `${field} LIKE :${param}`;
-        }
+        qbExport.setParameter(param, `%${value}%`);
+
+        const expression = isNumeric
+          ? `CAST(${field} AS CHAR) LIKE :${param}`
+          : `${field} LIKE :${param}`;
 
         qbExport.andWhere(`(${expression})`);
       });
