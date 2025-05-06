@@ -33,14 +33,10 @@ export class OrdersRepository extends Repository<OrdersEntity> {
     Object.entries(query).forEach(([key, value], index) => {
       const sortFieldKey = key as SortFieldEnum;
 
-      // Пропускаємо службові параметри
-      // if ([ListOrdersQueryReqDto].includes(key)) return;
-      if (!Object.keys(new ListOrdersQueryReqDto()).includes(key)) return;
-
       // Ігноруємо поля, які не дозволені
-      // if (!ListOrdersQueryReqDto.includes(sortFieldKey)) return;
       if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKey))
         return;
+      if (value === null || value === undefined || value === '') return;
 
       const field =
         sortFieldKey === SortFieldEnum.MANAGER
@@ -177,27 +173,29 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       qbExport.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
-    if (query.search) {
-      Object.entries(query.search).forEach(([key, value], index) => {
-        const sortFieldKey = key as SortFieldEnum;
+    Object.entries(query).forEach(([key, value], index) => {
+      const sortFieldKeyExel = key as SortFieldEnum;
 
-        const field =
-          sortFieldKey === SortFieldEnum.MANAGER
-            ? 'manager.surname'
-            : `orders.${sortFieldKey}`;
+      if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKeyExel))
+        return;
+      if (value === null || value === undefined || value === '') return;
 
-        const isNumeric = numericFields.includes(sortFieldKey);
-        const param = `searchValue${index}`;
+      const field =
+        sortFieldKeyExel === SortFieldEnum.MANAGER
+          ? 'manager.surname'
+          : `orders.${sortFieldKeyExel}`;
 
-        qbExport.setParameter(param, `%${value}%`);
+      const isNumeric = numericFields.includes(sortFieldKeyExel);
+      const param = `searchValue${index}`;
 
-        const expression = isNumeric
-          ? `CAST(${field} AS CHAR) LIKE :${param}`
-          : `${field} LIKE :${param}`;
+      qbExport.setParameter(param, `%${value}%`);
 
-        qbExport.andWhere(`(${expression})`);
-      });
-    }
+      const expression = isNumeric
+        ? `CAST(${field} AS CHAR) LIKE :${param}`
+        : `${field} LIKE :${param}`;
+
+      qbExport.andWhere(`(${expression})`);
+    });
 
     if (query.sortField && query.sortASCOrDESC) {
       const column =

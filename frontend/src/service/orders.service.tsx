@@ -18,11 +18,9 @@ axiosInstance.interceptors.request.use(request => {
 
 const orderService = {
   ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
-    const response =
-      await axiosInstance.get(
-        `/orders?limit=${dto.limit}&page=${dto.page}&id=${dto.id}&name=${dto.name}&surname=${dto.surname}&email=${dto.email}&phone=${dto.phone}&age=${dto.age}&course=${dto.course}&course_format=${dto.course_format}&course_type=${dto.course_type}&status=${dto.status}&sum=${dto.sum}&alreadyPaid=${dto.alreadyPaid}&created_at=${dto.created_at}&manager=${dto.manager}&group_id=${dto.group_id}&group_name=${dto.group_name}&sortField=created_at&sortASCOrDESC=DESC&me=${dto.me}`);
-    return response.data;
-  },
+    const response = await axiosInstance.get('/orders', { params: dto });
+      return response.data;
+    },
   ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {
     const response = await axiosInstance.get('/orders/export', {
       params: dto,

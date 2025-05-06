@@ -11,10 +11,6 @@ import { MessageResDto } from '../../module/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
 import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
-import { CourseEnum } from '../../module/enums/courseEnum';
-import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
-import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
-import { StatusEnum } from '../../module/enums/statusEnum';
 
 interface OrderSliceInterface {
   dto: ListOrdersAllDto;
@@ -42,7 +38,6 @@ const initialState: OrderSliceInterface = {
   dto: {
     limit: 25,
     page: 1,
-    id: null,
     name: null,
     surname: null,
     email: null,
@@ -140,7 +135,6 @@ export const orderSlice = createSlice({
       state.dto = {
         limit: 25,
         page: 1,
-        id: null,
         name: null,
         surname: null,
         email: null,
