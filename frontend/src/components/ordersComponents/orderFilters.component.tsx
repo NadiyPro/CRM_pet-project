@@ -13,12 +13,25 @@ const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, search: SortFieldEnum ) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
     const value = e.target.value;
-    dispatch(orderAction.setSearch([search]));
+
     dispatch(orderAction.setSearchValue(value));
-    dispatch(orderAction.loadOrdersAll({ ...dto, searchValues: value, search: [search]} ));
+    dispatch(orderAction.setSearch([field]));
+    dispatch(orderAction.loadOrdersAll({
+      ...dto,
+      searchValues: value,
+      search: [...(dto.search || []), field], // забезпечує множинний пошук
+    }));
   };
+
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, search: SortFieldEnum ) => {
+  //   const value = e.target.value;
+  //   dispatch(orderAction.setSearch([search]));
+  //   dispatch(orderAction.setSearchValue(value));
+  //   dispatch(orderAction.loadOrdersAll({ ...dto, searchValues: value, search: [search]} ));
+  // };
+
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
