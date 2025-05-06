@@ -34,6 +34,7 @@ const orderService = {
     document.body.appendChild(link);
     link.click();
     link.remove();
+    URL.revokeObjectURL(url)
   },
   findOneOrder: async (orderId: number): Promise<BaseOrdersDto> => {
     const response = await axiosInstance.get(`/orders/${orderId}`);

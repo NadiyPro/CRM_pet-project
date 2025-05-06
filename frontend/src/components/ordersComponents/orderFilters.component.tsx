@@ -13,10 +13,10 @@ const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, search: SortFieldEnum ) => {
     const value = e.target.value;
     dispatch(orderAction.setSearchValue(value));
-    dispatch(orderAction.loadOrdersAll({ ...dto, [field]: value }));
+    dispatch(orderAction.loadOrdersAll({ ...dto, searchValues: value, search: [search]} ));
   };
 
   const handleReset = () => {
@@ -43,21 +43,21 @@ const OrdersFiltersComponent = () => {
       <form>
         <input
           type="text" name={SortFieldEnum.NAME}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
           placeholder="Name"
         />
 
         <input
           type="text" name={SortFieldEnum.SURNAME}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
           placeholder="Surname"
         />
 
         <input
           type="text" name={SortFieldEnum.EMAIL}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
           placeholder="Email"
         />
@@ -65,40 +65,40 @@ const OrdersFiltersComponent = () => {
 
         <input
           type="text" name={SortFieldEnum.PHONE}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
           placeholder="Phone"
         />
 
         <input
           type="number" name={SortFieldEnum.AGE}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
           placeholder="Age" min={18} max={100}
         />
 
         <input
           type="text" name={SortFieldEnum.CREATED_AT}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
           placeholder="Created_at"
         />
 
         <input
           type="text" name={SortFieldEnum.GROUP_NAME}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
           placeholder="Group_name"
         />
 
         <input
           type="text" name={SortFieldEnum.MANAGER}
-          value={dto.search || ''}
+          value={dto.searchValues || ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
           placeholder="Manager"
         />
 
-        <select name={SortFieldEnum.STATUS}   value={dto.search || ''}
+        <select name={SortFieldEnum.STATUS}   value={dto.searchValues || ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.STATUS)}>
           <option value="">all status</option>
           <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
@@ -108,7 +108,7 @@ const OrdersFiltersComponent = () => {
           <option value={StatusEnum.DUBBING}>{StatusEnum.DUBBING}</option>
         </select>
 
-        <select name={SortFieldEnum.COURSE} value={dto.search || ''}
+        <select name={SortFieldEnum.COURSE} value={dto.searchValues || ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE)}>
           <option value="">all course</option>
           <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
@@ -119,14 +119,14 @@ const OrdersFiltersComponent = () => {
           <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
         </select>
 
-        <select name={SortFieldEnum.COURSE_FORMAT} value={dto.search || ''}
+        <select name={SortFieldEnum.COURSE_FORMAT} value={dto.searchValues || ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_FORMAT)}>
           <option value="">all course format</option>
           <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
           <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
         </select>
 
-        <select name={SortFieldEnum.COURSE_TYPE} value={dto.search || ''}
+        <select name={SortFieldEnum.COURSE_TYPE} value={dto.searchValues || ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_TYPE)}>
           <option value="">all course type</option>
           <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
