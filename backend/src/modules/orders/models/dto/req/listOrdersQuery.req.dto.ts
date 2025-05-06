@@ -39,6 +39,8 @@ export class ListOrdersQueryReqDto {
   @IsOptional()
   @IsObject()
   search?: Record<SortFieldEnum, string>;
+  // Record<Keys, Type> — це вбудований TypeScript тип,
+  // який означає: "Обʼєкт, де ключі мають тип Keys, а значення — тип Type
 
   @ApiProperty({ default: 'created_at', enum: SortFieldEnum })
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))

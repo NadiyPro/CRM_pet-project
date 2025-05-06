@@ -32,8 +32,12 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
     if (query.search) {
       Object.entries(query.search).forEach(([key, value], index) => {
+        // Object.entries - це вбудований метод JavaScript,
+        // який перетворює об'єкт на масив пар [ключ, значення]
+        // це нам треба, щоб пройтись циклом forEach по всім поле=значення,
+        // щоб відобразити результат пошуку по декільком полям
+        const sortFieldKey = key as SortFieldEnum;
         // Перевірка, чи є key значенням SortFieldEnum
-        const sortFieldKey = key as SortFieldEnum; // Перетворення на SortFieldEnum
 
         const field =
           sortFieldKey === SortFieldEnum.MANAGER
@@ -41,7 +45,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
             : `orders.${sortFieldKey}`;
 
         const isNumeric = numericFields.includes(sortFieldKey);
-        const param = `searchValue${index}`;
+        const param = `searchValue${index}`; // робимо унікальними значення для пошуку
 
         let expression = '';
         if (Array.isArray(value)) {
