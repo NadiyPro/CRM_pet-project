@@ -74,7 +74,8 @@ const EditOrderComponent = () => {
 
         {isAddGroupState && (
           <form id={'addGroup'} onSubmit={handleSubmitAddGroup(handleAddGroup)}>
-            <select {...registerAddGroup('group_id')}>
+            <label htmlFor={'addGroupSelect'}>Group</label>
+            <select id={'addGroupSelect'} {...registerAddGroup('group_id')}>
               <option value="">Select group</option>
               {allGroup?.map(group => (
                 <option key={group.id} value={group.id}>{group.group_name}</option>
