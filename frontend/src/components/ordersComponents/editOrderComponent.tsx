@@ -166,5 +166,5 @@ const EditOrderComponent = () => {
       </div>
     )
   }
-}
+
 export default EditOrderComponent;
