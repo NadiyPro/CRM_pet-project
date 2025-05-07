@@ -153,7 +153,7 @@ const EditOrderComponent = () => {
 
           <div>
             <button type={'submit'} disabled={!isValid}>SUBMIT</button>
-            <button type={'button'} onClick={handleCloseEditOrder}>CANCEL</button>
+            <button type={'button'} onClick={handleCloseEditOrder}>CLOSE</button>
           </div>
         </form>
       </div>
