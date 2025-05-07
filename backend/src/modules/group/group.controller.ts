@@ -6,7 +6,6 @@ import {
   Get,
   Param,
   Post,
-  Query,
   UseGuards,
 } from '@nestjs/common';
 import { GroupService } from './service/group.service';
@@ -14,7 +13,6 @@ import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
 import { Role } from '../decorators/role.decorator';
 import { RoleTypeEnum } from '../../infrastructure/mysql/entities/enums/roleType.enum';
 import { BaseGroupResDto } from './models/dto/res/baseGroup.res.dto';
-import { ListGroupQueryReqDto } from './models/dto/req/listGroupQuery.req.dto';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { BaseGroupReqDto } from './models/dto/req/baseGroup.req.dto';
 
@@ -32,10 +30,8 @@ export class GroupController {
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get()
-  public async findAll(
-    @Query() query: ListGroupQueryReqDto,
-  ): Promise<BaseGroupResDto[] | null> {
-    return await this.groupService.findAll(query);
+  public async findAll(): Promise<BaseGroupResDto[] | null> {
+    return await this.groupService.findAll();
   }
 
   @ApiOperation({

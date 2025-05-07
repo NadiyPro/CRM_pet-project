@@ -1,16 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { GroupRepository } from '../../../infrastructure/repository/services/group.repository';
-import { ListGroupQueryReqDto } from '../models/dto/req/listGroupQuery.req.dto';
 import { BaseGroupResDto } from '../models/dto/res/baseGroup.res.dto';
 import { BaseGroupReqDto } from '../models/dto/req/baseGroup.req.dto';
 
 @Injectable()
 export class GroupService {
   constructor(private readonly groupRepository: GroupRepository) {}
-  public async findAll(
-    query?: ListGroupQueryReqDto,
-  ): Promise<BaseGroupResDto[]> {
-    return await this.groupRepository.findAll(query);
+  public async findAll(): Promise<BaseGroupResDto[]> {
+    return await this.groupRepository.findAll();
   }
 
   public async create(group_name: BaseGroupReqDto): Promise<BaseGroupResDto> {
