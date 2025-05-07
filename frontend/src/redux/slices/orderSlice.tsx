@@ -11,6 +11,9 @@ import { MessageResDto } from '../../module/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
 import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
+import { GroupResDto } from '../../module/groupRes.dto';
+import { loadCreateGroup } from '../reducers/orderLoad/loadCreateGroup';
+import { loadAllGroup } from '../reducers/orderLoad/loadAllGroup';
 
 interface OrderSliceInterface {
   dto: Partial<ListOrdersAllDto>;
@@ -26,7 +29,9 @@ interface OrderSliceInterface {
   createMessage: MessageResDto;
   isMessagesOrderId: boolean;
   isEditOrder: boolean;
-  editOrder: UpdateOrdersResDto
+  editOrder: UpdateOrdersResDto,
+  createGroup: GroupResDto,
+  allGroup: GroupResDto[] | null;
 }
 
 const initialState: OrderSliceInterface = {
@@ -97,7 +102,12 @@ const initialState: OrderSliceInterface = {
     messages: [],
     utm: null,
     msg: null,
-  }
+  },
+  createGroup: {
+    id: 0,
+    group_name: '',
+  },
+  allGroup: []
 };
 
 export const orderSlice = createSlice({
@@ -197,6 +207,20 @@ export const orderSlice = createSlice({
           console.error('Помилка при редагувані заявки:', action.payload);
         }
       )
+      .addCase(loadCreateGroup.fulfilled, (state, action) => {
+        state.createGroup = action.payload;
+      })
+      .addCase(loadCreateGroup.rejected, (state, action) => {
+          console.error('Помилка при створені нової групи:', action.payload);
+        }
+      )
+      .addCase(loadAllGroup.fulfilled, (state, action) => {
+        state.allGroup = action.payload;
+      })
+      .addCase(loadAllGroup.rejected, (state, action) => {
+          console.error('Помилка при відображені всіх груп:', action.payload);
+        }
+      )
   },
 });
 
@@ -207,5 +231,7 @@ export const orderAction = {
   loadFindOneOrder,
   loadMessagesOrderId,
   loadCreateMessage,
-  loadEditOrder
+  loadEditOrder,
+  loadCreateGroup,
+  loadAllGroup
 };
