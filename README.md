@@ -393,10 +393,19 @@ GET /orders/export
 >  + вказуємо в URL query ListOrdersQueryReqDto, за замовченням: limit = 25, page = 1, sortField = created_at, sortASCOrDESC = DESC, me = false
 >```
 > {
+> name?: string | null;
+> surname?: string | null;
+> email?: string | null;
+> phone?: string | null;
+> age?: number | null;
+> course?: CourseEnum | null;
+> course_format?: CourseFormatEnum | null;
+> course_type?: CourseTypeEnum | null;
+> sum?: number | null;
+> alreadyPaid?: number | null;
+> status?: StatusEnum | null;
 > limit?: number;
 > page?: number;
-> searchField?: SortFieldEnum | null; // описано в розділі Enums
-> search?: string;
 > sortField?: SortFieldEnum | null;
 > sortASCOrDESC?: SortASCOrDESCEnum | null;
 > me?: boolean;
@@ -425,6 +434,7 @@ GET /orders/export
 >  group: string | null;
 >  messages: MessageEntity[] | null;
 >  utm: string | null;
+>  msg: string | null;
 > },
 > total: number;
 > }
@@ -438,8 +448,17 @@ GET /orders/export
 >  + вказуємо в URL query ListOrdersExportReqDto, за замовченням: sortField = created_at, sortASCOrDESC = DESC, me = false
 >```
 > {
-> searchField?: SortFieldEnum | null; // описано в розділі Enums
-> search?: string;
+> name?: string | null;
+> surname?: string | null;
+> email?: string | null;
+> phone?: string | null;
+> age?: number | null;
+> course?: CourseEnum | null;
+> course_format?: CourseFormatEnum | null;
+> course_type?: CourseTypeEnum | null;
+> sum?: number | null;
+> alreadyPaid?: number | null;
+> status?: StatusEnum | null;
 > sortField?: SortFieldEnum | null;
 > sortASCOrDESC?: SortASCOrDESCEnum | null;
 > me?: boolean;
@@ -550,6 +569,7 @@ GET /orders/export
 > group_name: string | null;
 > messages: MessageEntity[] | null;
 > utm: string | null;
+> msg: string | null;
 > } 
 >``` 
 > 
@@ -578,6 +598,7 @@ GET /orders/export
 > group_name: string | null;
 > messages: MessageEntity[] | null;
 > utm: string | null;
+> msg: string | null;
 > }
 >``` 
 > 
