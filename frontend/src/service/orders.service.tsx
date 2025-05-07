@@ -11,7 +11,6 @@ import { UpdateOrdersReqDto } from '../module/updateOrdersReq.dto';
 import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
 import { Group_nameDto } from '../module/group_name.dto';
 import { GroupResDto } from '../module/groupRes.dto';
-import { ListGroupQueryDto } from '../module/listGroupQuery.dto';
 import { GroupOrdersDto } from '../module/groupOrders.dto';
 
 axiosInstance.interceptors.request.use(request => {
@@ -56,12 +55,12 @@ const orderService = {
     const response = await axiosInstance.put(`/orders/${orderId}`, updateOrdersReqDto);
     return response.data;
   },
-  createGroup: async (newGroup: Group_nameDto): Promise<GroupResDto> => {
-    const response = await axiosInstance.post('/group', newGroup);
+  createGroup: async (group_name: Group_nameDto): Promise<GroupResDto> => {
+    const response = await axiosInstance.post('/group', group_name);
     return response.data;
   },
-  allGroup: async (search: Partial<ListGroupQueryDto>): Promise<GroupResDto[] | null> => {
-    const response = await axiosInstance.get('/group', {params: search});
+  allGroup: async (): Promise<GroupResDto[] | null> => {
+    const response = await axiosInstance.get('/group');
     return response.data;
   },
   addGroup: async (orderId: string, group_id: string): Promise<GroupOrdersDto> => {

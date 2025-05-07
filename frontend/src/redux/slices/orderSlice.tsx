@@ -34,7 +34,9 @@ interface OrderSliceInterface {
   editOrder: UpdateOrdersResDto,
   createGroup: GroupResDto,
   allGroup: GroupResDto[] | null;
-  addGroup: GroupOrdersDto
+  addGroup: GroupOrdersDto,
+  isAddGroupState: boolean;
+  isDefaultGroupState: boolean
 }
 
 const initialState: OrderSliceInterface = {
@@ -115,7 +117,9 @@ const initialState: OrderSliceInterface = {
     id: null,
     group_id: null,
     group_name: null,
-  }
+  },
+  isAddGroupState: false,
+  isDefaultGroupState: true
 };
 
 export const orderSlice = createSlice({
@@ -157,6 +161,10 @@ export const orderSlice = createSlice({
     },
     setCloseEditOrderModal(state){
       state.isEditOrder = false;
+    },
+    setAddGroupState(state, action: PayloadAction<boolean>){
+      state.isAddGroupState = action.payload;
+      state.isDefaultGroupState = !action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -217,6 +225,8 @@ export const orderSlice = createSlice({
       )
       .addCase(loadCreateGroup.fulfilled, (state, action) => {
         state.createGroup = action.payload;
+        state.isAddGroupState = false;
+        state.isDefaultGroupState = true;
       })
       .addCase(loadCreateGroup.rejected, (state, action) => {
           console.error('Помилка при створені нової групи:', action.payload);

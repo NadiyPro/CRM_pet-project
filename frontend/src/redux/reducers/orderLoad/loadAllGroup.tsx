@@ -1,13 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { ListGroupQueryDto } from '../../../module/listGroupQuery.dto';
 import { AxiosError } from 'axios';
 import { orderService } from '../../../service/orders.service';
 
 const loadAllGroup = createAsyncThunk(
   'loadAllGroup',
-  async (search: Partial<ListGroupQueryDto>, thunkAPI) => {
+  async (_, thunkAPI) => {
     try {
-      const response = await orderService.allGroup(search);
+      const response = await orderService.allGroup();
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
