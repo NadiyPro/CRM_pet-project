@@ -26,7 +26,6 @@ const EditOrderComponent = () => {
   const {
     handleSubmit: handleSubmitAddGroup,
     register: registerAddGroup,
-    formState: { isValid: isValidAddGroup }
   } = useForm<{ group_id: string }>({ mode: 'all' })
   const { editOrder, isDefaultGroupState, isAddGroupState, allGroup } = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
@@ -46,6 +45,7 @@ const EditOrderComponent = () => {
   const handleCreateGroupState = (group_name: Group_nameDto) => {
     dispatch(orderAction.loadCreateGroup(group_name));
     dispatch(orderAction.setAddGroupState(true));
+    resetCreateGroup();
   };
 
   const handleAddGroup = ({ group_id }: { group_id: string }) => {
@@ -61,7 +61,7 @@ const EditOrderComponent = () => {
             <label htmlFor={'group_name'}>Group</label>
             <input type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
             <div>
-              <button type={'submit'}>
+              <button type={'submit'} disabled={!isValidCreateGroup}>
                 ADD
               </button>
               <button type={'button'} onClick={
