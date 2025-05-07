@@ -7,7 +7,7 @@ const loadLogin = createAsyncThunk(
   'authLogin',
   async  (dto:AuthLoginDto, thunkAPI) => {
     try {
-      let response = await authService.authLogin(dto);
+      const response = await authService.authLogin(dto);
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;

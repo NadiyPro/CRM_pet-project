@@ -32,7 +32,7 @@ const EditOrderComponent = () => {
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
     if (editOrder.id !== null) {
-      let orderId = editOrder.id;
+      const orderId = editOrder.id;
       dispatch(orderAction.loadEditOrder({ orderId, updateOrdersReqDto }))
     }
     reset()
@@ -53,6 +53,13 @@ const EditOrderComponent = () => {
       const orderId = editOrder.id.toString();
       dispatch(orderAction.loadAddGroup({ orderId, group_id }))
     }
+  };
+
+  // const handleAddGroup = ({ group_id }: { group_id: string }) => {
+  //   if (editOrder.id !== null && group_id) {
+  //     const orderId = editOrder.id.toString();
+  //     dispatch(orderAction.loadAddGroup({ orderId, group_id }))
+  //   }
 
     return (
       <div>

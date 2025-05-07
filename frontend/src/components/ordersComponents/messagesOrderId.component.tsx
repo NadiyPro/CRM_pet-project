@@ -13,7 +13,7 @@ const MessagesOrderIdComponent = () => {
 
     const handleCreateMessage = (dataMessage: CreateMessageDto ) => {
     if(findOneOrder.id !== null){
-      let orderId = findOneOrder.id;
+      const orderId = findOneOrder.id;
       dispatch(orderAction.loadCreateMessage({orderId, dataMessage }))
       reset();
     }

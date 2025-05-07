@@ -4,7 +4,7 @@ import { AuthTokenDto } from '../module/authToken.dto';
 import { AuthLoginDto } from '../module/authLogin.dto';
 import { AuthPasswordDto } from '../module/authPassword.dto';
 
-export let axiosInstance = axios.create({
+export const axiosInstance = axios.create({
   baseURL: 'http://localhost:3000'
 });
 axiosInstance.interceptors.request.use(request => {

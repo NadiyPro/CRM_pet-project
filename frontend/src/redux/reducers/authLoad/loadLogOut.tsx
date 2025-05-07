@@ -6,7 +6,7 @@ const loadLogOut = createAsyncThunk(
   'authLogOut',
   async  (_, thunkAPI) => {
     try {
-      let response = await authService.authLogOut();
+      const response = await authService.authLogOut();
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;

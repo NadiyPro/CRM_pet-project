@@ -10,7 +10,7 @@ const loadOrdersAll = createAsyncThunk(
       const response = await orderService.ordersAll(dto);
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
-      let error = e as AxiosError;
+      const error = e as AxiosError;
       return thunkAPI.rejectWithValue(error?.response?.data);
     }
 }
