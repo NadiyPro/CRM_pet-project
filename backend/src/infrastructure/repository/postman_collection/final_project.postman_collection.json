@@ -183,8 +183,58 @@
 									"value": "false"
 								},
 								{
-									"key": "search",
-									"value": "{{search}}",
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_format",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_type",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sum",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "alreadyPaid",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
 									"disabled": true
 								}
 							]
@@ -258,7 +308,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/orders/export?sortField=created_at&sortASCOrDESC=DESC&me=false&search={{search}}",
+							"raw": "http://localhost:3000/orders/export?sortField=created_at&sortASCOrDESC=DESC&me=false",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -282,8 +332,59 @@
 									"value": "false"
 								},
 								{
-									"key": "search",
-									"value": "{{search}}"
+									"key": "name",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "surname",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "phone",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "age",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_format",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "course_type",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "sum",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "alreadyPaid",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "status",
+									"value": null,
+									"disabled": true
 								}
 							]
 						}
@@ -375,7 +476,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/orders/{{orderId}}",
+							"raw": "http://localhost:3000/orders/497",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -383,7 +484,7 @@
 							"port": "3000",
 							"path": [
 								"orders",
-								"{{orderId}}"
+								"497"
 							]
 						}
 					},
@@ -405,7 +506,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/orders/{{orderId}}",
+							"raw": "http://localhost:3000/orders/497",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -413,7 +514,7 @@
 							"port": "3000",
 							"path": [
 								"orders",
-								"{{orderId}}"
+								"497"
 							]
 						}
 					},
@@ -435,7 +536,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/orders/{{orderId}}",
+							"raw": "http://localhost:3000/orders/496",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -443,7 +544,7 @@
 							"port": "3000",
 							"path": [
 								"orders",
-								"{{orderId}}"
+								"496"
 							]
 						}
 					},
@@ -465,7 +566,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/orders/{{orderId}}/{{group_id}}",
+							"raw": "http://localhost:3000/orders/497/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -473,8 +574,8 @@
 							"port": "3000",
 							"path": [
 								"orders",
-								"{{orderId}}",
-								"{{group_id}}"
+								"497",
+								"1"
 							]
 						}
 					},
@@ -513,7 +614,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/group?search={{search}}",
+							"raw": "http://localhost:3000/group",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -521,12 +622,6 @@
 							"port": "3000",
 							"path": [
 								"group"
-							],
-							"query": [
-								{
-									"key": "search",
-									"value": "{{search}}"
-								}
 							]
 						}
 					},
@@ -586,7 +681,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/group/{{groupId}}",
+							"raw": "http://localhost:3000/group/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -594,7 +689,7 @@
 							"port": "3000",
 							"path": [
 								"group",
-								"{{groupId}}"
+								"1"
 							]
 						}
 					},
@@ -650,7 +745,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/message/{{orderId}}",
+							"raw": "http://localhost:3000/message/497",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -658,7 +753,7 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"{{orderId}}"
+								"497"
 							]
 						}
 					},
@@ -689,7 +784,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/message/{{orderId}}",
+							"raw": "http://localhost:3000/message/497",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -697,7 +792,7 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"{{orderId}}"
+								"497"
 							]
 						}
 					},
@@ -719,7 +814,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/message/{{messageId}}",
+							"raw": "http://localhost:3000/message/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -727,7 +822,7 @@
 							"port": "3000",
 							"path": [
 								"message",
-								"{{messageId}}"
+								"1"
 							]
 						}
 					},
