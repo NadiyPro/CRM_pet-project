@@ -14,6 +14,8 @@ import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
 import { GroupResDto } from '../../module/groupRes.dto';
 import { loadCreateGroup } from '../reducers/orderLoad/loadCreateGroup';
 import { loadAllGroup } from '../reducers/orderLoad/loadAllGroup';
+import { loadAddGroup } from '../reducers/orderLoad/loadAddGroup';
+import { GroupOrdersDto } from '../../module/groupOrders.dto';
 
 interface OrderSliceInterface {
   dto: Partial<ListOrdersAllDto>;
@@ -32,6 +34,7 @@ interface OrderSliceInterface {
   editOrder: UpdateOrdersResDto,
   createGroup: GroupResDto,
   allGroup: GroupResDto[] | null;
+  addGroup: GroupOrdersDto
 }
 
 const initialState: OrderSliceInterface = {
@@ -107,7 +110,12 @@ const initialState: OrderSliceInterface = {
     id: 0,
     group_name: '',
   },
-  allGroup: []
+  allGroup: [],
+  addGroup: {
+    id: null,
+    group_id: null,
+    group_name: null,
+  }
 };
 
 export const orderSlice = createSlice({
@@ -221,6 +229,13 @@ export const orderSlice = createSlice({
           console.error('Помилка при відображені всіх груп:', action.payload);
         }
       )
+      .addCase(loadAddGroup.fulfilled, (state, action) => {
+        state.addGroup = action.payload;
+      })
+      .addCase(loadAddGroup.rejected, (state, action) => {
+          console.error('Помилка присвоєння групи для заявки:', action.payload);
+        }
+      )
   },
 });
 
@@ -233,5 +248,6 @@ export const orderAction = {
   loadCreateMessage,
   loadEditOrder,
   loadCreateGroup,
-  loadAllGroup
+  loadAllGroup,
+  loadAddGroup
 };

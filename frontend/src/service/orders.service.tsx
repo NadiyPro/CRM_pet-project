@@ -12,6 +12,7 @@ import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
 import { Group_nameDto } from '../module/group_name.dto';
 import { GroupResDto } from '../module/groupRes.dto';
 import { ListGroupQueryDto } from '../module/listGroupQuery.dto';
+import { GroupOrdersDto } from '../module/groupOrders.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -63,9 +64,20 @@ const orderService = {
     const response = await axiosInstance.get('/group', {params: search});
     return response.data;
   },
-  // addGroup: async (): Promise<> => {
-  //
-  // }
+  addGroup: async (orderId: string, group_id: string): Promise<GroupOrdersDto> => {
+    const response = await axiosInstance.post(`/orders/${orderId}/${group_id}`);
+    const {
+      id,
+      group_id: groupId,
+      group_name,
+    } = response.data;
+
+    return {
+      id,
+      group_id: groupId,
+      group_name,
+    };
+  }
 }
 
 export {
