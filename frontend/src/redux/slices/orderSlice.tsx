@@ -13,7 +13,7 @@ import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
 import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
 
 interface OrderSliceInterface {
-  dto: ListOrdersAllDto;
+  dto: Partial<ListOrdersAllDto>;
   data: {
     orders: BaseOrdersDto[];
     total: number;
@@ -38,21 +38,6 @@ const initialState: OrderSliceInterface = {
   dto: {
     limit: 25,
     page: 1,
-    name: null,
-    surname: null,
-    email: null,
-    phone: null,
-    age: null,
-    course: null,
-    course_format: null,
-    course_type: null,
-    status: null,
-    sum: null,
-    alreadyPaid: null,
-    created_at: '',
-    manager: null,
-    group_id: null,
-    group_name: null,
     sortField: SortFieldEnum.CREATED_AT,
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
     me: false,
@@ -135,21 +120,6 @@ export const orderSlice = createSlice({
       state.dto = {
         limit: 25,
         page: 1,
-        name: null,
-        surname: null,
-        email: null,
-        phone: null,
-        age: null,
-        course: null,
-        course_format: null,
-        course_type: null,
-        status: null,
-        sum: null,
-        alreadyPaid: null,
-        created_at: '',
-        manager: null,
-        group_id: null,
-        group_name: null,
         sortField: SortFieldEnum.CREATED_AT,
         sortASCOrDESC: SortASCOrDESCEnum.DESC,
         me: false,

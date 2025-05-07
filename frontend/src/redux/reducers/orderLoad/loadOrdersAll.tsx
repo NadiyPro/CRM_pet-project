@@ -5,7 +5,7 @@ import { orderService } from '../../../service/orders.service';
 
 const loadOrdersAll = createAsyncThunk(
   'loadOrdersAll',
-  async (dto: ListOrdersAllDto, thunkAPI) => {
+  async (dto: Partial<ListOrdersAllDto>, thunkAPI) => {
     try {
       const response = await orderService.ordersAll(dto);
       return thunkAPI.fulfillWithValue(response);

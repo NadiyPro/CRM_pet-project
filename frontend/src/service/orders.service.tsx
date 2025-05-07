@@ -9,6 +9,9 @@ import { CreateMessageDto } from '../module/createMessage.dto';
 import { BaseOrdersDto } from '../module/baseOrders.dto';
 import { UpdateOrdersReqDto } from '../module/updateOrdersReq.dto';
 import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
+import { Group_nameDto } from '../module/group_name.dto';
+import { GroupResDto } from '../module/groupRes.dto';
+import { ListGroupQueryDto } from '../module/listGroupQuery.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
@@ -17,11 +20,11 @@ axiosInstance.interceptors.request.use(request => {
 });
 
 const orderService = {
-  ordersAll: async (dto: ListOrdersAllDto): Promise<ListOrdersTotalDto> => {
+  ordersAll: async (dto: Partial<ListOrdersAllDto>): Promise<ListOrdersTotalDto> => {
     const response = await axiosInstance.get('/orders', { params: dto });
       return response.data;
     },
-  ordersExel: async (dto: ListOrdersExelDto): Promise<void> => {
+  ordersExel: async (dto: Partial<ListOrdersExelDto>): Promise<void> => {
     const response = await axiosInstance.get('/orders/export', {
       params: dto,
       responseType: 'blob',
@@ -51,7 +54,16 @@ const orderService = {
   editOrder: async ( orderId: number, updateOrdersReqDto: UpdateOrdersReqDto): Promise<UpdateOrdersResDto> => {
     const response = await axiosInstance.put(`/orders/${orderId}`, updateOrdersReqDto);
     return response.data;
-  }
+  },
+  createGroup: async (newGroup: Group_nameDto): Promise<GroupResDto> => {
+    const response = await axiosInstance.post('/group', newGroup);
+    return response.data;
+  },
+  allGroup: async (search: Partial<ListGroupQueryDto>): Promise<GroupResDto[] | null> => {
+    const response = await axiosInstance.get('/group', {params: search});
+    return response.data;
+  },
+
 }
 
 export {
