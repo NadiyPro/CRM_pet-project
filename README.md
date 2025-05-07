@@ -592,12 +592,7 @@ GET /orders/export
 ### group
 > GET /group - відображення всіх group та пошуку по назві group
 > 
-> + Request: для пошуку в URL вказуємо query ListGroupQueryReqDto
->``` 
-> {
->  search?: string;
-> }
->```  
+> + Request: нічого не приймає
 > + Response: BaseGroupResDto[] | null
 >```
 > {
