@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum CourseTypeEnum {
   PRO = 'pro',
   MINIMAL = 'minimal',

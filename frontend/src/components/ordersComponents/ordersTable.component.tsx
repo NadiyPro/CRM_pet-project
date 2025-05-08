@@ -4,7 +4,7 @@ import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
 import MessagesOrderIdComponent from './messagesOrderId.component';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
@@ -32,11 +32,16 @@ const OrdersTableComponent = () => {
     dispatch(orderAction.loadFindOneOrder(orderId))
   }
 
-  const handleCloseMessagesOrderId = (event:MouseEvent) => {
-    if(messageClose.current && !messageClose.current.contains(event.target as Node)){
+  // const handleCloseMessagesOrderId = (event:MouseEvent) => {
+  //   if(messageClose.current && !messageClose.current.contains(event.target as Node)){
+  //     dispatch(orderAction.setCloseMessagesOrderId());
+  //   }
+  // }
+  const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
+    if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
       dispatch(orderAction.setCloseMessagesOrderId());
     }
-  }
+  }, [dispatch]);
 
   useEffect(() => {
     if(isMessagesOrderId){
@@ -49,7 +54,7 @@ const OrdersTableComponent = () => {
       document.removeEventListener('mousedown',handleCloseMessagesOrderId)
     } // спрацьовує перед оновленням ефекту (страховка), щоб завжди прибрати слухача,
     // навіть якщо ми спіймали баг і в нас true змінилось на true
-  }, [isMessagesOrderId])
+  }, [handleCloseMessagesOrderId, isMessagesOrderId])
 
   return (
     <div>

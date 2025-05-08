@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum SortFieldEnum {
   ID = 'id',
   NAME = 'name',

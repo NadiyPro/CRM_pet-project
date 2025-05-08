@@ -1,3 +1,4 @@
+/* eslint-disable */
 export enum CourseEnum {
   FS = 'FS',
   QACX = 'QACX',
@@ -6,3 +7,4 @@ export enum CourseEnum {
   FE = 'FE',
   PCX = 'PCX',
 }
+ 
