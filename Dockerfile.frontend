@@ -1,34 +1,32 @@
-# Встановлюємо базовий образ
-FROM node:20-alpine AS builder
+# Вибір базового образу для React додатку
+FROM node:18-alpine as build
 
-# Робоча директорія всередині контейнера
+# Встановлення робочої директорії
 WORKDIR /app
 
-# Копіюємо залежності
-COPY ./frontend/package*.json ./
+# Копіювання файлів package.json та package-lock.json (або yarn.lock)
+COPY frontend/package.json frontend/package-lock.json ./
 
-# Встановлюємо залежності
-RUN npm ci
+# Встановлення залежностей
+RUN npm install --production
 
-# Копіюємо весь код проєкту
-COPY ./frontend .
+# Копіювання всіх файлів додатку
+COPY frontend/ ./
 
-# Будуємо Next.js застосунок
+# Створення продакшн-білду
 RUN npm run build
 
-# === Production Stage ===
-FROM node:20-alpine AS runner
+# Налаштування іншого образу для запуску (nginx)
+FROM nginx:alpine
 
-# Встановлюємо залежності для запуску
-WORKDIR /app
+# Копіюємо налаштований конфігураційний файл Nginx
+COPY nginx.conf /etc/nginx/nginx.conf
 
-# Копіюємо тільки потрібні файли з builder
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.js ./next.config.js
-COPY --from=builder /app/tsconfig.json ./tsconfig.json
+# Копіюємо білд в папку Nginx для обслуговування
+COPY --from=build /app/build /usr/share/nginx/html
 
-# Стартова команда
-CMD ["npm", "run", "start"]
+# Відкриваємо порт для доступу до сервера
+EXPOSE 80
+
+# Запуск Nginx
+CMD ["nginx", "-g", "daemon off;"]
