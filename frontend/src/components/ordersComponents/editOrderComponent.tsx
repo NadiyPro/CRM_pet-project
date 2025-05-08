@@ -55,12 +55,6 @@ const EditOrderComponent = () => {
     }
   };
 
-  // const handleAddGroup = ({ group_id }: { group_id: string }) => {
-  //   if (editOrder.id !== null && group_id) {
-  //     const orderId = editOrder.id.toString();
-  //     dispatch(orderAction.loadAddGroup({ orderId, group_id }))
-  //   }
-
     return (
       <div>
         {isDefaultGroupState && (
