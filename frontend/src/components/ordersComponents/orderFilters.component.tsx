@@ -139,7 +139,10 @@ const OrdersFiltersComponent = () => {
       </form>
 
       <button type="button" onClick={handleReset}>
-        <GrPowerReset size={20} color={'white'} />
+        {/*<GrPowerReset size={20} color={'white'} />*/}
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEJElEQVR4nO2ZaYiWVRTHf6aOpuTggh9CSfswDn5QUUzFXKhILBUrIk1UwlBR/Jr7vlBiuSCWuKFCRIsJGhaK+kUoU7FxSRQ19zUXxn2ZiQP/By7P3Oedeed93ud5g/nDYd7hucv/3HvPueecC3WoQx3iwEvAu8DnwHbgBHALeAI8AC4CZcA2YAbwJtCUlFFPpH8E7gJ7gFki18Eh2ABoCXQFPgK+Ao4C94CNQH+NlShxI3IEOAVMBJqL9CRgHfCnVv0+8FS7YbuyBZgD9FT7L/XtEPBWEuRt0t3AJWA40EQKmDKVWcoVYD5QCiwGHgM7gLb5Ij9K275BK27//1ML4mF5BHwBvAb8BfwLDIn7yAQrNF4rdsBD5BiwBBgKlADF6t8MeFW2MRPYCTzz9L+svpuACtlTLOTXaJUGAh/oXAeTPge+A7pnOa4dk9nA7ZASFdqNr/X/olwVWCwjHASME+Fgsj+ALjmO30pkK0KKfCsPVZnLTozWANOAEQ75Cvl7c49xYbBnN2xn92lec9dZoVQG+yvQQ0eoUmf3U/KDEnk3V4k9+muutl02534v8BDoCJx2BhxLflEKXI3wVltrOsgwdVgorxEMYDdoEugb4aUq5cky4gW5w3Kt/j11PAwUkRzmeciXyRaRW34vypis8WrgG8doe5MsioCzIfdqMdNk5w6a6+u4RR/fdlbfoss0MKqaG7yKCy/WbWvubIzT8I2EiZcA03Vso8ifyXR8fgG+1+9zsoukUKqzXl38tNTXeYk+LlBcYr9XkTwaABOAmxkUME9VBTv0cYbT0FxqWmgOLFco45K/DtT3dTjt+P+gcSfSR0fgN4fT2qiGd9RgmdM4CIkLAYOBkwosveFDcPvdd3yvd6tSRFHUhVovFCoXqgIZUe6xdjOk/w1OeRSwUkihoLfqSu2jGriWHsgnFA4miNODqJxkjkeBzRQOfnJ4TfU16OdRwDKhF0kfLZzg0uR1X6PGysLCSlhUmDY+c/iYIo2iGgZBnCt/p+xOGwLnHT5WuoxEn4jgycqHaWFmiIvVVTPikEeBu0rjkkZXlegDHpaNVYv3I3bhcMI1/RbA8RAHSytrhK0RSuySsecbxcD+0Nw/ZDNAGx0bnxJ7tTr5QmsP+Ru1KbsP99QsA7HcoVceyA8CroXmsiBzQG0HnJIhrbNMaaWej3LFK0pUfAtmtdmcsLKaBLtcSbZlTtmis6rQrqdxJbY3gqmefMEnZVLmQ9VtWioBaaRSurnFj4H1wIUM4zxXEStWvJPBsOOUG3pMyQvaOdW7fMjPwMskgAF6kIuL+O8KYxJHNxWC3VC3pmLH0R707H049oduK/HZE5MZ0gqRtNvZXhgDOaj7wMTefC13MAk/FbkStDGx15igvz2Mu2PbMbU5rbBlHEaqZloF/wFjsi7WUGvWiwAAAABJRU5ErkJggg=="
+          alt="recurring-appointment" />
       </button>
       <div>
         <label htmlFor={'myCheckbox'}>My</label>

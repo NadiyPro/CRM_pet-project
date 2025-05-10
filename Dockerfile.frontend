@@ -8,7 +8,7 @@ WORKDIR /app
 COPY frontend/package.json frontend/package-lock.json ./
 
 # Встановлення залежностей
-RUN npm install --production
+RUN npm install
 
 # Копіювання всіх файлів додатку
 COPY frontend/ ./
@@ -20,7 +20,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Копіюємо налаштований конфігураційний файл Nginx
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Копіюємо білд в папку Nginx для обслуговування
 COPY --from=build /app/build /usr/share/nginx/html

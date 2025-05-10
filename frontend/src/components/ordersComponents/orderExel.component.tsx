@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { GrDocumentExcel } from 'react-icons/gr';
+// import { GrDocumentExcel } from 'react-icons/gr';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { omit } from 'lodash';
 
@@ -20,7 +20,10 @@ const OrderExelComponent = () => {
   return(
     <div>
       <button type="button" onClick={handleOrdersExel} disabled={loadingExel}>
-        <GrDocumentExcel size={20} color={'white'} />
+        {/*<GrDocumentExcel size={20} color={'white'} />*/}
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAuUlEQVR4nO3WQQpCMRRD0axCxP0vSRRXExE6EMHBl5e09uVCcSiHBi2Q/isKzw3AeQcIATwAXJyQ6uwYiiH3t0/pzNSQE4Cr42YohsCFoQFiwdAEkWNohLySYdwQGWYGRIKZBSnHOP7Zj7zNtoCw4gtnx0BGuZHimGl1mxaLz7cCaTctVwyk241Q9Cv1WSDtpuWKgXS7EeathbUeja4YyCg3UhwzrVGmVRwzrVGmteq0uMj5uW0gCeaeAHHCuEhTlUIAAAAASUVORK5CYII="
+          alt="documentExcel" />
       </button>
       {<p>{exportSuccess}</p>}
       {loadingExel && <p>loading...</p>}
