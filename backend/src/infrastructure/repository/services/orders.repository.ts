@@ -26,35 +26,43 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.manager', 'manager')
       .leftJoinAndSelect('orders.messages', 'messages');
 
+    // Фільтр за менеджером, якщо me=true
     if (query.me) {
       qb.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
-    Object.entries(query).forEach(([key, value], index) => {
-      const sortFieldKey = key as SortFieldEnum;
+    // if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKeyExel))
+    //   return;
+    const allowedFields = Object.keys(
+      new ListOrdersQueryReqDto(),
+    ) as (keyof ListOrdersQueryReqDto)[];
+    const excludedFields = [
+      'limit',
+      'page',
+      'sortField',
+      'sortASCOrDESC',
+      'me',
+    ];
 
-      // Ігноруємо поля, які не дозволені
-      if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKey))
-        return;
-      if (value === null || value === undefined || value === '') return;
+    for (const key of allowedFields) {
+      if (excludedFields.includes(key)) continue;
 
-      const field =
-        sortFieldKey === SortFieldEnum.MANAGER
-          ? 'manager.surname'
-          : `orders.${sortFieldKey}`;
+      const value = query[key];
+      if (value === null || value === undefined || value === '') continue;
 
-      const isNumeric = numericFields.includes(sortFieldKey);
-      const param = `searchValue${index}`;
+      const isNumeric = numericFields.includes(key);
+      const param = `search_${key}`;
 
-      qb.setParameter(param, `%${value}%`);
+      const field = key === 'manager' ? 'manager.surname' : `orders.${key}`;
 
       const expression = isNumeric
         ? `CAST(${field} AS CHAR) LIKE :${param}`
         : `${field} LIKE :${param}`;
 
-      qb.andWhere(`(${expression})`);
-    });
+      qb.andWhere(expression, { [param]: `%${value}%` });
+    }
 
+    // Сортування
     if (query.sortField && query.sortASCOrDESC) {
       const column =
         query.sortField === SortFieldEnum.MANAGER
@@ -69,6 +77,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       qb.orderBy('orders.created_at', 'DESC');
     }
 
+    // Пагінація
     const limit = query.limit || 25;
     const page = query.page || 1;
 
@@ -77,6 +86,73 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
     return await qb.getManyAndCount();
   }
+
+  // public async findAll(
+  //   userData: IUserData,
+  //   query: ListOrdersQueryReqDto,
+  // ): Promise<[OrdersEntity[], number]> {
+  //   const qb: SelectQueryBuilder<OrdersEntity> = this.createQueryBuilder(
+  //     'orders',
+  //   )
+  //     .leftJoinAndSelect('orders.manager', 'manager')
+  //     .leftJoinAndSelect('orders.messages', 'messages');
+  //
+  //   if (query.me) {
+  //     qb.andWhere('manager.id = :userId', { userId: userData.userId });
+  //   }
+  //
+  //   Object.entries(query).forEach(([key, value], index) => {
+  //     const sortFieldKey = key as SortFieldEnum;
+  //
+  //     if (
+  //       ['limit', 'page', 'sortField', 'sortASCOrDESC', 'me'].includes(
+  //         sortFieldKey,
+  //       ) ||
+  //       !Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKey)
+  //     )
+  //       return;
+  //
+  //     if (value === null || value === undefined || value === '') return;
+  //
+  //     const field =
+  //       sortFieldKey === SortFieldEnum.MANAGER
+  //         ? 'manager.surname'
+  //         : `orders.${sortFieldKey}`;
+  //
+  //     const isNumeric = numericFields.includes(sortFieldKey);
+  //     const param = `searchValue${index}`;
+  //
+  //     qb.setParameter(param, `%${value}%`);
+  //
+  //     const expression = isNumeric
+  //       ? `CAST(${field} AS CHAR) LIKE :${param}`
+  //       : `${field} LIKE :${param}`;
+  //
+  //     qb.andWhere(`(${expression})`);
+  //   });
+  //
+  //   if (query.sortField && query.sortASCOrDESC) {
+  //     const column =
+  //       query.sortField === SortFieldEnum.MANAGER
+  //         ? 'manager.surname'
+  //         : `orders.${query.sortField}`;
+  //
+  //     const order =
+  //       query.sortASCOrDESC.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+  //
+  //     qb.orderBy(column, order);
+  //   } else {
+  //     qb.orderBy('orders.created_at', 'DESC');
+  //   }
+  //
+  //   const limit = query.limit || 25;
+  //   const page = query.page || 1;
+  //
+  //   qb.take(limit);
+  //   qb.skip((page - 1) * limit);
+  //
+  //   return await qb.getManyAndCount();
+  // }
 
   // public async findAll(
   //   userData: IUserData,
@@ -175,9 +251,16 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
     Object.entries(query).forEach(([key, value], index) => {
       const sortFieldKeyExel = key as SortFieldEnum;
-
-      if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKeyExel))
+      if (
+        ['limit', 'page', 'sortField', 'sortASCOrDESC', 'me'].includes(
+          sortFieldKeyExel,
+        ) ||
+        !Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKeyExel)
+      )
         return;
+
+      // if (!Object.keys(new ListOrdersQueryReqDto()).includes(sortFieldKeyExel))
+      //   return;
       if (value === null || value === undefined || value === '') return;
 
       const field =
