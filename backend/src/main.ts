@@ -14,6 +14,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
 
+  app.enableCors({
+    origin: 'http://localhost:80', // Дозволяє запити з фронтенду на порту 80
+    credentials: true, // Дозволяє відправляти cookies / авторизацію
+  });
+
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
     .setTitle('final_project_NadiaPro') // Встановлює заголовок API документації
     .setDescription('The cats API description') // опис нашого API

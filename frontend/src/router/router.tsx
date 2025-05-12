@@ -9,22 +9,51 @@ import AuthPasswordPage from '../page/authPasswordPage';
 
 export const router = createBrowserRouter([
   {
-    path: '/auth',
-    errorElement: <ErrorElement />,
-    children: [
-      { index: true, element: <Navigate to="/auth/login" replace />},
-      { path: 'login', element: <AuthLoginPage /> },
-      { path: 'activate/:token', element: <AuthPasswordPage /> },
-    ],
-  },
-  {
     path: '/',
-    element: <MainLayout />,
     errorElement: <ErrorElement />,
     children: [
-      { index: true, element: <Navigate to="/orders" replace /> },
-      { path: 'orders', element: <OrdersAllPage/> },
-      { path: 'admin', element: <AdminPage/> },
+      // Редірект із кореня на /auth/login
+      { index: true, element: <Navigate to="/auth/login" replace /> },
+
+      // AUTH
+      {
+        path: 'auth',
+        children: [
+          { index: true, element: <Navigate to="/auth/login" replace /> },
+          { path: 'login', element: <AuthLoginPage /> },
+          { path: 'activate/:token', element: <AuthPasswordPage /> },
+        ],
+      },
+
+      // MAIN (показується в макеті)
+      {
+        path: '',
+        element: <MainLayout />,
+        children: [
+          { index: true, element: <Navigate to="/orders" replace /> },
+          { path: 'orders', element: <OrdersAllPage /> },
+          { path: 'admin', element: <AdminPage /> },
+        ],
+      },
     ],
   },
+  // {
+  //   path: '/auth',
+  //   errorElement: <ErrorElement />,
+  //   children: [
+  //     { index: true, element: <Navigate to="/auth/login" replace />},
+  //     { path: 'login', element: <AuthLoginPage /> },
+  //     { path: 'activate/:token', element: <AuthPasswordPage /> },
+  //   ],
+  // },
+  // {
+  //   path: '/',
+  //   element: <MainLayout />,
+  //   errorElement: <ErrorElement />,
+  //   children: [
+  //     { index: true, element: <Navigate to="/orders" replace /> },
+  //     { path: 'orders', element: <OrdersAllPage/> },
+  //     { path: 'admin', element: <AdminPage/> },
+  //   ],
+  // },
 ]);

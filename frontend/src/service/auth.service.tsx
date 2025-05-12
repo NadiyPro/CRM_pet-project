@@ -5,7 +5,8 @@ import { AuthLoginDto } from '../module/authLogin.dto';
 import { AuthPasswordDto } from '../module/authPassword.dto';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000'
+  baseURL: 'http://localhost:3000',
+  withCredentials: true,
 });
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')

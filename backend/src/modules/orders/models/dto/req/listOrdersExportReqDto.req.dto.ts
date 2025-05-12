@@ -7,7 +7,6 @@ import {
   IsOptional,
   IsString,
   Length,
-  Matches,
   Max,
   Min,
 } from 'class-validator';
@@ -36,14 +35,12 @@ export class ListOrdersExportReqDto {
   @IsOptional()
   @IsString()
   @Length(0, 100)
-  @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
   email?: string | null;
 
   @IsOptional()
   @IsString()
-  @Length(12)
+  @Length(3, 12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
-  @Matches(/^380\d{9}$/)
   phone?: string | null;
 
   @IsOptional()
@@ -90,6 +87,16 @@ export class ListOrdersExportReqDto {
   @Type(() => String)
   @IsEnum(StatusEnum)
   status?: StatusEnum | null;
+
+  @IsOptional()
+  @IsString()
+  @Length(3, 50)
+  group_name?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @Length(3, 50)
+  manager?: string | null;
 
   @IsOptional()
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
