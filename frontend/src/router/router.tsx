@@ -12,10 +12,8 @@ export const router = createBrowserRouter([
     path: '/',
     errorElement: <ErrorElement />,
     children: [
-      // Редірект із кореня на /auth/login
       { index: true, element: <Navigate to="/auth/login" replace /> },
 
-      // AUTH
       {
         path: 'auth',
         children: [
@@ -25,7 +23,6 @@ export const router = createBrowserRouter([
         ],
       },
 
-      // MAIN (показується в макеті)
       {
         path: '',
         element: <MainLayout />,
