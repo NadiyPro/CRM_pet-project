@@ -15,7 +15,7 @@ async function bootstrap() {
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
 
   app.enableCors({
-    origin: 'http://localhost:80', // Дозволяє запити з фронтенду на порту 80
+    origin: ['http://localhost', 'http://localhost:80'], // Дозволяє запити з фронтенду на порту 80
     credentials: true, // Дозволяє відправляти cookies / авторизацію
   });
 
