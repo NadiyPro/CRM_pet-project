@@ -24,9 +24,10 @@ const AuthLoginPage = () => {
   const dto = async (data: AuthLoginDto) => {
       const isValid = await dispatch(authAction.loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
       if (isValid) {
-        navigate(`/`);
+        navigate(`/orders`);
+      } else {
+        reset();
       }
-    reset();
   };
 
   return(
