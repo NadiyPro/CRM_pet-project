@@ -15,8 +15,13 @@ async function bootstrap() {
   //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
 
   app.enableCors({
-    origin: ['http://localhost', 'http://localhost:80'], // Дозволяє запити з фронтенду на порту 80
-    credentials: true, // Дозволяє відправляти cookies / авторизацію
+    origin: [
+      'http://localhost:5173',
+      'http://localhost',
+      'http://localhost:80',
+      'http://127.0.0.1:5173',
+    ],
+    credentials: true,
   });
 
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
