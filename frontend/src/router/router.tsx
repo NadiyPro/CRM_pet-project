@@ -6,6 +6,7 @@ import MainLayout from '../layout/mainLayout';
 import OrdersAllPage from '../page/ordersAllPage';
 import AdminPage from '../page/adminPage';
 import AuthPasswordPage from '../page/authPasswordPage';
+import AuthRouterComponent from '../components/authComponents/authRouter.component';
 
 export const router = createBrowserRouter([
   {
@@ -24,12 +25,16 @@ export const router = createBrowserRouter([
       },
 
       {
-        path: '',
-        element: <MainLayout />,
+        element: <AuthRouterComponent />,
         children: [
-          { index: true, element: <Navigate to="/orders" replace /> },
-          { path: 'orders', element: <OrdersAllPage /> },
-          { path: 'admin', element: <AdminPage /> },
+          {
+            element: <MainLayout />,
+            children: [
+              { index: true, element: <Navigate to="/orders" replace /> },
+              { path: 'orders', element: <OrdersAllPage /> },
+              { path: 'admin', element: <AdminPage /> },
+            ],
+          },
         ],
       },
     ],
