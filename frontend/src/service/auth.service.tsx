@@ -32,7 +32,10 @@ const authService = {
     return true;
   },
   activatePassword: async (refreshToken: string, authPasswordDto: AuthPasswordDto): Promise<boolean> => {
-    const response = await axiosInstance.post<AuthResDto>(`/auth/activate/${refreshToken}`, authPasswordDto);
+    const response = await axiosInstance.post<AuthResDto>(`/auth/activate/${refreshToken}`, {
+      authPasswordDto,
+      refreshToken,
+    });
     return !!(response?.data?.tokens.accessToken && response?.data?.tokens.refreshToken);
   }
 }
