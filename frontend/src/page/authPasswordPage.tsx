@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 
 const AuthPasswordPage = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
-  const {refreshToken} = useAppSelector((state) => state.adminStore.authTokens.tokens)
+  const {accessToken} = useAppSelector((state) => state.adminStore.authTokens.tokens)
   const {loadingPassword, errorPassword} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
@@ -23,7 +23,8 @@ const AuthPasswordPage = () => {
   }
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
-    const isValidPassword =  await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, refreshToken })).unwrap();
+    const token = accessToken;
+    const isValidPassword =  await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, token })).unwrap();
     if (isValidPassword) {
       navigate(`/orders`);
     } else {
