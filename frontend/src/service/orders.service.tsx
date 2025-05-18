@@ -1,5 +1,4 @@
 import { retrieveLocalStorage } from './retrieveLocalStorage';
-import { AuthTokenDto } from '../module/authToken.dto';
 import { axiosInstance } from './auth.service';
 import { ListOrdersAllDto } from '../module/listOrdersAll.dto';
 import { ListOrdersExelDto } from '../module/listOrdersExel.dto';
@@ -12,10 +11,17 @@ import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
 import { Group_nameDto } from '../module/group_name.dto';
 import { GroupResDto } from '../module/groupRes.dto';
 import { GroupOrdersDto } from '../module/groupOrders.dto';
+import { AuthResDto } from '../module/authRes.dto';
+
+// axiosInstance.interceptors.request.use(request => {
+//   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
+//     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').access);
+//   return request;
+// });
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
-    request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').access);
+    request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthResDto>('tokenPair').tokens.accessToken);
   return request;
 });
 

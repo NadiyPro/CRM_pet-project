@@ -1,5 +1,4 @@
 import { axiosInstance } from './auth.service';
-import { AuthTokenDto } from '../module/authToken.dto';
 import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { OrdersStatisticManagerDto } from '../module/ordersStatisticManager.dto';
 import { OrdersStatisticAllDto } from '../module/ordersStatisticAll.dto';
@@ -10,11 +9,17 @@ import { AuthUserDto } from '../module/authUser.dto';
 import { BaseUsersDto } from '../module/baseUsers.dto';
 import { GiveRoleDto } from '../module/giveRole.dto';
 
+// axiosInstance.interceptors.request.use(request => {
+//   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
+//     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').access)
+//   return request;
+//   });
+
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
-    request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').access)
+    request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthResDto>('tokenPair').tokens.accessToken);
   return request;
-  });
+});
 
 const adminService = {
   ordersStatisticAll: async (): Promise<OrdersStatisticAllDto> => {

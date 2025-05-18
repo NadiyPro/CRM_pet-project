@@ -7,7 +7,7 @@ import { authAction } from '../redux/slices/authSlice';
 
 const AuthPasswordPage = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
-  const {refresh} = useAppSelector((state) => state.adminStore.authTokens.tokens)
+  const {refreshToken} = useAppSelector((state) => state.adminStore.authTokens.tokens)
   const {loadingPassword, errorPassword} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch()
 
@@ -21,7 +21,7 @@ const AuthPasswordPage = () => {
   }
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
-    await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, refresh })).unwrap();
+    await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, refreshToken })).unwrap();
     reset();
   };
 

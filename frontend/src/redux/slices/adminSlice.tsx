@@ -49,8 +49,8 @@ const initialState : AdminSliceInterface = {
   },
   authTokens: {
     tokens: {
-      access:	'',
-      refresh: '',
+      accessToken:	'',
+      refreshToken: '',
     },
     user: {
       id: '',
@@ -131,8 +131,8 @@ export const adminSlice = createSlice({
       )
       .addCase(
         loadActivateUser.fulfilled, (state, action) => {
-          state.authTokens.tokens.access = action.payload.tokens.access;
-          state.authTokens.tokens.refresh = action.payload.tokens.refresh;
+          state.authTokens.tokens.accessToken = action.payload.tokens.accessToken;
+          state.authTokens.tokens.refreshToken = action.payload.tokens.refreshToken;
           state.authTokens.user = action.payload.user;
         }
       )
