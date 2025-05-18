@@ -4,11 +4,13 @@ import { GiveRoleDto } from '../../module/giveRole.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import giveRoleValidator from '../../validator/giveRole.validator';
 import { adminAction } from '../../redux/slices/adminSlice';
+// import { useNavigate } from 'react-router-dom';
 
 const GiveRoleComponent = () => {
   const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
   const {statusGiveRole, isGiveRoleModalOpen } = useAppSelector((state) => state.adminStore)
   const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
 
   const handleRole = (dtoRole:GiveRoleDto) => {
     dispatch(adminAction.loadGiveRole(dtoRole));

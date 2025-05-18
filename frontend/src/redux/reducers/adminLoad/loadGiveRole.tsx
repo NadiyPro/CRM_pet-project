@@ -9,7 +9,7 @@ const loadGiveRole = createAsyncThunk(
   async (dtoRole:GiveRoleDto, thunkAPI) => {
     try {
       const response = await adminService.giveRole(dtoRole);
-      thunkAPI.dispatch(adminAction.setStatusGiveRole('Роль успішно видана. Користувачу відправлене на email посилання для активації паролю'));
+      thunkAPI.dispatch(adminAction.setStatusGiveRole('Роль успішно видана (можете активувати користувача)'));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
       }, 10000)
