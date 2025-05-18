@@ -15,12 +15,6 @@ axiosInstance.interceptors.request.use(request => {
   return request;
 });
 
-// axiosInstance.interceptors.request.use(request => {
-//   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
-//     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').accessToken);
-//   return request;
-// });
-
 const authService = {
   authLogin: async (dto: AuthLoginDto): Promise<boolean> => {
     const response = await axiosInstance.post<AuthResDto>('/auth/login', dto);

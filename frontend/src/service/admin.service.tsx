@@ -9,12 +9,6 @@ import { AuthUserDto } from '../module/authUser.dto';
 import { BaseUsersDto } from '../module/baseUsers.dto';
 import { GiveRoleDto } from '../module/giveRole.dto';
 
-// axiosInstance.interceptors.request.use(request => {
-//   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
-//     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthTokenDto>('tokenPair').access)
-//   return request;
-//   });
-
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthResDto>('tokenPair').tokens.accessToken);
