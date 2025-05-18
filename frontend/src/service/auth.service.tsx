@@ -21,16 +21,6 @@ const authService = {
     localStorage.setItem('tokenPair', JSON.stringify(response.data));
     return !!(response?.data?.tokens.accessToken && response?.data?.tokens.refreshToken);
   },
-  // authLogin: async (dto: AuthLoginDto): Promise<boolean> => {
-  //   const response = await axiosInstance.post<AuthTokenDto>('/auth/login', dto);
-  //   localStorage.setItem('tokenPair', JSON.stringify(response.data));
-  //   return !!(response?.data?.access && response?.data?.refresh);
-  // },
-  // refresh: async () => {
-  //   const refreshToken = retrieveLocalStorage<AuthResDto>('tokenPair').tokens.refreshToken;
-  //   const response = await axiosInstance.post<AuthResDto>('/auth/refresh', {refreshToken:refreshToken})
-  //   localStorage.setItem('tokenPair', JSON.stringify(response.data.tokens))
-  // },
   refresh: async () => {
     const refreshToken = retrieveLocalStorage<AuthTokenDto>('tokenPair').refreshToken;
     const response = await axiosInstance.post<AuthTokenDto>('/auth/refresh', {refreshToken:refreshToken})
@@ -45,10 +35,6 @@ const authService = {
     const response = await axiosInstance.post<AuthResDto>(`/auth/activate/${refreshToken}`, authPasswordDto);
     return !!(response?.data?.tokens.accessToken && response?.data?.tokens.refreshToken);
   }
-//   activatePassword: async (refreshToken: string, authPasswordDto: AuthPasswordDto): Promise<boolean> => {
-//     const response = await axiosInstance.post<AuthTokenDto>(`/auth/activate/${refreshToken}`, authPasswordDto);
-//     return !!(response?.data?.accessToken && response?.data?.refreshToken);
-// }
 }
 
 export {
