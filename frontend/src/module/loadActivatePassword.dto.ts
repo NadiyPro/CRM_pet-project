@@ -1,6 +1,6 @@
 import { AuthPasswordDto } from './authPassword.dto';
 
 export interface LoadActivatePasswordDto {
-  refreshToken: string;
+  token: string;
   authPasswordDto: AuthPasswordDto;
 }
