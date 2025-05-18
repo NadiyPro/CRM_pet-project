@@ -6,6 +6,7 @@ import { loadActivatePassword } from '../reducers/authLoad/loadActivatePassword'
 
 interface AuthSliceInterface {
   isValid: boolean;
+  isValidPassword: boolean;
   dto: AuthLoginDto;
   loadingLogin: boolean;
   loadingPassword: boolean;
@@ -15,6 +16,7 @@ interface AuthSliceInterface {
 
 const initialState: AuthSliceInterface = {
   isValid: false,
+  isValidPassword: false,
   dto:{
     email: '',
     password: '',
@@ -58,7 +60,7 @@ export const authSlice = createSlice({
       )
       .addCase(
         loadActivatePassword.fulfilled, (state, action) => {
-          state.isValid = action.payload;
+          state.isValidPassword = action.payload;
           state.loadingPassword = false;
           state.errorPassword = null;
         })
