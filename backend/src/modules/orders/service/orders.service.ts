@@ -45,34 +45,18 @@ export class OrdersService {
     return await this.ordersRepository.ordersStatisticAll();
   }
 
-  public async ordersStatisticManager(
-    managerId: string,
-  ): Promise<OrdersStatisticResDto> {
-    const statisticAll =
-      await this.ordersRepository.ordersStatisticManager(managerId);
-    return {
-      manager: statisticAll.manager || null,
-      total: Number(statisticAll.total) || null,
-      In_work: Number(statisticAll.In_work) || null,
-      New: Number(statisticAll.New) || null,
-      Aggre: Number(statisticAll.Aggre) || null,
-      Disaggre: Number(statisticAll.Disaggre) || null,
-      Dubbing: Number(statisticAll.Dubbing) || null,
-    };
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    const statisticAll = await this.ordersRepository.ordersStatisticManager();
+    return statisticAll.map((item) => ({
+      manager: item.manager || null,
+      total: Number(item.total) || null,
+      In_work: Number(item.In_work) || null,
+      New: Number(item.New) || null,
+      Aggre: Number(item.Aggre) || null,
+      Disaggre: Number(item.Disaggre) || null,
+      Dubbing: Number(item.Dubbing) || null,
+    }));
   }
-
-  // public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
-  //   const statisticAll = await this.ordersRepository.ordersStatisticManager();
-  //   return statisticAll.map((item) => ({
-  //     manager: item.manager || null,
-  //     total: Number(item.total) || null,
-  //     In_work: Number(item.In_work) || null,
-  //     New: Number(item.New) || null,
-  //     Aggre: Number(item.Aggre) || null,
-  //     Disaggre: Number(item.Disaggre) || null,
-  //     Dubbing: Number(item.Dubbing) || null,
-  //   }));
-  // }
 
   public async createOrder(
     userData: IUserData,

@@ -7,7 +7,6 @@ import {
   Get,
   Param,
   ParseIntPipe,
-  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -162,22 +161,6 @@ export class OrdersController {
     return await this.ordersService.ordersStatisticAll();
   }
 
-  // @ApiOperation({
-  //   summary:
-  //     'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
-  //     'по конкретному менеджеру (по id менеджера)',
-  //   description:
-  //     'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
-  //     'по конкретному менеджеру (по id менеджера)',
-  // })
-  // @ApiBearerAuth()
-  // @UseGuards(ApprovedRoleGuard)
-  // @Role([RoleTypeEnum.ADMIN])
-  // @Get('ordersStatisticManager')
-  // public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
-  //   return await this.ordersService.ordersStatisticManager();
-  // }
-
   @ApiOperation({
     summary:
       'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
@@ -189,12 +172,28 @@ export class OrdersController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN])
-  @Get('ordersStatisticManager/:managerId')
-  public async ordersStatisticManager(
-    @Param('managerId', ParseUUIDPipe) managerId: string,
-  ): Promise<OrdersStatisticResDto> {
-    return await this.ordersService.ordersStatisticManager(managerId);
+  @Get('ordersStatisticManager')
+  public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
+    return await this.ordersService.ordersStatisticManager();
   }
+
+  // @ApiOperation({
+  //   summary:
+  //     'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+  //     'по конкретному менеджеру (по id менеджера)',
+  //   description:
+  //     'Admin може переглядати статистику по всім заявам в розрізі статусів ' +
+  //     'по конкретному менеджеру (по id менеджера)',
+  // })
+  // @ApiBearerAuth()
+  // @UseGuards(ApprovedRoleGuard)
+  // @Role([RoleTypeEnum.ADMIN])
+  // @Get('ordersStatisticManager/:managerId')
+  // public async ordersStatisticManager(
+  //   @Param('managerId', ParseUUIDPipe) managerId: string,
+  // ): Promise<OrdersStatisticResDto> {
+  //   return await this.ordersService.ordersStatisticManager(managerId);
+  // }
 
   @ApiOperation({
     summary: 'Для додавання group до order',
