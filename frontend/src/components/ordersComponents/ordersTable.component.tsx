@@ -27,12 +27,6 @@ const OrdersTableComponent = () => {
     }
   };
 
-  // const handleMessagesOrderId = (orderId: number) => {
-  //   dispatch(orderAction.setOpenMessagesOrderId());
-  //   dispatch(orderAction.loadMessagesOrderId(orderId));
-  //   dispatch(orderAction.loadFindOneOrder(orderId))
-  // }
-
   const handleMessagesOrderId = (orderId: number) => {
     dispatch(orderAction.setOpenMessagesOrderId(orderId));
     dispatch(orderAction.loadMessagesOrderId(orderId));
