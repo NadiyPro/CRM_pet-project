@@ -15,9 +15,18 @@ const MessagesOrderIdComponent = () => {
     if(findOneOrder.id !== null){
       const orderId = findOneOrder.id;
       dispatch(orderAction.loadCreateMessage({orderId, dataMessage }))
+        .unwrap()
+        .then(() => {
+          dispatch(orderAction.loadMessagesOrderId(orderId));
       reset();
+    });
     }
-    }
+    };
+
+    // useEffect(() => {
+    //   const orderId = findOneOrder.id;
+    //   dispatch(orderAction.loadMessagesOrderId(orderId));
+    // }, [dispatch, orderId])
 
     const handleEditOrder = () => {
       dispatch(orderAction.setOpenEditOrderModal())
@@ -26,6 +35,7 @@ const MessagesOrderIdComponent = () => {
   return(
     <div>
       <div>
+        <p>id: {findOneOrder.id}</p>
         <p>UTM: {findOneOrder.utm}</p>
         <p>Msg: {findOneOrder.msg}</p>
       </div>
@@ -42,7 +52,13 @@ const MessagesOrderIdComponent = () => {
         <button onClick={handleEditOrder}>EDIT</button>
       </div>
       {isEditOrder &&
-        <div>
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0,
+          width: '100vw', height: '100vh',
+          background: 'rgba(0,0,0,0.5)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          zIndex: 9999}}>
           <EditOrderComponent/>
         </div>
       }

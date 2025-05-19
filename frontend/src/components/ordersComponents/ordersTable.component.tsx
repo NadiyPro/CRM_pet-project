@@ -1,3 +1,4 @@
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { orderAction } from '../../redux/slices/orderSlice';
@@ -26,17 +27,18 @@ const OrdersTableComponent = () => {
     }
   };
 
+  // const handleMessagesOrderId = (orderId: number) => {
+  //   dispatch(orderAction.setOpenMessagesOrderId());
+  //   dispatch(orderAction.loadMessagesOrderId(orderId));
+  //   dispatch(orderAction.loadFindOneOrder(orderId))
+  // }
+
   const handleMessagesOrderId = (orderId: number) => {
-    dispatch(orderAction.setOpenMessagesOrderId());
+    dispatch(orderAction.setOpenMessagesOrderId(orderId));
     dispatch(orderAction.loadMessagesOrderId(orderId));
     dispatch(orderAction.loadFindOneOrder(orderId))
   }
 
-  // const handleCloseMessagesOrderId = (event:MouseEvent) => {
-  //   if(messageClose.current && !messageClose.current.contains(event.target as Node)){
-  //     dispatch(orderAction.setCloseMessagesOrderId());
-  //   }
-  // }
   const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
     if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
       dispatch(orderAction.setCloseMessagesOrderId());
@@ -75,6 +77,7 @@ const OrdersTableComponent = () => {
         </thead>
         <tbody>
         {orders.map((value: BaseOrdersDto) => (
+          <React.Fragment key={value.id}>
           <tr key={value.id} onClick={() => value.id !== null && handleMessagesOrderId(value.id)}>
             <td>{value.id}</td>
             <td>{value.name}</td>
@@ -92,7 +95,6 @@ const OrdersTableComponent = () => {
             <td>{value.group_name}</td>
             <td>{value.manager}</td>
           </tr>
-        ))}
         {
           isMessagesOrderId && (
             <tr ref={messageClose}>
@@ -102,6 +104,8 @@ const OrdersTableComponent = () => {
             </tr>
           )
         }
+      </React.Fragment>
+        ))}
         </tbody>
       </table>
     </div>

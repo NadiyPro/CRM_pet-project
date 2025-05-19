@@ -16,7 +16,8 @@ import { loadGiveRole } from '../reducers/adminLoad/loadGiveRole';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
-  ordersStatisticManager: Record<string, OrdersStatisticManagerDto>,
+  ordersStatisticManager: OrdersStatisticManagerDto[],
+  // ordersStatisticManager: Record<string, OrdersStatisticManagerDto>,
   dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
@@ -38,7 +39,8 @@ const initialState : AdminSliceInterface = {
     Disaggre: null,
     Dubbing: null,
   },
-  ordersStatisticManager: {},
+  ordersStatisticManager: [],
+  // ordersStatisticManager: {},
   dto: {
     limit: 10,
     page: 1,
@@ -121,10 +123,13 @@ export const adminSlice = createSlice({
         }
       )
       .addCase(loadOrdersStatisticManager.fulfilled, (state, action) => {
-        const managerId = action.meta.arg;
-        // action.meta.arg - зберігаємо аргумент id, який я передала в createAsyncThunk
-        state.ordersStatisticManager[managerId] = action.payload;
+        state.ordersStatisticManager = action.payload;
       })
+      // .addCase(loadOrdersStatisticManager.fulfilled, (state, action) => {
+      //   const managerId = action.meta.arg;
+      //   // action.meta.arg - зберігаємо аргумент id, який я передала в createAsyncThunk
+      //   state.ordersStatisticManager[managerId] = action.payload;
+      // })
       .addCase(loadOrdersStatisticManager.rejected, (state, action) => {
           console.error('Помилка завантаження статистики по менеджеру:', action.payload);
         }

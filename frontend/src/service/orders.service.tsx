@@ -25,8 +25,12 @@ const orderService = {
       return response.data;
     },
   ordersExel: async (dto: Partial<ListOrdersExelDto>): Promise<void> => {
+    const cleanedParams = Object.fromEntries(
+      Object.entries(dto).filter(([, v]) => v !== undefined && v !== null && v !== '')
+    );
+
     const response = await axiosInstance.get('/orders/export', {
-      params: dto,
+      params: cleanedParams,
       responseType: 'blob',
     });
 
@@ -37,7 +41,7 @@ const orderService = {
     document.body.appendChild(link);
     link.click();
     link.remove();
-    URL.revokeObjectURL(url)
+    URL.revokeObjectURL(url);
   },
   findOneOrder: async (orderId: number): Promise<BaseOrdersDto> => {
     const response = await axiosInstance.get(`/orders/${orderId}`);

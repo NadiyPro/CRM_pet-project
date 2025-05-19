@@ -4,9 +4,9 @@ import { AxiosError } from 'axios';
 
 const loadOrdersStatisticManager = createAsyncThunk(
   'ordersStatisticManager',
-  async (managerId: string, thunkAPI)=> {
+  async (_, thunkAPI)=> {
     try {
-      const response = adminService.ordersStatisticManager(managerId);
+      const response =  await adminService.ordersStatisticManager();
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;

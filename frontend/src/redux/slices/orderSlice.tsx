@@ -36,7 +36,8 @@ interface OrderSliceInterface {
   allGroup: GroupResDto[] | null;
   addGroup: GroupOrdersDto,
   isAddGroupState: boolean;
-  isDefaultGroupState: boolean
+  isDefaultGroupState: boolean;
+  openedMessageOrderId: number | null;
 }
 
 const initialState: OrderSliceInterface = {
@@ -46,6 +47,21 @@ const initialState: OrderSliceInterface = {
     total: 0,
   },
   dto: {
+    name: null,
+    surname: null,
+    email: null,
+    phone: null,
+    age: null,
+    course: null,
+    course_format: null,
+    course_type: null,
+    status: null,
+    sum: null,
+    alreadyPaid: null,
+    created_at: '',
+    manager: null,
+    group_id:  null,
+    group_name: null,
     limit: 25,
     page: 1,
     sortField: SortFieldEnum.CREATED_AT,
@@ -119,7 +135,8 @@ const initialState: OrderSliceInterface = {
     group_name: null,
   },
   isAddGroupState: false,
-  isDefaultGroupState: true
+  isDefaultGroupState: true,
+  openedMessageOrderId: null
 };
 
 export const orderSlice = createSlice({
@@ -150,10 +167,13 @@ export const orderSlice = createSlice({
     setExportSuccess(state, action: PayloadAction<string>) {
       state.exportSuccess = action.payload;
     },
-    setOpenMessagesOrderId(state){
-      state.isMessagesOrderId = true;
+    setOpenMessagesOrderId(state, action: PayloadAction<number>){
+      state.openedMessageOrderId = action.payload;
+      // зберігаємо на яку id заявки клікнули, щоб під нею відкрити рядок для коментаря
+      state.isMessagesOrderId = true; // відкрити
     },
     setCloseMessagesOrderId(state){
+      state.openedMessageOrderId = null;
       state.isMessagesOrderId = false;
     },
     setOpenEditOrderModal(state){
@@ -165,6 +185,13 @@ export const orderSlice = createSlice({
     setAddGroupState(state, action: PayloadAction<boolean>){
       state.isAddGroupState = action.payload;
       state.isDefaultGroupState = !action.payload;
+    },
+    setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
+      // state.dto = action.payload;
+      state.dto = {
+        ...state.dto,
+        ...action.payload,
+      };
     }
   },
   extraReducers: (builder) => {

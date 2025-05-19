@@ -56,7 +56,13 @@ const EditOrderComponent = () => {
   };
 
     return (
-      <div>
+      <div style={{
+        background: '#fff',
+        padding: '20px',
+        borderRadius: '8px',
+        width: '800px',
+        boxShadow: '0 0 10px rgba(0,0,0,0.25)'
+      }}>
         {isDefaultGroupState && (
           <form id={'createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
             <label htmlFor={'group_name'}>Group</label>
