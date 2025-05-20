@@ -5,10 +5,12 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import createMessageValidator from '../../validator/createMessage.validator';
 import { CreateMessageDto } from '../../module/createMessage.dto';
 import EditOrderComponent from './editOrderComponent';
+import { useCallback, useEffect, useRef } from 'react';
 
 const MessagesOrderIdComponent = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
-  const { messagesOrderId, findOneOrder, isEditOrder } = useAppSelector((state) => state.orderStore);
+  const { messagesOrderId, findOneOrder, isEditOrder, openedMessageOrderId } = useAppSelector((state) => state.orderStore);
+  const messageClose = useRef<HTMLTableRowElement | null>(null);
   const dispatch = useAppDispatch();
 
     const handleCreateMessage = (dataMessage: CreateMessageDto ) => {
@@ -23,6 +25,24 @@ const MessagesOrderIdComponent = () => {
     }
     };
 
+
+  const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
+    if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
+      dispatch(orderAction.setCloseMessagesOrderId());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (openedMessageOrderId !== null) {
+      document.addEventListener('mousedown', handleCloseMessagesOrderId);
+    } else {
+      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+    };
+  }, [handleCloseMessagesOrderId, openedMessageOrderId]);
+
     // useEffect(() => {
     //   const orderId = findOneOrder.id;
     //   dispatch(orderAction.loadMessagesOrderId(orderId));
@@ -33,14 +53,15 @@ const MessagesOrderIdComponent = () => {
     }
 
   return(
-    <div>
+    <div ref={messageClose}>
       <div>
         <p>id: {findOneOrder.id}</p>
         <p>UTM: {findOneOrder.utm}</p>
         <p>Msg: {findOneOrder.msg}</p>
       </div>
       <div>
-        {messagesOrderId.map(value => <div>
+        {messagesOrderId.map(value =>
+          <div key={value.id}>
           <div>{value.messages}</div>
           <div>{value.manager} {value.created_at}</div>
         </div>)}

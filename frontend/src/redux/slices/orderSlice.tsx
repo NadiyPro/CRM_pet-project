@@ -29,7 +29,7 @@ interface OrderSliceInterface {
   exportSuccess: string;
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
-  isMessagesOrderId: boolean;
+  // isMessagesOrderId: boolean;
   isEditOrder: boolean;
   editOrder: UpdateOrdersResDto,
   createGroup: GroupResDto,
@@ -100,7 +100,7 @@ const initialState: OrderSliceInterface = {
     manager: null,
     created_at: '',
   },
-  isMessagesOrderId: false,
+  // isMessagesOrderId: false,
   isEditOrder: false,
   editOrder:{
     id: null,
@@ -170,11 +170,11 @@ export const orderSlice = createSlice({
     setOpenMessagesOrderId(state, action: PayloadAction<number>){
       state.openedMessageOrderId = action.payload;
       // зберігаємо на яку id заявки клікнули, щоб під нею відкрити рядок для коментаря
-      state.isMessagesOrderId = true; // відкрити
+      // state.isMessagesOrderId = true; // відкрити
     },
     setCloseMessagesOrderId(state){
       state.openedMessageOrderId = null;
-      state.isMessagesOrderId = false;
+      // state.isMessagesOrderId = false;
     },
     setOpenEditOrderModal(state){
       state.isEditOrder = true;
@@ -187,12 +187,27 @@ export const orderSlice = createSlice({
       state.isDefaultGroupState = !action.payload;
     },
     setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
-      // state.dto = action.payload;
+      const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page');
+      // Object.keys приймає об'єкт і повертає масив ключів (name, email, page і т.п)
+      // витягує список змінених полів, які ми передаємо в setDto
+      // .some(...) перевіряє, чи серед цих полів є хоч одне, що не дорівнює 'page'
+
       state.dto = {
         ...state.dto,
-        ...action.payload,
+        ...action.payload, // оновлюємо лише передані поля
+        page: isNotPageUpdate ? 1 : action.payload.page ?? state.dto.page,
+        // якщо ми змінили фільтри (наприклад name чи course), то скидаємо page на 1
+        // якщо змінилась лише page — лишаємо її як є
       };
-    }
+    } // зберігати у state ті значення, які ми використовуємо для запиту
+
+  //   setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
+  //     // state.dto = action.payload;
+  //     state.dto = {
+  //       ...state.dto,
+  //       ...action.payload,
+  //     };
+  //   }
   },
   extraReducers: (builder) => {
     builder

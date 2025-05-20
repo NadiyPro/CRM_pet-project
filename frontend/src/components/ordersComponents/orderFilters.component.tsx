@@ -7,7 +7,6 @@ import { CourseEnum } from '../../module/enums/courseEnum';
 import { StatusEnum } from '../../module/enums/statusEnum';
 import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
-import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
@@ -25,14 +24,15 @@ const OrdersFiltersComponent = () => {
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
-    dispatch(orderAction.setPage(1));
-    dispatch(orderAction.loadOrdersAll({
-      limit: 25,
-      page: 1,
-      sortField: SortFieldEnum.CREATED_AT,
-      sortASCOrDESC: SortASCOrDESCEnum.DESC,
-      me: false,
-    }));
+    // dispatch(orderAction.resetFilter());
+    // dispatch(orderAction.setPage(1));
+    // dispatch(orderAction.loadOrdersAll({
+    //   limit: 25,
+    //   page: 1,
+    //   sortField: SortFieldEnum.CREATED_AT,
+    //   sortASCOrDESC: SortASCOrDESCEnum.DESC,
+    //   me: false,
+    // }));
   };
 
   const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {

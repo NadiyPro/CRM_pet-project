@@ -5,12 +5,11 @@ import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
 import MessagesOrderIdComponent from './messagesOrderId.component';
-import { useCallback, useEffect, useRef } from 'react';
 
 const OrdersTableComponent = () => {
-  const {data: { orders }, dto, isMessagesOrderId } = useAppSelector((state) => state.orderStore);
+  const {data: { orders }, dto, openedMessageOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  const messageClose = useRef<HTMLTableRowElement | null>(null);
+  // const messageClose = useRef<HTMLTableRowElement | null>(null);
 
   const handleSubmit = (field: SortFieldEnum) => {
     // Якщо клікаємо на те саме поле, міняємо напрямок сортування
@@ -33,24 +32,35 @@ const OrdersTableComponent = () => {
     dispatch(orderAction.loadFindOneOrder(orderId))
   }
 
-  const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
-    if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
-      dispatch(orderAction.setCloseMessagesOrderId());
-    }
-  }, [dispatch]);
+  // const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
+  //   if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
+  //     dispatch(orderAction.setCloseMessagesOrderId());
+  //   }
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if(isMessagesOrderId){
-      // додаємо обробника подій до елемента на сторінці (isMessagesOrderId=true)
-      document.addEventListener('mousedown',handleCloseMessagesOrderId)
-    } else {
-      document.removeEventListener('mousedown',handleCloseMessagesOrderId)
-    } // (isMessagesOrderId=false) видаляє обробник події, який раніше встановили через addEventListener
-    return () =>{
-      document.removeEventListener('mousedown',handleCloseMessagesOrderId)
-    } // спрацьовує перед оновленням ефекту (страховка), щоб завжди прибрати слухача,
-    // навіть якщо ми спіймали баг і в нас true змінилось на true
-  }, [handleCloseMessagesOrderId, isMessagesOrderId])
+  // useEffect(() => {
+  //   if (openedMessageOrderId !== null) {
+  //     document.addEventListener('mousedown', handleCloseMessagesOrderId);
+  //   } else {
+  //     document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+  //   }
+  //   return () => {
+  //     document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+  //   };
+  // }, [handleCloseMessagesOrderId, openedMessageOrderId]);
+
+  // useEffect(() => {
+  //   if(isMessagesOrderId){
+  //     // додаємо обробника подій до елемента на сторінці (isMessagesOrderId=true)
+  //     document.addEventListener('mousedown',handleCloseMessagesOrderId)
+  //   } else {
+  //     document.removeEventListener('mousedown',handleCloseMessagesOrderId)
+  //   } // (isMessagesOrderId=false) видаляє обробник події, який раніше встановили через addEventListener
+  //   return () =>{
+  //     document.removeEventListener('mousedown',handleCloseMessagesOrderId)
+  //   } // спрацьовує перед оновленням ефекту (страховка), щоб завжди прибрати слухача,
+  //   // навіть якщо ми спіймали баг і в нас true змінилось на true
+  // }, [handleCloseMessagesOrderId, isMessagesOrderId])
 
   return (
     <div>
@@ -89,15 +99,24 @@ const OrdersTableComponent = () => {
             <td>{value.group_name}</td>
             <td>{value.manager}</td>
           </tr>
-        {
-          isMessagesOrderId && (
-            <tr ref={messageClose}>
-              <td colSpan={15}>
-                <MessagesOrderIdComponent />
-              </td>
-            </tr>
-          )
-        }
+            {
+              openedMessageOrderId === value.id && (
+                <tr>
+                  <td colSpan={15}>
+                    <MessagesOrderIdComponent />
+                  </td>
+                </tr>
+              )
+            }
+        {/*{*/}
+        {/*  isMessagesOrderId && (*/}
+        {/*    <tr ref={messageClose}>*/}
+        {/*      <td colSpan={15}>*/}
+        {/*        <MessagesOrderIdComponent />*/}
+        {/*      </td>*/}
+        {/*    </tr>*/}
+        {/*  )*/}
+        {/*}*/}
       </React.Fragment>
         ))}
         </tbody>
