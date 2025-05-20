@@ -29,10 +29,6 @@ const adminService = {
     console.log(response.data)
     return response.data;
   },
-  // ordersStatisticManager: async (managerId: string): Promise<OrdersStatisticManagerDto> => {
-  //   const response = await axiosInstance.get(`/orders/ordersStatisticManager/${managerId}`);
-  //   return response.data;
-  // },
   activateUser: async (managerId: string): Promise<AuthResDto> => {
     const response = await axiosInstance.get(`/auth/activate/${managerId}`);
     return response.data;

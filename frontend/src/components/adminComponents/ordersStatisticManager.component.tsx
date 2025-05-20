@@ -34,10 +34,6 @@ const OrdersStatisticManager = () => {
     <div>
       {data.users.map((value) => {
         const userStatistic = ordersStatisticManager.find(item => item.manager === value.id);
-        // const userStatistic = Array.isArray(ordersStatisticManager)
-        //   ? ordersStatisticManager.find(item => item.manager === value.id)
-        //   : null;
-        // console.log('ordersStatisticManager:', ordersStatisticManager);
 
         return (
           <div key={value.id}>

@@ -200,14 +200,6 @@ export const orderSlice = createSlice({
         // якщо змінилась лише page — лишаємо її як є
       };
     } // зберігати у state ті значення, які ми використовуємо для запиту
-
-  //   setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
-  //     // state.dto = action.payload;
-  //     state.dto = {
-  //       ...state.dto,
-  //       ...action.payload,
-  //     };
-  //   }
   },
   extraReducers: (builder) => {
     builder

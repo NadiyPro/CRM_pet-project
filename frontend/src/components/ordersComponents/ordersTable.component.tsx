@@ -9,7 +9,6 @@ import MessagesOrderIdComponent from './messagesOrderId.component';
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, openedMessageOrderId } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
-  // const messageClose = useRef<HTMLTableRowElement | null>(null);
 
   const handleSubmit = (field: SortFieldEnum) => {
     // Якщо клікаємо на те саме поле, міняємо напрямок сортування
@@ -31,36 +30,6 @@ const OrdersTableComponent = () => {
     dispatch(orderAction.loadMessagesOrderId(orderId));
     dispatch(orderAction.loadFindOneOrder(orderId))
   }
-
-  // const handleCloseMessagesOrderId = useCallback((event: MouseEvent) => {
-  //   if (messageClose.current && !messageClose.current.contains(event.target as Node)) {
-  //     dispatch(orderAction.setCloseMessagesOrderId());
-  //   }
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   if (openedMessageOrderId !== null) {
-  //     document.addEventListener('mousedown', handleCloseMessagesOrderId);
-  //   } else {
-  //     document.removeEventListener('mousedown', handleCloseMessagesOrderId);
-  //   }
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleCloseMessagesOrderId);
-  //   };
-  // }, [handleCloseMessagesOrderId, openedMessageOrderId]);
-
-  // useEffect(() => {
-  //   if(isMessagesOrderId){
-  //     // додаємо обробника подій до елемента на сторінці (isMessagesOrderId=true)
-  //     document.addEventListener('mousedown',handleCloseMessagesOrderId)
-  //   } else {
-  //     document.removeEventListener('mousedown',handleCloseMessagesOrderId)
-  //   } // (isMessagesOrderId=false) видаляє обробник події, який раніше встановили через addEventListener
-  //   return () =>{
-  //     document.removeEventListener('mousedown',handleCloseMessagesOrderId)
-  //   } // спрацьовує перед оновленням ефекту (страховка), щоб завжди прибрати слухача,
-  //   // навіть якщо ми спіймали баг і в нас true змінилось на true
-  // }, [handleCloseMessagesOrderId, isMessagesOrderId])
 
   return (
     <div>
@@ -108,15 +77,6 @@ const OrdersTableComponent = () => {
                 </tr>
               )
             }
-        {/*{*/}
-        {/*  isMessagesOrderId && (*/}
-        {/*    <tr ref={messageClose}>*/}
-        {/*      <td colSpan={15}>*/}
-        {/*        <MessagesOrderIdComponent />*/}
-        {/*      </td>*/}
-        {/*    </tr>*/}
-        {/*  )*/}
-        {/*}*/}
       </React.Fragment>
         ))}
         </tbody>
