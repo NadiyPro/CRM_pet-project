@@ -154,6 +154,7 @@ export const orderSlice = createSlice({
     },
     setMe(state, action: PayloadAction<boolean>) {
       state.dto.me = action.payload;
+      state.dto.page = 1;
     },
     resetFilter(state) {
       state.dto = {
@@ -195,7 +196,8 @@ export const orderSlice = createSlice({
       state.dto = {
         ...state.dto,
         ...action.payload, // оновлюємо лише передані поля
-        page: isNotPageUpdate ? 1 : action.payload.page ?? state.dto.page,
+        ...(isNotPageUpdate ? { page: 1 } : {})
+        // page: isNotPageUpdate ? 1 : action.payload.page ?? state.dto.page,
         // якщо ми змінили фільтри (наприклад name чи course), то скидаємо page на 1
         // якщо змінилась лише page — лишаємо її як є
       };

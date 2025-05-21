@@ -24,15 +24,6 @@ const OrdersFiltersComponent = () => {
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
-    // dispatch(orderAction.resetFilter());
-    // dispatch(orderAction.setPage(1));
-    // dispatch(orderAction.loadOrdersAll({
-    //   limit: 25,
-    //   page: 1,
-    //   sortField: SortFieldEnum.CREATED_AT,
-    //   sortASCOrDESC: SortASCOrDESCEnum.DESC,
-    //   me: false,
-    // }));
   };
 
   const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
