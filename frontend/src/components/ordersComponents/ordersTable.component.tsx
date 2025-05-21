@@ -1,4 +1,7 @@
 import React from 'react';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { orderAction } from '../../redux/slices/orderSlice';
@@ -65,7 +68,7 @@ const OrdersTableComponent = () => {
             <td>{value.status}</td>
             <td>{value.sum}</td>
             <td>{value.alreadyPaid}</td>
-            <td>{value.created_at}</td>
+            <td>{value.created_at ? dayjs.utc(value.created_at).format('DD.MM.YYYY') : ''}</td>
             <td>{value.group_name}</td>
             <td>{value.manager}</td>
           </tr>

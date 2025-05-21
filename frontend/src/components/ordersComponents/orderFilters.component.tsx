@@ -1,4 +1,7 @@
 import React from 'react';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -16,11 +19,22 @@ const OrdersFiltersComponent = () => {
     const value = e.target.value;
     const updatedDto = {
       ...dto,
-      [field]: value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
+      [field]: field === SortFieldEnum.CREATED_AT && value
+        ? dayjs.utc(value).format('DD.MM.YYYY')
+        : value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
     };
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };
+  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
+  //   const value = e.target.value;
+  //   const updatedDto = {
+  //     ...dto,
+  //     [field]: value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
+  //   };
+  //   dispatch(orderAction.setDto(updatedDto));
+  //   dispatch(orderAction.loadOrdersAll(updatedDto));
+  // };
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
@@ -72,7 +86,7 @@ const OrdersFiltersComponent = () => {
 
         <input
           type="text" name={SortFieldEnum.CREATED_AT}
-          value={dto.created_at ?? ''}
+          value={dto.created_at ? dayjs.utc(dto.created_at).format('DD.MM.YYYY') : ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
           placeholder="Created_at"
         />

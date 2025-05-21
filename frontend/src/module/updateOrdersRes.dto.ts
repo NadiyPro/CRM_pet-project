@@ -18,7 +18,7 @@ export interface UpdateOrdersResDto {
   status: StatusEnum | null;
   sum: number | null;
   alreadyPaid: number | null;
-  created_at: string;
+  created_at: string | null;
   updated_at?: string | null;
   manager: UserDto | null;
   group_id: number | null;

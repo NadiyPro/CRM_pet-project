@@ -17,7 +17,7 @@ export interface BaseOrdersResDto {
   status: StatusEnum | null;
   sum: number | null;
   alreadyPaid: number | null;
-  created_at: Date;
+  created_at: Date | null;
   updated_at: Date | null;
   manager: string | null;
   group_id: number | null;

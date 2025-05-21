@@ -3,5 +3,5 @@ export interface MessageResDto {
   messages: string;
   orderId: number;
   manager: string | null;
-  created_at: string;
+  created_at: string | null;
 }

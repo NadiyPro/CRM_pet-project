@@ -43,7 +43,14 @@ const EditOrderComponent = () => {
   }
 
   const handleCreateGroupState = (group_name: Group_nameDto) => {
+    const isDuplicate = allGroup?.some(group => group.group_name === group_name.group_name);
+    if (isDuplicate) {
+      alert('Група з такою назвою вже існує');
+      return;
+    }
+
     dispatch(orderAction.loadCreateGroup(group_name));
+    dispatch(orderAction.loadAllGroup())
     dispatch(orderAction.setAddGroupState(true));
     resetCreateGroup();
   };
@@ -59,8 +66,9 @@ const EditOrderComponent = () => {
       <div style={{
         background: '#fff',
         padding: '20px',
+        margin: '10px',
         borderRadius: '8px',
-        width: '800px',
+        width: '500px',
         boxShadow: '0 0 10px rgba(0,0,0,0.25)'
       }}>
         {isDefaultGroupState && (
@@ -76,6 +84,7 @@ const EditOrderComponent = () => {
                 SUBMIT
               </button>
             </div>
+            {/*{ isValidCreateGroup && <p>Група успішно створена</p>}*/}
           </form>
         )}
 

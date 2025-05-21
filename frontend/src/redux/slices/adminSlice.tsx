@@ -32,14 +32,22 @@ interface AdminSliceInterface {
 
 const initialState : AdminSliceInterface = {
   ordersStatisticAll: {
-    total: null,
-    In_work: null,
-    New: null,
-    Aggre: null,
-    Disaggre: null,
-    Dubbing: null,
+    total: 0,
+    In_work: 0,
+    New: 0,
+    Aggre: 0,
+    Disaggre: 0,
+    Dubbing: 0,
   },
-  ordersStatisticManager: [],
+  ordersStatisticManager: [{
+    manager: '',
+    total: 0,
+    In_work: 0,
+    New: 0,
+    Aggre: 0,
+    Disaggre: 0,
+    Dubbing: 0,
+}],
   // ordersStatisticManager: {},
   dto: {
     limit: 10,
