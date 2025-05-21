@@ -42,7 +42,8 @@ const OrdersTableComponent = () => {
               <th color={'white'} key={field} onClick={() => handleSubmit(field)}>
                 {field}
                 {dto.sortField === field && (
-                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ? <span style={{ color: 'white' }}>&#9660;</span> : <span style={{ color: 'white' }}>&#9650;</span>
+                  dto.sortASCOrDESC === SortASCOrDESCEnum.ASC ?
+                    <span style={{ color: 'white' }}>&#9660;</span> : <span style={{ color: 'white' }}>&#9650;</span>
                 )}
               </th>
             ))}

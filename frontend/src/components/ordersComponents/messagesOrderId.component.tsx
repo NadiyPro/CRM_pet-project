@@ -8,8 +8,10 @@ import EditOrderComponent from './editOrderComponent';
 import { useCallback, useEffect, useRef } from 'react';
 
 const MessagesOrderIdComponent = () => {
-  const {handleSubmit, register, reset, formState: {isValid}} = useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
-  const { messagesOrderId, findOneOrder, isEditOrder, openedMessageOrderId } = useAppSelector((state) => state.orderStore);
+  const {handleSubmit, register, reset, formState: {isValid}} =
+    useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
+  const { messagesOrderId, findOneOrder, isEditOrder, openedMessageOrderId } =
+    useAppSelector((state) => state.orderStore);
   const messageClose = useRef<HTMLTableRowElement | null>(null);
   const dispatch = useAppDispatch();
 
@@ -35,18 +37,16 @@ const MessagesOrderIdComponent = () => {
   useEffect(() => {
     if (openedMessageOrderId !== null) {
       document.addEventListener('mousedown', handleCloseMessagesOrderId);
+      // додавання обробника подій, слідкуємо за кліком мишки
     } else {
       document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+      // прибираємо обробника
     }
     return () => {
       document.removeEventListener('mousedown', handleCloseMessagesOrderId);
+      // видаляємо обробника навіть коли в нас баг і наприклад, айді 5 змінилось на 5
     };
   }, [handleCloseMessagesOrderId, openedMessageOrderId]);
-
-    // useEffect(() => {
-    //   const orderId = findOneOrder.id;
-    //   dispatch(orderAction.loadMessagesOrderId(orderId));
-    // }, [dispatch, orderId])
 
     const handleEditOrder = () => {
       dispatch(orderAction.setOpenEditOrderModal())
