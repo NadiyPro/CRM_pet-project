@@ -70,7 +70,7 @@ export const authSlice = createSlice({
       })
       .addCase(loadActivatePassword.rejected, (state, action) => {
           state.loadingPassword = false;
-          state.errorPassword = 'Помилка при введені паролю для реєстрації / зміни паролю. Будь ласка, перевірте чи збігаються password та confirm_password / и невичерпаний термін дії посилання для реєстрації / зміни паролю.'
+          state.errorPassword = 'Помилка при введені паролю для реєстрації / зміни паролю. Будь ласка, перевірте чи збігаються password та confirm_password / термін дії посилання для реєстрації.'
           console.error('Помилка при введені паролю для реєстрації / зміни паролю:', action.payload);
         }
       )
