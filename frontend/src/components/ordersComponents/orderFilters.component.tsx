@@ -31,12 +31,6 @@ const OrdersFiltersComponent = () => {
       [field]: formatValue,
     };
 
-    // const updatedDto = {
-    //   ...dto,
-    //   [field]: field === SortFieldEnum.CREATED_AT && value
-    //     ? dayjs.utc(value).format('DD.MM.YYYY')
-    //     : value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
-    // };
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };

@@ -29,7 +29,6 @@ interface OrderSliceInterface {
   exportSuccess: string;
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
-  // isMessagesOrderId: boolean;
   isEditOrder: boolean;
   editOrder: UpdateOrdersResDto,
   createGroup: GroupResDto,
@@ -101,7 +100,6 @@ const initialState: OrderSliceInterface = {
     manager: null,
     created_at: null,
   },
-  // isMessagesOrderId: false,
   isEditOrder: false,
   editOrder:{
     id: null,
@@ -173,11 +171,9 @@ export const orderSlice = createSlice({
     setOpenMessagesOrderId(state, action: PayloadAction<number>){
       state.openedMessageOrderId = action.payload;
       // зберігаємо на яку id заявки клікнули, щоб під нею відкрити рядок для коментаря
-      // state.isMessagesOrderId = true; // відкрити
     },
     setCloseMessagesOrderId(state){
       state.openedMessageOrderId = null;
-      // state.isMessagesOrderId = false;
     },
     setOpenEditOrderModal(state){
       state.isEditOrder = true;
@@ -202,7 +198,6 @@ export const orderSlice = createSlice({
         ...state.dto,
         ...action.payload, // оновлюємо лише передані поля
         ...(isNotPageUpdate ? { page: 1 } : {})
-        // page: isNotPageUpdate ? 1 : action.payload.page ?? state.dto.page,
         // якщо ми змінили фільтри (наприклад name чи course), то скидаємо page на 1
         // якщо змінилась лише page — лишаємо її як є
       };
