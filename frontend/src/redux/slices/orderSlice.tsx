@@ -38,6 +38,7 @@ interface OrderSliceInterface {
   isAddGroupState: boolean;
   isDefaultGroupState: boolean;
   openedMessageOrderId: number | null;
+  isCreateGroup: boolean;
 }
 
 const initialState: OrderSliceInterface = {
@@ -66,7 +67,7 @@ const initialState: OrderSliceInterface = {
     page: 1,
     sortField: SortFieldEnum.CREATED_AT,
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
-    me: false,
+    my: false,
   },
   findOneOrder: {
     id: null,
@@ -136,7 +137,8 @@ const initialState: OrderSliceInterface = {
   },
   isAddGroupState: false,
   isDefaultGroupState: true,
-  openedMessageOrderId: null
+  openedMessageOrderId: null,
+  isCreateGroup: false
 };
 
 export const orderSlice = createSlice({
@@ -153,7 +155,7 @@ export const orderSlice = createSlice({
       state.dto.page = action.payload;
     },
     setMe(state, action: PayloadAction<boolean>) {
-      state.dto.me = action.payload;
+      state.dto.my = action.payload;
       state.dto.page = 1;
     },
     resetFilter(state) {
@@ -162,7 +164,7 @@ export const orderSlice = createSlice({
         page: 1,
         sortField: SortFieldEnum.CREATED_AT,
         sortASCOrDESC: SortASCOrDESCEnum.DESC,
-        me: false,
+        my: false,
       };
     },
     setExportSuccess(state, action: PayloadAction<string>) {
@@ -186,6 +188,9 @@ export const orderSlice = createSlice({
     setAddGroupState(state, action: PayloadAction<boolean>){
       state.isAddGroupState = action.payload;
       state.isDefaultGroupState = !action.payload;
+    },
+    setCreateGroup(state, action: PayloadAction<boolean>){
+      state.isCreateGroup =  action.payload;
     },
     setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
       const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page');

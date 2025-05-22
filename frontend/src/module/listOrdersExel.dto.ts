@@ -21,7 +21,9 @@ export interface ListOrdersExelDto {
   manager?: string | null;
   group_id?: number | null;
   group_name?: string | null;
+  created_at_from?: string | null;
+  created_at_to?: string | null;
   sortField?: SortFieldEnum;
   sortASCOrDESC?: SortASCOrDESCEnum;
-  me?: boolean;
+  my?: boolean;
 }

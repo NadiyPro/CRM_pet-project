@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { parse } from 'date-fns';
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
 import { OrdersEntity } from '../../mysql/entities/orders.entity';
 import { ListOrdersQueryReqDto } from '../../../modules/orders/models/dto/req/listOrdersQuery.req.dto';
@@ -24,7 +25,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .leftJoinAndSelect('orders.manager', 'manager')
       .leftJoinAndSelect('orders.messages', 'messages');
 
-    if (query.me) {
+    if (query.my) {
       qb.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
@@ -34,7 +35,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       'page',
       'sortField',
       'sortASCOrDESC',
-      'me',
+      'my',
     ];
 
     const numericFields: (keyof ListOrdersQueryReqDto)[] = [
@@ -51,6 +52,24 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
       const param = `search_${key}`;
       const field = key === 'manager' ? 'manager.surname' : `orders.${key}`;
+
+      if (key === 'created_at_from' || key === 'created_at_to') {
+        if (key === 'created_at_from') {
+          const fromDate = parse(value as string, 'dd.MM.yyyy', new Date());
+          qb.andWhere('orders.created_at >= :created_at_from', {
+            created_at_from: fromDate,
+          });
+          continue;
+        }
+
+        if (key === 'created_at_to') {
+          const toDate = parse(value as string, 'dd.MM.yyyy', new Date());
+          qb.andWhere('orders.created_at <= :created_at_to', {
+            created_at_to: toDate,
+          });
+          continue;
+        }
+      }
 
       if (numericFields.includes(key)) {
         qb.andWhere(`${field} = :${param}`, { [param]: value });
@@ -93,7 +112,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       // доступаюсь до колонки та кажу що буду працювати з таблицею підвязаною до цієї колонки
       .leftJoinAndSelect('orders.messages', 'messages');
 
-    if (query.me) {
+    if (query.my) {
       qbExport.andWhere('manager.id = :userId', { userId: userData.userId });
     }
 
@@ -105,7 +124,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       'page',
       'sortField',
       'sortASCOrDESC',
-      'me',
+      'my',
     ];
 
     const numericFields: (keyof ListOrdersExportReqDto)[] = [
@@ -122,6 +141,24 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
       const param = `search_${key}`;
       const field = key === 'manager' ? 'manager.surname' : `orders.${key}`;
+
+      if (key === 'created_at_from' || key === 'created_at_to') {
+        if (key === 'created_at_from') {
+          const fromDate = parse(value as string, 'dd.MM.yyyy', new Date());
+          qbExport.andWhere('orders.created_at >= :created_at_from', {
+            created_at_from: fromDate,
+          });
+          continue;
+        }
+
+        if (key === 'created_at_to') {
+          const toDate = parse(value as string, 'dd.MM.yyyy', new Date());
+          qbExport.andWhere('orders.created_at <= :created_at_to', {
+            created_at_to: toDate,
+          });
+          continue;
+        }
+      }
 
       if (numericFields.includes(key)) {
         qbExport.andWhere(`${field} = :${param}`, { [param]: value });
@@ -177,23 +214,4 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       .groupBy('manager.id')
       .getRawMany();
   }
-  // public async ordersStatisticManager(
-  //   managerId: string,
-  // ): Promise<OrdersStatisticResDto> {
-  //   return await this.createQueryBuilder('orders')
-  //     .leftJoin('orders.manager', 'manager')
-  //     .andWhere('manager.id = :userId', { userId: managerId })
-  //     .select([
-  //       'manager.id AS manager',
-  //       'COUNT(orders.id) as total',
-  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'in_work' THEN orders.id END) as In_work",
-  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'new' THEN orders.id END) as New",
-  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'aggre' THEN orders.id END) as Aggre",
-  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'disaggre' THEN orders.id END) as Disaggre",
-  //       "COUNT(CASE WHEN LOWER(TRIM(orders.status)) = 'dubbing' THEN orders.id END) as Dubbing",
-  //       "COUNT(CASE WHEN orders.status IS NULL OR orders.status = '' THEN orders.id END) as No_status",
-  //     ])
-  //     .groupBy('manager.id')
-  //     .getRawOne();
-  // }
 }

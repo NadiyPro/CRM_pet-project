@@ -7,6 +7,7 @@ import {
   IsOptional,
   IsString,
   Length,
+  Matches,
   Max,
   Min,
 } from 'class-validator';
@@ -99,6 +100,20 @@ export class ListOrdersExportReqDto {
   manager?: string | null;
 
   @IsOptional()
+  @IsString()
+  @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
+    message: 'created_at_from повинен бути в форматі DD.MM.YYYY',
+  })
+  created_at_from?: string | null;
+
+  @IsOptional()
+  @IsString()
+  @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
+    message: 'created_at_to повинен бути в форматі DD.MM.YYYY',
+  })
+  created_at_to?: string | null;
+
+  @IsOptional()
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
   @IsEnum(SortFieldEnum)
@@ -112,5 +127,5 @@ export class ListOrdersExportReqDto {
   @IsOptional()
   @Transform(({ value }) => value === 'true' || value === true)
   @IsBoolean()
-  me?: boolean = false;
+  my?: boolean = false;
 }

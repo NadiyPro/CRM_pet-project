@@ -15,26 +15,31 @@ const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
+  const handleSearchChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    field: SortFieldEnum | 'created_at_from' | 'created_at_to') => {
     const value = e.target.value;
+    const isDateField = field === 'created_at_from' || field === 'created_at_to';
+    const formatValue = value
+      ? isDateField
+        ? dayjs(value).format('DD.MM.YYYY')
+        : value
+      : null;
+
     const updatedDto = {
       ...dto,
-      [field]: field === SortFieldEnum.CREATED_AT && value
-        ? dayjs.utc(value).format('DD.MM.YYYY')
-        : value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
+      [field]: formatValue,
     };
+
+    // const updatedDto = {
+    //   ...dto,
+    //   [field]: field === SortFieldEnum.CREATED_AT && value
+    //     ? dayjs.utc(value).format('DD.MM.YYYY')
+    //     : value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
+    // };
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };
-  // const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: SortFieldEnum) => {
-  //   const value = e.target.value;
-  //   const updatedDto = {
-  //     ...dto,
-  //     [field]: value || undefined, // якщо значення value="", то видаляємо фільтр по ключу
-  //   };
-  //   dispatch(orderAction.setDto(updatedDto));
-  //   dispatch(orderAction.loadOrdersAll(updatedDto));
-  // };
 
   const handleReset = () => {
     dispatch(orderAction.resetFilter());
@@ -84,11 +89,25 @@ const OrdersFiltersComponent = () => {
           placeholder="Age" min={18} max={100}
         />
 
+        {/*<input*/}
+        {/*  type="text" name={SortFieldEnum.CREATED_AT}*/}
+        {/*  value={dto.created_at ? dayjs.utc(dto.created_at).format('DD.MM.YYYY') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}*/}
+        {/*  placeholder="Created_at"*/}
+        {/*/>*/}
+
         <input
-          type="text" name={SortFieldEnum.CREATED_AT}
-          value={dto.created_at ? dayjs.utc(dto.created_at).format('DD.MM.YYYY') : ''}
+          type="date" name={'created_at_from'}
+          value={dto.created_at_from ? dayjs(dto.created_at_from, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
-          placeholder="Created_at"
+          placeholder="Created_at_from"
+        />
+
+        <input
+          type="date" name={'created_at_to'}
+          value={dto.created_at_to ? dayjs(dto.created_at_to, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}
+          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+          placeholder="Created_at_to"
         />
 
         <input
@@ -105,7 +124,7 @@ const OrdersFiltersComponent = () => {
           placeholder="Manager"
         />
 
-        <select name={SortFieldEnum.STATUS}   value={dto.status ?? ''}
+        <select name={SortFieldEnum.STATUS} value={dto.status ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.STATUS)}>
           <option value="">all status</option>
           <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
@@ -153,7 +172,7 @@ const OrdersFiltersComponent = () => {
       </button>
       <div>
         <label htmlFor={'myCheckbox'}>My</label>
-        <input type={'checkbox'} name={'myCheckbox'} checked={dto.me} onChange={handleMyCheckbox} />
+        <input type={'checkbox'} name={'myCheckbox'} checked={dto.my} onChange={handleMyCheckbox} />
       </div>
 
       <OrderExelComponent />

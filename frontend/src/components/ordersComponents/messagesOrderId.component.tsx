@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-// import utc from 'dayjs/plugin/utc';
-// dayjs.extend(utc);
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(utc);
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { useForm } from 'react-hook-form';
@@ -66,7 +66,7 @@ const MessagesOrderIdComponent = () => {
         {messagesOrderId.map(value =>
           <div key={value.id}>
           <div>{value.messages}</div>
-          <div>{value.manager} {value.created_at? dayjs(value.created_at).local().format('DD.MM.YYYY HH:mm:ss') : ''}</div>
+          <div>{value.manager} {value.created_at? dayjs.utc(value.created_at).local().format('DD.MM.YYYY HH:mm:ss') : ''}</div>
         </div>)}
         <form onSubmit={handleSubmit(handleCreateMessage)}>
         <label htmlFor={'messages'}>Create message:</label>

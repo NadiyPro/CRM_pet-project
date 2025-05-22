@@ -27,7 +27,7 @@ const EditOrderComponent = () => {
     handleSubmit: handleSubmitAddGroup,
     register: registerAddGroup,
   } = useForm<{ group_id: string }>({ mode: 'all' })
-  const { editOrder, isDefaultGroupState, isAddGroupState, allGroup } = useAppSelector((state) => state.orderStore)
+  const { editOrder, isDefaultGroupState, isAddGroupState, allGroup, isCreateGroup } = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
@@ -56,9 +56,11 @@ const EditOrderComponent = () => {
   };
 
   const handleAddGroup = ({ group_id }: { group_id: string }) => {
+    // dispatch(orderAction.loadAllGroup());
     if (editOrder.id !== null && group_id) {
       const orderId = editOrder.id.toString();
       dispatch(orderAction.loadAddGroup({ orderId, group_id }))
+      dispatch(orderAction.setCreateGroup(true))
     }
   };
 
@@ -84,7 +86,7 @@ const EditOrderComponent = () => {
                 SUBMIT
               </button>
             </div>
-            {/*{ isValidCreateGroup && <p>Група успішно створена</p>}*/}
+            { isCreateGroup && <p>Група успішно створена</p>}
           </form>
         )}
 
