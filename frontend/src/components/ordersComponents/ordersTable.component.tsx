@@ -68,7 +68,7 @@ const OrdersTableComponent = () => {
             <td>{value.status}</td>
             <td>{value.sum}</td>
             <td>{value.alreadyPaid}</td>
-            <td>{value.created_at ? dayjs.utc(value.created_at).format('DD.MM.YYYY') : ''}</td>
+            <td>{value.created_at ? dayjs.utc(value.created_at).format('YYYY-MM-DD') : ''}</td>
             <td>{value.group_name}</td>
             <td>{value.manager}</td>
           </tr>

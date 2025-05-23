@@ -22,7 +22,7 @@ const OrdersFiltersComponent = () => {
     const isDateField = field === 'created_at_from' || field === 'created_at_to';
     const formatValue = value
       ? isDateField
-        ? dayjs(value).format('DD.MM.YYYY')
+        ? dayjs(value).format('YYYY-MM-DD')
         : value
       : null;
 
@@ -30,6 +30,10 @@ const OrdersFiltersComponent = () => {
       ...dto,
       [field]: formatValue,
     };
+
+    // if (dto.created_at) {
+    //   delete updatedDto.created_at;
+    // }
 
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
@@ -83,26 +87,48 @@ const OrdersFiltersComponent = () => {
           placeholder="Age" min={18} max={100}
         />
 
-        {/*<input*/}
-        {/*  type="text" name={SortFieldEnum.CREATED_AT}*/}
-        {/*  value={dto.created_at ? dayjs.utc(dto.created_at).format('DD.MM.YYYY') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}*/}
-        {/*  placeholder="Created_at"*/}
-        {/*/>*/}
-
         <input
           type="date" name={'created_at_from'}
-          value={dto.created_at_from ? dayjs(dto.created_at_from, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+          value={dto.created_at_from ? dayjs(dto.created_at_from).format('YYYY-MM-DD') : ''}
+          onChange={(e) => handleSearchChange(e, 'created_at_from')}
           placeholder="Created_at_from"
         />
 
         <input
           type="date" name={'created_at_to'}
-          value={dto.created_at_to ? dayjs(dto.created_at_to, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.CREATED_AT)}
+          value={dto.created_at_to ? dayjs(dto.created_at_to).format('YYYY-MM-DD') : ''}
+          onChange={(e) => handleSearchChange(e, 'created_at_to')}
           placeholder="Created_at_to"
         />
+
+        {/*<input*/}
+        {/*  type="text" name={'created_at_from'}*/}
+        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from).format('DD.MM.YYYY') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
+        {/*  placeholder="Created_at_from"*/}
+        {/*/>*/}
+
+        {/*<input*/}
+        {/*  type="text" name={'created_at_to'}*/}
+        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to).format('DD.MM.YYYY') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
+        {/*  placeholder="Created_at_to"*/}
+        {/*/>*/}
+
+
+        {/*<input*/}
+        {/*  type="date" name={'created_at_from'}*/}
+        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
+        {/*  placeholder="Created_at_from"*/}
+        {/*/>*/}
+
+        {/*<input*/}
+        {/*  type="date" name={'created_at_to'}*/}
+        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
+        {/*  placeholder="Created_at_to"*/}
+        {/*/>*/}
 
         <input
           type="text" name={SortFieldEnum.GROUP_NAME}

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { parse } from 'date-fns';
+// import { parse } from 'date-fns';
 import { DataSource, Repository, SelectQueryBuilder } from 'typeorm';
 import { OrdersEntity } from '../../mysql/entities/orders.entity';
 import { ListOrdersQueryReqDto } from '../../../modules/orders/models/dto/req/listOrdersQuery.req.dto';
@@ -55,7 +55,7 @@ export class OrdersRepository extends Repository<OrdersEntity> {
 
       if (key === 'created_at_from' || key === 'created_at_to') {
         if (key === 'created_at_from') {
-          const fromDate = parse(value as string, 'dd.MM.yyyy', new Date());
+          const fromDate = new Date(value as string);
           qb.andWhere('orders.created_at >= :created_at_from', {
             created_at_from: fromDate,
           });
@@ -63,12 +63,36 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         }
 
         if (key === 'created_at_to') {
-          const toDate = parse(value as string, 'dd.MM.yyyy', new Date());
-          qb.andWhere('orders.created_at <= :created_at_to', {
+          const toDate = new Date(value as string);
+          toDate.setDate(toDate.getDate() + 1); // включити повністю останній день
+          qb.andWhere('orders.created_at < :created_at_to', {
             created_at_to: toDate,
           });
           continue;
         }
+        // if (key === 'created_at_from') {
+        //   const fromDate = new Date(value as string);
+        //   qb.andWhere('orders.created_at >= :created_at_from', {
+        //     created_at_from: fromDate,
+        //   });
+        //   // const fromDate = parse(value as string, 'yyyy-MM-dd', new Date());
+        //   // qb.andWhere('orders.created_at >= :created_at_from', {
+        //   //   created_at_from: fromDate,
+        //   // });
+        //   continue;
+        // }
+        //
+        // if (key === 'created_at_to') {
+        //   const fromDate = new Date(value as string);
+        //   qb.andWhere('orders.created_at >= :created_at_to', {
+        //     created_at_from: fromDate,
+        //   });
+        //   // const toDate = parse(value as string, 'yyyy-MM-dd', new Date());
+        //   // qb.andWhere('orders.created_at <= :created_at_to', {
+        //   //   created_at_to: toDate,
+        //   // });
+        //   continue;
+        // }
       }
 
       if (numericFields.includes(key)) {
@@ -143,22 +167,65 @@ export class OrdersRepository extends Repository<OrdersEntity> {
       const field = key === 'manager' ? 'manager.surname' : `orders.${key}`;
 
       if (key === 'created_at_from' || key === 'created_at_to') {
-        if (key === 'created_at_from') {
-          const fromDate = parse(value as string, 'dd.MM.yyyy', new Date());
-          qbExport.andWhere('orders.created_at >= :created_at_from', {
-            created_at_from: fromDate,
-          });
-          continue;
-        }
+        if (key === 'created_at_from' || key === 'created_at_to') {
+          if (key === 'created_at_from') {
+            const fromDate = new Date(value as string);
+            qbExport.andWhere('orders.created_at >= :created_at_from', {
+              created_at_from: fromDate,
+            });
+            continue;
+          }
 
-        if (key === 'created_at_to') {
-          const toDate = parse(value as string, 'dd.MM.yyyy', new Date());
-          qbExport.andWhere('orders.created_at <= :created_at_to', {
-            created_at_to: toDate,
-          });
-          continue;
+          if (key === 'created_at_to') {
+            const toDate = new Date(value as string);
+            toDate.setDate(toDate.getDate() + 1); // включити повністю останній день
+            qbExport.andWhere('orders.created_at < :created_at_to', {
+              created_at_to: toDate,
+            });
+            continue;
+          }
+          // if (key === 'created_at_from') {
+          //   const fromDate = new Date(value as string);
+          //   qbExport.andWhere('orders.created_at >= :created_at_from', {
+          //     created_at_from: fromDate,
+          //   });
+          //   // const fromDate = parse(value as string, 'yyyy-MM-dd', new Date());
+          //   // qb.andWhere('orders.created_at >= :created_at_from', {
+          //   //   created_at_from: fromDate,
+          //   // });
+          //   continue;
+          // }
+          //
+          // if (key === 'created_at_to') {
+          //   const fromDate = new Date(value as string);
+          //   qbExport.andWhere('orders.created_at >= :created_at_to', {
+          //     created_at_from: fromDate,
+          //   });
+          //   // const toDate = parse(value as string, 'yyyy-MM-dd', new Date());
+          //   // qb.andWhere('orders.created_at <= :created_at_to', {
+          //   //   created_at_to: toDate,
+          //   // });
+          //   continue;
+          // }
         }
       }
+
+      //   if (key === 'created_at_from') {
+      //     const fromDate = parse(value as string, 'dd.MM.yyyy', new Date());
+      //     qbExport.andWhere('orders.created_at >= :created_at_from', {
+      //       created_at_from: fromDate,
+      //     });
+      //     continue;
+      //   }
+      //
+      //   if (key === 'created_at_to') {
+      //     const toDate = parse(value as string, 'dd.MM.yyyy', new Date());
+      //     qbExport.andWhere('orders.created_at <= :created_at_to', {
+      //       created_at_to: toDate,
+      //     });
+      //     continue;
+      //   }
+      // }
 
       if (numericFields.includes(key)) {
         qbExport.andWhere(`${field} = :${param}`, { [param]: value });

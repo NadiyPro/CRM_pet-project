@@ -1,12 +1,12 @@
 import { Transform, Type } from 'class-transformer';
 import {
   IsBoolean,
+  IsDateString,
   IsEnum,
   IsInt,
   IsOptional,
   IsString,
   Length,
-  Matches,
   Max,
   Min,
 } from 'class-validator';
@@ -99,18 +99,34 @@ export class ListOrdersQueryReqDto {
   @Length(3, 50)
   manager?: string | null;
 
+  // @IsOptional()
+  // @IsString()
+  // @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
+  //   message: 'created_at_from повинен бути в форматі DD.MM.YYYY',
+  // })
+  // created_at_from?: string | null;
+  //
+  // @IsOptional()
+  // @IsString()
+  // @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
+  //   message: 'created_at_to повинен бути в форматі DD.MM.YYYY',
+  // })
+  // created_at_to?: string | null;
+
   @IsOptional()
   @IsString()
-  @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
-    message: 'created_at_from повинен бути в форматі DD.MM.YYYY',
-  })
+  @IsDateString(
+    {},
+    { message: 'created_at_from повинен бути в форматі YYYY-MM-DD' },
+  )
   created_at_from?: string | null;
 
   @IsOptional()
   @IsString()
-  @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
-    message: 'created_at_to повинен бути в форматі DD.MM.YYYY',
-  })
+  @IsDateString(
+    {},
+    { message: 'created_at_to повинен бути в форматі YYYY-MM-DD' },
+  )
   created_at_to?: string | null;
 
   @IsOptional()
