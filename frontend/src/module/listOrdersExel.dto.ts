@@ -17,7 +17,6 @@ export interface ListOrdersExelDto {
   status?: StatusEnum | null;
   sum?: number | null;
   alreadyPaid?: number | null;
-  // created_at?: string | null;
   manager?: string | null;
   group_id?: number | null;
   group_name?: string | null;

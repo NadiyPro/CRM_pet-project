@@ -31,10 +31,6 @@ const OrdersFiltersComponent = () => {
       [field]: formatValue,
     };
 
-    // if (dto.created_at) {
-    //   delete updatedDto.created_at;
-    // }
-
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };
@@ -86,34 +82,6 @@ const OrdersFiltersComponent = () => {
           onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
           placeholder="Age" min={18} max={100}
         />
-
-        {/*<input*/}
-        {/*  type="date" name={'created_at_from'}*/}
-        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from).format('YYYY-MM-DD') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
-        {/*  placeholder="Created_at_from"*/}
-        {/*/>*/}
-
-        {/*<input*/}
-        {/*  type="date" name={'created_at_to'}*/}
-        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to).format('YYYY-MM-DD') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
-        {/*  placeholder="Created_at_to"*/}
-        {/*/>*/}
-
-        {/*<input*/}
-        {/*  type="date" name={'created_at_from'}*/}
-        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
-        {/*  placeholder="Created_at_from"*/}
-        {/*/>*/}
-
-        {/*<input*/}
-        {/*  type="date" name={'created_at_to'}*/}
-        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
-        {/*  placeholder="Created_at_to"*/}
-        {/*/>*/}
 
         <input
           type="date"

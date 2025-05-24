@@ -58,7 +58,6 @@ const initialState: OrderSliceInterface = {
     status: null,
     sum: null,
     alreadyPaid: null,
-    // created_at: null,
     manager: null,
     group_id:  null,
     group_name: null,
