@@ -87,19 +87,19 @@ const OrdersFiltersComponent = () => {
           placeholder="Age" min={18} max={100}
         />
 
-        <input
-          type="date" name={'created_at_from'}
-          value={dto.created_at_from ? dayjs(dto.created_at_from).format('YYYY-MM-DD') : ''}
-          onChange={(e) => handleSearchChange(e, 'created_at_from')}
-          placeholder="Created_at_from"
-        />
+        {/*<input*/}
+        {/*  type="date" name={'created_at_from'}*/}
+        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from).format('YYYY-MM-DD') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
+        {/*  placeholder="Created_at_from"*/}
+        {/*/>*/}
 
-        <input
-          type="date" name={'created_at_to'}
-          value={dto.created_at_to ? dayjs(dto.created_at_to).format('YYYY-MM-DD') : ''}
-          onChange={(e) => handleSearchChange(e, 'created_at_to')}
-          placeholder="Created_at_to"
-        />
+        {/*<input*/}
+        {/*  type="date" name={'created_at_to'}*/}
+        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to).format('YYYY-MM-DD') : ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
+        {/*  placeholder="Created_at_to"*/}
+        {/*/>*/}
 
         {/*<input*/}
         {/*  type="date" name={'created_at_from'}*/}
@@ -114,6 +114,22 @@ const OrdersFiltersComponent = () => {
         {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
         {/*  placeholder="Created_at_to"*/}
         {/*/>*/}
+
+        <input
+          type="date"
+          name="created_at_from"
+          value={dto.created_at_from ?? ''}
+          onChange={(e) => handleSearchChange(e, 'created_at_from')}
+          placeholder="Created from"
+        />
+
+        <input
+          type="date"
+          name="created_at_to"
+          value={dto.created_at_to ?? ''}
+          onChange={(e) => handleSearchChange(e, 'created_at_to')}
+          placeholder="Created to"
+        />
 
         <input
           type="text" name={SortFieldEnum.GROUP_NAME}

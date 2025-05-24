@@ -66,7 +66,7 @@ const MessagesOrderIdComponent = () => {
         {messagesOrderId.map(value =>
           <div key={value.id}>
           <div>{value.messages}</div>
-          <div>{value.manager} {value.created_at? dayjs.utc(value.created_at).local().format('YYYY-MM-DD HH:mm:ss') : ''}</div>
+          <div>{value.manager} {value.created_at? dayjs.utc(value.created_at).local().format('DD.MM.YYYY HH:mm:ss') : ''}</div>
         </div>)}
         <form onSubmit={handleSubmit(handleCreateMessage)}>
         <label htmlFor={'messages'}>Create message:</label>

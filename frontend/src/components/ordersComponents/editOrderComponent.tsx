@@ -11,6 +11,7 @@ import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import { Group_nameDto } from '../../module/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
+import { useEffect } from 'react';
 
 const EditOrderComponent = () => {
   const { handleSubmit, register, reset, formState: { isValid } } = useForm<UpdateOrdersReqDto>({
@@ -29,6 +30,16 @@ const EditOrderComponent = () => {
   } = useForm<{ group_id: string }>({ mode: 'all' })
   const { editOrder, isDefaultGroupState, isAddGroupState, allGroup, isCreateGroup } = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(orderAction.loadAllGroup());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (isCreateGroup) {
+      dispatch(orderAction.loadAllGroup());
+    }
+  }, [isCreateGroup, dispatch]);
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
     if (editOrder.id !== null) {
@@ -50,7 +61,7 @@ const EditOrderComponent = () => {
     }
 
     dispatch(orderAction.loadCreateGroup(group_name));
-    dispatch(orderAction.loadAllGroup())
+    // dispatch(orderAction.loadAllGroup())
     dispatch(orderAction.setAddGroupState(true));
     resetCreateGroup();
   };
@@ -76,7 +87,7 @@ const EditOrderComponent = () => {
         {isDefaultGroupState && (
           <form id={'createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
             <label htmlFor={'group_name'}>Group</label>
-            <input type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
+            <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
             <div>
               <button type={'submit'} disabled={!isValidCreateGroup}>
                 ADD
@@ -111,7 +122,7 @@ const EditOrderComponent = () => {
 
         <form id={'editOrderForm'} onSubmit={handleSubmit(handleEditOrder)}>
           <label htmlFor={SortFieldEnum.NAME}>Name</label>
-          <input type={'text'} {...register(SortFieldEnum.NAME)} placeholder={'Name'} />
+          <input id={SortFieldEnum.NAME}  type={'text'} {...register(SortFieldEnum.NAME)} placeholder={'Name'} />
 
           <label htmlFor={SortFieldEnum.SURNAME}>Surname</label>
           <input type={'text'} {...register(SortFieldEnum.SURNAME)} placeholder={'Surname'} />
@@ -123,7 +134,7 @@ const EditOrderComponent = () => {
           <input type={'text'} {...register(SortFieldEnum.PHONE)} placeholder={'Phone'} />
 
           <label htmlFor={SortFieldEnum.AGE}>Age</label>
-          <input type={'number'} {...register(SortFieldEnum.AGE)} placeholder={'Age'} min={18} max={100} />
+          <input id={SortFieldEnum.AGE} type={'number'} {...register(SortFieldEnum.AGE)} placeholder={'Age'} min={18} max={100} />
 
           <label htmlFor={SortFieldEnum.STATUS}>Status</label>
           <select {...register(SortFieldEnum.STATUS)}>
