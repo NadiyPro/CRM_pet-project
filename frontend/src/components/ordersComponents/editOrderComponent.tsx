@@ -11,10 +11,11 @@ import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import { Group_nameDto } from '../../module/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 
 const EditOrderComponent = () => {
-  const { handleSubmit, register, reset, formState: { isValid } } = useForm<UpdateOrdersReqDto>({
+  const { handleSubmit, register, reset, watch } = useForm<UpdateOrdersReqDto>({
     mode: 'all',
     resolver: joiResolver(orderValidator)
   })
@@ -30,6 +31,15 @@ const EditOrderComponent = () => {
   } = useForm<{ group_id: string }>({ mode: 'all' })
   const { editOrder, isDefaultGroupState, isAddGroupState, allGroup, isCreateGroup } = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
+  const [someValueEdit, setSomeValueEdit] = useState(false);
+  const watchFormEdit = watch();
+
+  useEffect(() => {
+    const someValueFilled = Object.values(watchFormEdit).some(
+      value => value !== undefined && value !== ''
+    );
+    setSomeValueEdit(someValueFilled);
+  }, [watchFormEdit]);
 
   useEffect(() => {
     dispatch(orderAction.loadAllGroup());
@@ -42,6 +52,15 @@ const EditOrderComponent = () => {
   }, [isCreateGroup, dispatch]);
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
+    const cleanedData = Object.fromEntries(
+      Object.entries(updateOrdersReqDto).filter(([, value]) => value !== '' && value !== undefined)
+    );
+
+    if (Object.keys(cleanedData).length === 0) {
+      alert("Заповніть хоча б одне поле для редагування");
+      return;
+    }
+
     if (editOrder.id !== null) {
       const orderId = editOrder.id;
       dispatch(orderAction.loadEditOrder({ orderId, updateOrdersReqDto }))
@@ -181,7 +200,7 @@ const EditOrderComponent = () => {
           </select>
 
           <div>
-            <button type={'submit'} disabled={!isValid}>SUBMIT</button>
+            <button type={'submit'} disabled={!someValueEdit}>SUBMIT</button>
             <button type={'button'} onClick={handleCloseEditOrder}>CLOSE</button>
           </div>
         </form>
