@@ -102,21 +102,6 @@ const OrdersFiltersComponent = () => {
         />
 
         {/*<input*/}
-        {/*  type="text" name={'created_at_from'}*/}
-        {/*  value={dto.created_at_from ? dayjs(dto.created_at_from).format('DD.MM.YYYY') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
-        {/*  placeholder="Created_at_from"*/}
-        {/*/>*/}
-
-        {/*<input*/}
-        {/*  type="text" name={'created_at_to'}*/}
-        {/*  value={dto.created_at_to ? dayjs(dto.created_at_to).format('DD.MM.YYYY') : ''}*/}
-        {/*  onChange={(e) => handleSearchChange(e, 'created_at_to')}*/}
-        {/*  placeholder="Created_at_to"*/}
-        {/*/>*/}
-
-
-        {/*<input*/}
         {/*  type="date" name={'created_at_from'}*/}
         {/*  value={dto.created_at_from ? dayjs(dto.created_at_from, 'DD.MM.YYYY').format('YYYY-MM-DD') : ''}*/}
         {/*  onChange={(e) => handleSearchChange(e, 'created_at_from')}*/}
