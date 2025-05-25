@@ -11,11 +11,11 @@ import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import { Group_nameDto } from '../../module/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 
 const EditOrderComponent = () => {
-  const { handleSubmit, register, reset, watch } = useForm<UpdateOrdersReqDto>({
+  const { handleSubmit, register, reset, watch} = useForm<UpdateOrdersReqDto>({
     mode: 'all',
     resolver: joiResolver(orderValidator)
   })
@@ -31,25 +31,44 @@ const EditOrderComponent = () => {
   } = useForm<{ group_id: string }>({ mode: 'all' })
   const { editOrder, isDefaultGroupState, isAddGroupState, allGroup, isCreateGroup } = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
-  const [someValueEdit, setSomeValueEdit] = useState(false);
+  // const [someValueEdit, setSomeValueEdit] = useState(false);
   const watchFormEdit = watch();
 
-  useEffect(() => {
-    const someValueFilled = Object.values(watchFormEdit).some(
-      value => value !== undefined && value !== ''
-    );
-    setSomeValueEdit(someValueFilled);
-  }, [watchFormEdit]);
+  const isSomeValueEdit = Object.values(watchFormEdit).some(
+    value => value !== undefined && value !== ''
+  );
 
   useEffect(() => {
     dispatch(orderAction.loadAllGroup());
-  }, [dispatch]);
+  }, [dispatch, isCreateGroup]);
 
-  useEffect(() => {
-    if (isCreateGroup) {
-      dispatch(orderAction.loadAllGroup());
+  const handleCloseEditOrder = () => {
+    dispatch(orderAction.setCloseEditOrderModal());
+  };
+
+  const handleCreateGroupState = (group_name: Group_nameDto) => {
+    const isDuplicate = allGroup?.some(group => group.group_name === group_name.group_name);
+    if (isDuplicate) {
+      alert('Група з такою назвою вже існує');
+      return;
     }
-  }, [isCreateGroup, dispatch]);
+    dispatch(orderAction.loadCreateGroup(group_name))
+      .then(() => dispatch(orderAction.setAddGroupState(true)));
+    resetCreateGroup();
+  };
+
+  // const handleAddGroup = ({ group_id }: { group_id: string }) => {
+  //   if (editOrder.id !== null && group_id) {
+  //     dispatch(orderAction.loadAddGroup({ orderId: editOrder.id.toString(), group_id }));
+  //     dispatch(orderAction.setCreateGroup(true));
+  //   }
+  // };
+  const handleAddGroup = ({ group_id }: { group_id: string }) => {
+    if (editOrder.id && group_id) {
+      dispatch(orderAction.loadAddGroup({ orderId: editOrder.id.toString(), group_id }));
+      dispatch(orderAction.setCreateGroup(true));
+    }
+  };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
     const cleanedData = Object.fromEntries(
@@ -62,36 +81,11 @@ const EditOrderComponent = () => {
     }
 
     if (editOrder.id !== null) {
-      const orderId = editOrder.id;
-      dispatch(orderAction.loadEditOrder({ orderId, updateOrdersReqDto }))
-    }
-    reset()
-  }
-
-  const handleCloseEditOrder = () => {
-    dispatch(orderAction.setCloseEditOrderModal())
-  }
-
-  const handleCreateGroupState = (group_name: Group_nameDto) => {
-    const isDuplicate = allGroup?.some(group => group.group_name === group_name.group_name);
-    if (isDuplicate) {
-      alert('Група з такою назвою вже існує');
-      return;
+      dispatch(orderAction.loadEditOrder({ orderId: editOrder.id, updateOrdersReqDto: cleanedData }));
     }
 
-    dispatch(orderAction.loadCreateGroup(group_name));
-    // dispatch(orderAction.loadAllGroup())
-    dispatch(orderAction.setAddGroupState(true));
-    resetCreateGroup();
-  };
-
-  const handleAddGroup = ({ group_id }: { group_id: string }) => {
-    // dispatch(orderAction.loadAllGroup());
-    if (editOrder.id !== null && group_id) {
-      const orderId = editOrder.id.toString();
-      dispatch(orderAction.loadAddGroup({ orderId, group_id }))
-      dispatch(orderAction.setCreateGroup(true))
-    }
+    console.log(allGroup);
+    reset();
   };
 
     return (
@@ -120,24 +114,49 @@ const EditOrderComponent = () => {
           </form>
         )}
 
+        {allGroup && allGroup.map(group => (
+          <div key={group.id}>{group.group_name}</div>
+        ))}
+
         {isAddGroupState && (
           <form id={'addGroup'} onSubmit={handleSubmitAddGroup(handleAddGroup)}>
             <label htmlFor={'addGroupSelect'}>Group</label>
             <select id={'addGroupSelect'} {...registerAddGroup('group_id')}>
               <option value="">Select group</option>
-              {allGroup?.map(group => (
-                <option key={group.id} value={group.id}>{group.group_name}</option>
-              ))}
+              {allGroup && allGroup.length > 0 ? (
+                allGroup.map(group => (
+                  <option key={group.id} value={group.id}>{group.group_name}</option>
+                ))
+              ) : (
+                <option disabled>Loading groups...</option>
+              )}
             </select>
             <div>
               <button type={'submit'}>ADD GROUP</button>
-              <button type={'button'} onClick={
-                () => dispatch(orderAction.setAddGroupState(false))}>
+              <button type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(false))}>
                 BACK
               </button>
             </div>
-          </form>)
-        }
+          </form>
+        )}
+        {/*{isAddGroupState && (*/}
+        {/*  <form id={'addGroup'} onSubmit={handleSubmitAddGroup(handleAddGroup)}>*/}
+        {/*    <label htmlFor={'addGroupSelect'}>Group</label>*/}
+        {/*    <select id={'addGroupSelect'} {...registerAddGroup('group_id')}>*/}
+        {/*      <option value="">Select group</option>*/}
+        {/*      {allGroup?.map(group => (*/}
+        {/*        <option key={group.id} value={group.id}>{group.group_name}</option>*/}
+        {/*      ))}*/}
+        {/*    </select>*/}
+        {/*    <div>*/}
+        {/*      <button type={'submit'}>ADD GROUP</button>*/}
+        {/*      <button type={'button'} onClick={*/}
+        {/*        () => dispatch(orderAction.setAddGroupState(false))}>*/}
+        {/*        BACK*/}
+        {/*      </button>*/}
+        {/*    </div>*/}
+        {/*  </form>)*/}
+        {/*}*/}
 
         <form id={'editOrderForm'} onSubmit={handleSubmit(handleEditOrder)}>
           <label htmlFor={SortFieldEnum.NAME}>Name</label>
@@ -200,7 +219,7 @@ const EditOrderComponent = () => {
           </select>
 
           <div>
-            <button type={'submit'} disabled={!someValueEdit}>SUBMIT</button>
+            <button type={'submit'} disabled={!isSomeValueEdit}>SUBMIT</button>
             <button type={'button'} onClick={handleCloseEditOrder}>CLOSE</button>
           </div>
         </form>

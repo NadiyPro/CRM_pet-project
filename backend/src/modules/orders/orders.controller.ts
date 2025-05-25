@@ -7,8 +7,8 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Patch,
   Post,
-  Put,
   Query,
   Res,
   UseGuards,
@@ -213,7 +213,8 @@ export class OrdersController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  @Put(':orderId')
+  // @Put(':orderId')
+  @Patch(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
     @Param('orderId', ParseIntPipe) orderId: number,

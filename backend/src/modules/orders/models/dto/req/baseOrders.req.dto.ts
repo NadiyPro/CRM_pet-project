@@ -20,33 +20,33 @@ export class BaseOrdersReqDto {
   @Length(0, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
-  name: string | null;
+  name?: string | null;
 
   @IsString()
   @Length(0, 25)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Type(() => String)
-  surname: string | null;
+  surname?: string | null;
 
   @ApiProperty({ example: 'admin@gmail.com' })
   @IsString()
   @Length(0, 100)
   @Matches(/^[^\s@]+@([^\s@.,]+\.)+[^\s@.,]{2,}$/)
-  email: string | null;
+  email?: string | null;
 
   @ApiProperty({ example: '380123456789' })
   @IsString()
   @Length(12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Matches(/^380\d{9}$/)
-  phone: string | null;
+  phone?: string | null;
 
   @ApiProperty({ example: 30 })
   @Type(() => Number)
   @IsInt()
   @Min(18)
   @Max(100)
-  age: number | null;
+  age?: number | null;
 
   @Length(2, 10)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
@@ -54,7 +54,7 @@ export class BaseOrdersReqDto {
   @IsEnum(CourseEnum, {
     message: 'Курс повинен бути один з: FS, QACX, JCX, JSCX, FE, PCX',
   })
-  course: CourseEnum | null;
+  course?: CourseEnum | null;
 
   @Length(5, 15)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
@@ -62,7 +62,7 @@ export class BaseOrdersReqDto {
   @IsEnum(CourseFormatEnum, {
     message: 'course_format повинен бути один з: static, online',
   })
-  course_format: CourseFormatEnum | null;
+  course_format?: CourseFormatEnum | null;
 
   @Length(3, 100)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
@@ -71,17 +71,17 @@ export class BaseOrdersReqDto {
     message:
       'course_type повинен бути один з: pro, minimal, premium, incubator, vip',
   })
-  course_type: CourseTypeEnum | null;
+  course_type?: CourseTypeEnum | null;
 
   @ApiProperty({ example: 100000 })
   @Type(() => Number)
   @IsInt()
-  sum: number | null;
+  sum?: number | null;
 
   @ApiProperty({ example: 100000 })
   @Type(() => Number)
   @IsInt()
-  alreadyPaid: number | null;
+  alreadyPaid?: number | null;
 
   @Length(3, 15)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
@@ -90,5 +90,5 @@ export class BaseOrdersReqDto {
     message:
       'status повинен бути один з: In_work, New, Aggre, Disaggre, Dubbing ',
   })
-  status: StatusEnum | null;
+  status?: StatusEnum | null;
 }
