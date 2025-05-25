@@ -86,6 +86,7 @@ const OrdersFiltersComponent = () => {
         <input
           type="date"
           name="created_at_from"
+          min={'2021-01-01'}
           value={dto.created_at_from ?? ''}
           onChange={(e) => handleSearchChange(e, 'created_at_from')}
           placeholder="Created from"
@@ -94,6 +95,7 @@ const OrdersFiltersComponent = () => {
         <input
           type="date"
           name="created_at_to"
+          min={'2021-01-01'}
           value={dto.created_at_to ?? ''}
           onChange={(e) => handleSearchChange(e, 'created_at_to')}
           placeholder="Created to"
