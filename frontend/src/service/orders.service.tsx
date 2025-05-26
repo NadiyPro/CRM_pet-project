@@ -58,6 +58,7 @@ const orderService = {
   editOrder: async ( orderId: number, updateOrdersReqDto: UpdateOrdersReqDto): Promise<UpdateOrdersResDto> => {
     console.log("DTO, який відправляється в patch:", updateOrdersReqDto);
     const response = await axiosInstance.patch(`/orders/${orderId}`, updateOrdersReqDto);
+    console.log("service editOrder:", response.data);
     return response.data;
   },
   createGroup: async (group_name: Group_nameDto): Promise<GroupResDto> => {
@@ -66,6 +67,7 @@ const orderService = {
   },
   allGroup: async (): Promise<GroupResDto[] | null> => {
     const response = await axiosInstance.get('/group');
+    console.log("service allGroup:", response.data);
     return response.data;
   },
   addGroup: async (orderId: string, group_id: string): Promise<GroupOrdersDto> => {
