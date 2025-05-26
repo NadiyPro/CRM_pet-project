@@ -38,15 +38,15 @@ const EditOrderComponent = () => {
     value => value !== undefined && value !== '' && value !== null
   );
 
-  // useEffect(() => {
-  //   if (isAddGroupState || isDefaultGroupState) {
-  //     dispatch(orderAction.loadAllGroup());
-  //   }
-  // }, [dispatch, isAddGroupState, isDefaultGroupState]);
-
   useEffect(() => {
-    dispatch(orderAction.loadAllGroup());
-  }, [dispatch]);
+    if (isAddGroupState || isDefaultGroupState) {
+      dispatch(orderAction.loadAllGroup());
+    }
+  }, [dispatch, isAddGroupState, isDefaultGroupState]);
+
+  // useEffect(() => {
+  //   dispatch(orderAction.loadAllGroup());
+  // }, [dispatch]);
 
   const handleCloseEditOrder = () => {
     dispatch(orderAction.setCloseEditOrderModal());
@@ -64,12 +64,23 @@ const EditOrderComponent = () => {
     resetCreateGroup();
   };
 
+  // const handleAddGroup = ({ group_id }: { group_id: string }) => {
+  //   if (findOneOrder.id !== null && +group_id) {
+  //     dispatch(orderAction.loadAddGroup({ orderId: findOneOrder.id.toString(), group_id: group_id.toString() }));
+  //     dispatch(orderAction.setCreateGroup(true));
+  //   }
+  // };
+
   const handleAddGroup = ({ group_id }: { group_id: string }) => {
-    if (findOneOrder.id !== null && group_id) {
-      dispatch(orderAction.loadAddGroup({ orderId: findOneOrder.id.toString(), group_id }));
+    if (typeof findOneOrder.id === 'number' && +group_id) {
+      dispatch(orderAction.loadAddGroup({
+        orderId: findOneOrder.id.toString(),
+        group_id: group_id.toString()
+      }));
       dispatch(orderAction.setCreateGroup(true));
     }
   };
+
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
     const cleanedData = Object.fromEntries(
@@ -120,13 +131,11 @@ const EditOrderComponent = () => {
           <label htmlFor={'addGroupSelect'}>Group</label>
           <select id={'addGroupSelect'} {...registerAddGroup('group_id')}>
             <option value="">Select group</option>
-            {allGroup && allGroup.length > 0 ? (
+            {allGroup &&
               allGroup.map(group => (
                 <option key={group.id} value={group.id}>{group.group_group_name}</option>
               ))
-            ) : (
-              <option disabled>Loading groups...</option>
-            )}
+         }
           </select>
           <div>
             <button type={'submit'}>ADD GROUP</button>
