@@ -22,7 +22,7 @@ export interface UpdateOrdersResDto {
   updated_at?: string | null;
   manager: UserDto | null;
   group_id: number | null;
-  group_name: string | null;
+  group_group_name: string | null;
   messages: MessageDto[] | null;
   utm: string | null;
   msg: string | null;

@@ -73,13 +73,13 @@ const orderService = {
     const {
       id,
       group_id: groupId,
-      group_name,
+      group_group_name,
     } = response.data;
 
     return {
       id,
       group_id: groupId,
-      group_name,
+      group_group_name,
     };
   }
 }

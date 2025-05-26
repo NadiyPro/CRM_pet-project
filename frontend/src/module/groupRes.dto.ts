@@ -1,4 +1,4 @@
 export interface GroupResDto {
   id: number;
-  group_name: string;
+  group_group_name: string;
 }

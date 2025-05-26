@@ -1,3 +1,3 @@
 export interface Group_nameDto{
-  group_name: string;
+  group_group_name: string;
 }

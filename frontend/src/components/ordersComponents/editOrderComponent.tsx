@@ -13,7 +13,6 @@ import { Group_nameDto } from '../../module/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
 import { useEffect } from 'react';
 
-
 const EditOrderComponent = () => {
   const { handleSubmit, register, reset, watch} = useForm<UpdateOrdersReqDto>({
     mode: 'all',
@@ -29,7 +28,7 @@ const EditOrderComponent = () => {
     handleSubmit: handleSubmitAddGroup,
     register: registerAddGroup,
   } = useForm<{ group_id: string }>({ mode: 'all' })
-  const { findOneOrder, isDefaultGroupState, isAddGroupState, isCreateGroup, allGroup} = useAppSelector((state) => state.orderStore)
+  const { findOneOrder, isDefaultGroupState, isAddGroupState, isCreateGroup, allGroup, dto} = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
   const watchFormEdit = watch();
 
@@ -51,10 +50,11 @@ const EditOrderComponent = () => {
 
   const handleCloseEditOrder = () => {
     dispatch(orderAction.setCloseEditOrderModal());
+    dispatch(orderAction.loadOrdersAll(dto));
   };
 
   const handleCreateGroupState = (group_name: Group_nameDto) => {
-    const isDuplicate = allGroup?.some(group => group.group_name === group_name.group_name);
+    const isDuplicate = allGroup?.some(group => group.group_group_name === group_name.group_group_name);
     if (isDuplicate) {
       alert('Група з такою назвою вже існує');
       return;
@@ -100,8 +100,8 @@ const EditOrderComponent = () => {
     }}>
       {isDefaultGroupState && (
         <form id={'createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
-          <label htmlFor={'group_name'}>Group</label>
-          <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
+          <label htmlFor={'group_group_name'}>Group</label>
+          <input id={'group_group_name'} type={'text'} {...registerCreateGroup('group_group_name')} placeholder={'Group'} />
           <div>
             <button type={'submit'} disabled={!isValidCreateGroup}>
               ADD
@@ -122,7 +122,7 @@ const EditOrderComponent = () => {
             <option value="">Select group</option>
             {allGroup && allGroup.length > 0 ? (
               allGroup.map(group => (
-                <option key={group.id} value={group.id}>{group.group_name}</option>
+                <option key={group.id} value={group.id}>{group.group_group_name}</option>
               ))
             ) : (
               <option disabled>Loading groups...</option>
