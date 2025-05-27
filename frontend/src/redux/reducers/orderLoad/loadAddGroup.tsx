@@ -6,6 +6,7 @@ import { orderService } from '../../../service/orders.service';
 const loadAddGroup = createAsyncThunk(
   'loadAddGroup',
   async ({orderId, group_id}: LoadAddGroupDto, thunkAPI) => {
+    console.log("loadAddGroup:", orderId, group_id);
     try {
       const response = await orderService.addGroup(orderId, group_id);
       return thunkAPI.fulfillWithValue(response);

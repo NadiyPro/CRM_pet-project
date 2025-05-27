@@ -70,12 +70,14 @@ const orderService = {
   },
   addGroup: async (orderId: string, group_id: string): Promise<GroupOrdersDto> => {
     const response = await axiosInstance.post(`/orders/${orderId}/${group_id}`);
+    console.log('addGroup:', response.data)
     const {
       id,
       group_id: groupId,
       group_group_name,
     } = response.data;
 
+    console.log('addGroup sort:', response.data)
     return {
       id,
       group_id: groupId,

@@ -54,7 +54,7 @@ const EditOrderComponent = () => {
   };
 
   const handleCreateGroupState = (group_name: Group_nameDto) => {
-    const isDuplicate = allGroup?.some(group => group.group_group_name === group_name.group_group_name);
+    const isDuplicate = allGroup?.some(group => group.group_group_name === group_name.group_name);
     if (isDuplicate) {
       alert('Група з такою назвою вже існує');
       return;
@@ -72,13 +72,21 @@ const EditOrderComponent = () => {
   // };
 
   const handleAddGroup = ({ group_id }: { group_id: string }) => {
-    if (typeof findOneOrder.id === 'number' && +group_id) {
+    console.log('handleAddGroup called with:', group_id);
+    if (findOneOrder.id !== null && +group_id) {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
-        group_id: group_id.toString()
+        group_id: group_id
       }));
       dispatch(orderAction.setCreateGroup(true));
     }
+    // dispatch(orderAction.loadAddGroup({
+    //   orderId: findOneOrder.id.toString(),
+    //   group_id: group_id.toString()
+    // })).then(() => {
+    //   dispatch(orderAction.loadOrdersAll(dto)); // оновлюємо список
+    //   dispatch(orderAction.setCreateGroup(true));
+    // });
   };
 
 
@@ -111,8 +119,8 @@ const EditOrderComponent = () => {
     }}>
       {isDefaultGroupState && (
         <form id={'createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
-          <label htmlFor={'group_group_name'}>Group</label>
-          <input id={'group_group_name'} type={'text'} {...registerCreateGroup('group_group_name')} placeholder={'Group'} />
+          <label htmlFor={'group_name'}>Group</label>
+          <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
           <div>
             <button type={'submit'} disabled={!isValidCreateGroup}>
               ADD
