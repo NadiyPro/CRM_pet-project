@@ -20,11 +20,12 @@ const OrdersFiltersComponent = () => {
     field: SortFieldEnum | 'created_at_from' | 'created_at_to') => {
     const value = e.target.value;
     const isDateField = field === 'created_at_from' || field === 'created_at_to';
-    const formatValue = value
-      ? isDateField
-        ? dayjs(value).format('YYYY-MM-DD')
-        : value
-      : null;
+    const formatValue = isDateField ? value : null;
+    // const formatValue = value
+    //   ? isDateField
+    //     ? dayjs(value).format('YYYY-MM-DD')
+    //     : value
+    //   : null;
 
     const updatedDto = {
       ...dto,
