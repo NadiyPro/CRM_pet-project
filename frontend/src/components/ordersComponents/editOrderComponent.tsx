@@ -32,8 +32,6 @@ const EditOrderComponent = () => {
   const dispatch = useAppDispatch();
   const watchFormEdit = watch();
 
-  // const allGroup = await dispatch(orderAction.loadAllGroup());
-
   const isSomeValueEdit = Object.values(watchFormEdit).some(
     value => value !== undefined && value !== '' && value !== null
   );
@@ -43,10 +41,6 @@ const EditOrderComponent = () => {
       dispatch(orderAction.loadAllGroup());
     }
   }, [dispatch, isAddGroupState, isDefaultGroupState]);
-
-  // useEffect(() => {
-  //   dispatch(orderAction.loadAllGroup());
-  // }, [dispatch]);
 
   const handleCloseEditOrder = () => {
     dispatch(orderAction.setCloseEditOrderModal());
@@ -64,13 +58,6 @@ const EditOrderComponent = () => {
     resetCreateGroup();
   };
 
-  // const handleAddGroup = ({ group_id }: { group_id: string }) => {
-  //   if (findOneOrder.id !== null && +group_id) {
-  //     dispatch(orderAction.loadAddGroup({ orderId: findOneOrder.id.toString(), group_id: group_id.toString() }));
-  //     dispatch(orderAction.setCreateGroup(true));
-  //   }
-  // };
-
   const handleAddGroup = ({ group_id }: { group_id: string }) => {
     console.log('handleAddGroup called with:', group_id);
     if (findOneOrder.id !== null && +group_id) {
@@ -80,13 +67,6 @@ const EditOrderComponent = () => {
       }));
       dispatch(orderAction.setCreateGroup(true));
     }
-    // dispatch(orderAction.loadAddGroup({
-    //   orderId: findOneOrder.id.toString(),
-    //   group_id: group_id.toString()
-    // })).then(() => {
-    //   dispatch(orderAction.loadOrdersAll(dto)); // оновлюємо список
-    //   dispatch(orderAction.setCreateGroup(true));
-    // });
   };
 
 
