@@ -58,16 +58,27 @@ const EditOrderComponent = () => {
     resetCreateGroup();
   };
 
-  const handleAddGroup = ({ group_id }: { group_id: string }) => {
+  const handleAddGroup = (group_id : { group_id: string }) => {
     console.log('handleAddGroup called with:', group_id);
-    if (findOneOrder.id !== null && +group_id) {
+    if (findOneOrder.id !== null ) {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
-        group_id: group_id
+        group_id: group_id.group_id
       }));
       dispatch(orderAction.setCreateGroup(true));
     }
   };
+
+  // const handleAddGroup = (groupName: string) => {
+  //   const group = groups.find(g => g.group_name === groupName);
+  //   if (!group) {
+  //     console.error('Group not found');
+  //     return;
+  //   }
+  //   console.log('handleAddGroup called with ID:', group.id);
+  //   dispatch(orderAction.loadAddGroup({ group_id: group.id }));
+  // };
+  // };
 
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
