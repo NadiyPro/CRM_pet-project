@@ -38,6 +38,9 @@ interface OrderSliceInterface {
   isDefaultGroupState: boolean;
   openedMessageOrderId: number | null;
   isCreateGroup: boolean;
+  isDuplicate: boolean;
+  isGroupOrder: boolean;
+  isNoGroup: boolean;
 }
 
 const initialState: OrderSliceInterface = {
@@ -135,7 +138,10 @@ const initialState: OrderSliceInterface = {
   isAddGroupState: false,
   isDefaultGroupState: true,
   openedMessageOrderId: null,
-  isCreateGroup: false
+  isCreateGroup: false,
+  isDuplicate: false,
+  isGroupOrder: false,
+  isNoGroup: false
 };
 
 export const orderSlice = createSlice({
@@ -200,7 +206,16 @@ export const orderSlice = createSlice({
         // якщо ми змінили фільтри (наприклад name чи course), то скидаємо page на 1
         // якщо змінилась лише page — лишаємо її як є
       };
-    } // зберігати у state ті значення, які ми використовуємо для запиту
+    }, // зберігати у state ті значення, які ми використовуємо для запиту
+    setIsDuplicate(state, action: PayloadAction<boolean>){
+      state.isDuplicate =  action.payload;
+    },
+    setIsGroupOrder(state, action: PayloadAction<boolean>){
+      state.isDuplicate =  action.payload;
+    },
+    setIsNoGroup(state, action: PayloadAction<boolean>){
+      state.isDuplicate =  action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder

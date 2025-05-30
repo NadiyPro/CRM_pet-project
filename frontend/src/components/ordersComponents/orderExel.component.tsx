@@ -25,8 +25,8 @@ const OrderExelComponent = () => {
           src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAuUlEQVR4nO3WQQpCMRRD0axCxP0vSRRXExE6EMHBl5e09uVCcSiHBi2Q/isKzw3AeQcIATwAXJyQ6uwYiiH3t0/pzNSQE4Cr42YohsCFoQFiwdAEkWNohLySYdwQGWYGRIKZBSnHOP7Zj7zNtoCw4gtnx0BGuZHimGl1mxaLz7cCaTctVwyk241Q9Cv1WSDtpuWKgXS7EeathbUeja4YyCg3UhwzrVGmVRwzrVGmteq0uMj5uW0gCeaeAHHCuEhTlUIAAAAASUVORK5CYII="
           alt="documentExcel" />
       </button>
-      {<p>{exportSuccess}</p>}
-      {loadingExel && <p>loading...</p>}
+      {<div><p>{exportSuccess}</p></div>}
+      {loadingExel && <div><p>loading...</p></div>}
     </div>
   )
 }
