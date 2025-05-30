@@ -72,7 +72,7 @@ const EditOrderComponent = () => {
     const group = allGroup && allGroup.find(value => value.group_group_name === group_group_name);
     if (!group) {
       dispatch(orderAction.setIsNoGroup(true));
-      setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 1000);
+      setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 3000);
       return;
     }
 
@@ -83,6 +83,7 @@ const EditOrderComponent = () => {
       }));
       dispatch(orderAction.setIsGroupOrder(true));
       setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 3000);
+      return;
     }
   };
 

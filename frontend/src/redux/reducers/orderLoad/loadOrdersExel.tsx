@@ -12,14 +12,14 @@ const loadOrdersExel = createAsyncThunk(
       thunkAPI.dispatch(orderAction.setExportSuccess('Файл успішно завантажено'));
       setTimeout(() => {
         thunkAPI.dispatch(orderAction.setExportSuccess(''));
-      }, 10000);
+      }, 5000);
       return thunkAPI.fulfillWithValue('Export success');
     } catch (e) {
       const error = e as AxiosError;
       thunkAPI.dispatch(orderAction.setExportSuccess('Виникла помилка при завантаженні файла'));
       setTimeout(() => {
         thunkAPI.dispatch(orderAction.setExportSuccess(''));
-      }, 10000);
+      }, 5000);
       return thunkAPI.rejectWithValue(error?.response?.data);
     }
   }
