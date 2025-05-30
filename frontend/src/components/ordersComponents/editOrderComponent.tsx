@@ -75,11 +75,6 @@ const EditOrderComponent = () => {
       setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 1000);
       return;
     }
-    // if (!group) {
-    //   dispatch(orderAction.setIsNoGroup(true))
-    //   return;
-    // }
-    // dispatch(orderAction.setIsNoGroup(false))
 
     if (findOneOrder.id !== null) {
       dispatch(orderAction.loadAddGroup({
@@ -88,6 +83,7 @@ const EditOrderComponent = () => {
       }));
       dispatch(orderAction.setIsGroupOrder(true));
       setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 3000);
+      return;
     }
   };
 
