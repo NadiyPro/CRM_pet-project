@@ -66,9 +66,6 @@ const EditOrderComponent = () => {
       console.error('Group not found');
       return;
     }
-    console.log('handleAddGroup group:', group);
-    console.log('handleAddGroup called with ID:', group.group_id);
-    console.log('handleAddGroup called group_group_name:', group_group_name);
 
     if (findOneOrder.id !== null) {
       dispatch(orderAction.loadAddGroup({
