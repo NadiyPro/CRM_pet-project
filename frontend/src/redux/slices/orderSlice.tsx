@@ -123,7 +123,7 @@ const initialState: OrderSliceInterface = {
     msg: null,
   },
   createGroup: {
-    id: 0,
+    group_id: 0,
     group_group_name: '',
   },
   allGroup: [],

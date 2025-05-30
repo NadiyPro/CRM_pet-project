@@ -27,7 +27,7 @@ const EditOrderComponent = () => {
   const {
     handleSubmit: handleSubmitAddGroup,
     register: registerAddGroup,
-  } = useForm<{ group_id: string }>({ mode: 'all' })
+  } = useForm<{ group_group_name: string }>({ mode: 'all' })
   const { findOneOrder, isDefaultGroupState, isAddGroupState, isCreateGroup, allGroup, dto} = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
   const watchFormEdit = watch();
@@ -58,28 +58,43 @@ const EditOrderComponent = () => {
     resetCreateGroup();
   };
 
-  const handleAddGroup = (group_id : { group_id: string }) => {
-    console.log('handleAddGroup called with:', group_id);
-    if (findOneOrder.id !== null ) {
+  const handleAddGroup = (data: { group_group_name: string }) => {
+    const group_group_name = data.group_group_name;
+
+    const group = allGroup && allGroup.find(value => value.group_group_name === group_group_name);
+    if (!group) {
+      console.error('Group not found');
+      return;
+    }
+    console.log('handleAddGroup group:', group);
+    console.log('handleAddGroup called with ID:', group.group_id);
+    console.log('handleAddGroup called group_group_name:', group_group_name);
+
+    if (findOneOrder.id !== null) {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
-        group_id: group_id.group_id
+        group_id: group.group_id.toString()
       }));
       dispatch(orderAction.setCreateGroup(true));
     }
   };
 
-  // const handleAddGroup = (groupName: string) => {
-  //   const group = groups.find(g => g.group_name === groupName);
-  //   if (!group) {
-  //     console.error('Group not found');
-  //     return;
+  // const handleAddGroup = (group_group_name: string) => {
+  //     const group = allGroup && allGroup.find(value => value.group_group_name === group_group_name);
+  //     if (!group) {
+  //       console.error('Group not found');
+  //       return;
+  //     }
+  //     console.log('handleAddGroup called with ID:', group.id);
+  //   console.log('handleAddGroup called group_group_name:', group_group_name);
+  //   if (findOneOrder.id !== null ) {
+  //     dispatch(orderAction.loadAddGroup({
+  //       orderId: findOneOrder.id.toString(),
+  //       group_id: group.id.toString()
+  //     }));
+  //     dispatch(orderAction.setCreateGroup(true));
   //   }
-  //   console.log('handleAddGroup called with ID:', group.id);
-  //   dispatch(orderAction.loadAddGroup({ group_id: group.id }));
   // };
-  // };
-
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
     const cleanedData = Object.fromEntries(
@@ -128,11 +143,11 @@ const EditOrderComponent = () => {
       {isAddGroupState && (
         <form id={'addGroup'} onSubmit={handleSubmitAddGroup(handleAddGroup)}>
           <label htmlFor={'addGroupSelect'}>Group</label>
-          <select id={'addGroupSelect'} {...registerAddGroup('group_id')}>
+          <select id={'addGroupSelect'} {...registerAddGroup('group_group_name')}>
             <option value="">Select group</option>
             {allGroup &&
               allGroup.map(group => (
-                <option key={group.id} value={group.id}>{group.group_group_name}</option>
+                <option key={group.group_id} value={group.group_group_name}>{group.group_group_name}</option>
               ))
          }
           </select>
