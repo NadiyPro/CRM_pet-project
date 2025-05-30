@@ -51,14 +51,19 @@ const EditOrderComponent = () => {
     const isDuplicateGroup = allGroup?.some(group => group.group_group_name === group_name.group_name);
     if (isDuplicateGroup) {
       dispatch(orderAction.setIsDuplicate(true));
-      // alert('Група з такою назвою вже існує');
+      setTimeout(() => dispatch(orderAction.setIsDuplicate(false)), 3000); // через 1 сек прибираємо текст
       return;
     }
-    dispatch(orderAction.setIsDuplicate(false));
 
     dispatch(orderAction.loadCreateGroup(group_name))
-      .then(() => dispatch(orderAction.setAddGroupState(true)));
-    resetCreateGroup();
+      .then(() => {
+        dispatch(orderAction.setCreateGroup(true));
+        resetCreateGroup();
+        setTimeout(() => {
+          dispatch(orderAction.setCreateGroup(false));
+          dispatch(orderAction.setAddGroupState(true));
+        }, 3000);
+      });
   };
 
   const handleAddGroup = (data: { group_group_name: string }) => {
@@ -66,21 +71,23 @@ const EditOrderComponent = () => {
 
     const group = allGroup && allGroup.find(value => value.group_group_name === group_group_name);
     if (!group) {
-      dispatch(orderAction.setIsNoGroup(true))
+      dispatch(orderAction.setIsNoGroup(true));
+      setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 1000);
       return;
     }
-    dispatch(orderAction.setIsNoGroup(false))
+    // if (!group) {
+    //   dispatch(orderAction.setIsNoGroup(true))
+    //   return;
+    // }
+    // dispatch(orderAction.setIsNoGroup(false))
 
     if (findOneOrder.id !== null) {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
         group_id: group.group_id.toString()
       }));
-      setTimeout(() => {
-        dispatch(orderAction.setAddGroupState(true));
-        dispatch(orderAction.setCreateGroup(true));
-      }, 1000);
-      dispatch(orderAction.setCreateGroup(false));
+      dispatch(orderAction.setIsGroupOrder(true));
+      setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 3000);
     }
   };
 
@@ -89,20 +96,9 @@ const EditOrderComponent = () => {
       Object.entries(updateOrdersReqDto).filter(([, value]) => value !== '' && value !== undefined)
     );
 
-    // if (Object.keys(cleanedData).length === 0) {
-    //   dispatch(orderAction.setIsEmptyField(true))
-    //   // alert("Заповніть хоча б одне поле для редагування");
-    //   return;
-    // }
-    // dispatch(orderAction.setIsEmptyField(false))
-
     if (findOneOrder.id !== null) {
       dispatch(orderAction.loadEditOrder({ orderId: findOneOrder.id, updateOrdersReqDto: cleanedData }));
     }
-    setTimeout(() => {
-      dispatch(orderAction.setIsGroupOrder(true));
-    }, 1000);
-    dispatch(orderAction.setIsGroupOrder(false));
 
     reset();
   };
