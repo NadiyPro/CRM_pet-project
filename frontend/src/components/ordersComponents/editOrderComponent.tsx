@@ -83,7 +83,6 @@ const EditOrderComponent = () => {
       }));
       dispatch(orderAction.setIsGroupOrder(true));
       setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 3000);
-      return;
     }
   };
 
