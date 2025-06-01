@@ -6,11 +6,12 @@ import { AuthPasswordDto } from '../module/authPassword.dto';
 import { AuthResDto } from '../module/authRes.dto';
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://localhost:3000',
+  baseURL: '/api',
+  // baseURL: 'http://localhost:3000',
   withCredentials: true,
 });
 axiosInstance.interceptors.request.use(request => {
-  if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
+  if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh' && request.url !== '/auth/activate')
     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthResDto>('tokenPair').tokens.accessToken);
   return request;
 });

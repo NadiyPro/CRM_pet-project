@@ -4,11 +4,11 @@ import { joiResolver } from '@hookform/resolvers/joi';
 import authPasswordValidator from '../validator/authPassword.validator';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { authAction } from '../redux/slices/authSlice';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const AuthPasswordPage = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthPasswordDto>({mode: 'all', resolver: joiResolver(authPasswordValidator)})
-  const {accessToken} = useAppSelector((state) => state.adminStore.authTokens.tokens)
+  const { token } = useParams();
   const {loadingPassword, errorPassword} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch()
   const navigate = useNavigate();
@@ -23,8 +23,12 @@ const AuthPasswordPage = () => {
   }
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
-    const token = accessToken;
-    const isValidPassword =  await dispatch(authAction.loadActivatePassword({ authPasswordDto: {...authPasswordDto, deviceId: getDeviceId() }, token })).unwrap();
+    if (!token) return; // ✅ обробка ситуації, коли token не передано
+    const isValidPassword = await dispatch(authAction.loadActivatePassword({
+      authPasswordDto: { ...authPasswordDto, deviceId: getDeviceId() },
+      token,
+    })).unwrap();
+
     if (isValidPassword) {
       navigate(`/orders`);
     } else {
