@@ -80,7 +80,7 @@ const EditOrderComponent = () => {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
         group_id: group.group_id.toString()
-      }));
+      })).unwrap();
       dispatch(orderAction.setIsGroupOrder(true));
       setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 3000);
       return;
