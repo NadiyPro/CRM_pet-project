@@ -5,6 +5,7 @@ import { AuthLoginDto } from '../module/authLogin.dto';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { authAction } from '../redux/slices/authSlice';
+import '../styles/styles.scss';
 
 const AuthLoginPage = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
@@ -24,7 +25,7 @@ const AuthLoginPage = () => {
   const dto = async (data: AuthLoginDto) => {
       const isValid = await dispatch(authAction.loadLogin({ ...data, deviceId: getDeviceId() })).unwrap();
       if (isValid) {
-        navigate(`/orders`);
+        navigate('/orders');
       } else {
         reset();
       }
