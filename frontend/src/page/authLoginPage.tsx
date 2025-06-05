@@ -33,7 +33,7 @@ const AuthLoginPage = () => {
 
   return(
     <div className={'divLogin'}>
-      <form onSubmit={handleSubmit(dto)}>
+      <form className={'divLogin__form'} onSubmit={handleSubmit(dto)}>
         <label htmlFor={'email'}>Email</label>
         <input type={'email'} {...register('email')} required/>
 
@@ -42,7 +42,7 @@ const AuthLoginPage = () => {
 
         <button type={'submit'} disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
       </form>
-      {errorLogin && <p className="errorLogin">{errorLogin}</p>}
+      {errorLogin && <div><p className="errorLogin">{errorLogin}</p></div>}
     </div>
   )
 };
