@@ -1,12 +1,39 @@
-/*AuthLoginPage*/
-body {
+html, body {
+  height: 100%;
   padding-left: 30px;
   padding-right: 30px;
 }
 
+#root {
+  width: 100%;
+  height: 100vh;
+}
+
+/*AuthLoginPage*/
 .baseLogin {
   width: 100%;
   height: 100vh;
+  position: relative;
+}
+.baseLogin__video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  -o-object-fit: cover;
+     object-fit: cover;
+  z-index: -1;
+}
+.baseLogin__Hello {
+  opacity: 0;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20%;
+  margin-left: 55%;
+  z-index: 0;
 }
 .baseLogin__divLogin {
   width: 25vw;
@@ -26,6 +53,7 @@ body {
       -ms-flex-direction: column;
           flex-direction: column;
   position: relative;
+  z-index: 0;
 }
 .baseLogin__divLogin__form {
   width: 100%;
@@ -81,7 +109,7 @@ body {
           filter: blur(20px);
   -webkit-animation: anime 12s linear infinite;
           animation: anime 12s linear infinite;
-  z-index: 0;
+  z-index: -1;
 }
 
 @-webkit-keyframes anime {

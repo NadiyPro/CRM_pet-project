@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { authAction } from '../redux/slices/authSlice';
 import '../styles/styles.scss';
 
+
 const AuthLoginPage = () => {
   const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
   const {loadingLogin, errorLogin} = useAppSelector((state) => state.authStore);
@@ -33,6 +34,10 @@ const AuthLoginPage = () => {
 
   return(
     <div className={'baseLogin'}>
+      <video autoPlay muted loop playsInline className={'baseLogin__video'}>
+        <source src="/videoLogin.mp4" type="video/mp4" />
+      </video>
+      <div className={'baseLogin__Hello'}><p>Hello</p></div>
       <div className={'baseLogin__divLogin'}>
         <form className={'baseLogin__divLogin__form'} onSubmit={handleSubmit(dto)}>
           <label htmlFor={'email'}>Email</label>

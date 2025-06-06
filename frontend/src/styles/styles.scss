@@ -1,15 +1,43 @@
-/*AuthLoginPage*/
-body {
+html, body {
   //display: flex;
   //align-items: center;
   //height: 100vh;
+  height: 100%;
   padding-left: 30px;
   padding-right: 30px;
 }
 
+#root{
+  width: 100%;
+  height: 100vh;
+}
+
+/*AuthLoginPage*/
 .baseLogin {
   width: 100%;
   height: 100vh;
+  position: relative;
+
+  &__video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    object-fit: cover;
+    z-index: -1;
+  }
+
+  &__Hello{
+    opacity: 0;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 20%;
+    margin-left: 55%;
+    z-index: 0;
+  }
 
   &__divLogin {
     width: 25vw;
@@ -20,6 +48,7 @@ body {
     justify-content: center;
     flex-direction: column;
     position: relative;
+    z-index: 0;
 
     &__form {
       width: 100%;
@@ -68,7 +97,7 @@ body {
       background-size: 300%;
       filter: blur(20px);
       animation: anime 12s linear infinite;
-      z-index: 0;
+      z-index: -1;
     }
   }
 
