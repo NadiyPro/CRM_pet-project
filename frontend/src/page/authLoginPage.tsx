@@ -37,19 +37,23 @@ const AuthLoginPage = () => {
       <video autoPlay muted loop playsInline className={'baseLogin__video'}>
         <source src="/videoLogin.mp4" type="video/mp4" />
       </video>
-      <div className={'baseLogin__Hello'}><h1>H e l l o</h1></div>
-      <div className={'baseLogin__divLogin'}>
-        <form className={'baseLogin__divLogin__form'} onSubmit={handleSubmit(dto)}>
-          <label htmlFor={'email'}>Email</label>
-          <input type={'email'} {...register('email')} required />
 
-          <label htmlFor={'password'}>Password</label>
-          <input type={'password'} {...register('password')} required />
+      <div className={'baseLogin__contentLogin'}>
+        <div className={'baseLogin__contentLogin__divLogin'}>
+          <form className={'baseLogin__contentLogin__divLogin__form'} onSubmit={handleSubmit(dto)}>
+            <label htmlFor={'email'}>Email</label>
+            <input type={'email'} {...register('email')} required />
 
-          <button className={'baseLogin__divLogin__form__button'} type={'submit'}
-                  disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
-        </form>
-        {errorLogin && <div><p className="errorLogin">{errorLogin}</p></div>}
+            <label htmlFor={'password'}>Password</label>
+            <input type={'password'} {...register('password')} required />
+
+            <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'}
+                    disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
+          </form>
+          {errorLogin && <div><p className="errorLogin">{errorLogin}</p></div>}
+        </div>
+
+        <div className={'baseLogin__contentLogin__Hello'}><h1>H e l l o</h1></div>
       </div>
     </div>
   )
