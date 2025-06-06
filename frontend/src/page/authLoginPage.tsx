@@ -37,7 +37,7 @@ const AuthLoginPage = () => {
       <video autoPlay muted loop playsInline className={'baseLogin__video'}>
         <source src="/videoLogin.mp4" type="video/mp4" />
       </video>
-      <div className={'baseLogin__Hello'}><p>Hello</p></div>
+      <div className={'baseLogin__Hello'}><h1>H e l l o</h1></div>
       <div className={'baseLogin__divLogin'}>
         <form className={'baseLogin__divLogin__form'} onSubmit={handleSubmit(dto)}>
           <label htmlFor={'email'}>Email</label>
