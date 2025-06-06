@@ -1,7 +1,234 @@
+/*AuthLoginPage*/
 body {
-  margin: 0;
-  background-color: cadetblue;
+  //display: flex;
+  //align-items: center;
+  //height: 100vh;
+  padding-left: 30px;
+  padding-right: 30px;
 }
-.divLogin{
-  background-color: #3560bb;
+
+.baseLogin {
+  width: 100%;
+  height: 100vh;
+
+  &__divLogin {
+    width: 25vw;
+    height: 30vh;
+    margin: 15vw 0 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+
+    &__form {
+      width: 100%;
+      height: 100%;
+      color: white;
+      font-size: 1.5em;
+      font-weight: bold;
+      border-radius: 15px;
+      background-color: rgba(164, 246, 227, 0.46);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 1;
+      position: relative;
+      gap: 10px; // додає простір між полями форми
+
+      &__button {
+        width: 8vw;
+        height: 5vh;
+        background-color: #067d81;
+        color: white;
+        font-weight: bold;
+        font-size: 0.7em;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer; // коли юзер наводить курсор миші на кнопку, курсор перетворюється на "руку"
+
+        &:disabled {
+          background-color: grey;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    &::after {
+      content: ''; // Без цього псевдоелемент не відображатиметься
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      background: linear-gradient( 45deg, rgba(0, 139, 139, 0.52), #067d81, #1cc6ca, #8bf6e1,
+              rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);
+      background-size: 300%;
+      filter: blur(20px);
+      animation: anime 12s linear infinite;
+      z-index: 0;
+    }
+  }
+
 }
+
+//body {
+//  //display: flex;
+//  //align-items: center;
+//  //height: 100vh;
+//  padding-left: 30px;
+//  padding-right: 30px;
+//}
+//.divLogin {
+//  width: 30%;
+//  height: 50%;
+//  margin-left: 10%;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  flex-direction: column;
+//  position: relative;
+//
+//  &__form {
+//    width: 100%;
+//    height: 100%;
+//    color: white;
+//    background-color: rgba(164, 246, 227, 0.46);
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//    flex-direction: column;
+//    z-index: 1;
+//    position: relative;
+//    gap: 10px; // додає простір між полями форми
+//
+//    &__button {
+//      background-color: #067d81;
+//      color: white;
+//      border: none;
+//      border-radius: 5px;
+//      cursor: pointer; // коли юзер наводить курсор миші на кнопку, курсор перетворюється на "руку"
+//
+//      &:disabled {
+//        opacity: 0.6; //  60% видимий, 40% прозорий
+//        cursor: not-allowed;
+//      }
+//    }
+//  }
+//
+//  &::after {
+//    content: ''; // Без цього псевдоелемент не відображатиметься
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+//    width: 100%;
+//    height: 100%;
+//    border-radius: 10px;
+//    background: linear-gradient( 45deg, rgba(0, 139, 139, 0.52), #067d81, #1cc6ca, #8bf6e1,
+//            rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);
+//    background-size: 300%;
+//    filter: blur(20px);
+//    animation: anime 12s linear infinite;
+//    z-index: 0;
+//  }
+//}
+
+@keyframes anime {
+  0%, 100%
+  {
+    background-position: 0 0;
+  }
+  50%
+  {
+    background-position: 300%;
+  }
+}
+
+.errorLogin {
+  color: #6e0707;
+  background-color: rgba(209, 115, 115, 0.46);
+  //margin-top: 10px;
+  text-align: center;
+  border-radius: 10px;
+}
+//body {
+//  margin: 0;
+//  display: flex;
+//  align-items: center;
+//  height: 100vh;
+//}
+//
+//.divLogin {
+//  width: 30%;
+//  height: 50%;
+//  margin-left: 10%;
+//  display: flex;
+//  align-items: center;
+//  justify-content: center;
+//  flex-direction: column;
+//  position: relative;
+//
+//  &__form {
+//    width: 100%;
+//    height: 100%;
+//    color: white;
+//    background-color: rgba(164, 246, 227, 0.46);
+//    display: flex;
+//    align-items: center;
+//    justify-content: center;
+//    flex-direction: column;
+//    z-index: 1;
+//    position: relative;
+//    gap: 10px; // додає простір між полями форми
+//
+//    &__button {
+//      background-color: #067d81;
+//      color: white;
+//      border: none;
+//      border-radius: 5px;
+//      cursor: pointer; // коли юзер наводить курсор миші на кнопку, курсор перетворюється на "руку"
+//
+//      &:disabled {
+//        opacity: 0.6; //  60% видимий, 40% прозорий
+//        cursor: not-allowed;
+//      }
+//    }
+//  }
+//
+//  &::after {
+//    content: ''; // Без цього псевдоелемент не відображатиметься
+//    position: absolute;
+//    top: 0;
+//    left: 0;
+//    width: 100%;
+//    height: 100%;
+//    border-radius: 10px;
+//    background: linear-gradient( 45deg, rgba(0, 139, 139, 0.52), #067d81, #1cc6ca, #8bf6e1,
+//            rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);
+//    background-size: 300%;
+//    filter: blur(20px);
+//    animation: anime 12s linear infinite;
+//    z-index: 0;
+//  }
+//}
+//
+//@keyframes anime {
+//  0%, 100%
+//  {
+//    background-position: 0 0;
+//  }
+//  50%
+//  {
+//    background-position: 300%;
+//  }
+//}
+//
+//.errorLogin {
+//  color: #6e0707;
+//  background-color: rgba(209, 115, 115, 0.46);
+//  //margin-top: 10px;
+//  text-align: center;
+//  border-radius: 10px;
+//}
