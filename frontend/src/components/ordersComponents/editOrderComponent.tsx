@@ -12,6 +12,7 @@ import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import { Group_nameDto } from '../../module/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
 import { useEffect } from 'react';
+import '../../styles/styles.scss';
 
 const EditOrderComponent = () => {
   const { handleSubmit, register, reset, watch} = useForm<UpdateOrdersReqDto>({

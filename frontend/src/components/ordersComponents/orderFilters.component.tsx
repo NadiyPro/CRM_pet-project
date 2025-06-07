@@ -10,6 +10,7 @@ import { CourseEnum } from '../../module/enums/courseEnum';
 import { StatusEnum } from '../../module/enums/statusEnum';
 import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
+import '../../styles/styles.scss';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);

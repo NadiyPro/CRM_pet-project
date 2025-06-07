@@ -9,6 +9,7 @@ import createMessageValidator from '../../validator/createMessage.validator';
 import { CreateMessageDto } from '../../module/createMessage.dto';
 import EditOrderComponent from './editOrderComponent';
 import { useCallback, useEffect, useRef } from 'react';
+import '../../styles/styles.scss';
 
 const MessagesOrderIdComponent = () => {
   const {handleSubmit, register, reset, formState: {isValid}} =

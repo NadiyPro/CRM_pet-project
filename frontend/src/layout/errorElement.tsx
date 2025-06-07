@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { isRouteErrorResponse, useRouteError } from 'react-router-dom';
+import '../styles/styles.scss';
 
 const ErrorElement: FC = () => {
   const error = useRouteError();

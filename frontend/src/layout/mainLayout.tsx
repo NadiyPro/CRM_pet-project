@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 import LogOutComponent from '../components/mainLayoutComponents/logOut.component';
 import AdminPanelComponent from '../components/mainLayoutComponents/adminPanel.component';
 import OrdersPanelComponent from '../components/mainLayoutComponents/ordersPanel.component';
+import '../styles/styles.scss';
 
 const MainLayout = () => {
 

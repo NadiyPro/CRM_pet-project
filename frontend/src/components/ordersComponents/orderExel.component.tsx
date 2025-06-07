@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 // import { GrDocumentExcel } from 'react-icons/gr';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { omit } from 'lodash';
+import '../../styles/styles.scss';
 
 const OrderExelComponent = () => {
   const { dto, loadingExel, exportSuccess } = useAppSelector(state => state.orderStore);

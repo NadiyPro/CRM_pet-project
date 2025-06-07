@@ -8,6 +8,7 @@ import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { BaseOrdersDto } from '../../module/baseOrders.dto';
 import MessagesOrderIdComponent from './messagesOrderId.component';
+import '../../styles/styles.scss';
 
 const OrdersTableComponent = () => {
   const {data: { orders }, dto, openedMessageOrderId } = useAppSelector((state) => state.orderStore);

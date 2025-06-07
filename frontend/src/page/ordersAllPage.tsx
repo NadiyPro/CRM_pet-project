@@ -4,6 +4,7 @@ import PaginationComponent from '../components/ordersComponents/pagination.compo
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { useEffect } from 'react';
 import { orderAction } from '../redux/slices/orderSlice';
+import '../styles/styles.scss';
 
 const OrdersAllPage = () => {
 

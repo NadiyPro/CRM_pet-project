@@ -1,5 +1,6 @@
 import { orderAction } from '../../redux/slices/orderSlice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import '../../styles/styles.scss';
 
 const PaginationComponent = () => {
   const { dto, data } = useAppSelector((state) => state.orderStore);
