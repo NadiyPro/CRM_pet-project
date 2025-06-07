@@ -1,6 +1,7 @@
 import { useAppDispatch } from '../../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { authAction } from '../../redux/slices/authSlice';
+import '../../styles/styles.scss';
 
 const LogOutComponent = () => {
   const dispatch = useAppDispatch();

@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import '../../styles/styles.scss';
 
 const OrdersPanelComponent = () => {
   const navigate = useNavigate();
