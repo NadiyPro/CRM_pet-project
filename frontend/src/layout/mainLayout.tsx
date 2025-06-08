@@ -7,12 +7,12 @@ import '../styles/styles.scss';
 const MainLayout = () => {
 
 return(
-  <div>
-    <header>
-      <div>
+  <div className={'divMainLayout'}>
+    <header className={'divMainLayout__header'}>
+      <div className={'divMainLayout__header__logo'}>
         <h2>NadiyPro</h2>
       </div>
-      <nav>
+      <nav className={'divMainLayout__header__nav'}>
         <OrdersPanelComponent />
         <AdminPanelComponent />
         <LogOutComponent />
