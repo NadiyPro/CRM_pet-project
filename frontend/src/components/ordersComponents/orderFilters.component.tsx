@@ -42,9 +42,9 @@ const OrdersFiltersComponent = () => {
 
 
   return (
-    <div>
-      <form>
-        <input
+    <div className={'divMainLayout__ordersAllPage__ordersFiltersComponent'}>
+      <form className={'divMainLayout__ordersAllPage__ordersFiltersComponent__form'}>
+        <input className={'divMainLayout__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.NAME}
           value={dto.name ?? ''}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
@@ -152,18 +152,22 @@ const OrdersFiltersComponent = () => {
         )
       </form>
 
-      <button type="button" onClick={handleReset}>
-        {/*<GrPowerReset size={20} color={'white'} />*/}
-        <img
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEJElEQVR4nO2ZaYiWVRTHf6aOpuTggh9CSfswDn5QUUzFXKhILBUrIk1UwlBR/Jr7vlBiuSCWuKFCRIsJGhaK+kUoU7FxSRQ19zUXxn2ZiQP/By7P3Oedeed93ud5g/nDYd7hucv/3HvPueecC3WoQx3iwEvAu8DnwHbgBHALeAI8AC4CZcA2YAbwJtCUlFFPpH8E7gJ7gFki18Eh2ABoCXQFPgK+Ao4C94CNQH+NlShxI3IEOAVMBJqL9CRgHfCnVv0+8FS7YbuyBZgD9FT7L/XtEPBWEuRt0t3AJWA40EQKmDKVWcoVYD5QCiwGHgM7gLb5Ij9K275BK27//1ML4mF5BHwBvAb8BfwLDIn7yAQrNF4rdsBD5BiwBBgKlADF6t8MeFW2MRPYCTzz9L+svpuACtlTLOTXaJUGAh/oXAeTPge+A7pnOa4dk9nA7ZASFdqNr/X/olwVWCwjHASME+Fgsj+ALjmO30pkK0KKfCsPVZnLTozWANOAEQ75Cvl7c49xYbBnN2xn92lec9dZoVQG+yvQQ0eoUmf3U/KDEnk3V4k9+muutl02534v8BDoCJx2BhxLflEKXI3wVltrOsgwdVgorxEMYDdoEugb4aUq5cky4gW5w3Kt/j11PAwUkRzmeciXyRaRW34vypis8WrgG8doe5MsioCzIfdqMdNk5w6a6+u4RR/fdlbfoss0MKqaG7yKCy/WbWvubIzT8I2EiZcA03Vso8ifyXR8fgG+1+9zsoukUKqzXl38tNTXeYk+LlBcYr9XkTwaABOAmxkUME9VBTv0cYbT0FxqWmgOLFco45K/DtT3dTjt+P+gcSfSR0fgN4fT2qiGd9RgmdM4CIkLAYOBkwosveFDcPvdd3yvd6tSRFHUhVovFCoXqgIZUe6xdjOk/w1OeRSwUkihoLfqSu2jGriWHsgnFA4miNODqJxkjkeBzRQOfnJ4TfU16OdRwDKhF0kfLZzg0uR1X6PGysLCSlhUmDY+c/iYIo2iGgZBnCt/p+xOGwLnHT5WuoxEn4jgycqHaWFmiIvVVTPikEeBu0rjkkZXlegDHpaNVYv3I3bhcMI1/RbA8RAHSytrhK0RSuySsecbxcD+0Nw/ZDNAGx0bnxJ7tTr5QmsP+Ru1KbsP99QsA7HcoVceyA8CroXmsiBzQG0HnJIhrbNMaaWej3LFK0pUfAtmtdmcsLKaBLtcSbZlTtmis6rQrqdxJbY3gqmefMEnZVLmQ9VtWioBaaRSurnFj4H1wIUM4zxXEStWvJPBsOOUG3pMyQvaOdW7fMjPwMskgAF6kIuL+O8KYxJHNxWC3VC3pmLH0R707H049oduK/HZE5MZ0gqRtNvZXhgDOaj7wMTefC13MAk/FbkStDGx15igvz2Mu2PbMbU5rbBlHEaqZloF/wFjsi7WUGvWiwAAAABJRU5ErkJggg=="
-          alt="recurring-appointment" />
-      </button>
-      <div>
-        <label htmlFor={'myCheckbox'}>My</label>
-        <input type={'checkbox'} name={'myCheckbox'} checked={dto.my} onChange={handleMyCheckbox} />
+      <div className={'divMainLayout__ordersAllPage__ordersFiltersComponent__menu'}>
+        <button className={'divMainLayout__header__nav__panel__button'} type="button" onClick={handleReset}>
+          {/*<GrPowerReset size={20} color={'white'} />*/}
+          <img
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEQ0lEQVR4nO2ZaahVVRTHj2kOSYpP6YMkmh/00YcSIzM0FZWk1LAi1MQXUZQofdXUbNCMEmeigdJQIaJJQcOi0L4EDRamaWFoTjmmJWbl9H7x96wN2+M+p3ffPffcG7wfHHiXt4f/2sPaa68dRS200ELZANcCo4EXgQ3AT8BJ4BzwF3AQ2AasB54CRgAdqy26lYl+HzgFbAaeNnF9nUCgDdAV6A+MBxYDPwB/AquAYWqraOESsh34GZgGdDHRTwArgG9s1M8A5202NCsfAs8CA638Ivvfd8DIIsSr003Ar8BE4BozQMaUymFgHlAPLADOAhuBHpUS32DT/paNuH7vpXz+AV4CBgDfAyeAe/JeMm6EptiIbQkI2QEsBMYBfYDOVr8T0Nv2xhzgU+BCoP4hq7saaNR+ykv8GzZKdwH327p2XATeAW4tsd0ewDPA7wkjGm02XrXfL5RrwALbhGOAx02w4yugX5ntdzOxEu7ztnkomj0TwEPWwCxgkie+0fx9m3LEJ/oaG5gNzewX1u/oUhustw37MXCbLSFs7T6al3Af2zfybj46WzBX2ysqYd1/DvwN3Ajs9hp8LKogxAN3hDDrmtrIBKsw37yGY3ElxTuAISleSoyIsgCuMnd42kZfy0hsBdpGBQHMDYhXLDXJ/i+3fG/aZhKvA695m3ZQUeKFBgv4xRPfaDHTDO8Mei5KYrGKuNMb/Q1RFSA+6bO43IXr5LTTVu7sEa/g8IKF9wFm27JNY0/W8vkIeNf+3qd9UaD4elvr/8WSUGXFMeJ5i0vEK0WJd9j9YSrwW4YBQ0IVFcpiNybHhKhKEEe8yyyU8TkGtA5V2O35f8dNVVHvYe78E0/Tm2kF/7ACS73Cl0LiWoB4j+5SYJkWPrjT74zne6+cqipCfD60TTPAD5Vr0oBMLHxI0iX6v0CcYUjSP6oRgEGWV7ohrYC/0x0PRzUC8dmAJcquvJNYvibJmqhGAD7wdM0MFRgaMEA3oQ5VUewB1HnBpRgcKtTebmFJGqIqA0z39MiQdmkFXRDn82M13SlwNbDf07Miq/AdhJlWqGqPxLVWDIyysERrEmWfe0cFQ5zRVoresaUple5LmYWtReb0iTfuzoSGYU2tvC7FiM+02QsQ3xn4OtH3e6U0cL0tmxDKGdVVUPx1AfHHS067W/4/mbN06O5wewXEjwGOJvpSkDmquQ0+STq6Kb2s56MchPfURSVlwGaV27hEZqEodoluTs1o+2bLQvuexie3N4KZgftCiG1mzAPK29jjni4h7SyVLrf4ILASOJDRjvqaUbb4hCF3Z2zsPDmux5RcxXtG9PKyd5VgLdC9IuIThoyyB7m8+FJhTMWFBwy5xRLBfqjbVLQc9aA3MveHbkvx6YlJ2eDlJlKns14Y3fetnQf69Oaru4O+5FORjyujT68xrr4exv22tUzVpxJb0jBZOdOQ2H8BwK78eGPC/TsAAAAASUVORK5CYII="
+            alt="recurring-appointment" />
+        </button>
+
+        <div className={'divMainLayout__ordersAllPage__ordersFiltersComponent__menu__my'}>
+          <label htmlFor={'myCheckbox'}>My</label>
+          <input type={'checkbox'} name={'myCheckbox'} checked={dto.my} onChange={handleMyCheckbox} />
+        </div>
+
+        <OrderExelComponent />
       </div>
 
-      <OrderExelComponent />
     </div>
   );
 };

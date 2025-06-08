@@ -53,7 +53,9 @@ const AuthLoginPage = () => {
           {errorLogin && <div><p className="errorLogin">{errorLogin}</p></div>}
         </div>
 
-        <div className={'baseLogin__contentLogin__Hello'}><h1>H e l l o</h1></div>
+        <div className={'baseLogin__contentLogin__Hello'}>
+          <h1 className={'baseLogin__contentLogin__Hello__h1'}>H e l l o</h1>
+        </div>
       </div>
     </div>
   )

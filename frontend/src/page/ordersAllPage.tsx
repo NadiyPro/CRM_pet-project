@@ -17,7 +17,7 @@ const OrdersAllPage = () => {
   }, [dispatch, dto]);
 
   return(
-    <div>
+    <div className={'divMainLayout__ordersAllPage'}>
       <OrdersFiltersComponent/>
       <OrdersTableComponent/>
       <PaginationComponent />

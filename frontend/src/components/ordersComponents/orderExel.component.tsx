@@ -19,12 +19,13 @@ const OrderExelComponent = () => {
   };
 
   return(
-    <div>
-      <button type="button" onClick={handleOrdersExel} disabled={loadingExel}>
+    <div className={'divMainLayout__header__nav__panel'}>
+      <button className={'divMainLayout__header__nav__panel__button'} type="button" onClick={handleOrdersExel}
+              disabled={loadingExel}>
         {/*<GrDocumentExcel size={20} color={'white'} />*/}
         <img
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAuUlEQVR4nO3WQQpCMRRD0axCxP0vSRRXExE6EMHBl5e09uVCcSiHBi2Q/isKzw3AeQcIATwAXJyQ6uwYiiH3t0/pzNSQE4Cr42YohsCFoQFiwdAEkWNohLySYdwQGWYGRIKZBSnHOP7Zj7zNtoCw4gtnx0BGuZHimGl1mxaLz7cCaTctVwyk241Q9Cv1WSDtpuWKgXS7EeathbUeja4YyCg3UhwzrVGmVRwzrVGmteq0uMj5uW0gCeaeAHHCuEhTlUIAAAAASUVORK5CYII="
-          alt="documentExcel" />
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAACvUlEQVR4nO3aT8hOWRzA8etFgw2lmQXZCBE7Wcw0pbckhRRhoezIwp9mNZSaWc3YsrGyIKUUKQtESVGUhZSVQq+IBeVvg8lHp7lP3fe85z5/Xvd57tMzz7eexX3O6fx+33vPvfecc0+WdRGMYAm24W9cxgvcyvoVTMdy7MRRXMUrJWT9AOZgFL/hJO7jSyLfr3iIsziEdbWJYB7W4ABO4UGeYMyXvCzU+R0bMTfRXndFMBUL8wT+xMW8P6d4h7t50kHwV8xsM053RLAPd/CxJOmXuIIj2J7fvCPfEa9rIp8LST/CORzGBsyvONYPqmUs3HeNxhvMqTLpJk+2qhkbJ9JtiYJMZfEU2xqKTJLhFUkw7FpVUPboaVXeINXWxIMeoNcimIut0W99kwQXJer/VCZS5UnJWoiEsde9xElZVdLoraheGEBOr10kkA8G45Hu+SwCmxPCo3G92kQC+VyiSBBbEV25cPaLnM5KqFNkAd6XJYpdUdmbMIfpO5EA/oiS/ReLMSMfgRbZnzVBCa3KG6TamnhQHnwmHhvPMeyJ/gsPh2l9KxLAlsSE63Z07/yStaDdeO0wKZG8bpgplnGi4+A1iqwoWS15jR87Dl6jyFL8kxAJ8/2FHQevQ8R/q4Y3m3StSx0Hr0lkb5T41bxLFdnUbvCYVuUNvkskfym+NZ6wNHQ8+u8JZvWzyIXE+2IkX4X8EJX91Y5IVgE6EcnPfMzaQnlYuCvyCcv6SgSz8SxK9HpiQTtedb+BKf0kciJKMLy9VybqHUxctR19IYLVibnImSZjsadR3Rep1cs6RNZhd/Rb0KTRnxP1l9Yu0i0SXXBcfC1ItTXxoAcMnEhWdVuGIpNjeEX+d11LDz69RfEq//T2uVcfQ7sgMlb8GLp3ID5PD8yGgYHbwjHwm2oGeptT1iYlG8+e41rVwb4B35Ud0Bc1y3EAAAAASUVORK5CYII="
+          alt="excel" />
       </button>
       {<div><p>{exportSuccess}</p></div>}
       {loadingExel && <div><p>loading...</p></div>}

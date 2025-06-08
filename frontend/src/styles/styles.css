@@ -1,7 +1,6 @@
 html, body {
-  height: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 0;
+  margin: 0;
 }
 
 #root {
@@ -30,22 +29,49 @@ html, body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 .baseLogin__contentLogin__Hello {
   opacity: 1;
-  color: white;
-  font-size: 2em;
-  font-weight: bold;
   text-align: center;
+  text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
+}
+.baseLogin__contentLogin__Hello__h1 {
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  letter-spacing: 5px;
+  -webkit-animation: textHello 3s infinite;
+          animation: textHello 3s infinite;
+}
+@-webkit-keyframes textHello {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    letter-spacing: 10px;
+  }
+  85% {
+    letter-spacing: 5px;
+  }
+}
+@keyframes textHello {
+  0% {
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+    letter-spacing: 10px;
+  }
+  85% {
+    letter-spacing: 5px;
+  }
 }
 .baseLogin__contentLogin__divLogin {
   width: 25vw;
@@ -95,8 +121,10 @@ html, body {
 .baseLogin__contentLogin__divLogin__form__button {
   width: 8vw;
   height: 5vh;
-  background-color: #067d81;
+  background-color: rgba(11, 191, 164, 0.86);
   color: white;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
   font-weight: bold;
   font-size: 0.7em;
   border: none;
@@ -170,6 +198,9 @@ html, body {
 .divMainLayout__header {
   height: 10vh;
   width: 100%;
+  background-image: url("../../public/abstraction.png");
+  -o-object-fit: cover;
+     object-fit: cover;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -181,9 +212,10 @@ html, body {
           justify-content: space-between;
 }
 .divMainLayout__header__logo {
-  margin: 20px 0 20px 0;
+  margin: 20px 0 20px 30px;
   text-align: center;
   color: white;
+  text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__header__nav {
   display: -webkit-box;
@@ -192,6 +224,104 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 20px 0 20px 0;
+  margin: 10px 30px 10px 0;
+  /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
+}
+.divMainLayout__header__nav__panel__button {
+  width: 70px;
+  height: 75px;
+  margin-right: 10px;
+  background-color: rgba(11, 191, 164, 0.86);
+  border: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+}
+.divMainLayout__header__nav__panel__button__p {
+  margin: 0;
+  color: white;
+  font-weight: bold;
+}
+.divMainLayout__ordersAllPage {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent__form {
+  width: 75vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  margin-left: 30px;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent__form____input {
+  margin: 5px;
+  width: 10vw;
+  height: 2vh;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent__form__select {
+  margin: 5px;
+  width: 11vw;
+  height: 2.5vh;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent____menu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 10px 30px 10px 0;
+}
+.divMainLayout__ordersAllPage__ordersFiltersComponent____menu__my {
+  width: 70px;
+  height: 75px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 10px;
+  background-color: rgba(11, 191, 164, 0.86);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+}
+.divMainLayout__footer {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  background-image: url("../../public/abstraction.png");
 }
 /*# sourceMappingURL=styles.css.map */

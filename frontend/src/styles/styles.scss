@@ -1,10 +1,6 @@
 html, body {
-  //display: flex;
-  //align-items: center;
-  //height: 100vh;
-  height: 100%;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 0;
+  margin: 0;
 }
 
 #root{
@@ -31,16 +27,37 @@ html, body {
   &__contentLogin{
     width: 60%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    //flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
 
     &__Hello{
       opacity: 1;
-      color: white;
-      font-size: 2em;
-      font-weight: bold;
       text-align: center;
+      text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
+      //position: absolute;
+
+      &__h1{
+        color: white;
+        font-size: 1.5em;
+        font-weight: bold;
+        letter-spacing: 5px; // відстань між літерами
+        //position: relative;
+        animation: textHello 3s infinite;
+      }
+
+      @keyframes textHello {
+        0%{
+          opacity: 0;
+        }
+        30%{
+          opacity: 1;
+          letter-spacing: 10px;
+        }
+        85%{
+          letter-spacing: 5px;
+        }
+      }
     }
 
     &__divLogin {
@@ -73,8 +90,9 @@ html, body {
         &__button {
           width: 8vw;
           height: 5vh;
-          background-color: #067d81;
+          background-color: rgba(11, 191, 164, 0.86);
           color: white;
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           font-weight: bold;
           font-size: 0.7em;
           border: none;
@@ -140,21 +158,104 @@ html, body {
   &__header{
     height: 10vh;
     width: 100%;
-    //background-image: ;
+    background-image: url('../../public/abstraction.png');
+    object-fit: cover;
     display: flex;
     align-items: center;
     justify-content: space-between;
 
     &__logo{
-      margin:  20px 0 20px 0;
+      margin:  20px 0 20px 30px;
       text-align: center;
       color: white;
+      text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
     }
 
     &__nav{
       display: flex;
       align-items: center;
-      margin: 20px 0 20px 0;
+      margin: 10px 30px 10px 0;
+
+      /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
+      &__panel__button{
+        width: 70px;
+        height: 75px;
+        margin-right: 10px;
+        background-color: rgba(11, 191, 164, 0.86);
+        border: none;
+        border-radius: 5px;
+        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+
+        &__p{
+          margin: 0;
+          color: white;
+          font-weight: bold;
+        }
+      }
     }
+  }
+
+  &__ordersAllPage{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    &__ordersFiltersComponent{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      &__form{
+        width: 75vw;
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: 30px;
+
+        &____input{
+          margin: 5px;
+          width: 10vw;
+          height: 2vh;
+        }
+
+        &__select{
+          margin: 5px;
+          width: 11vw;
+          height: 2.5vh;
+        }
+      }
+
+      &____menu{
+        display: flex;
+        margin: 10px 30px 10px 0;
+
+        &__my{
+          width: 70px;
+          height: 75px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          background-color: rgba(11, 191, 164, 0.86);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+        }
+      }
+
+    }
+  }
+
+  &__footer{
+    width: 100%;
+    display: flex;
+    text-align: center;
+    //align-items: center;
+    //justify-content: center;
+    color: white;
+    font-weight: bold;
+    background-image: url('../../public/abstraction.png');
   }
 }

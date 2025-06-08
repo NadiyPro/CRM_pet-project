@@ -5,14 +5,14 @@ const OrdersPanelComponent = () => {
   const navigate = useNavigate();
   const goToOrders = () => {navigate('/orders')}
   return(
-    <div>
-      <button type={'button'} onClick={goToOrders}>
-        <div>
-          <img
-          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEmElEQVR4nNWa34tVVRTHP3PVkWwmuhMOlpGFkZa+BOWPB9PJhyKCVBr1D8ifWdqDhOiDPxCGUYOCHuzBqBwHNaTQsqRI7ceTL/6iGTQritSKQR2hUdMjK74bNoc73X1+zb1+YcOdc/Zee61z9lrftdYZyI4JwEJgHfA+8C3QC/wK9AE3NPp0ze4d1dx1WmsyhhwtwBJgN3AeiHIaJstkLtYeheE5YC8wUEGBfUAH8ArQBjwGPASUgeEaZV2boDmLtGZfhQcyoL1sz9wwXUfBbfIv8JmUNoXzghloMj/XHm4/23taFsF3Ae8BtyTwIvAmcD/F4wHtdVF7mw7bpVMi3AN8JyH/ABuAZoYezcBG6RApkJhuQWgADmjhH8BUao9p0sV02i8dq2KhFlwGxlM/GA9ckW7zQxZ8o8lLqT8sk25fh0y+rMn3Un8oS7dLIZOjO8CQKGSym2ivsd6wPI0hV+rY2aOQBX6q8Ccwg/oKv1FSQw55hLixhoS4ySPEQ2kMGQZsq5CiWPpQixRlq3RKbIj/WuNJ4xdK5R/PUXmTZTK/rJI0pjbEwVLqPRXS+AvAJ0CnaonZUmqcwuUIDfv9sO7NltKdWuuefOQd5z2DpPGZDXEoq5boruCAWYbJ6lYqX86gX/KJgtUkC4C1wA4dhR+BX1TeXtfo0zW7d0Rz12ptkromSmpIoeVmSoxNY8ir1B9WpjGkP+dSNismKllMxeznVbPXGk8pOqZi9oNeR8NK3SZqg6UKFpFXuSYyZLiY/abHF6uBMQwtRioTXw+UsoTfKcAP3vUbqpst3j+aUclGla27gB7gqob97tK9xir6BRvi0CYWvhY7q78DH3sNulnAE2Jxx+yGUXqiDvOAnwKI8iww11v3bl6E2CJmtxTirwTMfVDdj5JSE3f9OPC6jL9bY5JC7QlvXofWNujBZTbER4M6hO1Kt3cCh3U0/hab31L60ao1nV4QWRJ7S3GU5B8DnjGE9raKZPZ5nhEzE6yb5RkzJ3SRM2QF+aLR8wl7E2nr9TOe39WE2ed7PvF/x2kwWFF1UjJeJgC+g5ozP0M+6JbM1zLIWCUZ5oupmH1zDszeK3kWndJikmRYMEnE7Fu9stMiz5oMnxVcKydLE6NZMkxW4vD7NPB9BWZfltCH8jSkPwuPzNRnsjiz/6ZkbouY/VngSeCRWNs1j6M12YtcqQ1xaJHCuwOZ/SWt69Lfxthp8YZkfJTkCIQQYknHq11NvA/1WaJHtYwx+9ux8HsiQ/g9JRm2X1UcLqjUbVQCmLZBvkJrzykQVcWCAkvduV5It7QjFG2eb75IgkTw0wJL3Q7PmOU6MoNhmN6EM8IaeaOTbNbkHbG8S92SZ0yktGOVyK5JY7Ic2/mEM8LNd5l08Jl+p8BSd47CaLWod07HabSXayU2BnHCkYJK3RFKAHeqA9mvUveMQmx7zLFbsxqDGs+7KjSxQ0rdBv2+T/fMeV+oUI+HIBdjfELsyqGJbef+LRVcZuSQGxPvALYrodyhf7M4DfzsNbEH9BnPjswx4CvgA/nc88CDKfZt9Yyx6HdHw4z5j1xvA+2OKElb0y0kAAAAAElFTkSuQmCC"
+    <div className={'divMainLayout__header__nav__panel'}>
+      <button className={'divMainLayout__header__nav__panel__button'} type={'button'} onClick={goToOrders}>
+        {/*<div >*/}
+        <img
+          src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAE0klEQVR4nNWa228VVRTGhxYhakssxEbReAmmlcsLiSg8KK19wBgT0VDxDwBroQg+GEPgwUtMmoommvigDxgFJCohGlSUaLz75IuosQYFDQSvabQ16QGUn1n127gzHnr2zJ45PX7J5Jwzs9fa65vZe93mJEkkgE7gTmAr8CzwIfA18D0wApzSMaJzdu0Djd0q2c5YOzIDmA30AS8CP1AcTJfpvMvmKJPACuBloFLFgL3AILAG6AY6gMuANmC6jjad69SYtZLZW+WGVDTXiiIJLNNScPgTeF1GdxQ4jxE0nW9oDgebe2mM4nOBZ4DTUvgTcD9wcVHGTzL3XM1lcyIbnjabsiqaBXwkJePAg0BraZaf3Y5W4CHZgBzJrFDhacBrEjwOXFe6xbVtWipbDPvMxhAhc4eG34F5SYMAmAeMyrY7QgTe1eC7kwYD0C/b3gkZbE/CcEHSYOAfF274LWQw/wMihAx26E8aDMC6PERGG3izEyLg42fg+rpYGu5+JxAi5HBAn+MKSlMVEB/2AuKBPESagceqpChzpyhF2SabshFJPdZ00vimUvn5BRo/XzrfmixpzE0klca/VCWN/xF4BRhSLdEjoy6XuzxHh32/Qtd6ZPSQZN2ddxjXXP9J46OJeNfbVEvsTm/ASJiu3Url2/Lal33gv+OtiFoNbAG2ayl8BXyn8vakjhGds2vva+wWyQbXNWQlUmq5mRPAJXmIrE8aDMDGPETGiixlYwFcbcliHiKoKbCsLpZObtM18o5nECLksF+fFZW6LXWxOgWri+Qs8CrXTESmK7L/pd92R+4DLkrqCGCmCqoHgKbc7he4FvjEI3hKdbP5+6sijZxhZSvwAjAM/KHDvu/StRmT2RdMxDvfrSh8IrWPjgF7vAZdF7BAUXwiskv+PLujnr7bgW+pjW+A2zy5p6KIpFqma5VC/EI49qtD06TUxOEz4B6RP1/HQrnag964Qcmajj3RRFJjp6lD2Kt0eyfwnpbGr4rmp5V+tEtmyHMiff5TSkOG93v53aDO1+5tlRnZtZwcieUZ5Lo8MitDhRwGYow+y8Z2e6Ivol4/5PZdLYFSIrs8kNsTTTnkm4HPpWNViIAP28w35DU+pddSdMOGCB2bpGNnyGDfy7j1/EhsZNebKsOCCB0LpWM4ZLAf2bd5Zad5ns15Xyt4rZzWyGaEYTRk8AS830uAj6tE9v6MBVGRRMYyE/HOL9drsnRkP6pk7lFF9huBxcCVftu1oKW1SDoO5SaSiuxr9OIyJLLfKjnLnQwbI4jcKx07siyBmgFRkbdDkd2aeM/rtcSwahmL7E+k3O/BCPf7hXT0hghYilF4qauAaAlgrgY5MCDZw+aIQgRWl1XqWhbrufSuDHLd3t68JcmQCL5aVqmrLNaRsbSjucZyGvBIWCPvwiyTtXhLrNBSV/vKkUFpxyYFuxYdi7Sx3Z5wJNz49qxr+smySl3LYpUA1sJhW072JLxcKxsZTbhYncEySl3rCa9SHWMdyDGVukZwh7zhmY1txkeRkZIe1daVrKWu9p19n6NrtnlvTtfjISiETCog7iqgiW3r/nEVXHPqTqZKB7BXCeV2/c3iS+CI18Su6DWeLZlPgbeB57TnbgIuzTFvu0dmXTSRqYTITATXvwHzEtkWJGytlgAAAABJRU5ErkJggg=="
           alt="orders" />
-          <p>orders</p>
-        </div>
+        <p className={'divMainLayout__header__nav__panel__button__p'}>orders</p>
+        {/*</div>*/}
       </button>
     </div>
   )
