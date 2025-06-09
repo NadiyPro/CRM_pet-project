@@ -35,17 +35,20 @@ html, body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-left: 10vw;
 }
 .baseLogin__contentLogin__Hello {
   opacity: 1;
   text-align: center;
   text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
+  -webkit-transform: translateY(15vh);
+          transform: translateY(15vh);
 }
-.baseLogin__contentLogin__Hello__h1 {
+.baseLogin__contentLogin__Hello__p {
   color: white;
-  font-size: 1.5em;
-  font-weight: bold;
-  letter-spacing: 5px;
+  font-size: 4em;
+  font-weight: 900;
+  letter-spacing: 8px;
   -webkit-animation: textHello 3s infinite;
           animation: textHello 3s infinite;
 }
@@ -55,7 +58,7 @@ html, body {
   }
   30% {
     opacity: 1;
-    letter-spacing: 10px;
+    letter-spacing: 20px;
   }
   85% {
     letter-spacing: 5px;
@@ -67,7 +70,7 @@ html, body {
   }
   30% {
     opacity: 1;
-    letter-spacing: 10px;
+    letter-spacing: 20px;
   }
   85% {
     letter-spacing: 5px;
@@ -186,9 +189,9 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -199,8 +202,7 @@ html, body {
   height: 10vh;
   width: 100%;
   background-image: url("../../public/abstraction.png");
-  -o-object-fit: cover;
-     object-fit: cover;
+  background-size: cover;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -210,6 +212,8 @@ html, body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__header__logo {
   margin: 20px 0 20px 30px;
@@ -259,6 +263,7 @@ html, body {
           flex-direction: column;
 }
 .divMainLayout__ordersAllPage__ordersFiltersComponent {
+  width: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -288,13 +293,13 @@ html, body {
   width: 11vw;
   height: 2.5vh;
 }
-.divMainLayout__ordersAllPage__ordersFiltersComponent____menu {
+.divMainLayout__ordersAllPage__ordersFiltersComponent__menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin: 10px 30px 10px 0;
 }
-.divMainLayout__ordersAllPage__ordersFiltersComponent____menu__my {
+.divMainLayout__ordersAllPage__ordersFiltersComponent__menu__my {
   width: 70px;
   height: 75px;
   display: -webkit-box;
@@ -316,11 +321,13 @@ html, body {
 }
 .divMainLayout__footer {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   text-align: center;
+  background-size: cover;
+  -webkit-box-shadow: 10px -10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px -10px 5px 0 rgba(28, 28, 28, 0.75);
+  text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
   color: white;
+  font-size: 1.2em;
   font-weight: bold;
   background-image: url("../../public/abstraction.png");
 }
