@@ -177,19 +177,29 @@ html, body {
       margin: 10px 30px 10px 0;
 
       /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
-      &__panel__button{
-        width: 70px;
-        height: 75px;
-        margin-right: 10px;
-        background-color: rgba(11, 191, 164, 0.86);
-        border: none;
-        border-radius: 5px;
-        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 
-        &__p{
-          margin: 0;
-          color: white;
-          font-weight: bold;
+      &__panel{
+        text-align: center;
+
+        &__button{
+          width: 70px;
+          height: 75px;
+          margin-right: 10px;
+          background-color: rgba(11, 191, 164, 0.86);
+          border: none;
+          border-radius: 5px;
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+
+          &__p{
+            margin: 0;
+            color: white;
+            font-weight: bold;
+          }
+        }
+
+        &__export{
+          width: 70px;
+          height: 40px;
         }
       }
     }
@@ -312,42 +322,56 @@ html, body {
       margin: 15px;
       display: flex;
       align-items: flex-start;
+      flex-direction: column;
 
-      &__cards__data{
-        margin: 15px;
-      }
-      &__statistic{
-        margin: 15px;
-      }
-      &__buttonAccessAccount{
-        margin: 15px;
+      &__cards{
         display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(151, 149, 149, 0.94);
+        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 
-        &__activate{
-          width: 170px;
-          height: 30px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 10px;
-          background-color: rgba(11, 191, 164, 0.86);
-          color: white;
-          border: none;
-          border-radius: 5px;
-          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+        &__p{
+          margin: 0;
+          padding: 0;
         }
-        &__banUnban{
-          width: 70px;
-          height: 30px;
+
+        &__data{
+          margin: 15px;
+        }
+        &__statistic{
+          margin: 5px;
+        }
+        &__buttonAccessAccount{
+          margin: 15px;
           display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 10px;
-          background-color: rgba(11, 191, 164, 0.86);
-          color: white;
-          border: none;
-          border-radius: 5px;
-          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+
+          &__activate{
+            width: 170px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background-color: rgba(11, 191, 164, 0.86);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          }
+          &__banUnban{
+            width: 70px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background-color: rgba(11, 191, 164, 0.86);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          }
         }
       }
 

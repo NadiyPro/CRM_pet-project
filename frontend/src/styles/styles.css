@@ -231,6 +231,9 @@ html, body {
   margin: 10px 30px 10px 0;
   /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
 }
+.divMainLayout__header__nav__panel {
+  text-align: center;
+}
 .divMainLayout__header__nav__panel__button {
   width: 70px;
   height: 75px;
@@ -245,6 +248,10 @@ html, body {
   margin: 0;
   color: white;
   font-weight: bold;
+}
+.divMainLayout__header__nav__panel__export {
+  width: 70px;
+  height: 40px;
 }
 .divMainLayout__ordersAllPage {
   width: 100%;
@@ -412,20 +419,42 @@ html, body {
   -webkit-box-align: start;
       -ms-flex-align: start;
           align-items: flex-start;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.divMainLayout__adminPage__ordersStatisticManager__cards {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border: 1px solid rgba(151, 149, 149, 0.94);
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+}
+.divMainLayout__adminPage__ordersStatisticManager__cards__p {
+  margin: 0;
+  padding: 0;
 }
 .divMainLayout__adminPage__ordersStatisticManager__cards__data {
   margin: 15px;
 }
-.divMainLayout__adminPage__ordersStatisticManager__statistic {
-  margin: 15px;
+.divMainLayout__adminPage__ordersStatisticManager__cards__statistic {
+  margin: 5px;
 }
-.divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount {
+.divMainLayout__adminPage__ordersStatisticManager__cards__buttonAccessAccount {
   margin: 15px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__activate {
+.divMainLayout__adminPage__ordersStatisticManager__cards__buttonAccessAccount__activate {
   width: 170px;
   height: 30px;
   display: -webkit-box;
@@ -445,7 +474,7 @@ html, body {
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
-.divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban {
+.divMainLayout__adminPage__ordersStatisticManager__cards__buttonAccessAccount__banUnban {
   width: 70px;
   height: 30px;
   display: -webkit-box;

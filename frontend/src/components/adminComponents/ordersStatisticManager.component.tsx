@@ -38,21 +38,21 @@ const OrdersStatisticManager = () => {
         return (
           <div className={'divMainLayout__adminPage__ordersStatisticManager__cards'} key={value.id}>
             <div className={'divMainLayout__adminPage__ordersStatisticManager__cards__data'}>
-              <p><b>id:</b> {value.id}</p>
-              <p><b>email:</b> {value.email}</p>
-              <p><b>name:</b> {value.name}</p>
-              <p><b>surname:</b> {value.surname}</p>
-              <p><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
+              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>id:</b> {value.id}</p>
+              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>email:</b> {value.email}</p>
+              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>name:</b> {value.name}</p>
+              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>surname:</b> {value.surname}</p>
+              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
             </div>
 
             {userStatistic && (
               <div className={'divMainLayout__adminPage__ordersStatisticManager__statistic'}>
-                <p>Total: {userStatistic.total}</p>
-                <p>In Work: {userStatistic.In_work}</p>
-                <p>New: {userStatistic.New}</p>
-                <p>Agreed: {userStatistic.Aggre}</p>
-                <p>Disagreed: {userStatistic.Disaggre}</p>
-                <p>Dubbing: {userStatistic.Dubbing}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Total: {userStatistic.total}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>In Work: {userStatistic.In_work}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>New: {userStatistic.New}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Agreed: {userStatistic.Aggre}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Disagreed: {userStatistic.Disaggre}</p>
+                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Dubbing: {userStatistic.Dubbing}</p>
               </div>
             )}
 
