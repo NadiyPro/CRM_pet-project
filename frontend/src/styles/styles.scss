@@ -280,6 +280,80 @@ html, body {
     }
   }
 
+  &__adminPage{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &__ordersStatisticAllComponent{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &__giveRoleComponent__button{
+      width: 70px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+      background-color: rgba(11, 191, 164, 0.86);
+      color: white;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+    }
+
+    &__ordersStatisticManager{
+      margin: 15px;
+      display: flex;
+      align-items: flex-start;
+
+      &__cards__data{
+        margin: 15px;
+      }
+      &__statistic{
+        margin: 15px;
+      }
+      &__buttonAccessAccount{
+        margin: 15px;
+        display: flex;
+
+        &__activate{
+          width: 170px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          background-color: rgba(11, 191, 164, 0.86);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+        }
+        &__banUnban{
+          width: 70px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-right: 10px;
+          background-color: rgba(11, 191, 164, 0.86);
+          color: white;
+          border: none;
+          border-radius: 5px;
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+        }
+      }
+
+    }
+  }
+
   &__footer{
     width: 100%;
     text-align: center;

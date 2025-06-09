@@ -31,22 +31,22 @@ const OrdersStatisticManager = () => {
   };
 
   return (
-    <div>
+    <div className={'divMainLayout__adminPage__ordersStatisticManager'}>
       {data.users.map((value) => {
         const userStatistic = ordersStatisticManager.find(item => item.manager === value.id);
 
         return (
-          <div key={value.id}>
-            <div>
-              <p>{value.id}</p>
-              <p>{value.email}</p>
-              <p>{value.name}</p>
-              <p>{value.surname}</p>
-              <p>{value.is_active ? 'active' : 'inactive'}</p>
+          <div className={'divMainLayout__adminPage__ordersStatisticManager__cards'} key={value.id}>
+            <div className={'divMainLayout__adminPage__ordersStatisticManager__cards__data'}>
+              <p><b>id:</b> {value.id}</p>
+              <p><b>email:</b> {value.email}</p>
+              <p><b>name:</b> {value.name}</p>
+              <p><b>surname:</b> {value.surname}</p>
+              <p><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
             </div>
 
             {userStatistic && (
-              <div>
+              <div className={'divMainLayout__adminPage__ordersStatisticManager__statistic'}>
                 <p>Total: {userStatistic.total}</p>
                 <p>In Work: {userStatistic.In_work}</p>
                 <p>New: {userStatistic.New}</p>
@@ -56,12 +56,12 @@ const OrdersStatisticManager = () => {
               </div>
             )}
 
-          <div style={{ marginTop: '10px' }}>
-            <button onClick={() => handleActive(value.id)}>
+          <div className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
+            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
               {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
             </button>
-            <button onClick={() => handleBan(value.id)}>BAN</button>
-            <button onClick={() => handleUnban(value.id)}>UNBAN</button>
+            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
+            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
           </div>
         </div>
         );

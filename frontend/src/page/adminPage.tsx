@@ -5,7 +5,7 @@ import GiveRoleComponent from '../components/adminComponents/giveRoleComponent';
 
 const AdminPage = () => {
   return(
-    <div>
+    <div className={'divMainLayout__adminPage'}>
       <OrdersStatisticAllComponent/>
       <GiveRoleComponent/>
       <OrdersStatisticManager />
