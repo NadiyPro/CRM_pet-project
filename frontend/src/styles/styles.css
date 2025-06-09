@@ -283,7 +283,7 @@ html, body {
       flex-wrap: wrap;
   margin-left: 30px;
 }
-.divMainLayout__ordersAllPage__ordersFiltersComponent__form____input {
+.divMainLayout__ordersAllPage__ordersFiltersComponent__form__input {
   margin: 5px;
   width: 10vw;
   height: 2vh;
@@ -318,6 +318,40 @@ html, body {
   border-radius: 5px;
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+}
+.divMainLayout__ordersAllPage__ordersTableComponent {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.divMainLayout__ordersAllPage__ordersTableComponent__table {
+  width: 100%;
+  margin: 0 35px 35px 35px;
+}
+.divMainLayout__ordersAllPage__ordersTableComponent__table__thead {
+  background-color: rgba(11, 191, 164, 0.86);
+  color: white;
+}
+.divMainLayout__ordersAllPage__ordersTableComponent__table__tbody__tr:nth-child(even) {
+  background-color: rgba(184, 186, 185, 0.53);
+}
+.divMainLayout__ordersAllPage__paginationComponent__button {
+  width: 3vw;
+  height: 3vh;
+  border-radius: 5px;
+  margin-right: 5px;
+  background-color: rgba(11, 191, 164, 0.86);
+  color: white;
+  border: none;
+  -webkit-box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__footer {
   width: 100%;

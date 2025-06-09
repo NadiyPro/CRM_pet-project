@@ -214,7 +214,7 @@ html, body {
         flex-wrap: wrap;
         margin-left: 30px;
 
-        &____input{
+        &__input{
           margin: 5px;
           width: 10vw;
           height: 2vh;
@@ -245,7 +245,38 @@ html, body {
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
         }
       }
+    }
 
+    &__ordersTableComponent{
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &__table{
+        width: 100%;
+        margin: 0 35px 35px 35px;
+
+        &__thead{
+          background-color: rgba(11, 191, 164, 0.86);
+          color: white;
+        }
+
+        &__tbody__tr:nth-child(even){
+          background-color: rgba(184, 186, 185, 0.53);
+        }
+      }
+    }
+
+    &__paginationComponent__button{
+      width: 3vw;
+      height: 3vh;
+      border-radius: 5px;
+      margin-right: 5px;
+      background-color: rgba(11, 191, 164, 0.86);
+      color: white;
+      border: none;
+      box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
     }
   }
 

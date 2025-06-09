@@ -36,9 +36,9 @@ const OrdersTableComponent = () => {
   }
 
   return (
-    <div>
-      <table>
-        <thead>
+    <div className={'divMainLayout__ordersAllPage__ordersTableComponent'}>
+      <table className={'divMainLayout__ordersAllPage__ordersTableComponent__table'}>
+        <thead className={'divMainLayout__ordersAllPage__ordersTableComponent__table__thead'}>
         <tr>
           {Object.values(SortFieldEnum)
             .filter((field) => field !== SortFieldEnum.GROUP_ID)
@@ -56,7 +56,7 @@ const OrdersTableComponent = () => {
         <tbody>
         {orders.map((value: BaseOrdersDto) => (
           <React.Fragment key={value.id}>
-          <tr key={value.id} onClick={() => value.id !== null && handleMessagesOrderId(value.id)}>
+          <tr className={'divMainLayout__ordersAllPage__ordersTableComponent__table__tbody__tr'} key={value.id} onClick={() => value.id !== null && handleMessagesOrderId(value.id)}>
             <td>{value.id}</td>
             <td>{value.name}</td>
             <td>{value.surname}</td>
