@@ -31,37 +31,37 @@ const OrdersStatisticManager = () => {
   };
 
   return (
-    <div className={'divMainLayout__adminPage__ordersStatisticManager'}>
+    <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager'}>
       {data.users.map((value) => {
         const userStatistic = ordersStatisticManager.find(item => item.manager === value.id);
 
         return (
-          <div className={'divMainLayout__adminPage__ordersStatisticManager__cards'} key={value.id}>
-            <div className={'divMainLayout__adminPage__ordersStatisticManager__cards__data'}>
-              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>id:</b> {value.id}</p>
-              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>email:</b> {value.email}</p>
-              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>name:</b> {value.name}</p>
-              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>surname:</b> {value.surname}</p>
-              <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
+          <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards'} key={value.id}>
+            <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__data'}>
+              <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>id:</b> {value.id}</p>
+              <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>email:</b> {value.email}</p>
+              <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>name:</b> {value.name}</p>
+              <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>surname:</b> {value.surname}</p>
+              <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
             </div>
 
             {userStatistic && (
-              <div className={'divMainLayout__adminPage__ordersStatisticManager__statistic'}>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Total: {userStatistic.total}</p>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>In Work: {userStatistic.In_work}</p>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>New: {userStatistic.New}</p>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Agreed: {userStatistic.Aggre}</p>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Disagreed: {userStatistic.Disaggre}</p>
-                <p className={'divMainLayout__adminPage__ordersStatisticManager__cards__p'}>Dubbing: {userStatistic.Dubbing}</p>
+              <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__statistic'}>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>Total: {userStatistic.total}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>In Work: {userStatistic.In_work}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>New: {userStatistic.New}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>Agreed: {userStatistic.Aggre}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>Disagreed: {userStatistic.Disaggre}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}>Dubbing: {userStatistic.Dubbing}</p>
               </div>
             )}
 
-          <div className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
-            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
+          <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
+            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
               {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
             </button>
-            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
-            <button className={'divMainLayout__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
+            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
+            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
           </div>
         </div>
         );

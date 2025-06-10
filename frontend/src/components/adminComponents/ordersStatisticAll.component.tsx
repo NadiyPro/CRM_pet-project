@@ -12,7 +12,7 @@ const OrdersStatisticAllComponent = () => {
   }, [dispatch]);
 
   return (
-    <div className={'divMainLayout__adminPage__ordersStatisticAllComponent'}>
+    <div className={'divMainLayout__outlet__adminPage__ordersStatisticAllComponent'}>
       <h3>Orders statistic</h3>
       <p><b>total:</b> {ordersStatisticAll.total} <b>In work:</b> {ordersStatisticAll.In_work}
         <b>New:</b> {ordersStatisticAll.New} <b>Aggre:</b> {ordersStatisticAll.Aggre}

@@ -31,7 +31,7 @@ const PaginationComponent = () => {
         <div>
           {
         Array.from({ length: totalPages }, (_, index) => (
-          <button className={'divMainLayout__ordersAllPage__paginationComponent__button'}
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
             key={index + 1} // 0+1, 1+1 ...
             onClick={() => handlePageClick(index + 1)}
             disabled={currentPage === index + 1}
@@ -50,7 +50,7 @@ const PaginationComponent = () => {
       return (
         <div>
           {Array.from({ length: 7 }, (_, index) => (
-            <button className={'divMainLayout__ordersAllPage__paginationComponent__button'}
+            <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
               key={index + 1}
               onClick={() => handlePageClick(index + 1)}
               disabled={currentPage === index + 1}
@@ -58,8 +58,8 @@ const PaginationComponent = () => {
               {index + 1}
             </button>
           ))}
-          <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} ><span>...</span></button>
-          <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} ><span>...</span></button>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
             {totalPages}
           </button>
         </div>
@@ -67,11 +67,11 @@ const PaginationComponent = () => {
     } else {
 
       const firstPage = (
-        <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
           1
         </button>
       );
-      const dots = <button className={'divMainLayout__ordersAllPage__paginationComponent__button'}><span key="dots">...</span></button>;
+      const dots = <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}><span key="dots">...</span></button>;
         // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
       // якщо ми зараз знаходимось на сторінці, яка знаходиться десь посередині,
@@ -94,7 +94,7 @@ const PaginationComponent = () => {
         // startPage + 1, тут + 1 потрібен, бо Array.from не включає кінцеве значення,
         // тому нам треба вручну додати ще один елемент, щоб останній номер також потрапив у список
         return (
-          <button className={'divMainLayout__ordersAllPage__paginationComponent__button'}
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
             key={startPage + index}
             onClick={() => handlePageClick(startPage + index)}
             disabled={currentPage === startPage + index}
@@ -108,7 +108,7 @@ const PaginationComponent = () => {
   };
 
   return (
-    <div className={'divMainLayout__ordersAllPage__paginationComponent'} style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
+    <div className={'divMainLayout__outlet__ordersAllPage__paginationComponent'} style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
       {currentPage > 1 && (
         <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} key={currentPage - 1} onClick={() => handlePageClick(currentPage - 1)}>
           {'<'}
@@ -118,7 +118,7 @@ const PaginationComponent = () => {
       {renderPages()}
 
       {currentPage < totalPages && (
-        <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} key={currentPage + 1} onClick={() => handlePageClick(currentPage + 1)}>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={currentPage + 1} onClick={() => handlePageClick(currentPage + 1)}>
           {'>'}
         </button>
       )}

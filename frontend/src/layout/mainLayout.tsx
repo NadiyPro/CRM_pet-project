@@ -19,9 +19,9 @@ return(
       </nav>
     </header>
 
-    {/*<div>*/}
+    <div className={'divMainLayout__outlet'}>
       <Outlet />
-    {/*</div>*/}
+    </div>
     <footer className={'divMainLayout__footer'}>
       <p> &#169; NadiyPro</p>
     </footer>

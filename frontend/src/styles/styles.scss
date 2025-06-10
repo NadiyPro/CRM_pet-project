@@ -69,6 +69,18 @@ html, body {
       flex-direction: column;
       position: relative;
       z-index: 0;
+      animation: animeBox 1s ease-out forwards;
+
+      @keyframes animeBox {
+        0% {
+          opacity: 0;
+          transform: translateY(-100px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
 
       &__form {
         width: 100%;
@@ -118,12 +130,12 @@ html, body {
         /*#8bf6e1, rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);*/
         background-size: 300%;
         filter: blur(20px);
-        animation: anime 12s linear infinite;
+        animation: animeColor 12s linear infinite;
         z-index: -1;
       }
     }
   }
-  @keyframes anime {
+  @keyframes animeColor {
     0%, 100%
     {
       background-position: 0 0;
@@ -163,6 +175,10 @@ html, body {
     align-items: center;
     justify-content: space-between;
     box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+    position: fixed; // фіксуємо зверху
+    top: 0;
+    left: 0;
+    z-index: 10; // щоб був над контентом
 
     &__logo{
       margin:  20px 0 20px 30px;
@@ -205,178 +221,357 @@ html, body {
     }
   }
 
-  &__ordersAllPage{
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
+  &__outlet{
+    flex: 1; // займає залишок простору між header і footer
+    margin-top: 10vh;
+    margin-bottom: 10vh;
+    overflow-y: auto; // дозволяє скрол
 
-    &__ordersFiltersComponent{
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      &__form{
-        width: 75vw;
-        display: flex;
-        flex-wrap: wrap;
-        margin-left: 30px;
-
-        &__input{
-          margin: 5px;
-          width: 10vw;
-          height: 2vh;
-        }
-
-        &__select{
-          margin: 5px;
-          width: 11vw;
-          height: 2.5vh;
-        }
-      }
-
-      &__menu{
-        display: flex;
-        margin: 10px 30px 10px 0;
-
-        &__my{
-          width: 70px;
-          height: 75px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          margin-right: 10px;
-          background-color: rgba(11, 191, 164, 0.86);
-          color: white;
-          border: none;
-          border-radius: 5px;
-          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-        }
-      }
-    }
-
-    &__ordersTableComponent{
+    &__ordersAllPage{
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
 
-      &__table{
+      &__ordersFiltersComponent{
         width: 100%;
-        margin: 0 35px 35px 35px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-        &__thead{
-          background-color: rgba(11, 191, 164, 0.86);
-          color: white;
+        &__form{
+          width: 75vw;
+          display: flex;
+          flex-wrap: wrap;
+          margin-left: 30px;
+
+          &__input{
+            margin: 5px;
+            width: 10vw;
+            height: 2vh;
+          }
+
+          &__select{
+            margin: 5px;
+            width: 11vw;
+            height: 2.5vh;
+          }
         }
 
-        &__tbody__tr:nth-child(even){
-          background-color: rgba(184, 186, 185, 0.53);
+        &__menu{
+          display: flex;
+          margin: 10px 30px 10px 0;
+
+          &__my{
+            width: 70px;
+            height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            background-color: rgba(11, 191, 164, 0.86);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          }
         }
+      }
+
+      &__ordersTableComponent{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__table{
+          width: 100%;
+          margin: 0 35px 35px 35px;
+
+          &__thead{
+            background-color: rgba(11, 191, 164, 0.86);
+            color: white;
+          }
+
+          &__tbody__tr:nth-child(even){
+            background-color: rgba(184, 186, 185, 0.53);
+          }
+        }
+      }
+
+      &__paginationComponent__button{
+        width: 3vw;
+        height: 3vh;
+        border-radius: 5px;
+        margin-right: 5px;
+        background-color: rgba(11, 191, 164, 0.86);
+        color: white;
+        border: none;
+        box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
       }
     }
 
-    &__paginationComponent__button{
-      width: 3vw;
-      height: 3vh;
-      border-radius: 5px;
-      margin-right: 5px;
-      background-color: rgba(11, 191, 164, 0.86);
-      color: white;
-      border: none;
-      box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
-    }
-  }
-
-  &__adminPage{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-
-    &__ordersStatisticAllComponent{
+    &__adminPage{
+      width: 100%;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-    }
 
-    &__giveRoleComponent__button{
-      width: 70px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 10px;
-      background-color: rgba(11, 191, 164, 0.86);
-      color: white;
-      border: none;
-      border-radius: 5px;
-      box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-    }
-
-    &__ordersStatisticManager{
-      margin: 15px;
-      display: flex;
-      align-items: flex-start;
-      flex-direction: column;
-
-      &__cards{
+      &__ordersStatisticAllComponent{
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-        border: 1px solid rgba(151, 149, 149, 0.94);
-        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-
-        &__p{
-          margin: 0;
-          padding: 0;
-        }
-
-        &__data{
-          margin: 15px;
-        }
-        &__statistic{
-          margin: 5px;
-        }
-        &__buttonAccessAccount{
-          margin: 15px;
-          display: flex;
-
-          &__activate{
-            width: 170px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            background-color: rgba(11, 191, 164, 0.86);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-          }
-          &__banUnban{
-            width: 70px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            background-color: rgba(11, 191, 164, 0.86);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-          }
-        }
       }
 
+      &__giveRoleComponent__button{
+        width: 70px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        background-color: rgba(11, 191, 164, 0.86);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+      }
+
+      &__ordersStatisticManager{
+        margin: 15px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+
+        &__cards{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border: 1px solid rgba(151, 149, 149, 0.94);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+
+          &__p{
+            margin: 0;
+            padding: 0;
+          }
+
+          &__data{
+            margin: 15px;
+          }
+          &__statistic{
+            margin: 5px;
+          }
+          &__buttonAccessAccount{
+            margin: 15px;
+            display: flex;
+
+            &__activate{
+              width: 170px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 10px;
+              background-color: rgba(11, 191, 164, 0.86);
+              color: white;
+              border: none;
+              border-radius: 5px;
+              box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            }
+            &__banUnban{
+              width: 70px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 10px;
+              background-color: rgba(11, 191, 164, 0.86);
+              color: white;
+              border: none;
+              border-radius: 5px;
+              box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            }
+          }
+        }
+
+      }
     }
   }
+  //&__ordersAllPage{
+  //  width: 100%;
+  //  display: flex;
+  //  align-items: center;
+  //  justify-content: center;
+  //  flex-direction: column;
+  //
+  //  &__ordersFiltersComponent{
+  //    width: 100%;
+  //    display: flex;
+  //    align-items: center;
+  //    justify-content: space-between;
+  //
+  //    &__form{
+  //      width: 75vw;
+  //      display: flex;
+  //      flex-wrap: wrap;
+  //      margin-left: 30px;
+  //
+  //      &__input{
+  //        margin: 5px;
+  //        width: 10vw;
+  //        height: 2vh;
+  //      }
+  //
+  //      &__select{
+  //        margin: 5px;
+  //        width: 11vw;
+  //        height: 2.5vh;
+  //      }
+  //    }
+  //
+  //    &__menu{
+  //      display: flex;
+  //      margin: 10px 30px 10px 0;
+  //
+  //      &__my{
+  //        width: 70px;
+  //        height: 75px;
+  //        display: flex;
+  //        align-items: center;
+  //        justify-content: center;
+  //        margin-right: 10px;
+  //        background-color: rgba(11, 191, 164, 0.86);
+  //        color: white;
+  //        border: none;
+  //        border-radius: 5px;
+  //        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //      }
+  //    }
+  //  }
+  //
+  //  &__ordersTableComponent{
+  //    width: 100%;
+  //    display: flex;
+  //    align-items: center;
+  //    justify-content: center;
+  //
+  //    &__table{
+  //      width: 100%;
+  //      margin: 0 35px 35px 35px;
+  //
+  //      &__thead{
+  //        background-color: rgba(11, 191, 164, 0.86);
+  //        color: white;
+  //      }
+  //
+  //      &__tbody__tr:nth-child(even){
+  //        background-color: rgba(184, 186, 185, 0.53);
+  //      }
+  //    }
+  //  }
+  //
+  //  &__paginationComponent__button{
+  //    width: 3vw;
+  //    height: 3vh;
+  //    border-radius: 5px;
+  //    margin-right: 5px;
+  //    background-color: rgba(11, 191, 164, 0.86);
+  //    color: white;
+  //    border: none;
+  //    box-shadow: 6px 6px 5px 0 rgba(28, 28, 28, 0.75);
+  //  }
+  //}
+  //
+  //&__adminPage{
+  //  width: 100%;
+  //  display: flex;
+  //  flex-direction: column;
+  //  justify-content: center;
+  //  align-items: center;
+  //
+  //  &__ordersStatisticAllComponent{
+  //    display: flex;
+  //    flex-direction: column;
+  //    justify-content: center;
+  //    align-items: center;
+  //  }
+  //
+  //  &__giveRoleComponent__button{
+  //    width: 70px;
+  //    height: 40px;
+  //    display: flex;
+  //    align-items: center;
+  //    justify-content: center;
+  //    margin-right: 10px;
+  //    background-color: rgba(11, 191, 164, 0.86);
+  //    color: white;
+  //    border: none;
+  //    border-radius: 5px;
+  //    box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //  }
+  //
+  //  &__ordersStatisticManager{
+  //    margin: 15px;
+  //    display: flex;
+  //    align-items: flex-start;
+  //    flex-direction: column;
+  //
+  //    &__cards{
+  //      display: flex;
+  //      justify-content: center;
+  //      align-items: center;
+  //      border: 1px solid rgba(151, 149, 149, 0.94);
+  //      box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //
+  //      &__p{
+  //        margin: 0;
+  //        padding: 0;
+  //      }
+  //
+  //      &__data{
+  //        margin: 15px;
+  //      }
+  //      &__statistic{
+  //        margin: 5px;
+  //      }
+  //      &__buttonAccessAccount{
+  //        margin: 15px;
+  //        display: flex;
+  //
+  //        &__activate{
+  //          width: 170px;
+  //          height: 30px;
+  //          display: flex;
+  //          align-items: center;
+  //          justify-content: center;
+  //          margin-right: 10px;
+  //          background-color: rgba(11, 191, 164, 0.86);
+  //          color: white;
+  //          border: none;
+  //          border-radius: 5px;
+  //          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //        }
+  //        &__banUnban{
+  //          width: 70px;
+  //          height: 30px;
+  //          display: flex;
+  //          align-items: center;
+  //          justify-content: center;
+  //          margin-right: 10px;
+  //          background-color: rgba(11, 191, 164, 0.86);
+  //          color: white;
+  //          border: none;
+  //          border-radius: 5px;
+  //          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //        }
+  //      }
+  //    }
+  //
+  //  }
+  //}
 
   &__footer{
     width: 100%;
@@ -388,5 +583,9 @@ html, body {
     font-size: 1.2em;
     font-weight: bold;
     background-image: url('../../public/abstraction.png');
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
   }
 }

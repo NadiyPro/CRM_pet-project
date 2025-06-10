@@ -26,8 +26,8 @@ const GiveRoleComponent = () => {
   }
 
   return(
-    <div className={'divMainLayout__adminPage__giveRoleComponent'}>
-      <button className={'divMainLayout__adminPage__giveRoleComponent__button'} type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
+    <div className={'divMainLayout__outlet__adminPage__giveRoleComponent'}>
+      <button className={'divMainLayout__outlet__adminPage__giveRoleComponent__button'} type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
 
       {isGiveRoleModalOpen && (
         <div style={{
