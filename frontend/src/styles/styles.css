@@ -95,11 +95,12 @@ html, body {
           flex-direction: column;
   position: relative;
   z-index: 0;
-  -webkit-animation: animeBox 1s ease-out forwards;
-          animation: animeBox 1s ease-out forwards;
+  -webkit-animation: animeBox 3s ease-in forwards;
+          animation: animeBox 3s ease-in forwards;
 }
 @-webkit-keyframes animeBox {
   0% {
+    margin: 0;
     opacity: 0;
     -webkit-transform: translateY(-100px);
             transform: translateY(-100px);
@@ -112,6 +113,7 @@ html, body {
 }
 @keyframes animeBox {
   0% {
+    margin: 0;
     opacity: 0;
     -webkit-transform: translateY(-100px);
             transform: translateY(-100px);
@@ -246,7 +248,7 @@ html, body {
   z-index: 10;
 }
 .divMainLayout__header__logo {
-  margin: 20px 0 20px 30px;
+  margin-left: 1.5vw;
   text-align: center;
   color: white;
   text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
@@ -258,7 +260,7 @@ html, body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 10px 30px 10px 0;
+  margin: 1vh 1.5vw 1vh 1.5vw;
   /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
 }
 .divMainLayout__header__nav__panel {
@@ -284,12 +286,14 @@ html, body {
   height: 40px;
 }
 .divMainLayout__outlet {
+  width: 100%;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
   margin-top: 10vh;
-  margin-bottom: 10vh;
+  margin-bottom: 5vh;
   overflow-y: auto;
+  /*AdminPage*/
 }
 .divMainLayout__outlet__ordersAllPage {
   width: 100%;
@@ -326,7 +330,7 @@ html, body {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  margin-left: 30px;
+  margin-left: 1.5vw;
 }
 .divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input {
   margin: 5px;
@@ -342,7 +346,7 @@ html, body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: 10px 30px 10px 0;
+  margin: 2vh 0.5vw 0 1.5vw;
 }
 .divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__menu__my {
   width: 70px;
@@ -429,6 +433,15 @@ html, body {
       -ms-flex-align: center;
           align-items: center;
 }
+.divMainLayout__outlet__adminPage__ordersStatisticAllComponent__h3 {
+  margin: 10px;
+}
+.divMainLayout__outlet__adminPage__ordersStatisticAllComponent__p {
+  margin: 5px;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent {
+  margin: 5px;
+}
 .divMainLayout__outlet__adminPage__giveRoleComponent__button {
   width: 70px;
   height: 40px;
@@ -463,12 +476,14 @@ html, body {
           flex-direction: column;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__cards {
+  width: 80vw;
+  margin: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -480,19 +495,12 @@ html, body {
   margin: 0;
   padding: 0;
 }
-.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__data {
-  margin: 15px;
-}
-.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__statistic {
-  margin: 5px;
-}
-.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__buttonAccessAccount {
-  margin: 15px;
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
-.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__buttonAccessAccount__activate {
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate {
   width: 170px;
   height: 30px;
   display: -webkit-box;
@@ -512,7 +520,7 @@ html, body {
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
-.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__buttonAccessAccount__banUnban {
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban {
   width: 70px;
   height: 30px;
   display: -webkit-box;

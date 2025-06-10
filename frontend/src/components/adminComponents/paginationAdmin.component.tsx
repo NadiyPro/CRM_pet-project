@@ -5,7 +5,7 @@ const PaginationAdminComponent = () => {
   const { dto, data } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
-  const limit = dto.limit ?? 10;
+  const limit = dto.limit ?? 5;
   const currentPage = dto.page ?? 1;
   const totalPages = Math.ceil(data.total / limit);
 

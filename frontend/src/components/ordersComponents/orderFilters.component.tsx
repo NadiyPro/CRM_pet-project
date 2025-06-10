@@ -25,7 +25,7 @@ const OrdersFiltersComponent = () => {
 
     const updatedDto = {
       ...dto,
-      [field]: formatValue,
+      [field]: formatValue || undefined,
     };
 
     dispatch(orderAction.setDto(updatedDto));
