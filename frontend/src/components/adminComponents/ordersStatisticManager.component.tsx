@@ -45,16 +45,15 @@ const OrdersStatisticManager = () => {
               <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>is_active:</b> {value.is_active ? 'active' : 'inactive'}</p>
             </div>
 
-            {userStatistic && (
+
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__statistic'}>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Total:</b> {userStatistic.total}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>In Work:</b> {userStatistic.In_work}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>New:</b> {userStatistic.New}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Agreed:</b> {userStatistic.Aggre}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Disagreed:</b> {userStatistic.Disaggre}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Dubbing:</b> {userStatistic.Dubbing}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Total:</b> {userStatistic?.total ?? 0}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>In Work:</b> {userStatistic?.In_work ?? 0}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>New:</b> {userStatistic?.New ?? 0}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Agreed:</b> {userStatistic?.Aggre ?? 0}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Disagreed:</b> {userStatistic?.Disaggre ?? 0}</p>
+                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Dubbing:</b> {userStatistic?.Dubbing ?? 0}</p>
               </div>
-            )}
 
           <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
             <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
