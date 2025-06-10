@@ -20,13 +20,18 @@ const OrdersFiltersComponent = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
     field: SortFieldEnum | 'created_at_from' | 'created_at_to') => {
     const value = e.target.value;
-    const isDateField = field === 'created_at_from' || field === 'created_at_to';
-    const formatValue = isDateField ? value : null;
-
     const updatedDto = {
       ...dto,
-      [field]: formatValue || undefined,
+      [field]: value || undefined, // Порожнє значення не фільтруємо
     };
+
+    // const isDateField = field === 'created_at_from' || field === 'created_at_to';
+    // const formatValue = isDateField ? value : null;
+    //
+    // const updatedDto = {
+    //   ...dto,
+    //   [field]: formatValue || undefined,
+    // };
 
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));

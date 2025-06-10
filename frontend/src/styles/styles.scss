@@ -69,7 +69,7 @@ html, body {
       flex-direction: column;
       position: relative;
       z-index: 0;
-      animation: animeBox 3s ease-in forwards;
+      animation: animeBox 4s ease-in forwards;
 
       @keyframes animeBox {
         0% {
@@ -127,8 +127,6 @@ html, body {
         height: 100%;
         border-radius: 10px;  background: linear-gradient(45deg, #1f2427, #016064, #03c825, #eaf0ef,
               #1e90ffed, #28488d, #1702ec, #05ffff);
-        /*background: linear-gradient(45deg, rgba(0, 139, 139, 0.52), #067d81, #1cc6ca,*/
-        /*#8bf6e1, rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);*/
         background-size: 300%;
         filter: blur(20px);
         animation: animeColor 12s linear infinite;
@@ -150,7 +148,6 @@ html, body {
   .errorLogin {
     color: #6e0707;
     background-color: rgba(209, 115, 115, 0.46);
-    //margin-top: 10px;
     text-align: center;
     border-radius: 10px;
   }
@@ -183,7 +180,6 @@ html, body {
 
     &__logo{
       margin-left: 1.5vw;
-      //margin:  20px 0 20px 30px;
       text-align: center;
       color: white;
       text-shadow: 4px 4px 2px rgba(28, 28, 28, 0.75);
@@ -193,7 +189,6 @@ html, body {
       display: flex;
       align-items: center;
       margin: 1vh 1.5vw 1vh 1.5vw;
-      //margin: 10px 30px 10px 0;
 
       /*AdminPanelComponent, LogOutComponent, OrdersPanelComponent*/
 
@@ -378,9 +373,9 @@ html, body {
             padding: 0;
           }
 
-          //&__data{
-          //  margin: 15px;
-          //}
+          &__data{
+            margin: 15px;
+          }
         }
 
         //&__statistic{

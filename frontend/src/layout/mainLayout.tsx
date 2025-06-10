@@ -23,7 +23,7 @@ return(
       <Outlet />
     </div>
     <footer className={'divMainLayout__footer'}>
-      <p> &#169; NadiyPro</p>
+      <p> NadiyPro &#169; 2025</p>
     </footer>
   </div>
 )

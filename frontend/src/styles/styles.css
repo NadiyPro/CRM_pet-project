@@ -95,8 +95,8 @@ html, body {
           flex-direction: column;
   position: relative;
   z-index: 0;
-  -webkit-animation: animeBox 3s ease-in forwards;
-          animation: animeBox 3s ease-in forwards;
+  -webkit-animation: animeBox 4s ease-in forwards;
+          animation: animeBox 4s ease-in forwards;
 }
 @-webkit-keyframes animeBox {
   0% {
@@ -175,8 +175,6 @@ html, body {
   height: 100%;
   border-radius: 10px;
   background: linear-gradient(45deg, #1f2427, #016064, #03c825, #eaf0ef, rgba(30, 144, 255, 0.9294117647), #28488d, #1702ec, #05ffff);
-  /*background: linear-gradient(45deg, rgba(0, 139, 139, 0.52), #067d81, #1cc6ca,*/
-  /*#8bf6e1, rgb(93, 172, 248), rgba(30, 144, 255, 0.93), #28488d, #7d8493);*/
   background-size: 300%;
   -webkit-filter: blur(20px);
           filter: blur(20px);
@@ -494,6 +492,9 @@ html, body {
 .divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p {
   margin: 0;
   padding: 0;
+}
+.divMainLayout__outlet__adminPage__ordersStatisticManager__cards__data {
+  margin: 15px;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount {
   display: -webkit-box;

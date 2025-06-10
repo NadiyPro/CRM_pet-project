@@ -110,7 +110,7 @@ const PaginationComponent = () => {
   return (
     <div className={'divMainLayout__outlet__ordersAllPage__paginationComponent'} style={{ display: 'flex', gap: '5px', alignItems: 'center' }}>
       {currentPage > 1 && (
-        <button className={'divMainLayout__ordersAllPage__paginationComponent__button'} key={currentPage - 1} onClick={() => handlePageClick(currentPage - 1)}>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={currentPage - 1} onClick={() => handlePageClick(currentPage - 1)}>
           {'<'}
         </button>
       )}
