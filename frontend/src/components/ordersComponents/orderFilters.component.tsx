@@ -25,14 +25,6 @@ const OrdersFiltersComponent = () => {
       [field]: value || undefined, // Порожнє значення не фільтруємо
     };
 
-    // const isDateField = field === 'created_at_from' || field === 'created_at_to';
-    // const formatValue = isDateField ? value : null;
-    //
-    // const updatedDto = {
-    //   ...dto,
-    //   [field]: formatValue || undefined,
-    // };
-
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };
