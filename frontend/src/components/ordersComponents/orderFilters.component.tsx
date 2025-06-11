@@ -137,7 +137,7 @@ const OrdersFiltersComponent = () => {
           <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
         </select>
 
-        <select className={'divMainLayout__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.COURSE_TYPE} value={dto.course_type ?? ''}
+        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.COURSE_TYPE} value={dto.course_type ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_TYPE)}>
           <option value="">all course type</option>
           <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
