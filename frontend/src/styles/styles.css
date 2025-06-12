@@ -560,10 +560,12 @@ html, body {
 
 /*AuthPasswordPage*/
 .basePassword {
+  padding-left: 10vw;
   width: 100%;
   height: 100vh;
-  position: relative;
+  position: fixed;
   background-image: url("../../public/authPassword.png");
   background-size: cover;
+  z-index: -1;
 }
 /*# sourceMappingURL=styles.css.map */

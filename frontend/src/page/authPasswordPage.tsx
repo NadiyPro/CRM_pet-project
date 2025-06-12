@@ -37,17 +37,19 @@ const AuthPasswordPage = () => {
   };
 
   return(
-    <div>
-      <form onSubmit={handleSubmit(dtoPassword)}>
-        <label htmlFor={'password'}>Password</label>
-        <input type={'password'} {...register('password')} required/>
+    <div className={'basePassword'}>
+      <div  className={'baseLogin__contentLogin__divLogin'}>
+        <form className={'baseLogin__contentLogin__divLogin__form'} onSubmit={handleSubmit(dtoPassword)}>
+          <label htmlFor={'password'}>Password</label>
+          <input type={'password'} {...register('password')} required/>
 
-        <label htmlFor={'confirm_password'}>Confirm password</label>
-        <input type={'password'} {...register('confirm_password')} required/>
+          <label htmlFor={'confirm_password'}>Confirm password</label>
+          <input type={'password'} {...register('confirm_password')} required/>
 
-        <button type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
-      </form>
-      {errorPassword && <p className="errorPassword">{errorPassword}</p>}
+          <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
+        </form>
+        {errorPassword && <div><p className="errorPassword">{errorPassword}</p></div>}
+      </div>
     </div>
   )
 
