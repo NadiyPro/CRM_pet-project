@@ -16,7 +16,7 @@ const loadGiveRole = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(adminAction.setStatusGiveRole('При видачі ролі виникла помилка. Будь ласка, перевірте коректність введених даних'));
+      thunkAPI.dispatch(adminAction.setStatusGiveRole('Будь ласка, перевірте права доступу (доступно тільки для ролі admin)'));
       setTimeout(() => {
         thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
       }, 10000)

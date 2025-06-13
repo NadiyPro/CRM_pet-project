@@ -95,8 +95,8 @@ html, body {
           flex-direction: column;
   position: relative;
   z-index: 0;
-  -webkit-animation: animeBox 4s ease-in forwards;
-          animation: animeBox 4s ease-in forwards;
+  -webkit-animation: animeBox 3s ease-in forwards;
+          animation: animeBox 3s ease-in forwards;
 }
 @-webkit-keyframes animeBox {
   0% {
@@ -289,7 +289,7 @@ html, body {
       -ms-flex: 1;
           flex: 1;
   margin-top: 10vh;
-  margin-bottom: 5vh;
+  margin-bottom: 10vh;
   overflow-y: auto;
   /*AdminPage*/
 }
@@ -388,6 +388,9 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__tr:nth-child(even) {
   background-color: rgba(184, 186, 185, 0.53);
+}
+.divMainLayout__outlet__ordersAllPage__paginationComponent {
+  height: 5vh;
 }
 .divMainLayout__outlet__ordersAllPage__paginationComponent__button {
   width: 3vw;
@@ -566,6 +569,5 @@ html, body {
   position: fixed;
   background-image: url("../../public/authPassword.png");
   background-size: cover;
-  z-index: -1;
 }
 /*# sourceMappingURL=styles.css.map */

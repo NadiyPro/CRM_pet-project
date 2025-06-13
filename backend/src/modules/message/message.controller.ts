@@ -1,14 +1,5 @@
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
 import { MessageService } from './service/message.service';
 import { TableNameEnum } from '../../infrastructure/mysql/entities/enums/tableName.enum';
 import { ApprovedRoleGuard } from '../guards/approvedRole.guard';
@@ -65,7 +56,7 @@ export class MessageController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
-  @Role([RoleTypeEnum.ADMIN])
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Post(':orderId')
   public async createMessage(
     @CurrentUser() userData: IUserData,

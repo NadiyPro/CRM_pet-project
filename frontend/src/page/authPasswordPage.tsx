@@ -30,7 +30,7 @@ const AuthPasswordPage = () => {
     })).unwrap();
 
     if (isValidPassword) {
-      navigate(`/orders`);
+      navigate('/orders');
     } else {
       reset();
     }
@@ -41,10 +41,10 @@ const AuthPasswordPage = () => {
       <div  className={'baseLogin__contentLogin__divLogin'}>
         <form className={'baseLogin__contentLogin__divLogin__form'} onSubmit={handleSubmit(dtoPassword)}>
           <label htmlFor={'password'}>Password</label>
-          <input type={'password'} {...register('password')} required/>
+          <input className={'basePassword__password_confirm_password'} type={'password'} {...register('password')} required/>
 
           <label htmlFor={'confirm_password'}>Confirm password</label>
-          <input type={'password'} {...register('confirm_password')} required/>
+          <input className={'basePassword__password_confirm_password'} type={'password'} {...register('confirm_password')} required/>
 
           <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
         </form>
