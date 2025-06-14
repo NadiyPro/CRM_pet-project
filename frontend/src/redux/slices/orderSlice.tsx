@@ -190,6 +190,9 @@ export const orderSlice = createSlice({
       state.isAddGroupState = action.payload;
       state.isDefaultGroupState = !action.payload;
     },
+    setDefaultGroupState(state, action: PayloadAction<boolean>){
+      state.isDefaultGroupState =  action.payload;
+    },
     setCreateGroup(state, action: PayloadAction<boolean>){
       state.isCreateGroup =  action.payload;
     },
@@ -211,10 +214,10 @@ export const orderSlice = createSlice({
       state.isDuplicate =  action.payload;
     },
     setIsGroupOrder(state, action: PayloadAction<boolean>){
-      state.isDuplicate =  action.payload;
+      state.isGroupOrder =  action.payload;
     },
     setIsNoGroup(state, action: PayloadAction<boolean>){
-      state.isDuplicate =  action.payload;
+      state.isNoGroup =  action.payload;
     },
   },
   extraReducers: (builder) => {
