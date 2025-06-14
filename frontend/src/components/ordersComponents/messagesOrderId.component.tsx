@@ -71,8 +71,8 @@ const MessagesOrderIdComponent = () => {
             <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap'} key={value.id}>
               <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap__text'}><p><b>comment:</b> {value.messages}</p></div>
               <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate'}>
-                <p>{value.manager}</p>
-                <p>{value.created_at? dayjs.utc(value.created_at).local().format('MMMM D, YYYY HH:mm:ss') : ''}</p>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>{value.manager}</p>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>{value.created_at? dayjs.utc(value.created_at).local().format('MMMM D, YYYY HH:mm:ss') : ''}</p>
               </div>
             </div>)}
         </div>
@@ -88,13 +88,7 @@ const MessagesOrderIdComponent = () => {
       </div>
 
       {isEditOrder &&
-        <div style={{
-          position: 'fixed',
-          top: 0, left: 0,
-          width: '100vw', height: '100vh',
-          background: 'rgba(0,0,0,0.5)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 9999}}>
+        <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit'}>
           <EditOrderComponent/>
         </div>
       }

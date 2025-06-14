@@ -321,8 +321,11 @@ html, body {
                   &__managerDate{
                     display: flex;
                     flex-direction: column;
-                    align-items:center;
-                    justify-content: center;
+                    text-align: center;
+
+                    &__p{
+                      margin: 0;
+                    }
                   }
 
                   &__divMap{
@@ -357,6 +360,81 @@ html, body {
                   border: none;
                   border-radius: 5px;
                   box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+                }
+              }
+
+              &__baseEdit{
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                background: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 9999;
+
+                &__editOrderComponent{
+                  display: flex;
+                  flex-wrap: wrap;
+                  justify-content: center;
+                  background: #fff;
+                  padding: 20px;
+                  margin: 10px;
+                  border-radius: 8px;
+                  width: 30vw;
+                  box-shadow: 0 0 10px rgba(0,0,0,0.25);
+
+                  &__createGroup{
+                    display: flex;
+                    flex-direction: column;
+                    margin: 5px;
+
+                    &__buttonBox{
+                      margin: 5px 0;
+                      display: flex;
+                      justify-content: flex-start;
+
+                      &__addGroup{
+                        width: 100px;
+                        height: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 10px;
+                        background-color: rgba(11, 191, 164, 0.86);
+                        color: white;
+                        border: none;
+                        border-radius: 5px;
+                        box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+                      }
+                    }
+                  }
+
+                  &__addGroup{
+                    margin: 5px;
+                  }
+
+                  &__editOrderForm{
+                    width: 30vw;
+                    height: 35vh;
+                    gap: 5px;
+                    display: flex;
+                    //flex-wrap: wrap;
+                    flex-direction: column;
+                    //align-items: stretch;
+
+                    &__inputSelect{
+                      width: 30vw;
+                      height: 35vh;
+                      gap: 5px;
+                      display: flex;
+                      flex-wrap: wrap;
+                      flex-direction: column;
+                      align-items: stretch;
+                    }
+                  }
                 }
               }
             }
