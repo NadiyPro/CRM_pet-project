@@ -50,7 +50,7 @@ const AuthLoginPage = () => {
             <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'}
                     disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
           </form>
-          {errorLogin && <div><p className="errorLogin">{errorLogin}</p></div>}
+          {errorLogin && <div className="errorLogin"><p>{errorLogin}</p></div>}
         </div>
 
         <div className={'baseLogin__contentLogin__Hello'}>

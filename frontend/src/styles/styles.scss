@@ -212,8 +212,11 @@ html, body {
         }
 
         &__export{
-          width: 70px;
-          height: 40px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 15vw;
+          height: 5vh;
         }
       }
     }
@@ -288,15 +291,75 @@ html, body {
 
         &__table{
           width: 100%;
-          margin: 0 35px 35px 35px;
+          margin: 0 1.5vw;
 
           &__thead{
             background-color: rgba(11, 191, 164, 0.86);
             color: white;
           }
 
-          &__tbody__tr:nth-child(even){
-            background-color: rgba(184, 186, 185, 0.53);
+          &__tbody{
+            &__tr:nth-child(even){
+              background-color: rgba(184, 186, 185, 0.53);
+            }
+            &__messagesOrderIdComponent{
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+              padding: 1vh 0 1vh 0;
+              border: 1px solid rgba(184, 186, 185, 0.53);
+              border-radius: 10px;
+
+              &__messages{
+                width: 50vw;
+
+                &__data{
+                  width: 40vw;
+                  height: 15vh;
+                  overflow: scroll;
+
+                  &__managerDate{
+                    display: flex;
+                    flex-direction: column;
+                    align-items:center;
+                    justify-content: center;
+                  }
+
+                  &__divMap{
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+
+                    &__text{
+                      display: flex;
+                      flex-wrap: wrap;
+                    }
+                  }
+
+                  &__divMap:nth-child(even){
+                    background-color: rgba(185, 251, 237, 0.29);;
+                  }
+                }
+
+                &__form{
+                  display: flex;
+                }
+
+                &__button{
+                  width: 70px;
+                  height: 20px;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-right: 10px;
+                  background-color: rgba(11, 191, 164, 0.86);
+                  color: white;
+                  border: none;
+                  border-radius: 5px;
+                  box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+                }
+              }
+            }
           }
         }
       }

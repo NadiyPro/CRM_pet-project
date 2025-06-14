@@ -53,7 +53,7 @@ const OrdersTableComponent = () => {
             ))}
         </tr>
         </thead>
-        <tbody>
+        <tbody className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody'}>
         {orders.map((value: BaseOrdersDto) => (
           <React.Fragment key={value.id}>
           <tr className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__tr'} key={value.id} onClick={() => value.id !== null && handleMessagesOrderId(value.id)}>

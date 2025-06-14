@@ -280,8 +280,17 @@ html, body {
   font-weight: bold;
 }
 .divMainLayout__header__nav__panel__export {
-  width: 70px;
-  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 15vw;
+  height: 5vh;
 }
 .divMainLayout__outlet {
   width: 100%;
@@ -380,7 +389,7 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table {
   width: 100%;
-  margin: 0 35px 35px 35px;
+  margin: 0 1.5vw;
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__thead {
   background-color: rgba(11, 191, 164, 0.86);
@@ -388,6 +397,89 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__tr:nth-child(even) {
   background-color: rgba(184, 186, 185, 0.53);
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1vh 0 1vh 0;
+  border: 1px solid rgba(184, 186, 185, 0.53);
+  border-radius: 10px;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages {
+  width: 50vw;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data {
+  width: 40vw;
+  height: 15vh;
+  overflow: scroll;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap__text {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap:nth-child(even) {
+  background-color: rgba(185, 251, 237, 0.29);
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button {
+  width: 70px;
+  height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  margin-right: 10px;
+  background-color: rgba(11, 191, 164, 0.86);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__outlet__ordersAllPage__paginationComponent {
   height: 5vh;

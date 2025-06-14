@@ -57,25 +57,36 @@ const MessagesOrderIdComponent = () => {
     }
 
   return(
-    <div ref={messageClose}>
+    <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent'} ref={messageClose}>
       <div>
-        <p>id: {findOneOrder.id}</p>
-        <p>UTM: {findOneOrder.utm}</p>
-        <p>Msg: {findOneOrder.msg}</p>
+        <p><b>id:</b> {findOneOrder.id}</p>
+        <p><b>UTM:</b> {findOneOrder.utm}</p>
+        <p><b>Msg:</b> {findOneOrder.msg}</p>
       </div>
-      <div>
-        {messagesOrderId.map(value =>
-          <div key={value.id}>
-          <div>{value.messages}</div>
-          <div>{value.manager} {value.created_at? dayjs.utc(value.created_at).local().format('MMMM D, YYYY HH:mm:ss') : ''}</div>
-        </div>)}
-        <form onSubmit={handleSubmit(handleCreateMessage)}>
-        <label htmlFor={'messages'}>Create message:</label>
+
+      <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages'} >
+
+        <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data'}>
+          {messagesOrderId.map(value =>
+            <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap'} key={value.id}>
+              <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap__text'}><p><b>comment:</b> {value.messages}</p></div>
+              <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate'}>
+                <p>{value.manager}</p>
+                <p>{value.created_at? dayjs.utc(value.created_at).local().format('MMMM D, YYYY HH:mm:ss') : ''}</p>
+              </div>
+            </div>)}
+        </div>
+
+        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__form'} onSubmit={handleSubmit(handleCreateMessage)}>
+          <label htmlFor={'messages'}><b>Create message:</b></label>
           <input type={'text'} {...register('messages')} placeholder={'Comment'}/>
-          <button type={'submit'} disabled={!isValid}>SUBMIT</button>
+          <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'submit'} disabled={!isValid}>SUBMIT</button>
         </form>
-        <button onClick={handleEditOrder}>EDIT</button>
+
+        <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} onClick={handleEditOrder}>EDIT</button>
+
       </div>
+
       {isEditOrder &&
         <div style={{
           position: 'fixed',
