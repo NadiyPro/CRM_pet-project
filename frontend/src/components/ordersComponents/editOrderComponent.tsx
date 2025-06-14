@@ -82,10 +82,18 @@ const EditOrderComponent = () => {
         orderId: findOneOrder.id.toString(),
         group_id: group.group_id.toString()
       })).unwrap();
-      dispatch(orderAction.setIsGroupOrder(true));
-      setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 5000);
-      return;
+      // dispatch(orderAction.setIsGroupOrder(true));
+      // setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 5000);
+      // return;
     }
+    // dispatch(orderAction.setIsGroupOrder(true));
+    // setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 5000);
+    dispatch(orderAction.setIsGroupOrder(true));
+
+    setTimeout(() => {
+      dispatch(orderAction.setIsGroupOrder(false));
+      dispatch(orderAction.setAddGroupState(false));
+    }, 5000);
   };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
@@ -115,12 +123,14 @@ const EditOrderComponent = () => {
               SUBMIT
             </button>
           </div>
-          { isDuplicate && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>Група з такою назвою вже існує</p></div>}
+          { isDuplicate && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                                   style={{color: 'red'}}>Помилка. Група з такою назвою вже існує</p></div>}
           { isCreateGroup && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>Група успішно створена</p></div>}
           </form>
       )}
       { isAddGroupState && (
-        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__addGroup'} onSubmit={handleSubmitAddGroup(handleAddGroup)}>
+        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__addGroup'}
+              onSubmit={handleSubmitAddGroup(handleAddGroup)}>
           <label htmlFor={'addGroupSelect'}>Group</label>
           <select id={'addGroupSelect'} {...registerAddGroup('group_group_name')}>
             <option value="">Select group</option>
