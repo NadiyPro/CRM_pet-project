@@ -421,18 +421,17 @@ html, body {
                     height: 35vh;
                     gap: 5px;
                     display: flex;
-                    //flex-wrap: wrap;
                     flex-direction: column;
-                    //align-items: stretch;
 
                     &__inputSelect{
                       width: 30vw;
-                      height: 35vh;
+                      height: 32vh;
                       gap: 5px;
                       display: flex;
                       flex-wrap: wrap;
                       flex-direction: column;
                       align-items: stretch;
+                      align-content: space-around;
                     }
                   }
                 }
