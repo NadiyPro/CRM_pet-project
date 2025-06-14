@@ -570,7 +570,7 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__editOrderForm__inputSelect {
   width: 30vw;
-  height: 35vh;
+  height: 32vh;
   gap: 5px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -584,6 +584,8 @@ html, body {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
           align-items: stretch;
+  -ms-flex-line-pack: distribute;
+      align-content: space-around;
 }
 .divMainLayout__outlet__ordersAllPage__paginationComponent {
   height: 5vh;
