@@ -3,7 +3,7 @@ import { adminAction } from '../../redux/slices/adminSlice';
 import { useEffect } from 'react';
 
 const OrdersStatisticManager = () => {
-  const { dto, data, ordersStatisticManager, isActivateUser } = useAppSelector((state) => state.adminStore);
+  const { dto, data, ordersStatisticManager, isActivateUser, isBanUser, isUnbanUser } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -64,21 +64,40 @@ const OrdersStatisticManager = () => {
                   onClick={() => handleActive(value.id)}>
                   {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
                 </button>
-                {isActivateUser && <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}><p
-                  style={{ margin: 0, color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p>
+                {isActivateUser &&
+                  <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}>
+                  <p style={{ margin: 0, color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p>
                 </div>}
               </div>
+
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
                   onClick={() => handleBan(value.id)}>BAN
                 </button>
+                {isBanUser &&
+                  <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
+                    <p style={{
+                      margin: 0,
+                      color: isBanUser.type === 'success' ? '#1f615c' : 'darkred',
+                    }}>{isBanUser.text}</p>
+                  </div>}
               </div>
-              <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
+
+              <div
+                className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
                   onClick={() => handleUnban(value.id)}>UNBAN
                 </button>
+                { isUnbanUser &&
+                  <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
+                    <p style={{
+                      margin: 0,
+                      color: isUnbanUser.type === 'success' ? '#1f615c' : 'darkred',
+                    }}>{isUnbanUser.text}</p>
+                  </div>
+                }
               </div>
             </div>
 

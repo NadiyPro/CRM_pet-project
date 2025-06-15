@@ -16,6 +16,7 @@ import { loadCreateGroup } from '../reducers/orderLoad/loadCreateGroup';
 import { loadAllGroup } from '../reducers/orderLoad/loadAllGroup';
 import { loadAddGroup } from '../reducers/orderLoad/loadAddGroup';
 import { GroupOrdersDto } from '../../module/groupOrders.dto';
+import { TypeTextDto } from '../../module/typeText.dto';
 
 interface OrderSliceInterface {
   dto: Partial<ListOrdersAllDto>;
@@ -26,7 +27,7 @@ interface OrderSliceInterface {
   dataExel: string;
   findOneOrder: BaseOrdersDto;
   loadingExel: boolean;
-  exportSuccess: string;
+  exportSuccess: TypeTextDto | null;
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
   isEditOrder: boolean;
@@ -93,7 +94,7 @@ const initialState: OrderSliceInterface = {
     msg: null,
   },
   loadingExel: false,
-  exportSuccess: '',
+  exportSuccess: null,
   messagesOrderId: [],
   createMessage: {
     id: 0,
@@ -170,7 +171,7 @@ export const orderSlice = createSlice({
         my: false,
       };
     },
-    setExportSuccess(state, action: PayloadAction<string>) {
+    setExportSuccess(state, action: PayloadAction<TypeTextDto | null>) {
       state.exportSuccess = action.payload;
     },
     setOpenMessagesOrderId(state, action: PayloadAction<number>){
@@ -240,7 +241,7 @@ export const orderSlice = createSlice({
       )
       .addCase(loadOrdersExel.pending, (state) => {
         state.loadingExel = true;
-        state.exportSuccess = '';
+        state.exportSuccess = null;
       })
       .addCase(loadOrdersExel.rejected, (state, action) => {
         state.loadingExel = false;

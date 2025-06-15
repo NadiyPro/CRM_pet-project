@@ -683,9 +683,9 @@ html, body {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
   border: 1px solid rgba(151, 149, 149, 0.94);
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
@@ -712,8 +712,8 @@ html, body {
           flex-direction: column;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__activate {
-  width: 170px;
-  height: 30px;
+  width: 15vw;
+  height: 30vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -723,7 +723,7 @@ html, body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-right: 10px;
+  margin-right: 15px;
   background-color: rgba(11, 191, 164, 0.86);
   color: white;
   border: none;
@@ -732,8 +732,8 @@ html, body {
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser {
-  width: 6.5vw;
-  height: 3.5vh;
+  width: 15vw;
+  height: 6vh;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban {
   display: -webkit-box;
@@ -745,8 +745,8 @@ html, body {
           flex-direction: column;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban {
-  width: 70px;
-  height: 30px;
+  width: 7vw;
+  height: 3vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -763,6 +763,10 @@ html, body {
   border-radius: 5px;
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+}
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban {
+  width: 7vw;
+  height: 3vh;
 }
 .divMainLayout__footer {
   width: 100%;

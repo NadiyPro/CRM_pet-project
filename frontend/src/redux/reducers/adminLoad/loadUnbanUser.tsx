@@ -1,15 +1,24 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { adminService } from '../../../service/admin.service';
 import { AxiosError } from 'axios';
+import { adminAction } from '../../slices/adminSlice';
 
 const loadUnbanUser = createAsyncThunk(
   'loadUnbanUser',
   async (managerId: string, thunkAPI) => {
     try {
       const response = await adminService.unbanUser(managerId);
+      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Користувача розблоковано', type: 'success' }));
+      setTimeout(()=>{
+        thunkAPI.dispatch(adminAction.setIsUnbanUser(null));
+      }, 7000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
+      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error' }));
+      setTimeout(()=>{
+        thunkAPI.dispatch(adminAction.setIsUnbanUser(null));
+      }, 7000)
       return thunkAPI.rejectWithValue(error?.response?.data)
     }
   }

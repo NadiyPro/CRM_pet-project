@@ -29,6 +29,8 @@ interface AdminSliceInterface {
   statusGiveRole: string;
   isGiveRoleModalOpen: boolean;
   isActivateUser: TypeTextDto | null;
+  isBanUser: TypeTextDto | null;
+  isUnbanUser: TypeTextDto | null;
 }
 
 const initialState : AdminSliceInterface = {
@@ -90,7 +92,9 @@ const initialState : AdminSliceInterface = {
   },
   statusGiveRole: '',
   isGiveRoleModalOpen: false,
-  isActivateUser: null
+  isActivateUser: null,
+  isBanUser: null,
+  isUnbanUser: null
 };
 
 export const adminSlice = createSlice({
@@ -111,6 +115,12 @@ export const adminSlice = createSlice({
     },
     setIsActivateUser(state, action: PayloadAction<TypeTextDto | null>) {
       state.isActivateUser = action.payload;
+    },
+    setIsBanUser(state, action: PayloadAction<TypeTextDto | null>) {
+      state.isBanUser = action.payload;
+    },
+    setIsUnbanUser(state, action: PayloadAction<TypeTextDto | null>) {
+      state.isUnbanUser = action.payload;
     }
   },
   extraReducers: (builder) => {
