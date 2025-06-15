@@ -114,17 +114,29 @@ const EditOrderComponent = () => {
           <label htmlFor={'group_name'}>Group</label>
           <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
           <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'submit'} disabled={!isValidCreateGroup}>
+            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                    type={'submit'} disabled={!isValidCreateGroup}>
               ADD
             </button>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'button'} onClick={
-              () => dispatch(orderAction.setAddGroupState(true))}>
+            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                    type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(true))}>
               SUBMIT
             </button>
           </div>
-          { isDuplicate && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                                   style={{color: 'red'}}>Помилка. Група з такою назвою вже існує</p></div>}
-          { isCreateGroup && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>Група успішно створена</p></div>}
+          { isDuplicate &&
+            <div>
+              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                                   style={{color: 'darkred'}}>
+            Помилка. Група з такою назвою вже існує
+              </p>
+            </div>}
+          { isCreateGroup &&
+            <div>
+              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                 style={{color: '#1f615c'}}>
+            Група успішно створена
+              </p>
+            </div>}
           </form>
       )}
       { isAddGroupState && (
@@ -147,8 +159,20 @@ const EditOrderComponent = () => {
               BACK
             </button>
           </div>
-          { isNoGroup && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>Даної групи не існує</p></div>}
-          { isGroupOrder && <div><p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>Група успішно закріплена за заявкою</p></div>}
+          { isNoGroup &&
+            <div>
+              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                 style={{color: 'darkred'}}>
+                Даної групи не існує
+              </p>
+            </div>}
+          { isGroupOrder &&
+            <div>
+              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                 style={{color: '#1f615c'}}>
+                Група успішно закріплена за заявкою
+              </p>
+            </div>}
             </form>
             )}
 

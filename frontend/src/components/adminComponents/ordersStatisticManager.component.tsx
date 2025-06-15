@@ -61,7 +61,7 @@ const OrdersStatisticManager = () => {
               <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
                 {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
               </button>
-              { isActivateUser && <div><p style={{ color: isActivateUser.type === 'success' ? 'green' : 'red' }}>{isActivateUser.text}</p></div> }
+              { isActivateUser && <div><p style={{ color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p></div> }
             </div>
             <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
             <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
