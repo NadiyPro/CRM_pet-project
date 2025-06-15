@@ -52,7 +52,7 @@ const EditOrderComponent = () => {
     const isDuplicateGroup = allGroup?.some(group => group.group_group_name === group_name.group_name);
     if (isDuplicateGroup) {
       dispatch(orderAction.setIsDuplicate(true));
-      setTimeout(() => dispatch(orderAction.setIsDuplicate(false)), 5000); // через 1 сек прибираємо текст
+      setTimeout(() => dispatch(orderAction.setIsDuplicate(false)), 3000);
       return;
     }
 
@@ -62,8 +62,9 @@ const EditOrderComponent = () => {
         resetCreateGroup();
         setTimeout(() => {
           dispatch(orderAction.setCreateGroup(false));
+          dispatch(orderAction.setDefaultGroupState(false)); //нов
           dispatch(orderAction.setAddGroupState(true));
-        }, 5000);
+        }, 3000);
       });
   };
 
@@ -73,7 +74,7 @@ const EditOrderComponent = () => {
     const group = allGroup && allGroup.find(value => value.group_group_name === group_group_name);
     if (!group) {
       dispatch(orderAction.setIsNoGroup(true));
-      setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 5000);
+      setTimeout(() => dispatch(orderAction.setIsNoGroup(false)), 3000);
       return;
     }
 
@@ -81,19 +82,17 @@ const EditOrderComponent = () => {
       dispatch(orderAction.loadAddGroup({
         orderId: findOneOrder.id.toString(),
         group_id: group.group_id.toString()
-      })).unwrap();
-      // dispatch(orderAction.setIsGroupOrder(true));
-      // setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 5000);
-      // return;
+      })).unwrap()
+        .then(() => {
+          dispatch(orderAction.setIsGroupOrder(true));
+        })
     }
-    // dispatch(orderAction.setIsGroupOrder(true));
-    // setTimeout(() => dispatch(orderAction.setIsGroupOrder(false)), 5000);
-    dispatch(orderAction.setIsGroupOrder(true));
 
     setTimeout(() => {
       dispatch(orderAction.setIsGroupOrder(false));
       dispatch(orderAction.setAddGroupState(false));
-    }, 5000);
+      dispatch(orderAction.setDefaultGroupState(true));
+    }, 3000);
   };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
@@ -141,7 +140,9 @@ const EditOrderComponent = () => {
          }
           </select>
           <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__buttonBox__addGroup'} type={'submit'}>ADD GROUP</button>
+            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox__addGroup'} type={'submit'}>
+              ADD GROUP
+            </button>
             <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(false))}>
               BACK
             </button>
@@ -219,11 +220,13 @@ const EditOrderComponent = () => {
                 className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
                 <button
                   className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                  type={'submit'} disabled={!isSomeValueEdit}>SUBMIT
+                  type={'submit'} disabled={!isSomeValueEdit}>
+                  SUBMIT
                 </button>
                 <button
                   className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                  type={'button'} onClick={handleCloseEditOrder}>CLOSE
+                  type={'button'} onClick={handleCloseEditOrder}>
+                  CLOSE
                 </button>
               </div>
             </form>

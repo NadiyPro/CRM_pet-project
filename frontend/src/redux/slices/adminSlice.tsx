@@ -13,11 +13,11 @@ import { loadBanUser } from '../reducers/adminLoad/loadBanUser';
 import { AuthUserDto } from '../../module/authUser.dto';
 import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
 import { loadGiveRole } from '../reducers/adminLoad/loadGiveRole';
+import { TypeTextDto } from '../../module/typeText.dto';
 
 interface AdminSliceInterface {
   ordersStatisticAll: OrdersStatisticAllDto,
   ordersStatisticManager: OrdersStatisticManagerDto[],
-  // ordersStatisticManager: Record<string, OrdersStatisticManagerDto>,
   dto: ListUsersQueryDto;
   data:{
     users: BaseUsersDto[],
@@ -28,6 +28,7 @@ interface AdminSliceInterface {
   giveRoleUser: BaseUsersDto,
   statusGiveRole: string;
   isGiveRoleModalOpen: boolean;
+  isActivateUser: TypeTextDto | null;
 }
 
 const initialState : AdminSliceInterface = {
@@ -48,7 +49,6 @@ const initialState : AdminSliceInterface = {
     Disaggre: 0,
     Dubbing: 0,
 }],
-  // ordersStatisticManager: {},
   dto: {
     limit: 10,
     page: 1,
@@ -89,7 +89,8 @@ const initialState : AdminSliceInterface = {
     deleted: null
   },
   statusGiveRole: '',
-  isGiveRoleModalOpen: false
+  isGiveRoleModalOpen: false,
+  isActivateUser: null
 };
 
 export const adminSlice = createSlice({
@@ -107,6 +108,9 @@ export const adminSlice = createSlice({
     },
     setCloseGiveRoleModal(state) {
       state.isGiveRoleModalOpen = false;
+    },
+    setIsActivateUser(state, action: PayloadAction<TypeTextDto | null>) {
+      state.isActivateUser = action.payload;
     }
   },
   extraReducers: (builder) => {
@@ -133,11 +137,7 @@ export const adminSlice = createSlice({
       .addCase(loadOrdersStatisticManager.fulfilled, (state, action) => {
         state.ordersStatisticManager = action.payload;
       })
-      // .addCase(loadOrdersStatisticManager.fulfilled, (state, action) => {
-      //   const managerId = action.meta.arg;
-      //   // action.meta.arg - зберігаємо аргумент id, який я передала в createAsyncThunk
-      //   state.ordersStatisticManager[managerId] = action.payload;
-      // })
+
       .addCase(loadOrdersStatisticManager.rejected, (state, action) => {
           console.error('Помилка завантаження статистики по менеджеру:', action.payload);
         }

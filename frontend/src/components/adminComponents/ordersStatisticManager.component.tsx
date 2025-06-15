@@ -3,7 +3,7 @@ import { adminAction } from '../../redux/slices/adminSlice';
 import { useEffect } from 'react';
 
 const OrdersStatisticManager = () => {
-  const { dto, data, ordersStatisticManager } = useAppSelector((state) => state.adminStore);
+  const { dto, data, ordersStatisticManager, isActivateUser } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -57,9 +57,12 @@ const OrdersStatisticManager = () => {
               </div>
 
           <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
-            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
-              {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
-            </button>
+            <div>
+              <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
+                {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
+              </button>
+              { isActivateUser && <div><p style={{ color: isActivateUser.type === 'success' ? 'green' : 'red' }}>{isActivateUser.text}</p></div> }
+            </div>
             <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
             <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
           </div>
