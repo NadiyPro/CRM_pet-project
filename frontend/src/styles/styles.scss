@@ -385,6 +385,24 @@ html, body {
                   border-radius: 8px;
                   width: 30vw;
                   box-shadow: 0 0 10px rgba(0,0,0,0.25);
+                  position: relative;
+                  overflow: hidden;
+
+                  &::after{
+                    content: ''; // Без цього псевдоелемент не відображатиметься
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 8px;
+                    background: linear-gradient(45deg, #1f2427, #016064, #03c825, #eaf0ef,
+                          #1e90ffed, #28488d, #1702ec, #05ffff);
+                    background-size: 300%;
+                    filter: blur(20px);
+                    animation: animeColor 12s linear infinite;
+                    z-index: -1;
+                  }
 
                   &__createGroup{
                     display: flex;
@@ -531,7 +549,7 @@ html, body {
 
             &__activate{
               width: 15vw;
-              height: 30vh;
+              height: 3vh;
               display: flex;
               align-items: center;
               justify-content: center;

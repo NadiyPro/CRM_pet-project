@@ -53,7 +53,7 @@ const MessagesOrderIdComponent = () => {
   }, [handleCloseMessagesOrderId, openedMessageOrderId]);
 
     const handleEditOrder = () => {
-      dispatch(orderAction.setOpenEditOrderModal())
+      dispatch(orderAction.setOpenEditOrderModal(true))
     }
 
   return(

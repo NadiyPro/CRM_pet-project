@@ -29,7 +29,7 @@ const EditOrderComponent = () => {
     handleSubmit: handleSubmitAddGroup,
     register: registerAddGroup,
   } = useForm<{ group_group_name: string }>({ mode: 'all' })
-  const { findOneOrder, isDefaultGroupState, isAddGroupState, isCreateGroup, allGroup, dto, isDuplicate, isGroupOrder, isNoGroup} = useAppSelector((state) => state.orderStore)
+  const { findOneOrder, isDefaultGroupState, isAddGroupState, isCreateGroup, allGroup, dto, isDuplicate, isGroupOrder, isNoGroup, isUpdateEditOrder} = useAppSelector((state) => state.orderStore)
   const dispatch = useAppDispatch();
   const watchFormEdit = watch();
 
@@ -44,7 +44,8 @@ const EditOrderComponent = () => {
   }, [dispatch, isAddGroupState, isDefaultGroupState]);
 
   const handleCloseEditOrder = () => {
-    dispatch(orderAction.setCloseEditOrderModal());
+    // dispatch(orderAction.setCloseEditOrderModal());
+    dispatch(orderAction.setOpenEditOrderModal(false));
     dispatch(orderAction.loadOrdersAll(dto));
   };
 
@@ -106,6 +107,17 @@ const EditOrderComponent = () => {
 
     reset();
   };
+  // const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
+  //   const cleanedData = Object.fromEntries(
+  //     Object.entries(updateOrdersReqDto).filter(([, value]) => value !== '' && value !== undefined)
+  //   );
+  //
+  //   if (findOneOrder.id !== null) {
+  //     dispatch(orderAction.loadEditOrder({ orderId: findOneOrder.id, updateOrdersReqDto: cleanedData }));
+  //   }
+  //
+  //   reset();
+  // };
 
   return (
     <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent'}>
@@ -253,6 +265,13 @@ const EditOrderComponent = () => {
                   CLOSE
                 </button>
               </div>
+              {isUpdateEditOrder &&
+                <div>
+                  <p style={{
+                    margin: 0,
+                    color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred',
+                  }}>{isUpdateEditOrder.text}</p>
+                </div>}
             </form>
     </div>
   )

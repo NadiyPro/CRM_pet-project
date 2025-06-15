@@ -42,6 +42,7 @@ interface OrderSliceInterface {
   isDuplicate: boolean;
   isGroupOrder: boolean;
   isNoGroup: boolean;
+  isUpdateEditOrder: TypeTextDto | null;
 }
 
 const initialState: OrderSliceInterface = {
@@ -142,7 +143,8 @@ const initialState: OrderSliceInterface = {
   isCreateGroup: false,
   isDuplicate: false,
   isGroupOrder: false,
-  isNoGroup: false
+  isNoGroup: false,
+  isUpdateEditOrder: null
 };
 
 export const orderSlice = createSlice({
@@ -181,12 +183,15 @@ export const orderSlice = createSlice({
     setCloseMessagesOrderId(state){
       state.openedMessageOrderId = null;
     },
-    setOpenEditOrderModal(state){
-      state.isEditOrder = true;
+    setOpenEditOrderModal(state, action: PayloadAction<boolean>){
+      state.isEditOrder = action.payload;
     },
-    setCloseEditOrderModal(state){
-      state.isEditOrder = false;
-    },
+    // setOpenEditOrderModal(state){
+    //   state.isEditOrder = true;
+    // },
+    // setCloseEditOrderModal(state){
+    //   state.isEditOrder = false;
+    // },
     setAddGroupState(state, action: PayloadAction<boolean>){
       state.isAddGroupState = action.payload;
       state.isDefaultGroupState = !action.payload;
@@ -220,6 +225,9 @@ export const orderSlice = createSlice({
     setIsNoGroup(state, action: PayloadAction<boolean>){
       state.isNoGroup =  action.payload;
     },
+    setIsUpdateEditOrder(state, action: PayloadAction<TypeTextDto | null>){
+      state.isUpdateEditOrder=  action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
