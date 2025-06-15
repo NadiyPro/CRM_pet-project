@@ -56,17 +56,32 @@ const OrdersStatisticManager = () => {
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Dubbing:</b> {userStatistic?.Dubbing ?? 0}</p>
               </div>
 
-          <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount'} style={{ marginTop: '10px' }}>
-            <div>
-              <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'} onClick={() => handleActive(value.id)}>
-                {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
-              </button>
-              { isActivateUser && <div><p style={{ color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p></div> }
+            <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount'}
+                 style={{ marginTop: '10px' }}>
+              <div>
+                <button
+                  className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate'}
+                  onClick={() => handleActive(value.id)}>
+                  {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
+                </button>
+                {isActivateUser && <div><p
+                  style={{ color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p>
+                </div>}
+              </div>
+              <div>
+                <button
+                  className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'}
+                  onClick={() => handleBan(value.id)}>BAN
+                </button>
+              </div>
+              <div>
+                <button
+                  className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'}
+                  onClick={() => handleUnban(value.id)}>UNBAN
+                </button>
+              </div>
             </div>
-            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleBan(value.id)}>BAN</button>
-            <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban'} onClick={() => handleUnban(value.id)}>UNBAN</button>
           </div>
-        </div>
         );
       })}
     </div>

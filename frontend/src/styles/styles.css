@@ -721,6 +721,7 @@ html, body {
   border-radius: 5px;
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  color: #1f615c;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban {
   width: 70px;
