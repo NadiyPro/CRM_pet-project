@@ -702,7 +702,16 @@ html, body {
   display: -ms-flexbox;
   display: flex;
 }
-.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__activate {
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__activate {
   width: 170px;
   height: 30px;
   display: -webkit-box;
@@ -721,9 +730,21 @@ html, body {
   border-radius: 5px;
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
-  color: #1f615c;
 }
-.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__banUnban {
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser {
+  width: 6.5vw;
+  height: 3.5vh;
+}
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban {
   width: 70px;
   height: 30px;
   display: -webkit-box;

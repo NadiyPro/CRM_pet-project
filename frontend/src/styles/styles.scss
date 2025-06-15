@@ -530,31 +530,47 @@ html, body {
           //margin: 15px;
           display: flex;
 
-          &__activate{
-            width: 170px;
-            height: 30px;
+          &__divActivate{
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            background-color: rgba(11, 191, 164, 0.86);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            flex-direction: column;
+
+            &__activate{
+              width: 170px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 10px;
+              background-color: rgba(11, 191, 164, 0.86);
+              color: white;
+              border: none;
+              border-radius: 5px;
+              box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            }
+
+            &__isActivateUser{
+              width: 6.5vw;
+              height: 3.5vh;
+            }
           }
-          &__banUnban{
-            width: 70px;
-            height: 30px;
+
+          &__divBanUnban{
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 10px;
-            background-color: rgba(11, 191, 164, 0.86);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            flex-direction: column;
+
+            &__banUnban{
+              width: 70px;
+              height: 30px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin-right: 10px;
+              background-color: rgba(11, 191, 164, 0.86);
+              color: white;
+              border: none;
+              border-radius: 5px;
+              box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+            }
           }
         }
       }

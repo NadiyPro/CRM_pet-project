@@ -8,7 +8,7 @@ const loadActivateUser = createAsyncThunk(
   async (managerId: string, thunkAPI) => {
     try {
       const response = await adminService.activateUser(managerId);
-      thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Лист з посиланням для активації / відновлення паролю, успішно  відправлено на email користувача.', type: 'success' }));
+      thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Посиланням для активації / відновлення паролю, успішно  відправлено на email користувача.', type: 'success' }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsActivateUser(null));
       }, 10000)
