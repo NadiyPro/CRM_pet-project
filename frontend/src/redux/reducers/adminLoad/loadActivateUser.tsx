@@ -15,7 +15,7 @@ const loadActivateUser = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Помилка. Лист не відправлено, перевірте права доступу (опція доступна лише для ролі admin).', type: 'error' }));
+      thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Помилка. Перевірте права доступу (опція доступна лише для ролі admin).', type: 'error' }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsActivateUser(null));
       }, 10000)
