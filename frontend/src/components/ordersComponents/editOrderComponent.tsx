@@ -107,172 +107,163 @@ const EditOrderComponent = () => {
 
     reset();
   };
-  // const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
-  //   const cleanedData = Object.fromEntries(
-  //     Object.entries(updateOrdersReqDto).filter(([, value]) => value !== '' && value !== undefined)
-  //   );
-  //
-  //   if (findOneOrder.id !== null) {
-  //     dispatch(orderAction.loadEditOrder({ orderId: findOneOrder.id, updateOrdersReqDto: cleanedData }));
-  //   }
-  //
-  //   reset();
-  // };
 
   return (
-    <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent'}>
-      { isDefaultGroupState && (
-        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
-          <label htmlFor={'group_name'}>Group</label>
-          <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
-          <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                    type={'submit'} disabled={!isValidCreateGroup}>
-              ADD
-            </button>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                    type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(true))}>
+    <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit'}>
+      <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent'}>
+        { isDefaultGroupState && (
+          <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup'} onSubmit={handleSubmitCreateGroup(handleCreateGroupState)}>
+            <label htmlFor={'group_name'}><b>Group</b></label>
+            <input id={'group_name'} type={'text'} {...registerCreateGroup('group_name')} placeholder={'Group'} />
+            <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup__buttonBox'}>
+              <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                      type={'submit'} disabled={!isValidCreateGroup}>
+                ADD
+              </button>
+              <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                      type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(true))}>
+                SUBMIT
+              </button>
+            </div>
+            { isDuplicate &&
+              <div>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                   style={{margin: 0, color: 'darkred'}}>
+                  Помилка. Група з такою назвою вже існує
+                </p>
+              </div>}
+            { isCreateGroup &&
+              <div>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                   style={{margin: 0, color: '#1f615c'}}>
+                  Група успішно створена
+                </p>
+              </div>}
+          </form>
+        )}
+        { isAddGroupState && (
+          <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__addGroup'}
+                onSubmit={handleSubmitAddGroup(handleAddGroup)}>
+            <label htmlFor={'addGroupSelect'}><b>Group</b></label>
+            <select id={'addGroupSelect'} {...registerAddGroup('group_group_name')}>
+              <option value="">Select group</option>
+              {allGroup &&
+                allGroup.map(group => (
+                  <option key={group.group_id} value={group.group_group_name}>{group.group_group_name}</option>
+                ))
+              }
+            </select>
+            <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup__buttonBox'}>
+              <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup__buttonBox__addGroup'} type={'submit'}>
+                ADD GROUP
+              </button>
+              <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(false))}>
+                BACK
+              </button>
+            </div>
+            { isNoGroup &&
+              <div>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                   style={{margin: 0, color: 'darkred'}}>
+                  Даної групи не існує
+                </p>
+              </div>}
+            { isGroupOrder &&
+              <div>
+                <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
+                   style={{margin: 0, color: '#1f615c'}}>
+                  Група успішно закріплена за заявкою
+                </p>
+              </div>}
+          </form>
+        )}
+
+        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__editOrderForm'} onSubmit={handleSubmit(handleEditOrder)}>
+
+          <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__editOrderForm__inputSelect'}>
+            <label htmlFor={SortFieldEnum.NAME}><b>Name</b></label>
+            <input id={SortFieldEnum.NAME} type={'text'} {...register(SortFieldEnum.NAME)} placeholder={'Name'} />
+
+            <label htmlFor={SortFieldEnum.SURNAME}><b>Surname</b></label>
+            <input type={'text'} {...register(SortFieldEnum.SURNAME)} placeholder={'Surname'} />
+
+            <label htmlFor={SortFieldEnum.EMAIL}><b>Email</b></label>
+            <input type={'email'} {...register(SortFieldEnum.EMAIL)} placeholder={'Email'} />
+
+            <label htmlFor={SortFieldEnum.PHONE}><b>Phone</b></label>
+            <input type={'text'} {...register(SortFieldEnum.PHONE)} placeholder={'Phone'} />
+
+            <label htmlFor={SortFieldEnum.AGE}><b>Age</b></label>
+            <input id={SortFieldEnum.AGE} type={'number'} {...register(SortFieldEnum.AGE)} placeholder={'Age'}
+                   min={18} max={100} />
+
+            <label htmlFor={SortFieldEnum.STATUS}><b>Status</b></label>
+            <select {...register(SortFieldEnum.STATUS)}>
+              <option value={''}>Status</option>
+              <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
+              <option value={StatusEnum.NEW}>{StatusEnum.NEW}</option>
+              <option value={StatusEnum.AGGRE}>{StatusEnum.AGGRE}</option>
+              <option value={StatusEnum.DISAGGRE}>{StatusEnum.DISAGGRE}</option>
+              <option value={StatusEnum.DUBBING}>{StatusEnum.DUBBING}</option>
+            </select>
+
+            <label htmlFor={SortFieldEnum.SUM}><b>Sum</b></label>
+            <input type={'number'} {...register(SortFieldEnum.SUM)} placeholder={'Sum'} />
+
+            <label htmlFor={SortFieldEnum.ALREADY_PAID}><b>Already paid</b></label>
+            <input type={'number'} {...register(SortFieldEnum.ALREADY_PAID)} placeholder={'Already paid'} />
+
+            <label htmlFor={SortFieldEnum.COURSE}><b>Course</b></label>
+            <select {...register(SortFieldEnum.COURSE)}>
+              <option value={''}>Course</option>
+              <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
+              <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
+              <option value={CourseEnum.JCX}>{CourseEnum.JCX}</option>
+              <option value={CourseEnum.JSCX}>{CourseEnum.JSCX}</option>
+              <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
+              <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
+            </select>
+
+            <label htmlFor={SortFieldEnum.COURSE_FORMAT}><b>Course format</b></label>
+            <select {...register(SortFieldEnum.COURSE_FORMAT)}>
+              <option value={''}>Course format</option>
+              <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
+              <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
+            </select>
+
+            <label htmlFor={SortFieldEnum.COURSE_TYPE}><b>Course type</b></label>
+            <select {...register(SortFieldEnum.COURSE_TYPE)}>
+              <option value={''}>Course type</option>
+              <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
+              <option value={CourseTypeEnum.MINIMAL}>{CourseTypeEnum.MINIMAL}</option>
+              <option value={CourseTypeEnum.PREMIUM}>{CourseTypeEnum.PREMIUM}</option>
+              <option value={CourseTypeEnum.INCUBATOR}>{CourseTypeEnum.INCUBATOR}</option>
+              <option value={CourseTypeEnum.VIP}>{CourseTypeEnum.VIP}</option>
+            </select>
+          </div>
+
+          <div
+            className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup__buttonBox'}>
+            <button
+              className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+              type={'submit'} disabled={!isSomeValueEdit}>
               SUBMIT
             </button>
-          </div>
-          { isDuplicate &&
-            <div>
-              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                                   style={{margin: 0, color: 'darkred'}}>
-            Помилка. Група з такою назвою вже існує
-              </p>
-            </div>}
-          { isCreateGroup &&
-            <div>
-              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                 style={{margin: 0, color: '#1f615c'}}>
-            Група успішно створена
-              </p>
-            </div>}
-          </form>
-      )}
-      { isAddGroupState && (
-        <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__addGroup'}
-              onSubmit={handleSubmitAddGroup(handleAddGroup)}>
-          <label htmlFor={'addGroupSelect'}>Group</label>
-          <select id={'addGroupSelect'} {...registerAddGroup('group_group_name')}>
-            <option value="">Select group</option>
-            {allGroup &&
-              allGroup.map(group => (
-                <option key={group.group_id} value={group.group_group_name}>{group.group_group_name}</option>
-              ))
-         }
-          </select>
-          <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox__addGroup'} type={'submit'}>
-              ADD GROUP
-            </button>
-            <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(false))}>
-              BACK
+            <button
+              className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+              type={'button'} onClick={handleCloseEditOrder}>
+              CLOSE
             </button>
           </div>
-          { isNoGroup &&
+          {isUpdateEditOrder &&
             <div>
-              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                 style={{margin: 0, color: 'darkred'}}>
-                Даної групи не існує
-              </p>
+              <p style={{
+                margin: 0,
+                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred',
+              }}>{isUpdateEditOrder.text}</p>
             </div>}
-          { isGroupOrder &&
-            <div>
-              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                 style={{margin: 0, color: '#1f615c'}}>
-                Група успішно закріплена за заявкою
-              </p>
-            </div>}
-            </form>
-            )}
-
-            <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__editOrderForm'} onSubmit={handleSubmit(handleEditOrder)}>
-
-              <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__editOrderForm__inputSelect'}>
-                <label htmlFor={SortFieldEnum.NAME}>Name</label>
-                <input id={SortFieldEnum.NAME} type={'text'} {...register(SortFieldEnum.NAME)} placeholder={'Name'} />
-
-                <label htmlFor={SortFieldEnum.SURNAME}>Surname</label>
-                <input type={'text'} {...register(SortFieldEnum.SURNAME)} placeholder={'Surname'} />
-
-                <label htmlFor={SortFieldEnum.EMAIL}>Email</label>
-                <input type={'email'} {...register(SortFieldEnum.EMAIL)} placeholder={'Email'} />
-
-                <label htmlFor={SortFieldEnum.PHONE}>Phone</label>
-                <input type={'text'} {...register(SortFieldEnum.PHONE)} placeholder={'Phone'} />
-
-                <label htmlFor={SortFieldEnum.AGE}>Age</label>
-                <input id={SortFieldEnum.AGE} type={'number'} {...register(SortFieldEnum.AGE)} placeholder={'Age'}
-                       min={18} max={100} />
-
-                <label htmlFor={SortFieldEnum.STATUS}>Status</label>
-                <select {...register(SortFieldEnum.STATUS)}>
-                  <option value={''}>STATUS</option>
-                  <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
-                  <option value={StatusEnum.NEW}>{StatusEnum.NEW}</option>
-                  <option value={StatusEnum.AGGRE}>{StatusEnum.AGGRE}</option>
-                  <option value={StatusEnum.DISAGGRE}>{StatusEnum.DISAGGRE}</option>
-                  <option value={StatusEnum.DUBBING}>{StatusEnum.DUBBING}</option>
-                </select>
-
-                <label htmlFor={SortFieldEnum.SUM}>Sum</label>
-                <input type={'number'} {...register(SortFieldEnum.SUM)} placeholder={'Sum'} />
-
-                <label htmlFor={SortFieldEnum.ALREADY_PAID}>Already paid</label>
-                <input type={'number'} {...register(SortFieldEnum.ALREADY_PAID)} placeholder={'Already paid'} />
-
-                <label htmlFor={SortFieldEnum.COURSE}>Course</label>
-                <select {...register(SortFieldEnum.COURSE)}>
-                  <option value={''}>COURSE</option>
-                  <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
-                  <option value={CourseEnum.QACX}>{CourseEnum.QACX}</option>
-                  <option value={CourseEnum.JCX}>{CourseEnum.JCX}</option>
-                  <option value={CourseEnum.JSCX}>{CourseEnum.JSCX}</option>
-                  <option value={CourseEnum.FE}>{CourseEnum.FE}</option>
-                  <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
-                </select>
-
-                <label htmlFor={SortFieldEnum.COURSE_FORMAT}>Course format</label>
-                <select {...register(SortFieldEnum.COURSE_FORMAT)}>
-                  <option value={''}>COURSE FORMAT</option>
-                  <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
-                  <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
-                </select>
-
-                <label htmlFor={SortFieldEnum.COURSE_TYPE}>Course type</label>
-                <select {...register(SortFieldEnum.COURSE_TYPE)}>
-                  <option value={''}>COURSE_TYPE</option>
-                  <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
-                  <option value={CourseTypeEnum.MINIMAL}>{CourseTypeEnum.MINIMAL}</option>
-                  <option value={CourseTypeEnum.PREMIUM}>{CourseTypeEnum.PREMIUM}</option>
-                  <option value={CourseTypeEnum.INCUBATOR}>{CourseTypeEnum.INCUBATOR}</option>
-                  <option value={CourseTypeEnum.VIP}>{CourseTypeEnum.VIP}</option>
-                </select>
-              </div>
-
-              <div
-                className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__editOrderComponent__createGroup__buttonBox'}>
-                <button
-                  className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                  type={'submit'} disabled={!isSomeValueEdit}>
-                  SUBMIT
-                </button>
-                <button
-                  className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                  type={'button'} onClick={handleCloseEditOrder}>
-                  CLOSE
-                </button>
-              </div>
-              {isUpdateEditOrder &&
-                <div>
-                  <p style={{
-                    margin: 0,
-                    color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred',
-                  }}>{isUpdateEditOrder.text}</p>
-                </div>}
-            </form>
+        </form>
+      </div>
     </div>
   )
 }
