@@ -259,7 +259,7 @@ const EditOrderComponent = () => {
             <div>
               <p style={{
                 margin: 0,
-                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred',
+                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred'
               }}>{isUpdateEditOrder.text}</p>
             </div>}
         </form>

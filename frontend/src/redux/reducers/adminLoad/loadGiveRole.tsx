@@ -9,16 +9,16 @@ const loadGiveRole = createAsyncThunk(
   async (dtoRole:GiveRoleDto, thunkAPI) => {
     try {
       const response = await adminService.giveRole(dtoRole);
-      thunkAPI.dispatch(adminAction.setStatusGiveRole('Роль успішно видана (можете активувати користувача)'));
+      thunkAPI.dispatch(adminAction.setStatusGiveRole({ text: 'Роль успішно видана (можете активувати користувача)', type: 'success' }));
       setTimeout(()=>{
-        thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
+        thunkAPI.dispatch(adminAction.setStatusGiveRole(null));
       }, 10000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(adminAction.setStatusGiveRole('Будь ласка, перевірте права доступу (доступно тільки для ролі admin)'));
+      thunkAPI.dispatch(adminAction.setStatusGiveRole({ text: 'Будь ласка, перевірте права доступу (доступно тільки для ролі admin)', type: 'error' }));
       setTimeout(() => {
-        thunkAPI.dispatch(adminAction.setStatusGiveRole(''));
+        thunkAPI.dispatch(adminAction.setStatusGiveRole(null));
       }, 10000)
       return thunkAPI.rejectWithValue(error?.response?.data)
     }

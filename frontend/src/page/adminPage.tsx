@@ -4,6 +4,7 @@ import PaginationAdminComponent from '../components/adminComponents/paginationAd
 import GiveRoleComponent from '../components/adminComponents/giveRoleComponent';
 
 const AdminPage = () => {
+
   return(
     <div className={'divMainLayout__outlet__adminPage'}>
       <OrdersStatisticAllComponent/>

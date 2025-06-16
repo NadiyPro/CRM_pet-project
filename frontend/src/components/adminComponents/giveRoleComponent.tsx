@@ -8,12 +8,13 @@ import { adminAction } from '../../redux/slices/adminSlice';
 
 const GiveRoleComponent = () => {
   const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
-  const {statusGiveRole, isGiveRoleModalOpen } = useAppSelector((state) => state.adminStore)
+  const {statusGiveRole, isGiveRoleModalOpen, dto } = useAppSelector((state) => state.adminStore)
   const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
 
-  const handleRole = (dtoRole:GiveRoleDto) => {
-    dispatch(adminAction.loadGiveRole(dtoRole));
+  const handleRole = async (dtoRole:GiveRoleDto) => {
+    await dispatch(adminAction.loadGiveRole(dtoRole));
+    await dispatch(adminAction.loadUsersAll(dto));
+    await dispatch(adminAction.loadOrdersStatisticManager());
     reset(); // скидуємо значення після сабміту
   }
 
@@ -58,8 +59,15 @@ const GiveRoleComponent = () => {
                 </button>
               </div>
 
-              <div><p>{statusGiveRole}</p></div>
+              {/*{ statusGiveRole &&*/}
+              {/*  <div>*/}
+              {/*    <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>*/}
+              {/*  </div>}*/}
             </form>
+            { statusGiveRole &&
+              <div>
+                <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>
+              </div>}
           </div>
         </div>
         </div>

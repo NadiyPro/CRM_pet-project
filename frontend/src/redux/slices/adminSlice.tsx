@@ -26,7 +26,7 @@ interface AdminSliceInterface {
   authTokens: AuthResDto;
   userBanUnban: AuthUserDto;
   giveRoleUser: BaseUsersDto,
-  statusGiveRole: string;
+  statusGiveRole: TypeTextDto | null;
   isGiveRoleModalOpen: boolean;
   isActivateUser: TypeTextDto | null;
   isBanUser: TypeTextDto | null;
@@ -90,7 +90,7 @@ const initialState : AdminSliceInterface = {
     role: RoleTypeEnum.MANAGER,
     deleted: null
   },
-  statusGiveRole: '',
+  statusGiveRole: null,
   isGiveRoleModalOpen: false,
   isActivateUser: null,
   isBanUser: null,
@@ -104,7 +104,7 @@ export const adminSlice = createSlice({
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;
     },
-    setStatusGiveRole(state, action: PayloadAction<string>) {
+    setStatusGiveRole(state, action: PayloadAction<TypeTextDto | null>) {
       state.statusGiveRole = action.payload;
     },
     setOpenGiveRoleModal(state) {
