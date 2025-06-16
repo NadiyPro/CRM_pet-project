@@ -30,36 +30,37 @@ const GiveRoleComponent = () => {
       <button className={'divMainLayout__outlet__adminPage__giveRoleComponent__button'} type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
 
       {isGiveRoleModalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0, left: 0,
-          width: '100vw', height: '100vh',
-          background: 'rgba(0,0,0,0.5)',
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          zIndex: 9999}}>
-        <div  style={{
-          background: '#fff',
-          padding: '20px',
-          borderRadius: '8px',
-          width: '400px',
-          boxShadow: '0 0 10px rgba(0,0,0,0.25)'
-        }}>
-          <form onSubmit={handleSubmit(handleRole)}>
-            <label htmlFor={'email'}>Email</label>
-            <input type={'email'} {...register('email')} required />
+        <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen'}>
+        <div  className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen'}>
+          <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen'}>
+            <form
+              className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form'}
+              onSubmit={handleSubmit(handleRole)}>
+              <label htmlFor={'email'}><b>Email</b></label>
+              <input type={'email'} {...register('email')} placeholder={'Email'} required />
 
-            <label htmlFor={'name'}>Name</label>
-            <input type={'text'} {...register('name')} required />
+              <label htmlFor={'name'}><b>Name</b></label>
+              <input type={'text'} {...register('name')} placeholder={'Name'} required />
 
-            <label htmlFor={'surname'}>Surname</label>
-            <input type={'text'} {...register('surname')} required />
+              <label htmlFor={'surname'}><b>Surname</b></label>
+              <input type={'text'} {...register('surname')} placeholder={'Surname'} required />
 
-            <div>
-              <button type={'submit'} disabled={!isValid}>CREATE</button>
-              <button type={'button'} onClick={handleCloseGiveRoleModal}>CANCEL</button>
-            </div>
-          </form>
-          <p>{statusGiveRole}</p>
+              <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__divButton'}>
+                <button
+                  className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                  type={'submit'} disabled={!isValid}>
+                  CREATE
+                </button>
+                <button
+                  className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
+                  type={'button'} onClick={handleCloseGiveRoleModal}>
+                  CANCEL
+                </button>
+              </div>
+
+              <div><p>{statusGiveRole}</p></div>
+            </form>
+          </div>
         </div>
         </div>
       )

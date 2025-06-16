@@ -699,6 +699,72 @@ html, body {
   -webkit-box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  z-index: 9999;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen {
+  padding: 5px;
+  border-radius: 10px;
+  width: 20vw;
+  position: relative;
+  overflow: hidden;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #1f2427, #016064, #03c825, #eaf0ef, rgba(30, 144, 255, 0.9294117647), #28488d, #1702ec, #05ffff);
+  background-size: 200%;
+  -webkit-filter: blur(20px);
+          filter: blur(20px);
+  -webkit-animation: animeColorEditOrder 12s linear infinite;
+          animation: animeColorEditOrder 12s linear infinite;
+  z-index: -1;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen {
+  background-color: white;
+  border-radius: 10px;
+  width: 20vw;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 5px;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__form__divButton {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
 .divMainLayout__outlet__adminPage__ordersStatisticManager {
   margin: 15px;
   display: -webkit-box;

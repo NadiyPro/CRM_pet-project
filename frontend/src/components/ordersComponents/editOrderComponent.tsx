@@ -122,7 +122,7 @@ const EditOrderComponent = () => {
               </button>
               <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
                       type={'button'} onClick={() => dispatch(orderAction.setAddGroupState(true))}>
-                SUBMIT
+                SELECT
               </button>
             </div>
             { isDuplicate &&
