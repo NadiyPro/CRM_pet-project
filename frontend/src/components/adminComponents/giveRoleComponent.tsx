@@ -12,11 +12,20 @@ const GiveRoleComponent = () => {
   const dispatch = useAppDispatch();
 
   const handleRole = async (dtoRole:GiveRoleDto) => {
-    await dispatch(adminAction.loadGiveRole(dtoRole));
-    await dispatch(adminAction.loadUsersAll(dto));
-    await dispatch(adminAction.loadOrdersStatisticManager());
-    reset(); // скидуємо значення після сабміту
+    await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap()
+      .then(() => {
+          dispatch(adminAction.loadUsersAll(dto));
+          dispatch(adminAction.loadOrdersStatisticManager());
+          reset();
+      })
   }
+
+  // const handleRole = async (dtoRole:GiveRoleDto) => {
+  //   await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap();
+  //   await dispatch(adminAction.loadUsersAll(dto));
+  //   await dispatch(adminAction.loadOrdersStatisticManager());
+  //   reset();
+  // }
 
   const handleRoleModalOpen = () => {
     dispatch(adminAction.setOpenGiveRoleModal())

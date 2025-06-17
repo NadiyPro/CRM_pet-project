@@ -184,7 +184,7 @@ export const adminSlice = createSlice({
       .addCase(
         loadGiveRole.fulfilled, (state, action) => {
           state.giveRoleUser = action.payload;
-          state.isGiveRoleModalOpen = false; // закриваю модальне вікно після успішної видачі ролі
+          // state.isGiveRoleModalOpen = false;
         }
       )
       .addCase(loadGiveRole.rejected, (state, action) => {

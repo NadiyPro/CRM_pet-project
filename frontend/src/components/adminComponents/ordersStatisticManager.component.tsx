@@ -64,7 +64,7 @@ const OrdersStatisticManager = () => {
                   onClick={() => handleActive(value.id)}>
                   {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
                 </button>
-                {isActivateUser &&
+                {isActivateUser && (isActivateUser.id === value.id || isActivateUser.email === value.email)  &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}>
                   <p style={{ margin: 0, color: isActivateUser.type === 'success' ? '#1f615c' : 'darkred' }}>{isActivateUser.text}</p>
                 </div>}
