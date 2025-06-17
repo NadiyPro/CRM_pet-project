@@ -59,15 +59,15 @@ const GiveRoleComponent = () => {
                 </button>
               </div>
 
-              {/*{ statusGiveRole &&*/}
-              {/*  <div>*/}
-              {/*    <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>*/}
-              {/*  </div>}*/}
+              { statusGiveRole &&
+                <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__statusGiveRole'}>
+                  <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>
+                </div>}
             </form>
-            { statusGiveRole &&
-              <div>
-                <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>
-              </div>}
+            {/*{ statusGiveRole &&*/}
+            {/*  <div>*/}
+            {/*    <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>*/}
+            {/*  </div>}*/}
           </div>
         </div>
         </div>

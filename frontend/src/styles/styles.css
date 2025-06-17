@@ -718,7 +718,7 @@ html, body {
   z-index: 9999;
 }
 .divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen {
-  padding: 10px;
+  padding: 15px;
   border-radius: 10px;
   width: 20vw;
   position: relative;
@@ -758,6 +758,7 @@ html, body {
       -ms-flex-align: center;
           align-items: center;
   gap: 5px;
+  padding: 10px;
 }
 .divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__divButton {
   display: -webkit-box;
@@ -765,6 +766,12 @@ html, body {
   display: flex;
   -ms-flex-pack: distribute;
       justify-content: space-around;
+}
+.divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__statusGiveRole {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager {
   margin: 15px;
