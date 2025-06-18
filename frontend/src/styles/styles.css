@@ -846,6 +846,7 @@ html, body {
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser {
   width: 15vw;
   height: 6vh;
+  text-align: center;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban {
   display: -webkit-box;
@@ -879,6 +880,7 @@ html, body {
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban {
   width: 7vw;
   height: 3vh;
+  text-align: center;
 }
 .divMainLayout__footer {
   width: 100%;
