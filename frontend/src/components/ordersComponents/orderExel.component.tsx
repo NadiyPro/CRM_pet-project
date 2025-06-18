@@ -27,7 +27,7 @@ const OrderExelComponent = () => {
       </button>
       {exportSuccess &&
         <div className={'divMainLayout__header__nav__panel__export'}>
-        <p style={{ margin: 0, color: exportSuccess.type === 'success' ? '#1f615c' : 'darkred', }}>{exportSuccess.text}</p>
+        <p style={{ margin: 0, color: exportSuccess.type === 'success' ? '#1f615c' : '#6e0707', }}>{exportSuccess.text}</p>
         </div>}
       {loadingExel && <div className={'divMainLayout__header__nav__panel__export'}><p>loading...</p></div>}
     </div>

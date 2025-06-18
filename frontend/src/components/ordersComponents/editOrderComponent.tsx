@@ -128,7 +128,7 @@ const EditOrderComponent = () => {
             { isDuplicate &&
               <div>
                 <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                   style={{margin: 0, color: 'darkred'}}>
+                   style={{margin: 0, color: '#6e0707'}}>
                   Помилка. Група з такою назвою вже існує
                 </p>
               </div>}
@@ -164,7 +164,7 @@ const EditOrderComponent = () => {
             { isNoGroup &&
               <div>
                 <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                   style={{margin: 0, color: 'darkred'}}>
+                   style={{margin: 0, color: '#6e0707'}}>
                   Даної групи не існує
                 </p>
               </div>}
@@ -259,7 +259,7 @@ const EditOrderComponent = () => {
             <div>
               <p style={{
                 margin: 0,
-                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : 'darkred'
+                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : '#6e0707'
               }}>{isUpdateEditOrder.text}</p>
             </div>}
         </form>

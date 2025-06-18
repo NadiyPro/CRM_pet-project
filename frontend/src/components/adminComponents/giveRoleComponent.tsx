@@ -4,21 +4,11 @@ import { GiveRoleDto } from '../../module/giveRole.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import giveRoleValidator from '../../validator/giveRole.validator';
 import { adminAction } from '../../redux/slices/adminSlice';
-// import { useNavigate } from 'react-router-dom';
 
 const GiveRoleComponent = () => {
   const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
   const {statusGiveRole, isGiveRoleModalOpen, dto } = useAppSelector((state) => state.adminStore)
   const dispatch = useAppDispatch();
-
-  // const handleRole = async (dtoRole:GiveRoleDto) => {
-  //   await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap()
-  //     .then(() => {
-  //         dispatch(adminAction.loadUsersAll(dto));
-  //         dispatch(adminAction.loadOrdersStatisticManager());
-  //         reset();
-  //     })
-  // }
 
   const handleRole = async (dtoRole:GiveRoleDto) => {
     await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap();
@@ -70,13 +60,9 @@ const GiveRoleComponent = () => {
 
               { statusGiveRole &&
                 <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__statusGiveRole'}>
-                  <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>
+                  <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : '#6e0707' }}>{statusGiveRole.text}</p>
                 </div>}
             </form>
-            {/*{ statusGiveRole &&*/}
-            {/*  <div>*/}
-            {/*    <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : 'darkred' }}>{statusGiveRole.text}</p>*/}
-            {/*  </div>}*/}
           </div>
         </div>
         </div>
