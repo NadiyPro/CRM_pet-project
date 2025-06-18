@@ -40,7 +40,7 @@ export class GroupController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN])
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Post()
   public async create(
     @Body() group_name: BaseGroupReqDto,
