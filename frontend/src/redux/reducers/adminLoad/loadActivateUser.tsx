@@ -11,14 +11,14 @@ const loadActivateUser = createAsyncThunk(
       thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Посиланням для активації / відновлення паролю, успішно  відправлено на email користувача', type: 'success', id: managerId}));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsActivateUser(null));
-      }, 4000)
+      }, 3000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
       thunkAPI.dispatch(adminAction.setIsActivateUser({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsActivateUser(null));
-      }, 4000)
+      }, 3000)
       return thunkAPI.rejectWithValue(error?.response?.data);
     }
   }
