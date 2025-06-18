@@ -8,17 +8,17 @@ const loadUnbanUser = createAsyncThunk(
   async (managerId: string, thunkAPI) => {
     try {
       const response = await adminService.unbanUser(managerId);
-      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Користувача розблоковано', type: 'success' }));
+      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Користувача розблоковано', type: 'success', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsUnbanUser(null));
-      }, 7000)
+      }, 4000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error' }));
+      thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsUnbanUser(null));
-      }, 7000)
+      }, 4000)
       return thunkAPI.rejectWithValue(error?.response?.data)
     }
   }

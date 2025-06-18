@@ -75,7 +75,7 @@ const OrdersStatisticManager = () => {
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
                   onClick={() => handleBan(value.id)}>BAN
                 </button>
-                {isBanUser &&
+                {isBanUser && isBanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
                       margin: 0,
@@ -90,7 +90,7 @@ const OrdersStatisticManager = () => {
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
                   onClick={() => handleUnban(value.id)}>UNBAN
                 </button>
-                { isUnbanUser &&
+                { isUnbanUser && isUnbanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
                       margin: 0,
