@@ -11,21 +11,21 @@ const GiveRoleComponent = () => {
   const {statusGiveRole, isGiveRoleModalOpen, dto } = useAppSelector((state) => state.adminStore)
   const dispatch = useAppDispatch();
 
-  const handleRole = async (dtoRole:GiveRoleDto) => {
-    await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap()
-      .then(() => {
-          dispatch(adminAction.loadUsersAll(dto));
-          dispatch(adminAction.loadOrdersStatisticManager());
-          reset();
-      })
-  }
-
   // const handleRole = async (dtoRole:GiveRoleDto) => {
-  //   await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap();
-  //   await dispatch(adminAction.loadUsersAll(dto));
-  //   await dispatch(adminAction.loadOrdersStatisticManager());
-  //   reset();
+  //   await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap()
+  //     .then(() => {
+  //         dispatch(adminAction.loadUsersAll(dto));
+  //         dispatch(adminAction.loadOrdersStatisticManager());
+  //         reset();
+  //     })
   // }
+
+  const handleRole = async (dtoRole:GiveRoleDto) => {
+    await dispatch(adminAction.loadGiveRole(dtoRole)).unwrap();
+    await dispatch(adminAction.loadUsersAll(dto));
+    await dispatch(adminAction.loadOrdersStatisticManager());
+    reset();
+  }
 
   const handleRoleModalOpen = () => {
     dispatch(adminAction.setOpenGiveRoleModal())
