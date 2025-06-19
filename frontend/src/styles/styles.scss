@@ -328,6 +328,7 @@ html, body {
 
                     &__p{
                       margin: 0;
+                      text-align: center;
                     }
                   }
 
@@ -425,6 +426,8 @@ html, body {
                       display: flex;
                       flex-direction: column;
                       margin: 5px;
+                      width: 30vw;
+                      align-items: center;
 
                       &__buttonBox{
                         margin: 5px 0;
@@ -449,6 +452,10 @@ html, body {
 
                     &__addGroup{
                       margin: 5px;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: center;
+                      width: 30vw;
                     }
 
                     &__editOrderForm{
@@ -653,7 +660,7 @@ html, body {
             flex-direction: column;
 
             &__banUnban{
-              width: 7vw;
+              width: 15vw;
               height: 3vh;
               display: flex;
               align-items: center;
@@ -667,7 +674,7 @@ html, body {
             }
 
             &__isBanUnban{
-              width: 7vw;
+              width: 15vw;
               height: 3vh;
               text-align: center;
             }

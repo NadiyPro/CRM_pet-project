@@ -40,7 +40,8 @@ interface OrderSliceInterface {
   openedMessageOrderId: number | null;
   isCreateGroup: boolean;
   isDuplicate: boolean;
-  isGroupOrder: boolean;
+  isGroupOrder: TypeTextDto | null;
+  // isGroupOrder: boolean;
   isNoGroup: boolean;
   isUpdateEditOrder: TypeTextDto | null;
 }
@@ -142,7 +143,8 @@ const initialState: OrderSliceInterface = {
   openedMessageOrderId: null,
   isCreateGroup: false,
   isDuplicate: false,
-  isGroupOrder: false,
+  isGroupOrder: null,
+  // isGroupOrder: false,
   isNoGroup: false,
   isUpdateEditOrder: null
 };
@@ -219,7 +221,10 @@ export const orderSlice = createSlice({
     setIsDuplicate(state, action: PayloadAction<boolean>){
       state.isDuplicate =  action.payload;
     },
-    setIsGroupOrder(state, action: PayloadAction<boolean>){
+    // setIsGroupOrder(state, action: PayloadAction<boolean>){
+    //   state.isGroupOrder =  action.payload;
+    // },
+    setIsGroupOrder(state, action: PayloadAction<TypeTextDto | null>){
       state.isGroupOrder =  action.payload;
     },
     setIsNoGroup(state, action: PayloadAction<boolean>){

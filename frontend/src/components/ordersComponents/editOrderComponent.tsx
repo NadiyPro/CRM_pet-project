@@ -85,15 +85,23 @@ const EditOrderComponent = () => {
         group_id: group.group_id.toString()
       })).unwrap()
         .then(() => {
-          dispatch(orderAction.setIsGroupOrder(true));
+          dispatch(orderAction.setAddGroupState(false));
+          dispatch(orderAction.setDefaultGroupState(true));
         })
+        // .then(() => {
+        //   dispatch(orderAction.setIsGroupOrder(true));
+        // })
     }
 
-    setTimeout(() => {
-      dispatch(orderAction.setIsGroupOrder(false));
-      dispatch(orderAction.setAddGroupState(false));
-      dispatch(orderAction.setDefaultGroupState(true));
-    }, 3000);
+    // dispatch(orderAction.setAddGroupState(false));
+    // dispatch(orderAction.setDefaultGroupState(true));
+
+    // setTimeout(() => {
+    //   dispatch(orderAction.setIsGroupOrder(null));
+    //   // dispatch(orderAction.setIsGroupOrder(false));
+    //   dispatch(orderAction.setAddGroupState(false));
+    //   dispatch(orderAction.setDefaultGroupState(true));
+    // }, 3000);
   };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
@@ -171,10 +179,17 @@ const EditOrderComponent = () => {
             { isGroupOrder &&
               <div>
                 <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                   style={{margin: 0, color: '#1f615c'}}>
-                  Група успішно закріплена за заявкою
+                   style={{margin: 0, color: isGroupOrder.type === 'success' ? '#1f615c' : '#6e0707'}}>
+                  {isGroupOrder.text}
                 </p>
               </div>}
+            {/*{ isGroupOrder &&*/}
+            {/*  <div>*/}
+            {/*    <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}*/}
+            {/*       style={{margin: 0, color: '#1f615c'}}>*/}
+            {/*      Група успішно закріплена за заявкою*/}
+            {/*    </p>*/}
+            {/*  </div>}*/}
           </form>
         )}
 
@@ -257,7 +272,7 @@ const EditOrderComponent = () => {
           </div>
           {isUpdateEditOrder &&
             <div>
-              <p style={{
+              <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'} style={{
                 margin: 0,
                 color: isUpdateEditOrder.type === 'success' ? '#1f615c' : '#6e0707'
               }}>{isUpdateEditOrder.text}</p>

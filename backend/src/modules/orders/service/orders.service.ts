@@ -1,4 +1,5 @@
 import {
+  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -81,9 +82,43 @@ export class OrdersService {
   }
 
   public async addGroup(
+    userData: IUserData,
     orderNumber: number,
     group_idNumber: number,
   ): Promise<OrdersEntity> {
+    ///
+    const orderStatus = await this.ordersRepository.findOneBy({
+      id: orderNumber,
+    });
+    const manager = await this.userRepository.findOneBy({
+      id: userData.userId,
+    });
+
+    if (!manager) throw new Error('Manager not found');
+    if (!orderStatus) throw new Error('Order not found');
+
+    if (
+      orderStatus.status !== null &&
+      orderStatus.manager &&
+      orderStatus.manager.id !== manager.id
+    ) {
+      throw new ForbiddenException(
+        'Order is already in work by another manager',
+      );
+    }
+
+    if (orderStatus.status !== StatusEnum.NEW && orderStatus.status !== null) {
+      await this.ordersRepository.update(orderNumber, {
+        manager: manager,
+      });
+    } else {
+      await this.ordersRepository.update(orderNumber, {
+        manager: manager,
+        status: StatusEnum.IN_WORK,
+      });
+    }
+    ///
+
     const order = await this.ordersRepository.findOne({
       where: { id: orderNumber },
     });

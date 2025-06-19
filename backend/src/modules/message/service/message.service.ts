@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import { MessageRepository } from '../../../infrastructure/repository/services/message.repository';
 import { OrdersRepository } from '../../../infrastructure/repository/services/orders.repository';
 import { BaseMessageResDto } from '../models/dto/res/baseMessage.res.dto';
@@ -44,6 +44,16 @@ export class MessageService {
 
     if (!manager) throw new Error('Manager not found');
     if (!order) throw new Error('Order not found');
+
+    if (
+      order.status !== null &&
+      order.manager &&
+      order.manager.id !== manager.id
+    ) {
+      throw new ForbiddenException(
+        'Order is already in work by another manager',
+      );
+    }
 
     const newMessage = this.messageRepository.create({
       messages: dataMessage.messages,
