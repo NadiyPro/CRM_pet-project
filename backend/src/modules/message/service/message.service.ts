@@ -46,7 +46,7 @@ export class MessageService {
     if (!order) throw new Error('Order not found');
 
     if (
-      order.status !== null &&
+      (order.status !== null || order.status !== StatusEnum.NEW) &&
       order.manager &&
       order.manager.id !== manager.id
     ) {

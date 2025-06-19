@@ -98,7 +98,7 @@ export class OrdersService {
     if (!orderStatus) throw new Error('Order not found');
 
     if (
-      orderStatus.status !== null &&
+      (orderStatus.status !== null || orderStatus.status !== StatusEnum.NEW) &&
       orderStatus.manager &&
       orderStatus.manager.id !== manager.id
     ) {
@@ -163,6 +163,16 @@ export class OrdersService {
 
     if (!order) {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+    }
+
+    if (
+      (order.status !== null || order.status !== StatusEnum.NEW) &&
+      order.manager &&
+      order.manager.id !== userData.userId
+    ) {
+      throw new ForbiddenException(
+        'Order is already in work by another manager',
+      );
     }
 
     if (order.status !== StatusEnum.NEW && order.status !== null) {
