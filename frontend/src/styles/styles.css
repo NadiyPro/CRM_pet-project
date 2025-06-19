@@ -432,6 +432,7 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p {
   margin: 0;
+  text-align: center;
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap {
   display: -webkit-box;
@@ -561,6 +562,10 @@ html, body {
       -ms-flex-direction: column;
           flex-direction: column;
   margin: 5px;
+  width: 30vw;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__createGroup__buttonBox {
   margin: 5px 0;
@@ -593,6 +598,17 @@ html, body {
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__addGroup {
   margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 30vw;
 }
 .divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit__colorEdit__editOrderComponent__editOrderForm {
   width: 30vw;
@@ -858,7 +874,7 @@ html, body {
           flex-direction: column;
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban {
-  width: 7vw;
+  width: 15vw;
   height: 3vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -878,7 +894,7 @@ html, body {
           box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
 }
 .divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban {
-  width: 7vw;
+  width: 15vw;
   height: 3vh;
   text-align: center;
 }
