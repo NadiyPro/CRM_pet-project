@@ -44,7 +44,6 @@ const EditOrderComponent = () => {
   }, [dispatch, isAddGroupState, isDefaultGroupState]);
 
   const handleCloseEditOrder = () => {
-    // dispatch(orderAction.setCloseEditOrderModal());
     dispatch(orderAction.setOpenEditOrderModal(false));
     dispatch(orderAction.loadOrdersAll(dto));
   };
@@ -84,24 +83,12 @@ const EditOrderComponent = () => {
         orderId: findOneOrder.id.toString(),
         group_id: group.group_id.toString()
       })).unwrap()
-        .then(() => {
-          dispatch(orderAction.setAddGroupState(false));
-          dispatch(orderAction.setDefaultGroupState(true));
-        })
-        // .then(() => {
-        //   dispatch(orderAction.setIsGroupOrder(true));
-        // })
     }
 
-    // dispatch(orderAction.setAddGroupState(false));
-    // dispatch(orderAction.setDefaultGroupState(true));
-
-    // setTimeout(() => {
-    //   dispatch(orderAction.setIsGroupOrder(null));
-    //   // dispatch(orderAction.setIsGroupOrder(false));
-    //   dispatch(orderAction.setAddGroupState(false));
-    //   dispatch(orderAction.setDefaultGroupState(true));
-    // }, 3000);
+    setTimeout(() => {
+      dispatch(orderAction.setAddGroupState(false));
+      dispatch(orderAction.setDefaultGroupState(true));
+    }, 3000);
   };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
@@ -183,13 +170,6 @@ const EditOrderComponent = () => {
                   {isGroupOrder.text}
                 </p>
               </div>}
-            {/*{ isGroupOrder &&*/}
-            {/*  <div>*/}
-            {/*    <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}*/}
-            {/*       style={{margin: 0, color: '#1f615c'}}>*/}
-            {/*      Група успішно закріплена за заявкою*/}
-            {/*    </p>*/}
-            {/*  </div>}*/}
           </form>
         )}
 

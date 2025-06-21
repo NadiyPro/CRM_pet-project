@@ -188,12 +188,6 @@ export const orderSlice = createSlice({
     setOpenEditOrderModal(state, action: PayloadAction<boolean>){
       state.isEditOrder = action.payload;
     },
-    // setOpenEditOrderModal(state){
-    //   state.isEditOrder = true;
-    // },
-    // setCloseEditOrderModal(state){
-    //   state.isEditOrder = false;
-    // },
     setAddGroupState(state, action: PayloadAction<boolean>){
       state.isAddGroupState = action.payload;
       state.isDefaultGroupState = !action.payload;
@@ -221,9 +215,6 @@ export const orderSlice = createSlice({
     setIsDuplicate(state, action: PayloadAction<boolean>){
       state.isDuplicate =  action.payload;
     },
-    // setIsGroupOrder(state, action: PayloadAction<boolean>){
-    //   state.isGroupOrder =  action.payload;
-    // },
     setIsGroupOrder(state, action: PayloadAction<TypeTextDto | null>){
       state.isGroupOrder =  action.payload;
     },
@@ -232,7 +223,13 @@ export const orderSlice = createSlice({
     },
     setIsUpdateEditOrder(state, action: PayloadAction<TypeTextDto | null>){
       state.isUpdateEditOrder=  action.payload;
-    }
+    },
+    // setFindOneOrderPartial(state, action: PayloadAction<Partial<BaseOrdersDto>>) {
+    //   state.findOneOrder = {
+    //     ...state.findOneOrder,
+    //     ...action.payload,
+    //   };
+    // }
   },
   extraReducers: (builder) => {
     builder
@@ -263,7 +260,7 @@ export const orderSlice = createSlice({
       )
       .addCase(loadFindOneOrder.fulfilled, (state, action) => {
         state.findOneOrder = action.payload;
-        state.findOneOrder.id = action.payload.id;
+        // state.findOneOrder.id = action.payload.id;
       })
       .addCase(loadFindOneOrder.rejected, (state, action) => {
           console.error('Помилка завантаження заявки по її id:', action.payload);
