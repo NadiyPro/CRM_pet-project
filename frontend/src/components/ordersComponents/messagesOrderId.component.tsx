@@ -124,46 +124,6 @@ const MessagesOrderIdComponent = () => {
       )}
     </div>
   )
-
-
-  // return(
-  //   <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent'} ref={messageClose}>
-  //     <div>
-  //       <p><b>id:</b> {findOneOrder.id}</p>
-  //       <p><b>UTM:</b> {findOneOrder.utm}</p>
-  //       <p><b>Msg:</b> {findOneOrder.msg}</p>
-  //     </div>
-  //
-  //     <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages'} >
-  //
-  //       <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data'}>
-  //         {messagesOrderId.map(value =>
-  //           <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap'} key={value.id}>
-  //             <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__divMap__text'}><p><b>comment:</b> {value.messages}</p></div>
-  //             <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate'}>
-  //               <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>{value.manager}</p>
-  //               <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}>{value.created_at? dayjs.utc(value.created_at).local().format('MMMM D, YYYY HH:mm:ss') : ''}</p>
-  //             </div>
-  //           </div>)}
-  //       </div>
-  //
-  //       <form className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__form'} onSubmit={handleSubmit(handleCreateMessage)}>
-  //         <label htmlFor={'messages'}><b>Create message:</b></label>
-  //         <input type={'text'} {...register('messages')} placeholder={'Comment'}/>
-  //         <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} type={'submit'} disabled={!isValid}>SUBMIT</button>
-  //       </form>
-  //
-  //       <button className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'} onClick={handleEditOrder}>EDIT</button>
-  //
-  //     </div>
-  //
-  //     {isEditOrder &&
-  //       <div className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__baseEdit'}>
-  //         <EditOrderComponent/>
-  //       </div>
-  //     }
-  //   </div>
-  // )
 }
 
 export default MessagesOrderIdComponent;
