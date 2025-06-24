@@ -31,6 +31,7 @@ interface OrderSliceInterface {
   exportSuccess: TypeTextDto | null;
   messagesOrderId: MessageResDto[];
   createMessage: MessageResDto;
+  createMessageError: string | null;
   isEditOrder: boolean;
   editOrder: UpdateOrdersResDto,
   createGroup: GroupResDto,
@@ -107,6 +108,7 @@ const initialState: OrderSliceInterface = {
     manager: null,
     created_at: null,
   },
+  createMessageError: null,
   isEditOrder: false,
   editOrder:{
     id: null,
@@ -275,9 +277,10 @@ export const orderSlice = createSlice({
       )
       .addCase(loadCreateMessage.fulfilled, (state, action) => {
         state.createMessage = action.payload;
+        state.createMessageError = null;
       })
       .addCase(loadCreateMessage.rejected, (state, action) => {
-          console.error('Помилка при створенні message:', action.payload);
+          state.createMessageError = action.payload as string;
         }
       )
       .addCase(loadEditOrder.fulfilled, (state, action) => {

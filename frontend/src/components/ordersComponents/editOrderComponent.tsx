@@ -88,7 +88,7 @@ const EditOrderComponent = () => {
     setTimeout(() => {
       dispatch(orderAction.setAddGroupState(false));
       dispatch(orderAction.setDefaultGroupState(true));
-    }, 3000);
+    }, 4500);
   };
 
   const handleEditOrder = (updateOrdersReqDto: UpdateOrdersReqDto) => {
