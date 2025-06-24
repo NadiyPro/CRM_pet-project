@@ -26,7 +26,7 @@ interface OrderSliceInterface {
   };
   dataExel: string;
   findOneOrder: BaseOrdersDto;
-  findOneOrderError: string | null;
+  // findOneOrderError: string | null;
   loadingExel: boolean;
   exportSuccess: TypeTextDto | null;
   messagesOrderId: MessageResDto[];
@@ -74,7 +74,7 @@ const initialState: OrderSliceInterface = {
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
     my: false,
   },
-  findOneOrderError: null,
+  // findOneOrderError: null,
   findOneOrder: {
     id: null,
     name: null,
@@ -256,14 +256,14 @@ export const orderSlice = createSlice({
       )
       .addCase(loadFindOneOrder.fulfilled, (state, action) => {
         state.findOneOrder = action.payload;
-        state.findOneOrderError = null;
+        // state.findOneOrderError = null;
         // state.findOneOrder.id = action.payload.id;
       })
       .addCase(loadFindOneOrder.rejected, (state, action) => {
-        state.findOneOrder = { ...initialState.findOneOrder }; // скидуємо до дефолтних значень
-        state.findOneOrderError = action.payload as string;
+        // state.findOneOrder = { ...initialState.findOneOrder }; // скидуємо до дефолтних значень
+        // state.findOneOrderError = action.payload as string;
         // state.findOneOrder = 'Помилка. Перевірте права доступу (доступ лише для ролі admin)';
-        // console.error('Помилка завантаження заявки по її id:', action.payload);
+        console.error('Помилка завантаження заявки по її id:', action.payload);
         }
       )
       .addCase(loadMessagesOrderId.fulfilled, (state, action) => {

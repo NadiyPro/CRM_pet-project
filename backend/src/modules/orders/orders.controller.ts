@@ -218,7 +218,6 @@ export class OrdersController {
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard, OrdersGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
-  // @Put(':orderId')
   @Patch(':orderId')
   public async updateId(
     @CurrentUser() userData: IUserData,
@@ -237,14 +236,13 @@ export class OrdersController {
     description: 'Для відображення інформації по order за його id',
   })
   @ApiBearerAuth()
-  @UseGuards(ApprovedRoleGuard, OrdersGuard)
+  @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get(':orderId')
   public async findOneOrder(
-    @CurrentUser() userData: IUserData,
     @Param('orderId', ParseIntPipe) orderId: number,
   ): Promise<BaseOrdersResDto> {
-    return await this.ordersService.findOneOrder(userData, orderId);
+    return await this.ordersService.findOneOrder(orderId);
   }
 
   @ApiOperation({

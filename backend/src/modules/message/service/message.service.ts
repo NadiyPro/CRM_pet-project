@@ -45,17 +45,6 @@ export class MessageService {
     if (!manager) throw new Error('Manager not found');
     if (!order) throw new Error('Order not found');
 
-    // if (
-    //   order.status !== null &&
-    //   order.status !== StatusEnum.NEW &&
-    //   order.manager &&
-    //   order.manager.id !== manager.id
-    // ) {
-    //   throw new ForbiddenException(
-    //     'Order is already in work by another manager',
-    //   );
-    // }
-
     const newMessage = this.messageRepository.create({
       messages: dataMessage.messages,
       order: order,

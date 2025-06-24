@@ -1,5 +1,4 @@
 import {
-  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
@@ -97,17 +96,6 @@ export class OrdersService {
     if (!manager) throw new Error('Manager not found');
     if (!orderStatus) throw new Error('Order not found');
 
-    // if (
-    //   orderStatus.status !== null &&
-    //   orderStatus.status !== StatusEnum.NEW &&
-    //   orderStatus.manager &&
-    //   orderStatus.manager.id !== manager.id
-    // ) {
-    //   throw new ForbiddenException(
-    //     'Order is already in work by another manager',
-    //   );
-    // }
-
     if (orderStatus.status !== StatusEnum.NEW && orderStatus.status !== null) {
       await this.ordersRepository.update(orderNumber, {
         manager: manager,
@@ -118,7 +106,6 @@ export class OrdersService {
         status: StatusEnum.IN_WORK,
       });
     }
-    ///
 
     const order = await this.ordersRepository.findOne({
       where: { id: orderNumber },
@@ -166,17 +153,6 @@ export class OrdersService {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
 
-    // if (
-    //   order.status !== null &&
-    //   order.status !== StatusEnum.NEW &&
-    //   order.manager &&
-    //   order.manager.id !== userData.userId
-    // ) {
-    //   throw new ForbiddenException(
-    //     'Order is already in work by another manager',
-    //   );
-    // }
-
     if (order.status !== StatusEnum.NEW && order.status !== null) {
       await this.ordersRepository.update(orderId, {
         ...updateOrdersReqDto,
@@ -204,10 +180,7 @@ export class OrdersService {
     return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
   }
 
-  public async findOneOrder(
-    userData: IUserData,
-    orderId: number,
-  ): Promise<BaseOrdersResDto> {
+  public async findOneOrder(orderId: number): Promise<BaseOrdersResDto> {
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
       relations: ['manager', 'messages'],
@@ -215,17 +188,6 @@ export class OrdersService {
 
     if (!order) {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
-    }
-
-    if (
-      order.status !== null &&
-      order.status !== StatusEnum.NEW &&
-      order.manager &&
-      order.manager.id !== userData.userId
-    ) {
-      throw new ForbiddenException(
-        'Order is already in work by another manager',
-      );
     }
 
     return OrdersMapper.toResDto(order);
