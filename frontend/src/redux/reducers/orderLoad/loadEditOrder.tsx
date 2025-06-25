@@ -12,14 +12,14 @@ const loadEditOrder = createAsyncThunk(
       thunkAPI.dispatch(orderAction.setIsUpdateEditOrder({ text: 'Дані в заявці успішно оновлено', type: 'success' }));
       setTimeout(()=>{
         thunkAPI.dispatch(orderAction.setIsUpdateEditOrder(null));
-      }, 7000)
+      }, 5000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
       thunkAPI.dispatch(orderAction.setIsUpdateEditOrder({ text: 'Помилка. Заявка заходиться в роботі у іншого менеджера', type: 'error' }));
       setTimeout(()=>{
         thunkAPI.dispatch(orderAction.setIsUpdateEditOrder(null));
-      }, 7000)
+      }, 5000)
       return thunkAPI.rejectWithValue(error?.response?.data);
     }
   }
@@ -28,20 +28,3 @@ const loadEditOrder = createAsyncThunk(
 export {
   loadEditOrder
 }
-
-// const loadEditOrder = createAsyncThunk(
-//   'loadEditOrder',
-//   async ({orderId, updateOrdersReqDto}:LoadEditOrderDto, thunkApi) => {
-//     try {
-//       const response = await orderService.editOrder(orderId, updateOrdersReqDto);
-//       return thunkApi.fulfillWithValue(response);
-//     } catch (e) {
-//       const error = e as AxiosError;
-//       return thunkApi.rejectWithValue(error?.response?.data);
-//     }
-//   }
-// )
-//
-// export {
-//   loadEditOrder
-// }
