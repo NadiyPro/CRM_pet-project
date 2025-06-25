@@ -12,7 +12,7 @@ const loadCreateMessage = createAsyncThunk(
       return thunkApi.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkApi.dispatch(orderAction.setCreateMessageError('Помилка. Заявка знаходиться в роботі у іншого менеджера.)'));
+      thunkApi.dispatch(orderAction.setCreateMessageError('Помилка. Заявка знаходиться в роботі у іншого менеджера.'));
       setTimeout(()=>{
         thunkApi.dispatch(orderAction.setCreateMessageError(null));
       }, 4000)
