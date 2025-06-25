@@ -280,11 +280,11 @@ export const orderSlice = createSlice({
       )
       .addCase(loadCreateMessage.fulfilled, (state, action) => {
         state.createMessage = action.payload;
-        state.createMessageError = null;
+        // state.createMessageError = null;
       })
       .addCase(loadCreateMessage.rejected, (state, action) => {
-          state.createMessageError = action.payload as string;
-        // console.error('Помилка. Заявка знаходиться в роботі у іншого менеджера.', action.payload);
+          // state.createMessageError = action.payload as string;
+        console.error('Помилка. Заявка знаходиться в роботі у іншого менеджера.', action.payload);
         }
       )
       .addCase(loadEditOrder.fulfilled, (state, action) => {

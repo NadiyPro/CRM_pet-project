@@ -29,7 +29,7 @@ const MessagesOrderIdComponent = () => {
   const handleCreateMessage = (dataMessage: CreateMessageDto) => {
     if(openedMessageOrderId !== null){
       const orderId = openedMessageOrderId;
-      dispatch(orderAction.setCreateMessageError(null));
+      // dispatch(orderAction.setCreateMessageError(null));
       // очищаю помилку перед submit, бо без цього, якщо в попередньому кейсі була помилка,
       // то вона і в наступному відображається аж до submit
       dispatch(orderAction.loadCreateMessage({orderId, dataMessage }))
