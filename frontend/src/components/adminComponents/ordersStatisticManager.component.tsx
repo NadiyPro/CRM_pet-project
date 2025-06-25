@@ -66,7 +66,7 @@ const OrdersStatisticManager = () => {
                 </button>
                 {isActivateUser && isActivateUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}>
-                  <p style={{ margin: 0, color: isActivateUser.type === 'success' ? '#1f615c' : '#6e0707' }}>{isActivateUser.text}</p>
+                  <p style={{ margin: '5px 0', color: isActivateUser.type === 'success' ? '#1f615c' : '#6e0707' }}>{isActivateUser.text}</p>
                 </div>}
               </div>
 
@@ -78,7 +78,7 @@ const OrdersStatisticManager = () => {
                 {isBanUser && isBanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
-                      margin: 0,
+                      margin: '5px 0',
                       color: isBanUser.type === 'success' ? '#1f615c' : '#6e0707',
                     }}>{isBanUser.text}</p>
                   </div>}
@@ -93,7 +93,7 @@ const OrdersStatisticManager = () => {
                 { isUnbanUser && isUnbanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
-                      margin: 0,
+                      margin: '5px 0',
                       color: isUnbanUser.type === 'success' ? '#1f615c' : '#6e0707',
                     }}>{isUnbanUser.text}</p>
                   </div>
