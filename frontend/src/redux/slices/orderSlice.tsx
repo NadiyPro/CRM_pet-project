@@ -228,6 +228,9 @@ export const orderSlice = createSlice({
     setIsUpdateEditOrder(state, action: PayloadAction<TypeTextDto | null>){
       state.isUpdateEditOrder=  action.payload;
     },
+    setCreateMessageError(state, action: PayloadAction<string | null>){
+      state.createMessageError=  action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -281,6 +284,7 @@ export const orderSlice = createSlice({
       })
       .addCase(loadCreateMessage.rejected, (state, action) => {
           state.createMessageError = action.payload as string;
+        // console.error('Помилка. Заявка знаходиться в роботі у іншого менеджера.', action.payload);
         }
       )
       .addCase(loadEditOrder.fulfilled, (state, action) => {
