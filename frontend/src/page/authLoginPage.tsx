@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import authLoginValidator from '../validator/authLogin.validator';
-import { AuthLoginDto } from '../module/authLogin.dto';
+import { AuthLoginDto } from '../module/auth_dto/authLogin.dto';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
 import { authAction } from '../redux/slices/authSlice';

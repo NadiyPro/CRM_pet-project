@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoadAddGroupDto } from '../../../module/loadAddGroup.dto';
+import { LoadAddGroupDto } from '../../../module/orders_dto/loadAddGroup.dto';
 import { AxiosError } from 'axios';
 import { orderService } from '../../../service/orders.service';
 import { orderAction } from '../../slices/orderSlice';

@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { useForm } from 'react-hook-form';
-import { GiveRoleDto } from '../../module/giveRole.dto';
+import { GiveRoleDto } from '../../module/admin_dto/giveRole.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import giveRoleValidator from '../../validator/giveRole.validator';
 import { adminAction } from '../../redux/slices/adminSlice';

@@ -1,21 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadOrdersAll } from '../reducers/orderLoad/loadOrdersAll';
-import { BaseOrdersDto } from '../../module/baseOrders.dto';
-import { ListOrdersAllDto } from '../../module/listOrdersAll.dto';
+import { BaseOrdersDto } from '../../module/orders_dto/baseOrders.dto';
+import { ListOrdersAllDto } from '../../module/orders_dto/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { loadMessagesOrderId } from '../reducers/orderLoad/loadMessagesOrderId';
 import { loadCreateMessage } from '../reducers/orderLoad/loadCreateMessage';
-import { MessageResDto } from '../../module/messageRes.dto';
+import { MessageResDto } from '../../module/orders_dto/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
-import { UpdateOrdersResDto } from '../../module/updateOrdersRes.dto';
-import { GroupResDto } from '../../module/groupRes.dto';
+import { UpdateOrdersResDto } from '../../module/orders_dto/updateOrdersRes.dto';
+import { GroupResDto } from '../../module/orders_dto/groupRes.dto';
 import { loadCreateGroup } from '../reducers/orderLoad/loadCreateGroup';
 import { loadAllGroup } from '../reducers/orderLoad/loadAllGroup';
 import { loadAddGroup } from '../reducers/orderLoad/loadAddGroup';
-import { GroupOrdersDto } from '../../module/groupOrders.dto';
+import { GroupOrdersDto } from '../../module/orders_dto/groupOrders.dto';
 import { TypeTextDto } from '../../module/typeText.dto';
 
 interface OrderSliceInterface {

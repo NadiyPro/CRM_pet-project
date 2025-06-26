@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
-import { BaseOrdersDto } from '../../module/baseOrders.dto';
+import { BaseOrdersDto } from '../../module/orders_dto/baseOrders.dto';
 import MessagesOrderIdComponent from './messagesOrderId.component';
 import '../../styles/styles.scss';
 

@@ -1,7 +1,7 @@
-import { CourseEnum } from './enums/courseEnum';
-import { CourseFormatEnum } from './enums/courseFormatEnum';
-import { CourseTypeEnum } from './enums/courseTypeEnum';
-import { StatusEnum } from './enums/statusEnum';
+import { CourseEnum } from '../enums/courseEnum';
+import { CourseFormatEnum } from '../enums/courseFormatEnum';
+import { CourseTypeEnum } from '../enums/courseTypeEnum';
+import { StatusEnum } from '../enums/statusEnum';
 
 export interface UpdateOrdersReqDto {
   name?: string | null;

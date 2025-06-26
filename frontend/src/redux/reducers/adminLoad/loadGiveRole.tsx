@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { GiveRoleDto } from '../../../module/giveRole.dto';
+import { GiveRoleDto } from '../../../module/admin_dto/giveRole.dto';
 import { adminService } from '../../../service/admin.service';
 import { AxiosError } from 'axios';
 import { adminAction } from '../../slices/adminSlice';

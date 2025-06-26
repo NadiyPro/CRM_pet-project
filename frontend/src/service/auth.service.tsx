@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { retrieveLocalStorage } from './retrieveLocalStorage';
-import { AuthTokenDto } from '../module/authToken.dto';
-import { AuthLoginDto } from '../module/authLogin.dto';
-import { AuthPasswordDto } from '../module/authPassword.dto';
-import { AuthResDto } from '../module/authRes.dto';
+import { AuthTokenDto } from '../module/auth_dto/authToken.dto';
+import { AuthLoginDto } from '../module/auth_dto/authLogin.dto';
+import { AuthPasswordDto } from '../module/auth_dto/authPassword.dto';
+import { AuthResDto } from '../module/auth_dto/authRes.dto';
 
 export const axiosInstance = axios.create({
   baseURL: '/api',

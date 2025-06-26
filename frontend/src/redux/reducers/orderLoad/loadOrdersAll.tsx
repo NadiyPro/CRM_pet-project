@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
-import { ListOrdersAllDto } from '../../../module/listOrdersAll.dto';
+import { ListOrdersAllDto } from '../../../module/orders_dto/listOrdersAll.dto';
 import { orderService } from '../../../service/orders.service';
 
 const loadOrdersAll = createAsyncThunk(

@@ -1,11 +1,11 @@
-import { SortFieldEnum } from './enums/sortFieldEnum';
-import { SortASCOrDESCEnum } from './enums/sortASCOrDESCEnum';
-import { CourseEnum } from './enums/courseEnum';
-import { CourseFormatEnum } from './enums/courseFormatEnum';
-import { CourseTypeEnum } from './enums/courseTypeEnum';
-import { StatusEnum } from './enums/statusEnum';
+import { SortFieldEnum } from '../enums/sortFieldEnum';
+import { SortASCOrDESCEnum } from '../enums/sortASCOrDESCEnum';
+import { CourseEnum } from '../enums/courseEnum';
+import { CourseFormatEnum } from '../enums/courseFormatEnum';
+import { CourseTypeEnum } from '../enums/courseTypeEnum';
+import { StatusEnum } from '../enums/statusEnum';
 
-export interface ListOrdersExelDto {
+export interface ListOrdersAllDto {
   name?: string | null;
   surname?: string | null;
   email?: string | null;
@@ -22,6 +22,8 @@ export interface ListOrdersExelDto {
   group_name?: string | null;
   created_at_from?: string | null;
   created_at_to?: string | null;
+  limit?: number,
+  page?: number,
   sortField?: SortFieldEnum;
   sortASCOrDESC?: SortASCOrDESCEnum;
   my?: boolean;

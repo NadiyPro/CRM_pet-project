@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { loadLogin } from '../reducers/authLoad/loadLogin';
-import { AuthLoginDto } from '../../module/authLogin.dto';
+import { AuthLoginDto } from '../../module/auth_dto/authLogin.dto';
 import { loadLogOut } from '../reducers/authLoad/loadLogOut';
 import { loadActivatePassword } from '../reducers/authLoad/loadActivatePassword';
 

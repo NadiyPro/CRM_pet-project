@@ -6,7 +6,7 @@ import { orderAction } from '../../redux/slices/orderSlice';
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import createMessageValidator from '../../validator/createMessage.validator';
-import { CreateMessageDto } from '../../module/createMessage.dto';
+import { CreateMessageDto } from '../../module/orders_dto/createMessage.dto';
 import EditOrderComponent from './editOrderComponent';
 import { useCallback, useEffect, useRef } from 'react';
 import '../../styles/styles.scss';

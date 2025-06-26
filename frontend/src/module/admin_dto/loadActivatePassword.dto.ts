@@ -1,4 +1,4 @@
-import { AuthPasswordDto } from './authPassword.dto';
+import { AuthPasswordDto } from '../auth_dto/authPassword.dto';
 
 export interface LoadActivatePasswordDto {
   token: string;

@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { adminService } from '../../../service/admin.service';
-import { ListUsersQueryDto } from '../../../module/listUsersQuery.dto';
+import { ListUsersQueryDto } from '../../../module/admin_dto/listUsersQuery.dto';
 
 const loadUsersAll = createAsyncThunk(
   'loadUsersAll',

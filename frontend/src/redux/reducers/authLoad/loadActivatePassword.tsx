@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError } from 'axios';
 import { authService } from '../../../service/auth.service';
-import { LoadActivatePasswordDto } from '../../../module/loadActivatePassword.dto';
+import { LoadActivatePasswordDto } from '../../../module/admin_dto/loadActivatePassword.dto';
 
 const loadActivatePassword = createAsyncThunk(
   'loadActivatePassword',

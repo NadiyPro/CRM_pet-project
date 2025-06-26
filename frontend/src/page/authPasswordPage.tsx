@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { AuthPasswordDto } from '../module/authPassword.dto';
+import { AuthPasswordDto } from '../module/auth_dto/authPassword.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import authPasswordValidator from '../validator/authPassword.validator';
 import { useAppDispatch, useAppSelector } from '../redux/store';

@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { joiResolver } from '@hookform/resolvers/joi';
 import orderValidator from '../../validator/order.validator';
-import { UpdateOrdersReqDto } from '../../module/updateOrdersReq.dto';
+import { UpdateOrdersReqDto } from '../../module/orders_dto/updateOrdersReq.dto';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { orderAction } from '../../redux/slices/orderSlice';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
@@ -9,7 +9,7 @@ import { StatusEnum } from '../../module/enums/statusEnum';
 import { CourseEnum } from '../../module/enums/courseEnum';
 import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
-import { Group_nameDto } from '../../module/group_name.dto';
+import { Group_nameDto } from '../../module/orders_dto/group_name.dto';
 import group_nameValidator from '../../validator/group_name.validator';
 import { useEffect } from 'react';
 import '../../styles/styles.scss';

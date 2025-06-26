@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { LoadEditOrderDto } from '../../../module/loadEditOrder.dto';
+import { LoadEditOrderDto } from '../../../module/orders_dto/loadEditOrder.dto';
 import { AxiosError } from 'axios';
 import { orderService } from '../../../service/orders.service';
 import { orderAction } from '../../slices/orderSlice';

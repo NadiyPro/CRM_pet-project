@@ -1,9 +1,9 @@
-import { CourseEnum } from './enums/courseEnum';
-import { CourseFormatEnum } from './enums/courseFormatEnum';
-import { CourseTypeEnum } from './enums/courseTypeEnum';
-import { StatusEnum } from './enums/statusEnum';
+import { CourseEnum } from '../enums/courseEnum';
+import { CourseFormatEnum } from '../enums/courseFormatEnum';
+import { CourseTypeEnum } from '../enums/courseTypeEnum';
+import { StatusEnum } from '../enums/statusEnum';
 import { MessageDto } from './message.dto';
-import { UserDto } from './user.dto';
+import { UserDto } from '../admin_dto/user.dto';
 
 export interface UpdateOrdersResDto {
   id: number | null;

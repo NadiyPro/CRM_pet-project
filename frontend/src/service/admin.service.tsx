@@ -1,13 +1,13 @@
 import { axiosInstance } from './auth.service';
 import { retrieveLocalStorage } from './retrieveLocalStorage';
-import { OrdersStatisticManagerDto } from '../module/ordersStatisticManager.dto';
-import { OrdersStatisticAllDto } from '../module/ordersStatisticAll.dto';
-import { ListUsersAllDto } from '../module/listUsersAll.dto';
-import { ListUsersQueryDto } from '../module/listUsersQuery.dto';
-import { AuthResDto } from '../module/authRes.dto';
-import { AuthUserDto } from '../module/authUser.dto';
-import { BaseUsersDto } from '../module/baseUsers.dto';
-import { GiveRoleDto } from '../module/giveRole.dto';
+import { OrdersStatisticManagerDto } from '../module/admin_dto/ordersStatisticManager.dto';
+import { OrdersStatisticAllDto } from '../module/admin_dto/ordersStatisticAll.dto';
+import { ListUsersAllDto } from '../module/admin_dto/listUsersAll.dto';
+import { ListUsersQueryDto } from '../module/admin_dto/listUsersQuery.dto';
+import { AuthResDto } from '../module/auth_dto/authRes.dto';
+import { AuthUserDto } from '../module/auth_dto/authUser.dto';
+import { BaseUsersDto } from '../module/admin_dto/baseUsers.dto';
+import { GiveRoleDto } from '../module/admin_dto/giveRole.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')

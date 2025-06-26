@@ -1,17 +1,17 @@
 import { retrieveLocalStorage } from './retrieveLocalStorage';
 import { axiosInstance } from './auth.service';
-import { ListOrdersAllDto } from '../module/listOrdersAll.dto';
-import { ListOrdersExelDto } from '../module/listOrdersExel.dto';
-import { ListOrdersTotalDto } from '../module/listOrdersTotal.dto';
-import { MessageResDto } from '../module/messageRes.dto';
-import { CreateMessageDto } from '../module/createMessage.dto';
-import { BaseOrdersDto } from '../module/baseOrders.dto';
-import { UpdateOrdersReqDto } from '../module/updateOrdersReq.dto';
-import { UpdateOrdersResDto } from '../module/updateOrdersRes.dto';
-import { Group_nameDto } from '../module/group_name.dto';
-import { GroupResDto } from '../module/groupRes.dto';
-import { GroupOrdersDto } from '../module/groupOrders.dto';
-import { AuthResDto } from '../module/authRes.dto';
+import { ListOrdersAllDto } from '../module/orders_dto/listOrdersAll.dto';
+import { ListOrdersExelDto } from '../module/orders_dto/listOrdersExel.dto';
+import { ListOrdersTotalDto } from '../module/orders_dto/listOrdersTotal.dto';
+import { MessageResDto } from '../module/orders_dto/messageRes.dto';
+import { CreateMessageDto } from '../module/orders_dto/createMessage.dto';
+import { BaseOrdersDto } from '../module/orders_dto/baseOrders.dto';
+import { UpdateOrdersReqDto } from '../module/orders_dto/updateOrdersReq.dto';
+import { UpdateOrdersResDto } from '../module/orders_dto/updateOrdersRes.dto';
+import { Group_nameDto } from '../module/orders_dto/group_name.dto';
+import { GroupResDto } from '../module/orders_dto/groupRes.dto';
+import { GroupOrdersDto } from '../module/orders_dto/groupOrders.dto';
+import { AuthResDto } from '../module/auth_dto/authRes.dto';
 
 axiosInstance.interceptors.request.use(request => {
   if(localStorage.getItem('tokenPair') && request.url !== '/auth' && request.url !== '/auth/refresh')
