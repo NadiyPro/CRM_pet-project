@@ -29,7 +29,7 @@ const AdminPanelComponent = () => {
         <p className={'divMainLayout__header__nav__panel__button__p'}>admin</p>
       </button>
       { adminPanelError &&
-        <div><p style={{margin: 0, color: '#6e0707'}}>{adminPanelError}</p></div>
+        <div style={{ width: '15vw', height: '6vh', textAlign: 'center' }}><p style={{margin: 0, color: '#6e0707'}}>{adminPanelError}</p></div>
       }
     </div>
   )
