@@ -1,46 +1,126 @@
-# Getting Started with Create React App
+# 🌟 Final_project (Start_project)
+Це повноцінна CRM системи для управління заявками на курси, ролями користувачів (admin, manager), групами, розсилками, а також для генерації статистики та експорту в Excel. 
+Система складається з:
++ Backend: NextJS, TypeScript, MySQL, Redis 
++ Frontend: React, TypeScript, Redux Toolkit, SCSS 
++ Docker (з Nginx)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## ⚙️ Технології
++ **Backend:**
+ + NestJS — серверний фреймворк
+ + TypeORM — ORM для MySQL
+ + MySQL — реляційна база даних
+ + Redis — для зберігання токенів/кешу
+ + JWT — аутентифікація/авторизація
+ + Docker — контейнеризація
+ + Swagger — авто-документація API
+ + nodemailer — email-розсилка
+ + exceljs, xlsx - завантаження данних в excel файл
+ + TypeScript - типізація
 
-## Available Scripts
++ **Frontend:**
+ + React - фреймворк для побудови інтерфейсу 
+ + Redux Toolkit - управління станом (store)
+ + TypeScript - типізація
+ + SCSS - стилізація, з використанням предпроцесору
 
-In the project directory, you can run:
+##  🔧 Структура проекту
+```
+final_project/
+├── .husky/
+├── backend/            # Серверна частина (NestJS)
+├── frontend/           # Клієнтська частина (React + Redux)
+├── docker-compose.local.yaml
+├── Dockerfile          # Dockerfile для backend
+├── Dockerfile.frontend # Dockerfile для frontend
+├── nginx/
+│   └── default.conf    # Nginx конфіг для React
+```
+## 📦 Вимоги до запуску
 
-### `npm start`
++ Встановлений **Docker** 
++ Заповнений файл `.env` у папці `backend` (детальніше в [README_BACKEND.md](README_BACKEND.md))
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 🚀 Запуск проєкту
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Проєкт повністю контейнеризовано. Запуск проекту:
+```bash
+$ docker-compose -f docker-compose.local.yaml up --build
+```
+Це підніме наступні сервіси:
++ backend — NestJS API
++ mysql — база даних
++ redis — кеш-сервер
++ frontend — NextJS typeScript
 
-### `npm test`
+2. Після запуску:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
++ Backend: http://localhost:3000
++ Swagger: http://localhost:3000/api
++ Postman: Колекція для Postman збережена в теці `/backend/src/infrastructure/repository/postman_collection/`
++ Frontend: http://localhost:80
 
-### `npm run build`
+## 🐳 Docker-команди
++ Повний запуск (з кореневої теки):
+```bash
+$ docker-compose -f docker-compose.local.yaml up --build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
++ Запуск лише backend (попередньо заходимо в теку `cd backend`):
+```bash
+$ docker-compose -f docker-compose.local.yaml up --build
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
++ Зупинити контейнери:
+```bash
+$ docker-compose -f docker-compose.local.yaml down
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🖥️ Frontend (React + Redux Toolkit)
++ побудований за допомогою React + TypeScript
++ стан зберігається через Redux Toolkit
++ білд автоматично копіюється до nginx (/usr/share/nginx/html)
++ файли розташовані у теці frontend/
 
-### `npm run eject`
+##  🔧 Структура папок та файлів (frontend)
+```
+final_project/
+├── .husky/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/                     # компоненти
+│   │   ├── layout/                         # layout в якому рендяться сторінки 
+│   │   ├── module/                         # enums та dto
+│   │   ├── page/                           # основні сторінки
+│   │   ├── redux/                          # Redux store
+│   │   │    ├──reducers/
+│   │   │    ├──slices/
+│   │   │    └──store.tsx
+│   │   ├── router/                         # маршрутизація
+│   │   ├── service/                        # севіси на які робимо запити (API) через axios
+│   │   ├── styles/                         # стилі SCSS
+│   │   ├── validator/                      # валідація через Joi бібліотеку
+│   │   └── index.tsx
+│   ├── eslint.config.mjs
+│   ├── tsconfig.json
+│   ├── package-lock.json
+│   └── package.json
+├── nginx/
+│   └── default.conf                        # Nginx конфіг для React
+├── .gitignore
+├── .dockerignore
+├── Dockerfile.frontend                     # Dockerfile frontend
+├── Dockerfile                              # Dockerfile backend
+├── docker-compose.yml                      # Docker Compose конфіг
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 📂 Конфігурація nginx
+Nginx виконує роль сервера для frontend:
++ cлухає порт 80
++ обслуговує React build із /usr/share/nginx/html
++ всі запити запускаються з кореня / до index.html
++ файл конфігурації: nginx/default.conf
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## 🔐 Backend (NestJS)
+Детальна документація до API, опис, структура, DTO, swagger, авторизація та міграції — описані окремо у [README_BACKEND.md](README_BACKEND.md)

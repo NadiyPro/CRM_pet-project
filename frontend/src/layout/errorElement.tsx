@@ -7,14 +7,14 @@ const ErrorElement: FC = () => {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div>
+      <div className={'errorLogin'}>
         <h1>Помилка {error.status}</h1>
         <p>{error.statusText}</p>
         {error.data?.message && <p>{error.data.message}</p>}
       </div>
     );
   } else {
-    return <div>Сталася невідома помилка</div>;
+    return <div className={'errorLogin'}>Сталася невідома помилка</div>;
   }
 };
 
