@@ -26,7 +26,6 @@ const adminService = {
   },
   ordersStatisticManager: async (): Promise<OrdersStatisticManagerDto[]> => {
     const response = await axiosInstance.get('/orders/ordersStatisticManager');
-    console.log(response.data)
     return response.data;
   },
   activateUser: async (managerId: string): Promise<AuthResDto> => {

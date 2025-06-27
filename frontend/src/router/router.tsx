@@ -7,7 +7,6 @@ import AdminPage from '../page/adminPage';
 import AuthPasswordPage from '../page/authPasswordPage';
 import AuthRouterComponent from '../components/authComponents/authRouter.component';
 import AuthLoginPage from '../page/authLoginPage';
-console.log('DEBUG AuthPasswordPage:', AuthPasswordPage);
 
 export const router = createBrowserRouter([
   {
