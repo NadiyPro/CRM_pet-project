@@ -16,6 +16,7 @@ const AdminPanelComponent = () => {
       setTimeout(() => {
         dispatch(adminAction.setAdminPanelError(null))
       }, 4000)
+      return;
     }
     navigate('/admin');
   }
