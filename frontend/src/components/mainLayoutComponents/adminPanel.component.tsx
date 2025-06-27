@@ -1,24 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import '../../styles/styles.scss';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
-import { adminAction } from '../../redux/slices/adminSlice';
 
 const AdminPanelComponent = () => {
-  const { role } = useAppSelector(state => state.adminStore.authTokens.user)
-  const { adminPanelError } = useAppSelector (state => state.adminStore)
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const goToAdminPanel = () => {
-    if (role !== RoleTypeEnum.ADMIN) {
-      dispatch(adminAction.setAdminPanelError('Помилка. Заявка знаходиться в роботі у іншого менеджера.'))
-      setTimeout(() => {
-        dispatch(adminAction.setAdminPanelError(null))
-      }, 4000)
-      return;
-    }
-    navigate('/admin');
+      navigate('/admin');
   }
 
   return(
@@ -29,9 +16,6 @@ const AdminPanelComponent = () => {
           alt="admin" />
         <p className={'divMainLayout__header__nav__panel__button__p'}>admin</p>
       </button>
-      { adminPanelError &&
-        <div className={'errorLogin'}><p style={{margin: 0}}>{adminPanelError}</p></div>
-      }
     </div>
   )
 
