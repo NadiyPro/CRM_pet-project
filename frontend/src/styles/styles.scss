@@ -247,6 +247,7 @@ html, body {
       flex-direction: column;
 
       &__ordersFiltersComponent{
+        margin-top: 10px;
         width: 100%;
         @include display_align_justify (space-between);
 
