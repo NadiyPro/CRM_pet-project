@@ -155,7 +155,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN])
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('ordersStatisticAll')
   public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
     return await this.ordersService.ordersStatisticAll();
@@ -171,7 +171,7 @@ export class OrdersController {
   })
   @ApiBearerAuth()
   @UseGuards(ApprovedRoleGuard)
-  @Role([RoleTypeEnum.ADMIN])
+  @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('ordersStatisticManager')
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {
     return await this.ordersService.ordersStatisticManager();
