@@ -16,7 +16,7 @@ const loadAddGroup = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(orderAction.setIsGroupOrder({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error'}));
+      thunkAPI.dispatch(orderAction.setIsGroupOrder({ text: 'Помилка. Заявка знаходиться в роботі у іншого менеджера.', type: 'error'}));
       setTimeout(()=>{
         thunkAPI.dispatch(orderAction.setIsGroupOrder(null));
       }, 4000)
