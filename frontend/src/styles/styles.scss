@@ -12,7 +12,8 @@
   color: white;
   border: none;
   border-radius: 5px;
-  box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  //box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+  box-shadow: 4px 4px 8px 0 rgba(28, 28, 28, 0.75);
 }
 
 * {
@@ -124,15 +125,21 @@ html, body {
           height: 5vh;
           background-color: rgba(11, 191, 164, 0.86);
           color: white;
-          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 4px 4px 8px 0 rgba(28, 28, 28, 0.75);
           font-weight: bold;
           font-size: 0.7em;
           border: none;
           border-radius: 5px;
+          transition: all 0.1s ease-in-out;
 
           &:disabled {
             background-color: grey;
             cursor: not-allowed;
+          }
+
+          &:active{
+            transform: translate(4px, 4px);
+            box-shadow: none;
           }
         }
       }
@@ -192,7 +199,7 @@ html, body {
     background-image: url('../../public/abstraction.png');
     background-size: cover;
     @include display_align_justify (space-between);
-    box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+    box-shadow: 4px 4px 8px 0 rgba(28, 28, 28, 0.75);
     position: fixed; // фіксуємо зверху
     top: 0;
     left: 0;
@@ -217,6 +224,12 @@ html, body {
 
         &__button{
           @include button_design (70px, 75px);
+          transition: all 0.1s ease-in-out;
+
+          &:active{
+            transform: translate(4px, 4px);
+            box-shadow: none;
+          }
 
           &__p{
             margin: 0;
@@ -277,6 +290,12 @@ html, body {
           &__my{
             @include button_design (70px, 75px);
             @include display_align_justify ();
+            transition: all 0.1s ease-in-out;
+
+            &:active{
+              transform: translate(4px, 4px);
+              box-shadow: none;
+            }
           }
         }
       }
@@ -344,6 +363,12 @@ html, body {
                 &__button{
                   @include button_design (70px, 20px);
                   @include display_align_justify ();
+                  transition: all 0.1s ease-in-out;
+
+                  &:active{
+                    transform: translate(4px, 4px);
+                    box-shadow: none;
+                  }
                 }
               }
 
@@ -413,6 +438,12 @@ html, body {
                         &__addGroup{
                           @include button_design (100px, 20px);
                           @include display_align_justify ();
+                          transition: all 0.1s ease-in-out;
+
+                          &:active{
+                            transform: translate(4px, 4px);
+                            box-shadow: none;
+                          }
                         }
                       }
                     }
@@ -456,6 +487,12 @@ html, body {
 
         &__button{
           @include button_design (3vw, 3vh);
+          transition: all 0.1s ease-in-out;
+
+          &:active{
+            transform: translate(4px, 4px);
+            box-shadow: none;
+          }
         }
       }
     }
@@ -484,6 +521,12 @@ html, body {
         &__button{
           @include button_design (70px, 40px);
           @include display_align_justify ();
+          transition: all 0.1s ease-in-out;
+
+          &:active{
+            transform: translate(4px, 4px);
+            box-shadow: none;
+          }
         }
 
         &__baseGiveRoleModalOpen{
@@ -560,7 +603,7 @@ html, body {
           justify-content: space-between;
           align-items: flex-start;
           border: 1px solid rgba(151, 149, 149, 0.94);
-          box-shadow: 10px 10px 5px 0 rgba(28, 28, 28, 0.75);
+          box-shadow: 4px 4px 8px 0 rgba(28, 28, 28, 0.75);
 
           &__p{
             margin: 0;
@@ -582,6 +625,12 @@ html, body {
             &__activate{
               @include button_design (15vw, 3vh);
               @include display_align_justify ();
+              transition: all 0.1s ease-in-out;
+
+              &:active{
+                transform: translate(4px, 4px);
+                box-shadow: none;
+              }
             }
 
             &__isActivateUser{
@@ -598,6 +647,12 @@ html, body {
             &__banUnban{
               @include button_design (15vw, 3vh);
               @include display_align_justify ();
+              transition: all 0.1s ease-in-out;
+
+              &:active{
+                transform: translate(4px, 4px);
+                box-shadow: none;
+              }
             }
 
             &__isBanUnban{
@@ -620,7 +675,7 @@ html, body {
     font-weight: bold;
     background-image: url('../../public/abstraction.png');
     background-size: cover;
-    box-shadow: 10px -10px 5px 0 rgba(28, 28, 28, 0.75);
+    box-shadow: 4px -4px 8px 0 rgba(28, 28, 28, 0.75);
     position: fixed;
     bottom: 0;
     left: 0;
