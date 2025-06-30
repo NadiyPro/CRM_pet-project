@@ -123,8 +123,8 @@ export class AuthService {
     ]);
     await this.emailService.sendMail(
       EmailTypeEnum.ACTIVE,
-      'siroviyn13@gmail.com',
-      // user.email,
+      // 'siroviyn13@gmail.com',
+      user.email,
       {
         surname: user.surname,
         name: user.name,
