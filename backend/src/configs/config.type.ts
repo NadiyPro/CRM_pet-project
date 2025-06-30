@@ -2,7 +2,7 @@ export type Config = {
   app: AppConfig;
   database: DatabaseConfig;
   redis: RedisConfig;
-  aws: AwsConfig;
+  // aws: AwsConfig;
   // sentry: SentryConfig;
   jwt: JwtConfig;
   email: EmailConfig;
@@ -24,15 +24,15 @@ export type RedisConfig = {
   port: number;
   password: string;
 };
-export type AwsConfig = {
-  accessKey: string;
-  secretKey: string;
-  bucketAvatar: string;
-  bucketCars: string;
-  region: string;
-  ACL: string;
-  endpoint: string;
-};
+// export type AwsConfig = {
+//   accessKey: string;
+//   secretKey: string;
+//   bucketAvatar: string;
+//   bucketCars: string;
+//   region: string;
+//   ACL: string;
+//   endpoint: string;
+// };
 // export type SentryConfig = {
 //   dsn: string;
 //   env: string;
