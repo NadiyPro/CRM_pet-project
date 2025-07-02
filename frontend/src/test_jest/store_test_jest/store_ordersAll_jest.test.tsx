@@ -10,7 +10,7 @@ jest.mock('../../service/orders.service', () => ({
 // jest.fn() — це типу фейкова функція, функція-заглушка, типу ми робимо запит
 
 describe('loadOrdersAll thunk', () => {
-  test('dispatches fulfilled action with data', async () => {
+  test('ordersAll fulfilled data', async () => {
 
     const dispatch = jest.fn(); // типу викликаємо dispatch
     const getState = jest.fn(() => ({ orderStore: { dto: {} } }));
