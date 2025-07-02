@@ -10,7 +10,7 @@ describe('group_nameValidator', () => {
     expect(result.error).toBeUndefined();
   })
 
-  test('valid data item 20', () => {
+  test('valid data limit 20', () => {
     const result = group_nameValidator.validate({
       group_name: 't2345678901234567890'
     })

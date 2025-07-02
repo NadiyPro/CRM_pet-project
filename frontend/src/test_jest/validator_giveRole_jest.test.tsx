@@ -13,6 +13,15 @@ describe('giveRoleValidator', () => {
     expect(result.error).toBeUndefined();
   });
 
+  test('valid data limit name and surname', () => {
+    const result = giveRoleValidator.validate({
+      name: 'Nad',
+      surname: 'Pro',
+      email: 'siroviyn13@gmail.com'
+    });
+    expect(result.error).toBeUndefined();
+  });
+
   test('no valid name', () => {
     const result = giveRoleValidator.validate({
       name: 'Na',

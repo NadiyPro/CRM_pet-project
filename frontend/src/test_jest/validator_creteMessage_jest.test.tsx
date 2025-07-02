@@ -12,7 +12,7 @@ describe('createMessageValidator', () => {
     expect(result.error).toBeUndefined();
   })
 
-  test('valid messages item 5', () => {
+  test('valid messages limit 5', () => {
 
     const result = createMessageValidator.validate({
 
