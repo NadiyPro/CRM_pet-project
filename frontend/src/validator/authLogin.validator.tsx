@@ -18,7 +18,7 @@ const authLoginValidator = Joi.object({
     return value;
   }).messages({
     "string.empty": "Поле має бути заповнене",
-    "string.min": "min is 5",
+    "string.min": "min is 8",
     "string.max": "max is 300",
     "string.pattern.base": "Пароль повинен містити принаймні одну літеру, одну цифру та один спеціальний символ, і бути не менше 8 символів"
   }),

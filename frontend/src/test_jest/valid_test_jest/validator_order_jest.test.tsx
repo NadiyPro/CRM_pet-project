@@ -1,5 +1,5 @@
 import 'react';
-import orderValidator from '../validator/order.validator';
+import orderValidator from '../../validator/order.validator';
 
 describe('orderValidator', () => {
 

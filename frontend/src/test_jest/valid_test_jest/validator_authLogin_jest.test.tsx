@@ -1,5 +1,5 @@
 import 'react';
-import authLoginValidator from '../validator/authLogin.validator';
+import authLoginValidator from '../../validator/authLogin.validator';
 
 describe('authLoginValidator', () => {
 

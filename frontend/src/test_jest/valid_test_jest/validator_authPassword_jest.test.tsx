@@ -1,5 +1,5 @@
 import 'react';
-import authPasswordValidator from '../validator/authPassword.validator';
+import authPasswordValidator from '../../validator/authPassword.validator';
 
 describe('authPasswordValidator', () => {
 

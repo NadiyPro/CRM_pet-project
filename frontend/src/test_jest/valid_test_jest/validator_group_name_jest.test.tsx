@@ -1,5 +1,5 @@
 import 'react';
-import group_nameValidator from '../validator/group_name.validator';
+import group_nameValidator from '../../validator/group_name.validator';
 
 describe('group_nameValidator', () => {
 

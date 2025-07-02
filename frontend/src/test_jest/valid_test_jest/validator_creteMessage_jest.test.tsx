@@ -1,5 +1,5 @@
 import 'react';
-import createMessageValidator from '../validator/createMessage.validator';
+import createMessageValidator from '../../validator/createMessage.validator';
 
 describe('createMessageValidator', () => {
 

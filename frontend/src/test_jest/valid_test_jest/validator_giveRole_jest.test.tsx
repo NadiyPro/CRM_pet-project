@@ -1,5 +1,5 @@
 import 'react';
-import giveRoleValidator from '../validator/giveRole.validator';
+import giveRoleValidator from '../../validator/giveRole.validator';
 
 
 describe('giveRoleValidator', () => {
