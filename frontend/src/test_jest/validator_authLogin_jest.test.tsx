@@ -19,6 +19,14 @@ describe('authLoginValidator', () => {
     expect(result.error).toBeUndefined();
   });
 
+  test('no valid data empty', () => {
+    const result = authLoginValidator.validate({
+      email: '',
+      password: ''
+    })
+    expect(result.error?.details[0].message).toBe('Поле має бути заповнене');
+  });
+
   test('no valid email', () => {
     const result = authLoginValidator.validate({
       email: 'manager.gmail.com',

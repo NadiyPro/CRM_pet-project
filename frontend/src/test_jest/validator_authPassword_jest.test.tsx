@@ -12,6 +12,25 @@ describe('authPasswordValidator', () => {
     expect(result.error).toBeUndefined();
   })
 
+  test('valid limit password and confirm_password', () => {
+    const result = authPasswordValidator.validate({
+      password: 'Pas4567!',
+      confirm_password: 'Pas4567!'
+    });
+
+    expect(result.error).toBeUndefined();
+  })
+
+  test('no valid password and confirm_password empty', () => {
+    const result = authPasswordValidator.validate({
+      password: '',
+      confirm_password: ''
+    });
+
+    expect(result.error?.details[0].message).toBe('Поле має бути заповнене');
+  })
+
+
   test('no valid password', () => {
     const result = authPasswordValidator.validate({
       password: 'password111',
