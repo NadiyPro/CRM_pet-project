@@ -4,9 +4,6 @@ import { orderService } from '../../service/orders.service';
 jest.mock('../../service/auth.service', () => ({
   axiosInstance: {
     get: jest.fn(),
-    post: jest.fn(),
-    patch: jest.fn(),
-    interceptors: { request: { use: jest.fn() } },
   },
 }));
 
