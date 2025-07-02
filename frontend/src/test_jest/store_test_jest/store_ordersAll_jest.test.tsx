@@ -3,13 +3,13 @@ import { orderService } from '../../service/orders.service';
 
 jest.mock('../../service/auth.service', () => ({
   axiosInstance: {
-    get: jest.fn(),
+    get: jest.fn()
   },
 }));
 
 jest.mock('../../service/orders.service', () => ({
   orderService: {
-    ordersAll: jest.fn(),
+    ordersAll: jest.fn()
   },
 }));
 
