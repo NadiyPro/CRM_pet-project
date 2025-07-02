@@ -28,8 +28,7 @@ describe('loadOrdersAll thunk', () => {
 
     console.log(result.payload)
 
-    // expect(orderService.ordersAll).toHaveBeenCalledWith({});
-    // expect(orderService.ordersAll).toEqual({ orders: [], total: 0 });
+    expect(orderService.ordersAll).toHaveBeenCalledWith({});
     expect(result.payload).toEqual({ orders: [], total: 0 });
   });
 });
