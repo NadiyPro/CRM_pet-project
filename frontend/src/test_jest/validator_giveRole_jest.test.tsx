@@ -20,6 +20,7 @@ describe('giveRoleValidator', () => {
       email: 'siroviyn13@gmail.com'
     });
     // console.log(result);
+    // console.log(result.error?.details);
 
     expect(result.error?.details[0].message).toBe('min is 3');
   });
