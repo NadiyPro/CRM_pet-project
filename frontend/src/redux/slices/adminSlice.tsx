@@ -1,105 +1,99 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadOrdersStatisticAll } from '../reducers/adminLoad/loadOrdersStatisticAll';
-import { OrdersStatisticAllDto } from '../../module/admin_dto/ordersStatisticAll.dto';
-import { OrdersStatisticManagerDto } from '../../module/admin_dto/ordersStatisticManager.dto';
 import { loadOrdersStatisticManager } from '../reducers/adminLoad/loadOrdersStatisticManager';
-import { BaseUsersDto } from '../../module/admin_dto/baseUsers.dto';
 import { loadUsersAll } from '../reducers/adminLoad/loadUsersAll';
-import { ListUsersQueryDto } from '../../module/admin_dto/listUsersQuery.dto';
 import { loadActivateUser } from '../reducers/adminLoad/loadActivateUser';
-import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
-import { AuthResDto } from '../../module/auth_dto/authRes.dto';
 import { loadBanUser } from '../reducers/adminLoad/loadBanUser';
-import { AuthUserDto } from '../../module/auth_dto/authUser.dto';
 import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
 import { loadGiveRole } from '../reducers/adminLoad/loadGiveRole';
 import { TypeTextDto } from '../../module/typeText.dto';
+import { initialStateAdmin } from '../initialState/admin_initialState';
 
-interface AdminSliceInterface {
-  ordersStatisticAll: OrdersStatisticAllDto,
-  ordersStatisticManager: OrdersStatisticManagerDto[],
-  dto: ListUsersQueryDto;
-  data:{
-    users: BaseUsersDto[],
-    total: number,
-  },
-  authTokens: AuthResDto;
-  userBanUnban: AuthUserDto;
-  giveRoleUser: BaseUsersDto,
-  statusGiveRole: TypeTextDto | null;
-  isGiveRoleModalOpen: boolean;
-  isActivateUser: TypeTextDto | null;
-  isBanUser: TypeTextDto | null;
-  isUnbanUser: TypeTextDto | null;
-}
+// interface AdminSliceInterface {
+//   ordersStatisticAll: OrdersStatisticAllDto,
+//   ordersStatisticManager: OrdersStatisticManagerDto[],
+//   dto: ListUsersQueryDto;
+//   data:{
+//     users: BaseUsersDto[],
+//     total: number,
+//   },
+//   authTokens: AuthResDto;
+//   userBanUnban: AuthUserDto;
+//   giveRoleUser: BaseUsersDto,
+//   statusGiveRole: TypeTextDto | null;
+//   isGiveRoleModalOpen: boolean;
+//   isActivateUser: TypeTextDto | null;
+//   isBanUser: TypeTextDto | null;
+//   isUnbanUser: TypeTextDto | null;
+// }
 
-const initialState : AdminSliceInterface = {
-  ordersStatisticAll: {
-    total: 0,
-    In_work: 0,
-    New: 0,
-    Aggre: 0,
-    Disaggre: 0,
-    Dubbing: 0,
-  },
-  ordersStatisticManager: [{
-    manager: '',
-    total: 0,
-    In_work: 0,
-    New: 0,
-    Aggre: 0,
-    Disaggre: 0,
-    Dubbing: 0,
-}],
-  dto: {
-    limit: 10,
-    page: 1,
-  },
-  data:{
-    users: [],
-    total: 0
-  },
-  authTokens: {
-    tokens: {
-      accessToken:	'',
-      refreshToken: '',
-    },
-    user: {
-      id: '',
-      name: '',
-      surname: '',
-      email: '',
-      is_active: false,
-      role: RoleTypeEnum.ADMIN,
-    }
-  },
-  userBanUnban: {
-    id: '',
-    name: '',
-    surname: '',
-    email: '',
-    is_active: false,
-    role: RoleTypeEnum.ADMIN,
-  },
-  giveRoleUser: {
-    id: '',
-    name: '',
-    surname: '',
-    email: '',
-    is_active: false,
-    role: RoleTypeEnum.MANAGER,
-    deleted: null
-  },
-  statusGiveRole: null,
-  isGiveRoleModalOpen: false,
-  isActivateUser: null,
-  isBanUser: null,
-  isUnbanUser: null,
-};
+// const initialState : AdminSliceInterface = {
+//   ordersStatisticAll: {
+//     total: 0,
+//     In_work: 0,
+//     New: 0,
+//     Aggre: 0,
+//     Disaggre: 0,
+//     Dubbing: 0,
+//   },
+//   ordersStatisticManager: [{
+//     manager: '',
+//     total: 0,
+//     In_work: 0,
+//     New: 0,
+//     Aggre: 0,
+//     Disaggre: 0,
+//     Dubbing: 0,
+// }],
+//   dto: {
+//     limit: 10,
+//     page: 1,
+//   },
+//   data:{
+//     users: [],
+//     total: 0
+//   },
+//   authTokens: {
+//     tokens: {
+//       accessToken:	'',
+//       refreshToken: '',
+//     },
+//     user: {
+//       id: '',
+//       name: '',
+//       surname: '',
+//       email: '',
+//       is_active: false,
+//       role: RoleTypeEnum.ADMIN,
+//     }
+//   },
+//   userBanUnban: {
+//     id: '',
+//     name: '',
+//     surname: '',
+//     email: '',
+//     is_active: false,
+//     role: RoleTypeEnum.ADMIN,
+//   },
+//   giveRoleUser: {
+//     id: '',
+//     name: '',
+//     surname: '',
+//     email: '',
+//     is_active: false,
+//     role: RoleTypeEnum.MANAGER,
+//     deleted: null
+//   },
+//   statusGiveRole: null,
+//   isGiveRoleModalOpen: false,
+//   isActivateUser: null,
+//   isBanUser: null,
+//   isUnbanUser: null,
+// };
 
 export const adminSlice = createSlice({
   name: 'adminSlice',
-  initialState: initialState,
+  initialState: initialStateAdmin,
   reducers: {
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;

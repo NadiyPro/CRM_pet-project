@@ -1,161 +1,157 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { loadOrdersAll } from '../reducers/orderLoad/loadOrdersAll';
-import { BaseOrdersDto } from '../../module/orders_dto/baseOrders.dto';
 import { ListOrdersAllDto } from '../../module/orders_dto/listOrdersAll.dto';
 import { SortFieldEnum } from '../../module/enums/sortFieldEnum';
 import { loadOrdersExel } from '../reducers/orderLoad/loadOrdersExel';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
 import { loadMessagesOrderId } from '../reducers/orderLoad/loadMessagesOrderId';
 import { loadCreateMessage } from '../reducers/orderLoad/loadCreateMessage';
-import { MessageResDto } from '../../module/orders_dto/messageRes.dto';
 import { loadFindOneOrder } from '../reducers/orderLoad/loadFindOneOrder';
 import { loadEditOrder } from '../reducers/orderLoad/loadEditOrder';
-import { UpdateOrdersResDto } from '../../module/orders_dto/updateOrdersRes.dto';
-import { GroupResDto } from '../../module/orders_dto/groupRes.dto';
 import { loadCreateGroup } from '../reducers/orderLoad/loadCreateGroup';
 import { loadAllGroup } from '../reducers/orderLoad/loadAllGroup';
 import { loadAddGroup } from '../reducers/orderLoad/loadAddGroup';
-import { GroupOrdersDto } from '../../module/orders_dto/groupOrders.dto';
+import { initialStateOrder } from '../initialState/order_initialState';
 import { TypeTextDto } from '../../module/typeText.dto';
 
-interface OrderSliceInterface {
-  dto: Partial<ListOrdersAllDto>;
-  data: {
-    orders: BaseOrdersDto[];
-    total: number;
-  };
-  dataExel: string;
-  findOneOrder: BaseOrdersDto;
-  // findOneOrderError: string | null;
-  loadingExel: boolean;
-  exportSuccess: TypeTextDto | null;
-  messagesOrderId: MessageResDto[];
-  createMessage: MessageResDto;
-  createMessageError: string | null;
-  isEditOrder: boolean;
-  editOrder: UpdateOrdersResDto,
-  createGroup: GroupResDto,
-  allGroup: GroupResDto[] | null;
-  addGroup: GroupOrdersDto,
-  isAddGroupState: boolean;
-  isDefaultGroupState: boolean;
-  openedMessageOrderId: number | null;
-  isCreateGroup: boolean;
-  isDuplicate: boolean;
-  isGroupOrder: TypeTextDto | null;
-  // isGroupOrder: boolean;
-  isNoGroup: boolean;
-  isUpdateEditOrder: TypeTextDto | null;
-}
+// interface OrderSliceInterface {
+//   dto: Partial<ListOrdersAllDto>;
+//   data: {
+//     orders: BaseOrdersDto[];
+//     total: number;
+//   };
+//   dataExel: string;
+//   findOneOrder: BaseOrdersDto;
+//   // findOneOrderError: string | null;
+//   loadingExel: boolean;
+//   exportSuccess: TypeTextDto | null;
+//   messagesOrderId: MessageResDto[];
+//   createMessage: MessageResDto;
+//   createMessageError: string | null;
+//   isEditOrder: boolean;
+//   editOrder: UpdateOrdersResDto,
+//   createGroup: GroupResDto,
+//   allGroup: GroupResDto[] | null;
+//   addGroup: GroupOrdersDto,
+//   isAddGroupState: boolean;
+//   isDefaultGroupState: boolean;
+//   openedMessageOrderId: number | null;
+//   isCreateGroup: boolean;
+//   isDuplicate: boolean;
+//   isGroupOrder: TypeTextDto | null;
+//   // isGroupOrder: boolean;
+//   isNoGroup: boolean;
+//   isUpdateEditOrder: TypeTextDto | null;
+// }
 
-const initialState: OrderSliceInterface = {
-  dataExel: '',
-  data: {
-    orders: [],
-    total: 0,
-  },
-  dto: {
-    name: null,
-    surname: null,
-    email: null,
-    phone: null,
-    age: null,
-    course: null,
-    course_format: null,
-    course_type: null,
-    status: null,
-    sum: null,
-    alreadyPaid: null,
-    manager: null,
-    group_id:  null,
-    group_name: null,
-    limit: 25,
-    page: 1,
-    sortField: SortFieldEnum.CREATED_AT,
-    sortASCOrDESC: SortASCOrDESCEnum.DESC,
-    my: false,
-  },
-  // findOneOrderError: null,
-  findOneOrder: {
-    id: null,
-    name: null,
-    surname: null,
-    email: null,
-    phone: null,
-    age: null,
-    course:null,
-    course_format: null,
-    course_type: null,
-    status: null,
-    sum: null,
-    alreadyPaid: null,
-    created_at: null,
-    updated_at: null,
-    manager: null,
-    group_id: null,
-    group_name: null,
-    messages: null,
-    utm: null,
-    msg: null,
-  },
-  loadingExel: false,
-  exportSuccess: null,
-  messagesOrderId: [],
-  createMessage: {
-    id: 0,
-    messages: '',
-    orderId: 0,
-    manager: null,
-    created_at: null,
-  },
-  createMessageError: null,
-  isEditOrder: false,
-  editOrder:{
-    id: null,
-    name: null,
-    surname: null,
-    email: null,
-    phone: null,
-    age: null,
-    course: null,
-    course_format: null,
-    course_type: null,
-    status: null,
-    sum: null,
-    alreadyPaid: null,
-    created_at: null,
-    updated_at: null,
-    manager: null,
-    group_id: null,
-    group_group_name: null,
-    messages: [],
-    utm: null,
-    msg: null,
-  },
-  createGroup: {
-    group_id: 0,
-    group_group_name: '',
-  },
-  allGroup: [],
-  addGroup: {
-    id: null,
-    group_id: null,
-    group_group_name: null,
-  },
-  isAddGroupState: false,
-  isDefaultGroupState: true,
-  openedMessageOrderId: null,
-  isCreateGroup: false,
-  isDuplicate: false,
-  isGroupOrder: null,
-  // isGroupOrder: false,
-  isNoGroup: false,
-  isUpdateEditOrder: null
-};
+// const initialStateOrder: OrderSliceInterface = {
+//   dataExel: '',
+//   data: {
+//     orders: [],
+//     total: 0,
+//   },
+//   dto: {
+//     name: null,
+//     surname: null,
+//     email: null,
+//     phone: null,
+//     age: null,
+//     course: null,
+//     course_format: null,
+//     course_type: null,
+//     status: null,
+//     sum: null,
+//     alreadyPaid: null,
+//     manager: null,
+//     group_id:  null,
+//     group_name: null,
+//     limit: 25,
+//     page: 1,
+//     sortField: SortFieldEnum.CREATED_AT,
+//     sortASCOrDESC: SortASCOrDESCEnum.DESC,
+//     my: false,
+//   },
+//   // findOneOrderError: null,
+//   findOneOrder: {
+//     id: null,
+//     name: null,
+//     surname: null,
+//     email: null,
+//     phone: null,
+//     age: null,
+//     course:null,
+//     course_format: null,
+//     course_type: null,
+//     status: null,
+//     sum: null,
+//     alreadyPaid: null,
+//     created_at: null,
+//     updated_at: null,
+//     manager: null,
+//     group_id: null,
+//     group_name: null,
+//     messages: null,
+//     utm: null,
+//     msg: null,
+//   },
+//   loadingExel: false,
+//   exportSuccess: null,
+//   messagesOrderId: [],
+//   createMessage: {
+//     id: 0,
+//     messages: '',
+//     orderId: 0,
+//     manager: null,
+//     created_at: null,
+//   },
+//   createMessageError: null,
+//   isEditOrder: false,
+//   editOrder:{
+//     id: null,
+//     name: null,
+//     surname: null,
+//     email: null,
+//     phone: null,
+//     age: null,
+//     course: null,
+//     course_format: null,
+//     course_type: null,
+//     status: null,
+//     sum: null,
+//     alreadyPaid: null,
+//     created_at: null,
+//     updated_at: null,
+//     manager: null,
+//     group_id: null,
+//     group_group_name: null,
+//     messages: [],
+//     utm: null,
+//     msg: null,
+//   },
+//   createGroup: {
+//     group_id: 0,
+//     group_group_name: '',
+//   },
+//   allGroup: [],
+//   addGroup: {
+//     id: null,
+//     group_id: null,
+//     group_group_name: null,
+//   },
+//   isAddGroupState: false,
+//   isDefaultGroupState: true,
+//   openedMessageOrderId: null,
+//   isCreateGroup: false,
+//   isDuplicate: false,
+//   isGroupOrder: null,
+//   // isGroupOrder: false,
+//   isNoGroup: false,
+//   isUpdateEditOrder: null
+// };
 
 export const orderSlice = createSlice({
   name: 'orderSlice',
-  initialState: initialState,
+  initialState: initialStateOrder,
   reducers: {
     setSortField(state, action: PayloadAction<SortFieldEnum>) {
       state.dto.sortField = action.payload;
