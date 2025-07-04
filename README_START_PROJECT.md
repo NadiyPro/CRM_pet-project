@@ -153,7 +153,7 @@ Nginx виконує роль сервера для frontend:
 + Тестуються:
   + валідація форм через Joi
   + асинхронний thunk дії Redux Toolkit
-  + запуск тесту локально:
+  + запуск тесту (запускається локально і з Docker):
 ```bash
 cd frontend
 npm run test
@@ -163,7 +163,7 @@ npm run test
   + Тестуються:
     + авторизація (login)
     + перехід після логінації на сторінку `/orders`
-    + запуск тесту:
+    + запуск тесту (запуск тільки після build Docker):
      + спочатку запускаємо Docker
     ```bash
     $ docker-compose -f docker-compose.local.yaml up --build
