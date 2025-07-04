@@ -1,0 +1,20 @@
+{
+  "devDependencies": {
+    "@babel/preset-env": "^7.28.0",
+    "@babel/preset-react": "^7.27.1",
+    "@babel/preset-typescript": "^7.27.1",
+    "@wdio/cli": "^9.16.2",
+    "@wdio/globals": "^9.16.2",
+    "@wdio/local-runner": "^9.16.2",
+    "@wdio/mocha-framework": "^9.16.2",
+    "@wdio/spec-reporter": "^9.16.2",
+    "babel-jest": "^30.0.2",
+    "expect-webdriverio": "^5.3.4",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^30.0.3",
+    "ts-jest": "^29.4.0"
+  },
+  "scripts": {
+    "test:e2e": "npx wdio run ./wdio.conf.ts"
+  }
+}
