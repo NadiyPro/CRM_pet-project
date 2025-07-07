@@ -8,3 +8,7 @@ export const CurrentUser = createParamDecorator(
     return request.res.locals.user as IUserData;
   },
 );
+// context.switchToHttp перемикає загальний ExecutionContext на HTTP-контекст,
+// бо NestJS підтримує кілька транспортів (не лише HTTP),
+// і ми повинні явно вказати, що працюємо з HTTP-запитом
+// дістаємо дані із запиту (токену) і зберігаємо в локалсах
