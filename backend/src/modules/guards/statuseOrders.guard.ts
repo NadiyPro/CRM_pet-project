@@ -24,7 +24,11 @@ export class OrdersGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<RequestWithUser>();
+    // тут я кажу що хочу отримувати дані із запиту HTTP у форматі <RequestWithUser>
+    // з токену в моєму випадку
     const userData = request.res.locals.user as IUserData;
+    //  а тут я їх забираю з локалсів
+
     const orderId = request.params.orderId;
 
     const user = await this.userRepository.findOne({
