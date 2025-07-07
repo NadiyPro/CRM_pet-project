@@ -16,5 +16,7 @@ describe('Login Flow', () => {
 
         const url = await browser.getUrl();
         expect(url).toContain('/orders');
+        // toContain чи рядок або масив містить певне значення
+        // тобто перевіряємо чи в url є /orders
     });
 });
