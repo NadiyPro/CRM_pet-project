@@ -60,7 +60,7 @@ export class AuthService {
     });
 
     if (!user || !user.is_active) {
-      throw new UnauthorizedException('Your account is not active');
+      throw new UnauthorizedException();
     }
 
     const isPasswordValid = await bcrypt.compare(dto.password, user.password);
@@ -87,7 +87,7 @@ export class AuthService {
         }),
       ),
     ]);
-    // Promise.all, щоб паралельно зберегти токени в різних місцях для кращої продуктивності
+    // Promise.all, щоб паралельно зберегти токени
     const userEntity = await this.userRepository.findOneBy({ id: user.id });
     // витягаємо з БД повну інфо про користувача (всі поля), використовуючи його id
 
@@ -226,15 +226,6 @@ export class AuthService {
         }),
       ),
     ]);
-    // await Promise.all([
-    //   this.authCacheService.deleteToken(userData.userId, userData.deviceId),
-    //   // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
-    //   this.refreshTokenRepository.delete({
-    //     user_id: userData.userId,
-    //     deviceId: userData.deviceId,
-    //   }), // видаляємо всі refreshToken,
-    //   // що зберігаються в базі даних для конкретного користувача та його пристрою
-    // ]);
     return tokens; // повертаємо пару токенів accessToken і refreshToken
   }
 }

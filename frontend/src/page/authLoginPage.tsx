@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form';
-import { joiResolver } from '@hookform/resolvers/joi';
-import authLoginValidator from '../validator/authLogin.validator';
+
 import { AuthLoginDto } from '../module/auth_dto/authLogin.dto';
 import { useAppDispatch, useAppSelector } from '../redux/store';
 import { useNavigate } from 'react-router-dom';
@@ -9,7 +8,7 @@ import '../styles/styles.scss';
 
 
 const AuthLoginPage = () => {
-  const {handleSubmit, register, reset, formState: {isValid}} = useForm<AuthLoginDto>({ mode: 'all', resolver: joiResolver(authLoginValidator) });
+  const {handleSubmit, register, reset} = useForm<AuthLoginDto>();
   const {loadingLogin, errorLogin} = useAppSelector((state) => state.authStore);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -48,7 +47,7 @@ const AuthLoginPage = () => {
             <input type={'password'} {...register('password')} required />
 
             <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'}
-                    disabled={!isValid || loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
+                    disabled={loadingLogin}> {loadingLogin ? 'Loading...' : 'LOGIN'}</button>
           </form>
           {errorLogin && <div className={'errorLogin'}><p>{errorLogin}</p></div>}
         </div>

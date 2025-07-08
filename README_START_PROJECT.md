@@ -188,7 +188,6 @@ final_project/
 │   │   │       ├── store_test_jest/
 │   │   │       │         └── store_ordersAll_jest.test.tsx
 │   │   │       └── valid_test_jest/
-│   │   │                 ├── validator_authLogin_jest.test.tsx
 │   │   │                 ├── validator_authPassword_jest.test.tsx
 │   │   │                 ├── validator_creteMessage_jest.test.tsx
 │   │   │                 ├── validator_giveRole_jest.test.tsx

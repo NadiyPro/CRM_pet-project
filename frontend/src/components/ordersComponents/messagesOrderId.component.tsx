@@ -14,7 +14,7 @@ import '../../styles/styles.scss';
 const MessagesOrderIdComponent = () => {
   const {handleSubmit, register, reset, formState: {isValid}} =
     useForm<CreateMessageDto>({mode: 'all', resolver: joiResolver(createMessageValidator)})
-  const { messagesOrderId, findOneOrder, createMessageError, isEditOrder, openedMessageOrderId } =
+  const { messagesOrderId, findOneOrder, createMessageError, isEditOrder, openedMessageOrderId, dto } =
     useAppSelector((state) => state.orderStore);
   const messageClose = useRef<HTMLDivElement | null>(null);
   const dispatch = useAppDispatch();
@@ -29,13 +29,11 @@ const MessagesOrderIdComponent = () => {
   const handleCreateMessage = (dataMessage: CreateMessageDto) => {
     if(openedMessageOrderId !== null){
       const orderId = openedMessageOrderId;
-      // dispatch(orderAction.setCreateMessageError(null));
-      // очищаю помилку перед submit, бо без цього, якщо в попередньому кейсі була помилка,
-      // то вона і в наступному відображається аж до submit
       dispatch(orderAction.loadCreateMessage({orderId, dataMessage }))
         .unwrap()
         .then(() => {
           dispatch(orderAction.loadMessagesOrderId(orderId));
+          dispatch(orderAction.loadOrdersAll(dto));
           reset();
         });
     }

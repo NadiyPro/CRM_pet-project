@@ -20,10 +20,10 @@ export const authSlice = createSlice({
         state.loadingLogin = true;
         state.errorLogin = null;
       })
-      .addCase(loadLogin.rejected, (state, action) => {
+      .addCase(loadLogin.rejected, (state) => {
         state.loadingLogin = false;
         state.errorLogin = 'Будь ласка, перевірте коректність введених даних.'
-        console.error('Помилка, невірний email або пароль:', action.payload);
+        // console.error('Будь ласка, перевірте коректність введених даних:', action.payload);
         }
       )
       .addCase(
@@ -44,10 +44,10 @@ export const authSlice = createSlice({
         state.loadingPassword = true;
         state.errorPassword = null;
       })
-      .addCase(loadActivatePassword.rejected, (state, action) => {
+      .addCase(loadActivatePassword.rejected, (state) => {
           state.loadingPassword = false;
-          state.errorPassword = 'Помилка при введені паролю для реєстрації / зміни паролю. Будь ласка, перевірте чи збігаються password та confirm_password / термін дії посилання для реєстрації.'
-          console.error('Помилка при введені паролю для реєстрації / зміни паролю:', action.payload);
+          state.errorPassword = 'Будь ласка, перевірте чи збігаються password та confirm_password / термін дії посилання для реєстрації.'
+          // console.error('Помилка при введені паролю для реєстрації / зміни паролю:', action.payload);
         }
       )
   }
