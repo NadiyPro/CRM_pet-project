@@ -4,30 +4,6 @@ import { loadLogOut } from '../reducers/authLoad/loadLogOut';
 import { loadActivatePassword } from '../reducers/authLoad/loadActivatePassword';
 import { initialStateAuth } from '../initialState/auth_initialState';
 
-// interface AuthSliceInterface {
-//   isValid: boolean;
-//   isValidPassword: boolean;
-//   dto: AuthLoginDto;
-//   loadingLogin: boolean;
-//   loadingPassword: boolean;
-//   errorLogin: string | null;
-//   errorPassword: string | null;
-// }
-
-// const initialState: AuthSliceInterface = {
-//   isValid: false,
-//   isValidPassword: false,
-//   dto:{
-//     email: '',
-//     password: '',
-//     deviceId: '',
-//   },
-//   loadingLogin: false,
-//   loadingPassword: false,
-//   errorLogin: null,
-//   errorPassword: null
-// };
-
 export const authSlice = createSlice({
   name: 'authSlice',
   initialState: initialStateAuth,
