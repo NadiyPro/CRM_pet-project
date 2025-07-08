@@ -22,7 +22,7 @@ export const authSlice = createSlice({
       })
       .addCase(loadLogin.rejected, (state, action) => {
         state.loadingLogin = false;
-        state.errorLogin = 'Помилка, невірний email або пароль. Будь ласка, перевірте коректність введених даних.'
+        state.errorLogin = 'Будь ласка, перевірте коректність введених даних.'
         console.error('Помилка, невірний email або пароль:', action.payload);
         }
       )
