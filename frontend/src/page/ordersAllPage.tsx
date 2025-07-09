@@ -10,9 +10,6 @@ import { ListOrdersAllDto } from '../module/orders_dto/listOrdersAll.dto';
 import { SortFieldEnum } from '../module/enums/sortFieldEnum';
 import { SortASCOrDESCEnum } from '../module/enums/sortASCOrDESCEnum';
 
-const numericKeys = ['age', 'sum', 'alreadyPaid'];
-const booleanKeys = ['my'];
-
 const OrdersAllPage = () => {
 
   const dispatch = useAppDispatch();
