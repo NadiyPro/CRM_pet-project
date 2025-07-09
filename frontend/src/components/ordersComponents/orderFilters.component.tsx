@@ -46,6 +46,16 @@ const OrdersFiltersComponent = () => {
 
   const handleMyCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(orderAction.setMe(e.target.checked));
+    const update = {
+      // limit: 25,
+      ...dto,
+      page: 1,
+      // sortField: SortFieldEnum.CREATED_AT,
+      // sortASCOrDESC: SortASCOrDESCEnum.DESC,
+      my: e.target.checked,
+    };
+    dispatch(orderAction.setDto(update)); // щоб можна було шукати і скидуватись на першу сторінку
+    dispatch(orderAction.loadOrdersAll(update));
   };
 
 
