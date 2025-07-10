@@ -663,6 +663,11 @@ html, body {
           }
         }
       }
+
+      &__paginationComponent__button{
+        display: flex;
+        height: 5vh;
+      }
     }
   }
 

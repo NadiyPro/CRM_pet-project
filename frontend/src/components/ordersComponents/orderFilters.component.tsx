@@ -64,21 +64,21 @@ const OrdersFiltersComponent = () => {
       <form className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form'}>
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.NAME}
-          value={dto.name ?? ''}
+          value={(dto.name ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
           placeholder="Name"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.SURNAME}
-          value={dto.surname ?? ''}
+          value={(dto.surname ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
           placeholder="Surname"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.EMAIL}
-          value={dto.email ?? ''}
+          value={(dto.email ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
           placeholder="Email"
         />
@@ -86,7 +86,7 @@ const OrdersFiltersComponent = () => {
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.PHONE}
-          value={dto.phone ?? ''}
+          value={(dto.phone ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
           placeholder="Phone"
         />
@@ -102,7 +102,7 @@ const OrdersFiltersComponent = () => {
           type="date"
           name="created_at_from"
           min={'2021-01-01'}
-          value={dto.created_at_from ?? ''}
+          value={(dto.created_at_from ?? '').trim()}
           onChange={(e) => handleSearchChange(e, 'created_at_from')}
           placeholder="Created from"
         />
@@ -111,21 +111,21 @@ const OrdersFiltersComponent = () => {
           type="date"
           name="created_at_to"
           min={'2021-01-01'}
-          value={dto.created_at_to ?? ''}
+          value={(dto.created_at_to ?? '').trim()}
           onChange={(e) => handleSearchChange(e, 'created_at_to')}
           placeholder="Created to"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.GROUP_NAME}
-          value={dto.group_name ?? ''}
+          value={(dto.group_name ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
           placeholder="Group_name"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
           type="text" name={SortFieldEnum.MANAGER}
-          value={dto.manager ?? ''}
+          value={(dto.manager ?? '').trim()}
           onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
           placeholder="Manager"
         />

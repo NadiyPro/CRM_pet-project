@@ -11,13 +11,12 @@ import { SortFieldEnum } from '../module/enums/sortFieldEnum';
 import { SortASCOrDESCEnum } from '../module/enums/sortASCOrDESCEnum';
 
 const OrdersAllPage = () => {
-
-  const dispatch = useAppDispatch();
   const {dto} = useAppSelector((state) => state.orderStore);
+  const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const params: ListOrdersAllDto = {
+    const query: ListOrdersAllDto = {
       page: 1,
       limit: 25,
       my: false,
@@ -40,32 +39,33 @@ const OrdersAllPage = () => {
       created_at_to: null,
     };
 
-    const validKeys = Object.keys(params);
+    const validKeys = Object.keys(query); // перевіряємо чи такий ключ існує
 
     searchParams.forEach((value, key) => {
       if (key === 'my') {
-        params.my = value === 'true';
+        query.my = value === 'true';
       } else if (['page', 'limit', 'alreadyPaid', 'age', 'sum'].includes(key)) {
         const num = Number(value);
-        (params as any)[key] = !isNaN(num) ? num : null;
+        (query as any)[key] = !isNaN(num) ? num : null;
       } else if (validKeys.includes(key)) {
-        (params as any)[key] = value || null;
+        (query as any)[key] = value || null;
       }
     });
 
-    dispatch(orderAction.setDto(params));
-    dispatch(orderAction.loadOrdersAll(params));
+    dispatch(orderAction.setDto(query));
   }, []);
 
   useEffect(() => {
     const query: Record<string, string> = {};
     for (const key in dto) {
       const value = dto[key as keyof ListOrdersAllDto];
+      //  дістаємо значення кожного поля (dto.name, dto.page і т.д.).
       if (value !== null && value !== undefined && value !== '') {
         query[key] = String(value);
       }
     }
     setSearchParams(query);
+    dispatch(orderAction.loadOrdersAll(dto));
   }, [dto]);
   
 

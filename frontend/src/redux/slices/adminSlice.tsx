@@ -8,6 +8,7 @@ import { loadUnbanUser } from '../reducers/adminLoad/loadUnbanUser';
 import { loadGiveRole } from '../reducers/adminLoad/loadGiveRole';
 import { TypeTextDto } from '../../module/typeText.dto';
 import { initialStateAdmin } from '../initialState/admin_initialState';
+import { ListUsersQueryDto } from '../../module/admin_dto/listUsersQuery.dto';
 
 export const adminSlice = createSlice({
   name: 'adminSlice',
@@ -33,6 +34,12 @@ export const adminSlice = createSlice({
     },
     setIsUnbanUser(state, action: PayloadAction<TypeTextDto | null>) {
       state.isUnbanUser = action.payload;
+    },
+    setDto(state, action: PayloadAction<Partial<ListUsersQueryDto>>) {
+      state.dto = {
+        ...state.dto,
+        ...action.payload
+      };
     },
   },
   extraReducers: (builder) => {
