@@ -31,7 +31,8 @@ const AdminPage = () => {
     });
 
     dispatch(adminAction.setDto(query));
-  }, []);
+    // dispatch(adminAction.loadUsersAll(query));
+  }, [searchParams]);
 
   useEffect(() => {
     const query: Record<string, string> = {};

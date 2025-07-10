@@ -74,7 +74,7 @@ const PaginationAdminComponent = () => {
     <div className={'divMainLayout__outlet__ordersAllPage__paginationComponent'}>
       {currentPage > 1 && (
         <button className={'divMainLayout__outlet__adminPage__paginationComponent__button'} key={currentPage-1} onClick={() => handlePageClick(currentPage - 1)}>
-          {currentPage - 1}
+          {'<'}
         </button>
       )}
 
