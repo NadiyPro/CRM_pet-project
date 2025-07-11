@@ -3,21 +3,18 @@ import OrdersStatisticManager from '../components/adminComponents/ordersStatisti
 import PaginationAdminComponent from '../components/adminComponents/paginationAdmin.component';
 import GiveRoleComponent from '../components/adminComponents/giveRoleComponent';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch } from '../redux/store';
+import { useAppDispatch, useAppSelector } from '../redux/store';
 import { useEffect } from 'react';
 import { ListUsersQueryDto } from '../module/admin_dto/listUsersQuery.dto';
 import { adminAction } from '../redux/slices/adminSlice';
 
 const AdminPage = () => {
-  // const {dto} = useAppSelector((state) => state.adminStore);
+  const {dto} = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const query: ListUsersQueryDto = {
-      page: 1,
-      limit: 10,
-    };
+    const query: ListUsersQueryDto = {...dto};
 
     const validKeys = Object.keys(query);
     // перевіряємо чи є ключ в переліку дозволених характеристик

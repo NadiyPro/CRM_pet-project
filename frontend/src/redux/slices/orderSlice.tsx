@@ -64,7 +64,8 @@ export const orderSlice = createSlice({
       state.isCreateGroup =  action.payload;
     },
     setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
-      const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page');
+
+      const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page' && key !== 'limit');
       // Object.keys приймає об'єкт і повертає масив ключів (name, email, page і т.п)
       // витягує список змінених полів, які ми передаємо в setDto
       // .some(...) перевіряє, чи серед цих полів є хоч одне, що не дорівнює 'page'
