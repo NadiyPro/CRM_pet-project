@@ -20,6 +20,7 @@ const AdminPage = () => {
     };
 
     const validKeys = Object.keys(query);
+    // перевіряємо чи є ключ в переліку дозволених характеристик
 
     searchParams.forEach((value, key) => {
       if (['page', 'limit'].includes(key)) {
@@ -33,7 +34,7 @@ const AdminPage = () => {
     dispatch(adminAction.setDto(query));
     dispatch(adminAction.loadUsersAll(query));
 
-    // оновлюємо URL відповідно до query
+    // оновлюємо url
     const urlQuery: Record<string, string> = {};
     for (const key in query) {
       const value = query[key as keyof ListUsersQueryDto];
@@ -43,39 +44,6 @@ const AdminPage = () => {
     }
     setSearchParams(urlQuery);
   }, []);
-  // useEffect(() => {
-  //   const query: ListUsersQueryDto = {
-  //     page: 1,
-  //     limit: 10,
-  //   };
-  //
-  //   const validKeys = Object.keys(query);
-  //
-  //   searchParams.forEach((value, key) => {
-  //     if (['page', 'limit'].includes(key)) {
-  //       const num = Number(value);
-  //       (query as any)[key] = !isNaN(num) ? num : null;
-  //   } else if (validKeys.includes(key)) {
-  //       (query as any)[key] = value || null;
-  //     }
-  //   });
-  //
-  //   dispatch(adminAction.setDto(query));
-  //   // dispatch(adminAction.loadUsersAll(query));
-  // }, [searchParams]);
-  //
-  // useEffect(() => {
-  //   const query: Record<string, string> = {};
-  //   for (const key in dto) {
-  //     const value = dto[key as keyof ListUsersQueryDto];
-  //     //  дістаємо значення кожного поля (dto.name, dto.page і т.д.).
-  //     if (value !== null && value !== undefined) {
-  //       query[key] = String(value);
-  //     }
-  //   }
-  //   setSearchParams(query);
-  //   dispatch(adminAction.loadUsersAll(dto));
-  // }, [dto]);
 
   return(
     <div className={'divMainLayout__outlet__adminPage'}>
