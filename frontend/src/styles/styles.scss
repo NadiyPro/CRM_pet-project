@@ -483,6 +483,7 @@ html, body {
       }
 
       &__paginationComponent{
+        display: flex;
         height: 5vh;
 
         &__button{
@@ -664,10 +665,10 @@ html, body {
         }
       }
 
-      &__paginationComponent__button{
-        display: flex;
-        height: 5vh;
-      }
+      //&__paginationComponent__button{
+      //  display: flex;
+      //  height: 5vh;
+      //}
     }
   }
 

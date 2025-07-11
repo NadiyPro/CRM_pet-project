@@ -3,13 +3,13 @@ import OrdersStatisticManager from '../components/adminComponents/ordersStatisti
 import PaginationAdminComponent from '../components/adminComponents/paginationAdmin.component';
 import GiveRoleComponent from '../components/adminComponents/giveRoleComponent';
 import { useSearchParams } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../redux/store';
+import { useAppDispatch } from '../redux/store';
 import { useEffect } from 'react';
 import { ListUsersQueryDto } from '../module/admin_dto/listUsersQuery.dto';
 import { adminAction } from '../redux/slices/adminSlice';
 
 const AdminPage = () => {
-  const {dto} = useAppSelector((state) => state.adminStore);
+  // const {dto} = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -25,27 +25,57 @@ const AdminPage = () => {
       if (['page', 'limit'].includes(key)) {
         const num = Number(value);
         (query as any)[key] = !isNaN(num) ? num : null;
-    } else if (validKeys.includes(key)) {
+      } else if (validKeys.includes(key)) {
         (query as any)[key] = value || null;
       }
     });
 
     dispatch(adminAction.setDto(query));
-    // dispatch(adminAction.loadUsersAll(query));
-  }, [searchParams]);
+    dispatch(adminAction.loadUsersAll(query));
 
-  useEffect(() => {
-    const query: Record<string, string> = {};
-    for (const key in dto) {
-      const value = dto[key as keyof ListUsersQueryDto];
-      //  дістаємо значення кожного поля (dto.name, dto.page і т.д.).
+    // оновлюємо URL відповідно до query
+    const urlQuery: Record<string, string> = {};
+    for (const key in query) {
+      const value = query[key as keyof ListUsersQueryDto];
       if (value !== null && value !== undefined) {
-        query[key] = String(value);
+        urlQuery[key] = String(value);
       }
     }
-    setSearchParams(query);
-    dispatch(adminAction.loadUsersAll(dto));
-  }, [dto]);
+    setSearchParams(urlQuery);
+  }, []);
+  // useEffect(() => {
+  //   const query: ListUsersQueryDto = {
+  //     page: 1,
+  //     limit: 10,
+  //   };
+  //
+  //   const validKeys = Object.keys(query);
+  //
+  //   searchParams.forEach((value, key) => {
+  //     if (['page', 'limit'].includes(key)) {
+  //       const num = Number(value);
+  //       (query as any)[key] = !isNaN(num) ? num : null;
+  //   } else if (validKeys.includes(key)) {
+  //       (query as any)[key] = value || null;
+  //     }
+  //   });
+  //
+  //   dispatch(adminAction.setDto(query));
+  //   // dispatch(adminAction.loadUsersAll(query));
+  // }, [searchParams]);
+  //
+  // useEffect(() => {
+  //   const query: Record<string, string> = {};
+  //   for (const key in dto) {
+  //     const value = dto[key as keyof ListUsersQueryDto];
+  //     //  дістаємо значення кожного поля (dto.name, dto.page і т.д.).
+  //     if (value !== null && value !== undefined) {
+  //       query[key] = String(value);
+  //     }
+  //   }
+  //   setSearchParams(query);
+  //   dispatch(adminAction.loadUsersAll(dto));
+  // }, [dto]);
 
   return(
     <div className={'divMainLayout__outlet__adminPage'}>
