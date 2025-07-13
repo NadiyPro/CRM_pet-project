@@ -52,7 +52,7 @@ const PaginationAdminComponent = () => {
           </button>
           );
 
-      const dots = (<button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}><span key="dots">...</span></button>);
+      const dots = (<button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button__dots'}><span key="dots">...</span></button>);
           let startAdminPage = totalPages - 6;
           if (currentPage < totalPages - 3){
             startAdminPage = currentPage - 3;

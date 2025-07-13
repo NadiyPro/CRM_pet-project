@@ -494,6 +494,17 @@ html, body {
             transform: translate(4px, 4px);
             box-shadow: none;
           }
+
+          &__dots{
+            width: 70px;
+            height: 75px;
+            margin-right: 10px;
+            background-color: rgba(232, 239, 238, 0.4);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 4px 4px 8px 0 rgba(28, 28, 28, 0.75);
+          }
         }
       }
     }

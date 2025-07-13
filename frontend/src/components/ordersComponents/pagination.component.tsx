@@ -71,7 +71,7 @@ const PaginationComponent = () => {
           1
         </button>
       );
-      const dots = <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}><span key="dots">...</span></button>;
+      const dots = <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button__dots'}><span key="dots">...</span></button>;
         // startPage сторінка з якою почнеться нумерація після ...
       let startPage = totalPages - 6;
       // якщо ми зараз знаходимось на сторінці, яка знаходиться десь посередині,
