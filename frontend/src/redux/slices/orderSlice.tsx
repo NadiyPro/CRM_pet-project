@@ -64,7 +64,7 @@ export const orderSlice = createSlice({
       state.isCreateGroup =  action.payload;
     },
     setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
-
+      // const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page');
       const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page' && key !== 'limit');
       // Object.keys приймає об'єкт і повертає масив ключів (name, email, page і т.п)
       // витягує список змінених полів, які ми передаємо в setDto
@@ -75,9 +75,15 @@ export const orderSlice = createSlice({
         ...action.payload, // оновлюємо лише передані поля
         ...(isNotPageUpdate ? { page: 1 } : {})
         // якщо ми змінили фільтри (наприклад name чи course), то скидаємо page на 1
-        // якщо змінилась лише page — лишаємо її як є
+        // якщо змінилась лише page — лишаємо її я є
       };
     }, // зберігати у state ті значення, які ми використовуємо для запиту
+    setDtoURL: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
+      state.dto = {
+        ...state.dto,
+        ...action.payload,
+      }; // щоб застосовувати ліміт та крокувати по сторінкам
+    },
     setIsDuplicate(state, action: PayloadAction<boolean>){
       state.isDuplicate =  action.payload;
     },

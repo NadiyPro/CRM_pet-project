@@ -7,8 +7,6 @@ import { orderAction } from '../redux/slices/orderSlice';
 import '../styles/styles.scss';
 import { useSearchParams } from 'react-router-dom';
 import { ListOrdersAllDto } from '../module/orders_dto/listOrdersAll.dto';
-// import { SortFieldEnum } from '../module/enums/sortFieldEnum';
-// import { SortASCOrDESCEnum } from '../module/enums/sortASCOrDESCEnum';
 
 const OrdersAllPage = () => {
   const {dto} = useAppSelector((state) => state.orderStore);
@@ -31,14 +29,8 @@ const OrdersAllPage = () => {
       }
     });
 
-    const isDto = JSON.stringify(query) === JSON.stringify(dto);
-    if (!isDto) {
-      dispatch(orderAction.setDto(query));
-    }
-
-    // dispatch(orderAction.setDto(query));
-    // dispatch(orderAction.loadOrdersAll(query));
-  }, [searchParams]);
+    dispatch(orderAction.setDtoURL(query));
+  }, []);
 
   useEffect(() => {
     const query: Record<string, string> = {};
@@ -52,7 +44,7 @@ const OrdersAllPage = () => {
     setSearchParams(query);
     dispatch(orderAction.loadOrdersAll(dto));
   }, [dto]);
-  
+
 
   return(
     <div className={'divMainLayout__outlet__ordersAllPage'}>
