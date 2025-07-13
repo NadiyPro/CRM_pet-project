@@ -5,7 +5,7 @@ const PaginationAdminComponent = () => {
   const { dto, data } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
-  const limit = dto.limit ?? 5;
+  const limit = dto.limit ?? 10;
   const currentPage = dto.page ?? 1;
   const totalPages = Math.ceil(data.total / limit);
 
@@ -23,7 +23,9 @@ const PaginationAdminComponent = () => {
         <div>
           {
         Array.from({ length: totalPages }, (_, index) => (
-          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={index + 1} onClick={() => handlePageClick(index + 1)} disabled={currentPage === index + 1}>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === index + 1 ? 'rgba(8,131,116,0.9)' : ''}}
+                  key={index + 1} onClick={() => handlePageClick(index + 1)} disabled={currentPage === index + 1}>
             {index + 1}
           </button>))
           }
@@ -35,19 +37,25 @@ const PaginationAdminComponent = () => {
       <div>
         {
         Array.from({ length: 7 }, (_, index) => (
-          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={index + 1} onClick={() => handlePageClick(index + 1)} disabled={currentPage === index + 1}>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === index + 1 ? 'rgba(8,131,116,0.9)' : ''}}
+                  key={index + 1} onClick={() => handlePageClick(index + 1)} disabled={currentPage === index + 1}>
             {index + 1}
           </button>
         ))
       }
-        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}><span>...</span></button>
-        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={totalPages} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button__dots'}><span>...</span></button>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                style={{ background: currentPage === totalPages ? 'rgba(8,131,116,0.9)' : ''}}
+                key={totalPages} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
           {totalPages}
         </button>
       </div>)
   } else {
           const firstPage = (
-          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === 1 ? 'rgba(8,131,116,0.9)' : ''}}
+                  key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
             1
           </button>
           );
@@ -62,7 +70,9 @@ const PaginationAdminComponent = () => {
           const endPage = Math.min(startAdminPage + 6, totalPages);
           const middlePages = Array.from({length: endPage - startAdminPage + 1}, (_,index) => {
             return (
-            <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={startAdminPage + index} onClick={() => handlePageClick(startAdminPage + index)} disabled={currentPage === startAdminPage + index}>
+            <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                    style={{ background: currentPage === startAdminPage + index ? 'rgba(8,131,116,0.9)' : ''}}
+                    key={startAdminPage + index} onClick={() => handlePageClick(startAdminPage + index)} disabled={currentPage === startAdminPage + index}>
               {startAdminPage + index}
             </button>)
           })

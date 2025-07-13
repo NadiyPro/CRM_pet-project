@@ -32,6 +32,7 @@ const PaginationComponent = () => {
           {
         Array.from({ length: totalPages }, (_, index) => (
           <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === index + 1 ? 'rgba(8,131,116,0.9)' : ''}}
             key={index + 1} // 0+1, 1+1 ...
             onClick={() => handlePageClick(index + 1)}
             disabled={currentPage === index + 1}
@@ -51,6 +52,7 @@ const PaginationComponent = () => {
         <div>
           {Array.from({ length: 7 }, (_, index) => (
             <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                    style={{ background: currentPage === index + 1 ? 'rgba(8,131,116,0.9)' : ''}}
               key={index + 1}
               onClick={() => handlePageClick(index + 1)}
               disabled={currentPage === index + 1}
@@ -58,8 +60,10 @@ const PaginationComponent = () => {
               {index + 1}
             </button>
           ))}
-          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} ><span>...</span></button>
-          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button__dots'} ><span>...</span></button>
+          <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === totalPages ? 'rgba(8,131,116,0.9)' : ''}}
+                  onClick={() => handlePageClick(totalPages)} disabled={currentPage === totalPages}>
             {totalPages}
           </button>
         </div>
@@ -67,7 +71,9 @@ const PaginationComponent = () => {
     } else {
 
       const firstPage = (
-        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'} key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
+        <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                style={{ background: currentPage === 1 ? 'rgba(8,131,116,0.9)' : ''}}
+                key={1} onClick={() => handlePageClick(1)} disabled={currentPage === 1}>
           1
         </button>
       );
@@ -95,6 +101,7 @@ const PaginationComponent = () => {
         // тому нам треба вручну додати ще один елемент, щоб останній номер також потрапив у список
         return (
           <button className={'divMainLayout__outlet__ordersAllPage__paginationComponent__button'}
+                  style={{ background: currentPage === startPage + index ? 'rgba(8,131,116,0.9)' : ''}}
             key={startPage + index}
             onClick={() => handlePageClick(startPage + index)}
             disabled={currentPage === startPage + index}
