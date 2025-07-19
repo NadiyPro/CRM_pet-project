@@ -2,7 +2,7 @@ import OrdersFiltersComponent from '../components/ordersComponents/orderFilters.
 import OrdersTableComponent from '../components/ordersComponents/ordersTable.component';
 import PaginationComponent from '../components/ordersComponents/pagination.component';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { orderAction } from '../redux/slices/orderSlice';
 import '../styles/styles.scss';
 import { useSearchParams } from 'react-router-dom';
@@ -12,6 +12,7 @@ const OrdersAllPage = () => {
   const {dto} = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const initializedRef = useRef(false);
 
   useEffect(() => {
     const query: ListOrdersAllDto = { ...dto };
@@ -28,11 +29,12 @@ const OrdersAllPage = () => {
         (query as any)[key] = value || null;
       }
     });
-
+    initializedRef.current = true;
     dispatch(orderAction.setDtoURL(query));
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
+    if (!initializedRef.current) return;
     const query: Record<string, string> = {};
     for (const key in dto) {
       const value = dto[key as keyof ListOrdersAllDto];
