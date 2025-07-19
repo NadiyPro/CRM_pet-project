@@ -13,14 +13,18 @@ export class ActivatePasswordReqDto {
   @IsString()
   @Length(5, 300)
   @ValidateIf((dto: BaseUserReqDto) => dto.password !== 'admin') // Виконує перевірку тільки якщо пароль не "admin"
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+    message: 'Bad Request',
+  })
   password: string;
 
   @ApiProperty({ example: 'Password100425#' })
   @IsString()
   @Length(5, 300)
   @ValidateIf((dto: BaseUserReqDto) => dto.password !== 'admin') // Виконує перевірку тільки якщо пароль не "admin"
-  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)
+  @Matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%_*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, {
+    message: 'Bad Request',
+  })
   confirm_password: string;
 
   @IsNotEmpty() // перевіряє, щоб значення поля не було порожнім
