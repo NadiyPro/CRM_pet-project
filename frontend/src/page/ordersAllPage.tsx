@@ -2,7 +2,7 @@ import OrdersFiltersComponent from '../components/ordersComponents/orderFilters.
 import OrdersTableComponent from '../components/ordersComponents/ordersTable.component';
 import PaginationComponent from '../components/ordersComponents/pagination.component';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { orderAction } from '../redux/slices/orderSlice';
 import '../styles/styles.scss';
 import { useSearchParams } from 'react-router-dom';
@@ -12,26 +12,31 @@ const OrdersAllPage = () => {
   const {dto} = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const paramsRef = useRef(false);
 
   useEffect(() => {
-    const query: ListOrdersAllDto = { ...dto };
+      const query: ListOrdersAllDto = { ...dto };
 
-    const validKeys = Object.keys(query); // перевіряємо чи такий ключ існує
+      const validKeys = Object.keys(query); // перевіряємо чи такий ключ існує
 
-    searchParams.forEach((value, key) => {
-      if (key === 'my') {
-        query.my = value === 'true';
-      } else if (['page', 'limit', 'alreadyPaid', 'age', 'sum'].includes(key)) {
-        const num = Number(value);
-        (query as any)[key] = !isNaN(num) ? num : null;
-      } else if (validKeys.includes(key)) {
-        (query as any)[key] = value || null;
-      }
-    });
-    dispatch(orderAction.setDtoURL(query));
+      searchParams.forEach((value, key) => {
+        if (key === 'my') {
+          query.my = value === 'true';
+        } else if (['page', 'limit', 'alreadyPaid', 'age', 'sum'].includes(key)) {
+          const num = Number(value);
+          (query as any)[key] = !isNaN(num) ? num : null;
+        } else if (validKeys.includes(key)) {
+          (query as any)[key] = value || null;
+        }
+      });
+      dispatch(orderAction.setDtoURL(query));
+    dispatch(orderAction.loadOrdersAll(query));
+      paramsRef.current = true;
+
   }, [searchParams]);
 
   useEffect(() => {
+    if (!paramsRef.current) return;
     const query: Record<string, string> = {};
     for (const key in dto) {
       const value = dto[key as keyof ListOrdersAllDto];
@@ -41,7 +46,6 @@ const OrdersAllPage = () => {
       }
     }
     setSearchParams(query);
-    dispatch(orderAction.loadOrdersAll(dto));
   }, [dto]);
 
 
