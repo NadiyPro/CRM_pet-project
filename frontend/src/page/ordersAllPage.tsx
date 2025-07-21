@@ -12,7 +12,6 @@ const OrdersAllPage = () => {
   const {dto} = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-  const paramsRef = useRef(false);
 
   useEffect(() => {
       const query: ListOrdersAllDto = { ...dto };
@@ -29,14 +28,12 @@ const OrdersAllPage = () => {
           (query as any)[key] = value || null;
         }
       });
-      dispatch(orderAction.setDtoURL(query));
+    dispatch(orderAction.setDtoURL(query));
     dispatch(orderAction.loadOrdersAll(query));
-      paramsRef.current = true;
 
   }, [searchParams]);
 
   useEffect(() => {
-    if (!paramsRef.current) return;
     const query: Record<string, string> = {};
     for (const key in dto) {
       const value = dto[key as keyof ListOrdersAllDto];
