@@ -2,7 +2,7 @@ import OrdersFiltersComponent from '../components/ordersComponents/orderFilters.
 import OrdersTableComponent from '../components/ordersComponents/ordersTable.component';
 import PaginationComponent from '../components/ordersComponents/pagination.component';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { orderAction } from '../redux/slices/orderSlice';
 import '../styles/styles.scss';
 import { useSearchParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ const OrdersAllPage = () => {
 
   useEffect(() => {
       const query: ListOrdersAllDto = { ...dto };
-
+      // створюємо копію, щоб поки не змінювати dto (потім зчитаємо та змінемо)
       const validKeys = Object.keys(query); // перевіряємо чи такий ключ існує
 
       searchParams.forEach((value, key) => {
@@ -27,11 +27,10 @@ const OrdersAllPage = () => {
         } else if (validKeys.includes(key)) {
           (query as any)[key] = value || null;
         }
-      });
-    dispatch(orderAction.setDtoURL(query));
-    dispatch(orderAction.loadOrdersAll(query));
-
-  }, [searchParams]);
+      }); // зчитуємо dto з url
+    dispatch(orderAction.setDtoURL(query)); // оновлюємо dto в redux
+    dispatch(orderAction.loadOrdersAll(query)); // запит, щоб оновити дані на сторінці
+  }, [searchParams]); // для зчитування з url (url - redux - запит)
 
   useEffect(() => {
     const query: Record<string, string> = {};
@@ -44,7 +43,8 @@ const OrdersAllPage = () => {
     }
     setSearchParams(query);
   }, [dto]);
-
+  // для переходу по кнопкам(пагінація, фільтри),
+  // йдемо в redux дістаємо там ключ - значення і оновлюємо url
 
   return(
     <div className={'divMainLayout__outlet__ordersAllPage'}>
