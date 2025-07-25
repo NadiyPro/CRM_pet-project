@@ -30,7 +30,7 @@ const AuthPasswordPage = () => {
     })).unwrap();
 
     if (isValidPassword) {
-      navigate('/orders');
+      navigate('/auth/login');
     } else {
       reset();
     }
