@@ -22,7 +22,6 @@ import { ActivatePasswordReqDto } from './models/dto/req/activatePassword.req.dt
 import { AuthUserResDto } from './models/dto/res/auth_user.res.dto';
 import { TokenPairResDto } from './models/dto/res/token_pair.res.dto';
 import { JwtRefreshGuard } from './guards/jwt_refresh.guard';
-import { CustomErrorUnauthorized } from './customErrorUnauthorized/customErrorUnauthorized';
 
 @ApiTags(TableNameEnum.AUTH)
 @Controller(TableNameEnum.AUTH)
