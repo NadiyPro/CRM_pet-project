@@ -50,7 +50,6 @@ const OrdersStatisticManager = () => {
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__statistic'}>
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Total:</b> {userStatistic?.total ?? 0}</p>
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>In Work:</b> {userStatistic?.In_work ?? 0}</p>
-                <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>New:</b> {userStatistic?.New ?? 0}</p>
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Agreed:</b> {userStatistic?.Aggre ?? 0}</p>
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Disagreed:</b> {userStatistic?.Disaggre ?? 0}</p>
                 <p className={'divMainLayout__outlet__adminPage__ordersStatisticManager__cards__p'}><b>Dubbing:</b> {userStatistic?.Dubbing ?? 0}</p>

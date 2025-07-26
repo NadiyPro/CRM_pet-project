@@ -296,6 +296,11 @@ html, body {
               transform: translate(4px, 4px);
               box-shadow: none;
             }
+
+            &__checkbox[type='checkbox']{
+              height: 2vh;
+              width: 2vw;
+            }
           }
         }
       }

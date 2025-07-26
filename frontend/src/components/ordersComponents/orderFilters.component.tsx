@@ -180,7 +180,7 @@ const OrdersFiltersComponent = () => {
 
         <div className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__menu__my'}>
           <label htmlFor={'myCheckbox'}>My</label>
-          <input type={'checkbox'} name={'myCheckbox'} checked={dto.my} onChange={handleMyCheckbox} />
+          <input type={'checkbox'} name={'myCheckbox'} checked={dto.my} onChange={handleMyCheckbox} className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__menu__my__checkbox'}/>
         </div>
 
         <OrderExelComponent />
