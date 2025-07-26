@@ -22,6 +22,7 @@ import { ActivatePasswordReqDto } from './models/dto/req/activatePassword.req.dt
 import { AuthUserResDto } from './models/dto/res/auth_user.res.dto';
 import { TokenPairResDto } from './models/dto/res/token_pair.res.dto';
 import { JwtRefreshGuard } from './guards/jwt_refresh.guard';
+import { CustomErrorUnauthorized } from './customErrorUnauthorized/customErrorUnauthorized';
 
 @ApiTags(TableNameEnum.AUTH)
 @Controller(TableNameEnum.AUTH)
@@ -70,9 +71,10 @@ export class AuthController {
   @Role([RoleTypeEnum.ADMIN])
   @Get('activate/:managerId')
   public async activate(
+    @CurrentUser() userData: IUserData,
     @Param('managerId') managerId: string,
   ): Promise<AuthResDto> {
-    return await this.authService.activate(managerId);
+    return await this.authService.activate(userData, managerId);
   }
 
   @ApiOperation({
@@ -101,9 +103,10 @@ export class AuthController {
   @Role([RoleTypeEnum.ADMIN])
   @Put('ban/:managerId')
   public async ban(
+    @CurrentUser() userData: IUserData,
     @Param('managerId') managerId: string,
   ): Promise<AuthUserResDto> {
-    return await this.authService.ban(managerId);
+    return await this.authService.ban(userData, managerId);
   }
 
   @ApiOperation({
@@ -115,9 +118,10 @@ export class AuthController {
   @Role([RoleTypeEnum.ADMIN])
   @Put('unban/:managerId')
   public async unban(
+    @CurrentUser() userData: IUserData,
     @Param('managerId') managerId: string,
   ): Promise<AuthUserResDto> {
-    return await this.authService.unban(managerId);
+    return await this.authService.unban(userData, managerId);
   }
 
   @ApiOperation({

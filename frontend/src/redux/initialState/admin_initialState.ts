@@ -14,7 +14,6 @@ export const initialStateAdmin : AdminSliceInterface = {
     manager: '',
     total: 0,
     In_work: 0,
-    New: 0,
     Aggre: 0,
     Disaggre: 0,
     Dubbing: 0,

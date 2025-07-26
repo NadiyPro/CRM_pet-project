@@ -15,7 +15,7 @@ const loadBanUser = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;
-      thunkAPI.dispatch(adminAction.setIsBanUser({ text: 'Помилка. Перевірте права доступу (доступ лише для ролі admin)', type: 'error', id: managerId }));
+      thunkAPI.dispatch(adminAction.setIsBanUser({ text: 'Помилка. Перевірте права доступу', type: 'error', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsBanUser(null));
       }, 5000)

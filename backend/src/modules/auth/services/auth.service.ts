@@ -1,7 +1,7 @@
 import {
   BadRequestException,
+  ForbiddenException,
   Injectable,
-  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
@@ -101,11 +101,17 @@ export class AuthService {
     ]);
   }
 
-  public async activate(managerId: string): Promise<AuthResDto> {
+  public async activate(
+    userData: IUserData,
+    managerId: string,
+  ): Promise<AuthResDto> {
     const user = await this.userRepository.findOneBy({ id: managerId });
-    if (!user) {
-      throw new NotFoundException('User not found');
+    if (user.id === userData.userId) {
+      throw new ForbiddenException();
     }
+    // if (!user) {
+    //   throw new NotFoundException('User not found');
+    // }
 
     const tokens = await this.tokenService.generateActiveTokens({
       userId: user.id,
@@ -143,9 +149,9 @@ export class AuthService {
       TokenType.ACCESS,
     );
     let user = await this.userRepository.findOneBy({ id: payload.userId });
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
+    // if (!user) {
+    //   throw new NotFoundException('User not found');
+    // }
     if (dto.password !== dto.confirm_password) {
       throw new BadRequestException(
         'The entered password does not match the confirmation password.',
@@ -178,8 +184,14 @@ export class AuthService {
     return { user: UserMapper.toResDto(user), tokens };
   }
 
-  public async ban(managerId: string): Promise<AuthUserResDto> {
+  public async ban(
+    userData: IUserData,
+    managerId: string,
+  ): Promise<AuthUserResDto> {
     let user = await this.userRepository.findOneBy({ id: managerId });
+    if (user.id === userData.userId) {
+      throw new ForbiddenException();
+    }
     user.is_active = false;
     user = await this.userRepository.save(user);
     await this.refreshTokenRepository.delete({
@@ -188,8 +200,14 @@ export class AuthService {
     return user;
   }
 
-  public async unban(managerId: string): Promise<AuthUserResDto> {
+  public async unban(
+    userData: IUserData,
+    managerId: string,
+  ): Promise<AuthUserResDto> {
     let user = await this.userRepository.findOneBy({ id: managerId });
+    if (user.id === userData.userId) {
+      throw new ForbiddenException();
+    }
     user.is_active = true;
     user = await this.userRepository.save(user);
     return user;

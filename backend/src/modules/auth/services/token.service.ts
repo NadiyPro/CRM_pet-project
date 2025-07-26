@@ -66,8 +66,8 @@ export class TokenService {
       return await this.jwtService.verifyAsync(token, {
         secret: this.getSecret(type),
       });
-    } catch (e) {
-      throw new UnauthorizedException(e);
+    } catch {
+      throw new UnauthorizedException();
     }
   }
 
@@ -84,7 +84,8 @@ export class TokenService {
         secret = this.jwtConfig.refreshSecret;
         break;
       default:
-        throw new Error('Unknown token type');
+        // throw new Error('Unknown token type');
+        throw new UnauthorizedException();
     }
     return secret;
   }
