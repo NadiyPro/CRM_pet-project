@@ -1,5 +1,4 @@
 import {
-  BadRequestException,
   ForbiddenException,
   Injectable,
   UnauthorizedException,
@@ -153,7 +152,7 @@ export class AuthService {
     //   throw new NotFoundException('User not found');
     // }
     if (dto.password !== dto.confirm_password) {
-      throw new BadRequestException(
+      throw new UnauthorizedException(
         'The entered password does not match the confirmation password.',
       );
     }
