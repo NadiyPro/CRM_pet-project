@@ -23,6 +23,7 @@ export const orderSlice = createSlice({
     },
     setSortASCOrDESC(state, action: PayloadAction<SortASCOrDESCEnum>) {
       state.dto.sortASCOrDESC = action.payload;
+      state.dto.page = 1;
     },
     setPage(state, action: PayloadAction<number>) {
       state.dto.page = action.payload;
@@ -64,7 +65,6 @@ export const orderSlice = createSlice({
       state.isCreateGroup =  action.payload;
     },
     setDto: (state, action: PayloadAction<Partial<ListOrdersAllDto>>) => {
-      // const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page');
       const isNotPageUpdate = Object.keys(action.payload).some(key => key !== 'page' && key !== 'limit');
       // Object.keys приймає об'єкт і повертає масив ключів (name, email, page і т.п)
       // витягує список змінених полів, які ми передаємо в setDto
