@@ -1,6 +1,6 @@
 import {
   Column,
-  CreateDateColumn,
+  // CreateDateColumn,
   Entity,
   Index,
   JoinColumn,
@@ -62,7 +62,7 @@ export class OrdersEntity {
   @Column({ type: 'integer', nullable: true })
   alreadyPaid: number | null;
 
-  @CreateDateColumn({ type: 'datetime', nullable: true })
+  @Column({ type: 'datetime', nullable: true })
   created_at: Date | null;
 
   @UpdateDateColumn({ type: 'datetime', nullable: true })
