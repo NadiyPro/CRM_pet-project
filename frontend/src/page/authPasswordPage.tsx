@@ -48,7 +48,7 @@ const AuthPasswordPage = () => {
 
           <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
         </form>
-        {errorPassword && <div className="errorLogin"><p>{errorPassword}</p></div>}
+        {errorPassword && <div className={'errorLogin'}><p>{errorPassword}</p></div>}
       </div>
     </div>
   )
