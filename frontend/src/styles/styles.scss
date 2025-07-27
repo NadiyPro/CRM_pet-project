@@ -175,13 +175,21 @@ html, body {
     }
   }
 
-  .errorLogin {
-    padding: 1vw;
-    color: #6e0707;
-    background-color: rgba(209, 115, 115, 0.46);
-    text-align: center;
-    border-radius: 10px;
-  }
+  //.errorLogin {
+  //  padding: 1vw;
+  //  color: #6e0707;
+  //  background-color: rgba(209, 115, 115, 0.46);
+  //  text-align: center;
+  //  border-radius: 10px;
+  //}
+}
+
+.errorLogin {
+  padding: 1vw;
+  color: #6e0707;
+  background-color: rgba(209, 115, 115, 0.46);
+  text-align: center;
+  border-radius: 10px;
 }
 
 /*MainLayout*/
