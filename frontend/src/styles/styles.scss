@@ -648,6 +648,11 @@ html, body {
                 transform: translate(4px, 4px);
                 box-shadow: none;
               }
+
+              &:disabled {
+                background-color: grey;
+                cursor: not-allowed;
+              }
             }
 
             &__isActivateUser{
@@ -669,6 +674,11 @@ html, body {
               &:active{
                 transform: translate(4px, 4px);
                 box-shadow: none;
+              }
+
+              &:disabled {
+                background-color: grey;
+                cursor: not-allowed;
               }
             }
 

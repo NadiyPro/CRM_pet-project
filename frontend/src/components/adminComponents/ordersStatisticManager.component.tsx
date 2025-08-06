@@ -60,25 +60,25 @@ const OrdersStatisticManager = () => {
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__activate'}
-                  onClick={() => handleActive(value.id)}>
+                  onClick={() => handleActive(value.id)} disabled={!(isActivateUser && isActivateUser.id === value.id && isActivateUser.type === 'error')}>
                   {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
                 </button>
                 {isActivateUser && isActivateUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}>
-                  <p style={{ margin: '5px 0', color: isActivateUser.type === 'success' ? '#1f615c' : '#6e0707' }}>{isActivateUser.text}</p>
+                  <p style={{ margin: '5px 0', color: '#1f615c'}}>{isActivateUser.text}</p>
                 </div>}
               </div>
 
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
-                  onClick={() => handleBan(value.id)}>BAN
+                  onClick={() => handleBan(value.id)} disabled={!(isBanUser && isBanUser.id === value.id && isBanUser.type === 'error')}>BAN
                 </button>
                 {isBanUser && isBanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
                       margin: '5px 0',
-                      color: isBanUser.type === 'success' ? '#1f615c' : '#6e0707',
+                      color: '#1f615c',
                     }}>{isBanUser.text}</p>
                   </div>}
               </div>
@@ -87,13 +87,13 @@ const OrdersStatisticManager = () => {
                 className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
-                  onClick={() => handleUnban(value.id)}>UNBAN
+                  onClick={() => handleUnban(value.id)} disabled={!(isUnbanUser && isUnbanUser.id === value.id && isUnbanUser.type === 'error')}>UNBAN
                 </button>
                 { isUnbanUser && isUnbanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
                     <p style={{
                       margin: '5px 0',
-                      color: isUnbanUser.type === 'success' ? '#1f615c' : '#6e0707',
+                      color: '#1f615c',
                     }}>{isUnbanUser.text}</p>
                   </div>
                 }
