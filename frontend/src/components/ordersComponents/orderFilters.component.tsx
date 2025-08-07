@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 dayjs.extend(utc);
@@ -12,20 +12,48 @@ import { CourseFormatEnum } from '../../module/enums/courseFormatEnum';
 import { CourseTypeEnum } from '../../module/enums/courseTypeEnum';
 import '../../styles/styles.scss';
 import { SortASCOrDESCEnum } from '../../module/enums/sortASCOrDESCEnum';
+import { debounce } from 'lodash';
 
 const OrdersFiltersComponent = () => {
   const { dto } = useAppSelector((state) => state.orderStore);
   const dispatch = useAppDispatch();
+  const [localAge, setLocalAge] = useState(dto.age ? String(dto.age) : '');
+
+  const debounceAge = useCallback(
+    debounce((value: string) => {
+      const ageValue = Number(value.trim());
+      if (!/^\d+$/.test(value) || value.length < 2 || ageValue < 18 || ageValue > 100) return;
+
+      const updatedDto = { ...dto, age: ageValue };
+      dispatch(orderAction.setDto(updatedDto));
+      dispatch(orderAction.loadOrdersAll(updatedDto));
+    }, 500),
+    [dto, dispatch] // або передай dispatch і dto частково, якщо хочеш точніше
+  );
+
+// (опціонально) очищення при анмаунті
+  useEffect(() => {
+    return () => {
+      debounceAge.cancel();
+    };
+  }, [debounceAge]);
 
   const handleSearchChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    field: SortFieldEnum | 'created_at_from' | 'created_at_to') => {
+    field: SortFieldEnum | 'created_at_from' | 'created_at_to'
+  ) => {
     const value = e.target.value;
+
+    if (field === SortFieldEnum.AGE) {
+      setLocalAge(value);
+      debounceAge(value);
+      return;
+    }
+
     const updatedDto = {
       ...dto,
-      [field]: value || undefined, // Порожнє значення не фільтруємо
+      [field]: value || undefined,
     };
-
     dispatch(orderAction.setDto(updatedDto));
     dispatch(orderAction.loadOrdersAll(updatedDto));
   };
@@ -63,74 +91,85 @@ const OrdersFiltersComponent = () => {
     <div className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent'}>
       <form className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form'}>
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.NAME}
-          value={(dto.name ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
-          placeholder="Name"
+               type="text" name={SortFieldEnum.NAME}
+               value={(dto.name ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.NAME)}
+               placeholder="Name"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.SURNAME}
-          value={(dto.surname ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
-          placeholder="Surname"
+               type="text" name={SortFieldEnum.SURNAME}
+               value={(dto.surname ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.SURNAME)}
+               placeholder="Surname"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.EMAIL}
-          value={(dto.email ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
-          placeholder="Email"
+               type="text" name={SortFieldEnum.EMAIL}
+               value={(dto.email ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.EMAIL)}
+               placeholder="Email"
         />
 
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.PHONE}
-          value={(dto.phone ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
-          placeholder="Phone"
+               type="text" name={SortFieldEnum.PHONE}
+               value={(dto.phone ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.PHONE)}
+               placeholder="Phone"
+        />
+
+        <div>
+          <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
+                 type="text" name={SortFieldEnum.AGE}
+                 // value={dto.age ?? ''}
+                 value={localAge}
+                 onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
+                 placeholder="Age"
+          />
+        </div>
+
+        {/*<input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}*/}
+        {/*  type="number" name={SortFieldEnum.AGE}*/}
+        {/*  value={dto.age ?? ''}*/}
+        {/*  onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}*/}
+        {/*  placeholder="Age" min={18} max={100}*/}
+        {/*/>*/}
+
+        <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
+               type="date"
+               name="created_at_from"
+               min={'2021-01-01'}
+               value={(dto.created_at_from ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, 'created_at_from')}
+               placeholder="Created from"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="number" name={SortFieldEnum.AGE}
-          value={dto.age ?? ''}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
-          placeholder="Age" min={18} max={100}
+               type="date"
+               name="created_at_to"
+               min={'2021-01-01'}
+               value={(dto.created_at_to ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, 'created_at_to')}
+               placeholder="Created to"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="date"
-          name="created_at_from"
-          min={'2021-01-01'}
-          value={(dto.created_at_from ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, 'created_at_from')}
-          placeholder="Created from"
+               type="text" name={SortFieldEnum.GROUP_NAME}
+               value={(dto.group_name ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
+               placeholder="Group_name"
         />
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="date"
-          name="created_at_to"
-          min={'2021-01-01'}
-          value={(dto.created_at_to ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, 'created_at_to')}
-          placeholder="Created to"
+               type="text" name={SortFieldEnum.MANAGER}
+               value={(dto.manager ?? '').trim()}
+               onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
+               placeholder="Manager"
         />
 
-        <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.GROUP_NAME}
-          value={(dto.group_name ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.GROUP_NAME)}
-          placeholder="Group_name"
-        />
-
-        <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
-          type="text" name={SortFieldEnum.MANAGER}
-          value={(dto.manager ?? '').trim()}
-          onChange={(e) => handleSearchChange(e, SortFieldEnum.MANAGER)}
-          placeholder="Manager"
-        />
-
-        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.STATUS} value={dto.status ?? ''}
+        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'}
+                name={SortFieldEnum.STATUS} value={dto.status ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.STATUS)}>
           <option value="">all status</option>
           <option value={StatusEnum.IN_WORK}>{StatusEnum.IN_WORK}</option>
@@ -140,7 +179,8 @@ const OrdersFiltersComponent = () => {
           <option value={StatusEnum.DUBBING}>{StatusEnum.DUBBING}</option>
         </select>
 
-        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.COURSE} value={dto.course ?? ''}
+        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'}
+                name={SortFieldEnum.COURSE} value={dto.course ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE)}>
           <option value="">all course</option>
           <option value={CourseEnum.FS}>{CourseEnum.FS}</option>
@@ -151,14 +191,16 @@ const OrdersFiltersComponent = () => {
           <option value={CourseEnum.PCX}>{CourseEnum.PCX}</option>
         </select>
 
-        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.COURSE_FORMAT} value={dto.course_format ?? ''}
+        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'}
+                name={SortFieldEnum.COURSE_FORMAT} value={dto.course_format ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_FORMAT)}>
           <option value="">all course format</option>
           <option value={CourseFormatEnum.STATIC}>{CourseFormatEnum.STATIC}</option>
           <option value={CourseFormatEnum.ONLINE}>{CourseFormatEnum.ONLINE}</option>
         </select>
 
-        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'} name={SortFieldEnum.COURSE_TYPE} value={dto.course_type ?? ''}
+        <select className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__select'}
+                name={SortFieldEnum.COURSE_TYPE} value={dto.course_type ?? ''}
                 onChange={(e) => handleSearchChange(e, SortFieldEnum.COURSE_TYPE)}>
           <option value="">all course type</option>
           <option value={CourseTypeEnum.PRO}>{CourseTypeEnum.PRO}</option>
