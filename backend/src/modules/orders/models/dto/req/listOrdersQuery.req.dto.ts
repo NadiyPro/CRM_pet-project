@@ -40,7 +40,7 @@ export class ListOrdersQueryReqDto {
 
   @IsOptional()
   @IsString()
-  @Length(3, 12)
+  @Length(0, 12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   phone?: string | null;
 
@@ -91,12 +91,12 @@ export class ListOrdersQueryReqDto {
 
   @IsOptional()
   @IsString()
-  @Length(3, 50)
+  @Length(0, 50)
   group_name?: string | null;
 
   @IsOptional()
   @IsString()
-  @Length(3, 50)
+  @Length(0, 50)
   manager?: string | null;
 
   @IsOptional()

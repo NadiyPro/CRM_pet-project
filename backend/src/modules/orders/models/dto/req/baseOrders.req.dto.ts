@@ -36,7 +36,7 @@ export class BaseOrdersReqDto {
 
   @ApiProperty({ example: '380123456789' })
   @IsString()
-  @Length(12)
+  @Length(0, 12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   @Matches(/^380\d{9}$/)
   phone?: string | null;

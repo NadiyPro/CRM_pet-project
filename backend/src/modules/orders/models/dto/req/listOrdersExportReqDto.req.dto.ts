@@ -40,7 +40,7 @@ export class ListOrdersExportReqDto {
 
   @IsOptional()
   @IsString()
-  @Length(3, 12)
+  @Length(0, 12)
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))
   phone?: string | null;
 
@@ -91,12 +91,12 @@ export class ListOrdersExportReqDto {
 
   @IsOptional()
   @IsString()
-  @Length(3, 50)
+  @Length(0, 50)
   group_name?: string | null;
 
   @IsOptional()
   @IsString()
-  @Length(3, 50)
+  @Length(0, 50)
   manager?: string | null;
 
   @IsOptional()
@@ -114,20 +114,6 @@ export class ListOrdersExportReqDto {
     { message: 'created_at_to повинен бути в форматі YYYY-MM-DD' },
   )
   created_at_to?: string | null;
-
-  // @IsOptional()
-  // @IsString()
-  // @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
-  //   message: 'created_at_from повинен бути в форматі DD.MM.YYYY',
-  // })
-  // created_at_from?: string | null;
-  //
-  // @IsOptional()
-  // @IsString()
-  // @Matches(/^\d{2}\.\d{2}\.\d{4}$/, {
-  //   message: 'created_at_to повинен бути в форматі DD.MM.YYYY',
-  // })
-  // created_at_to?: string | null;
 
   @IsOptional()
   @Transform(({ value }) => TransformHelper.trim({ value: value as string }))

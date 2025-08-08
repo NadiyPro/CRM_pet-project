@@ -30,17 +30,18 @@ const AdminPage = () => {
 
     dispatch(adminAction.setDto(query));
     dispatch(adminAction.loadUsersAll(query));
+  }, [searchParams]);
 
-    // оновлюємо url
+  useEffect(() => {
     const urlQuery: Record<string, string> = {};
-    for (const key in query) {
-      const value = query[key as keyof ListUsersQueryDto];
+    for (const key in dto) {
+      const value = dto[key as keyof ListUsersQueryDto];
       if (value !== null && value !== undefined) {
         urlQuery[key] = String(value);
       }
     }
     setSearchParams(urlQuery);
-  }, []);
+  }, [dto]);
 
   return(
     <div className={'divMainLayout__outlet__adminPage'}>
