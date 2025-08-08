@@ -41,8 +41,14 @@ export class OrdersService {
     return await this.ordersRepository.findAllExport(userData, query);
   }
 
-  public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
-    return await this.ordersRepository.ordersStatisticAll();
+  public async ordersStatisticAll(
+    userData: IUserData,
+  ): Promise<OrdersStatisticAllResDto> {
+    const satistic = await this.ordersRepository.ordersStatisticAll();
+    return {
+      ...satistic,
+      roleAuth: userData.role,
+    };
   }
 
   public async ordersStatisticManager(): Promise<OrdersStatisticResDto[]> {

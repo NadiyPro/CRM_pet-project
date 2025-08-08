@@ -157,8 +157,10 @@ export class OrdersController {
   @UseGuards(ApprovedRoleGuard)
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get('ordersStatisticAll')
-  public async ordersStatisticAll(): Promise<OrdersStatisticAllResDto> {
-    return await this.ordersService.ordersStatisticAll();
+  public async ordersStatisticAll(
+    @CurrentUser() userData: IUserData,
+  ): Promise<OrdersStatisticAllResDto> {
+    return await this.ordersService.ordersStatisticAll(userData);
   }
 
   @ApiOperation({

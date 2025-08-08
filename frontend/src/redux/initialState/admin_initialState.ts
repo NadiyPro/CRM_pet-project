@@ -3,6 +3,7 @@ import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
 
 export const initialStateAdmin : AdminSliceInterface = {
   ordersStatisticAll: {
+    roleAuth: RoleTypeEnum.MANAGER,
     total: 0,
     In_work: 0,
     New: 0,
