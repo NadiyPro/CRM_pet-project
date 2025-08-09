@@ -47,7 +47,7 @@ export class ListOrdersExportReqDto {
   @IsOptional()
   @Type(() => Number)
   @IsInt()
-  @Min(18)
+  @Min(12)
   @Max(100)
   age?: number | null;
 

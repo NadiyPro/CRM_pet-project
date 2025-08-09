@@ -44,7 +44,7 @@ export class BaseOrdersReqDto {
   @ApiProperty({ example: 30 })
   @Type(() => Number)
   @IsInt()
-  @Min(18)
+  @Min(12)
   @Max(100)
   age?: number | null;
 
