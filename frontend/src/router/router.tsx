@@ -7,13 +7,14 @@ import AdminPage from '../page/adminPage';
 import AuthPasswordPage from '../page/authPasswordPage';
 import AuthRouterComponent from '../components/authComponents/authRouter.component';
 import AuthLoginPage from '../page/authLoginPage';
+import { AuthRedirect } from '../components/authComponents/authRedirect';
 
 export const router = createBrowserRouter([
   {
     path: '/',
     errorElement: <ErrorElement />,
     children: [
-      { index: true, element: <Navigate to="/auth/login" replace /> },
+      { index: true, element: <AuthRedirect/> },
 
       {
         path: 'auth',

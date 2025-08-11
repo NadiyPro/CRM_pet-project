@@ -20,40 +20,37 @@ const OrdersFiltersComponent = () => {
   const [localAge, setLocalAge] = useState<string>(dto.age ? String(dto.age) : '');
   const [errorAge, setErrorAge] = useState<boolean>(false);
 
+  useEffect(() => {
+    setLocalAge(dto.age !== null && dto.age !== undefined ? String(dto.age) : '');
+  }, [dto.age]);
+
   const debounceAge = useCallback(
     debounce((value: string) => {
       if (value === '') {
         setErrorAge(false);
-        const updatedDto = { ...dto };
-        delete updatedDto.age; // прибираємо age з фільтра
+        const updatedDto = { ...dto, age: null as number | null };
         dispatch(orderAction.setDto(updatedDto));
         dispatch(orderAction.loadOrdersAll(updatedDto));
         return;
       }
 
       const ageValue = Number(value.trim());
-      const isValid = !/^\d+$/.test(value) || value.length < 2 || ageValue < 18 || ageValue > 100;
+      const isValid = !/^\d+$/.test(value) || value.length < 2 || ageValue < 12 || ageValue > 100;
 
       if (isValid) {
         setErrorAge(true);
         return;
       }
-      // if (!/^\d+$/.test(value) || value.length < 2 || ageValue < 18 || ageValue > 100) {
-      //   setTimeout(() => {
-      //     setErrorAge(true)
-      //   },450)
-      //   return;
-      // };
 
       setErrorAge(false);
       const updatedDto = { ...dto, age: ageValue };
       dispatch(orderAction.setDto(updatedDto));
       dispatch(orderAction.loadOrdersAll(updatedDto));
     }, 500),
-    [dto, dispatch] // або передай dispatch і dto частково, якщо хочеш точніше
+    [dto, dispatch]
   );
 
-// (опціонально) очищення при анмаунті
+// очищаю, щоб не зависло значення
   useEffect(() => {
     return () => {
       debounceAge.cancel();
@@ -89,6 +86,7 @@ const OrdersFiltersComponent = () => {
       sortField: SortFieldEnum.CREATED_AT,
       sortASCOrDESC: SortASCOrDESCEnum.DESC,
       my: false,
+      age: null,
     };
 
     dispatch(orderAction.loadOrdersAll(reset));
@@ -141,12 +139,11 @@ const OrdersFiltersComponent = () => {
         <div>
           <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
                  type="text" name={SortFieldEnum.AGE}
-                 // value={dto.age ?? ''}
                  value={localAge.trim()}
                  onChange={(e) => handleSearchChange(e, SortFieldEnum.AGE)}
                  placeholder="Age"
           />
-          {errorAge && <div><p style={{color: '#6e0707', margin: '5px 0'}}>Вік від 18 до 100 років</p></div>}
+          {errorAge && <div><p style={{color: '#6e0707', margin: '5px 0'}}>Вік від 12 до 100 років</p></div>}
         </div>
 
         <input className={'divMainLayout__outlet__ordersAllPage__ordersFiltersComponent__form__input'}
