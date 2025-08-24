@@ -9,6 +9,16 @@ export const AuthRouterComponent = () => {
   const dispatch = useAppDispatch();
   const [checking, setChecking] = useState(true);
 
+  const isExpired = (token: string | null) => {
+    if (!token) return true;
+    try {
+      const { exp } = jwtDecode<{ exp: number }>(token);
+      return !exp || exp * 1000 < Date.now();
+    } catch {
+      return true;
+    }
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -20,15 +30,9 @@ export const AuthRouterComponent = () => {
       try {
         if (!accessToken && !refreshToken) return;
 
-        if (accessToken) {
-          try {
-            const { exp } = jwtDecode<{ exp: number }>(accessToken);
-            if (!exp || exp * 1000 < Date.now()) {
-              if (refreshToken) await dispatch(authAction.loadRefresh());
-            }
-          } catch {
-            if (refreshToken) await dispatch(authAction.loadRefresh());
-          }
+        // якщо access протух → пробуємо оновити
+        if (accessToken && isExpired(accessToken) && refreshToken && !isExpired(refreshToken)) {
+          await dispatch(authAction.loadRefresh());
         }
       } finally {
         if (mounted) setChecking(false);
@@ -40,16 +44,13 @@ export const AuthRouterComponent = () => {
     };
   }, [dispatch]);
 
-  if (checking) {
-    // щоб не було миготіння
-    return null;
-  }
+  if (checking) return null;
 
   const current: AuthResDto | null = JSON.parse(localStorage.getItem('tokenPair') || 'null');
-  const hasAccess = !!current?.tokens?.accessToken;
-  const hasRefresh = !!current?.tokens?.refreshToken;
+  const refreshToken = current?.tokens?.refreshToken ?? null;
 
-  if (!hasAccess && !hasRefresh) {
+  // якщо refresh токен відсутній або протух → редірект на /auth/login
+  if (!refreshToken || isExpired(refreshToken)) {
     return <Navigate to="/auth/login" replace />;
   }
 

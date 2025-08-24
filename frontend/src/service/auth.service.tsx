@@ -38,11 +38,17 @@ axiosInstance.interceptors.request.use(request => {
 
 let refreshPromise: Promise<AuthTokenDto> | null = null;
 let isRefreshing = false;
-
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError & { config?: AxiosRequestConfig & { _retry?: boolean } }) => {
     const originalRequest = error.config;
+
+    // refresh токен протермінований, то чистимо storage і редіректимо
+    if (originalRequest?.url?.includes('/auth/refresh') && error.response?.status === 401) {
+      localStorage.removeItem('tokenPair');
+      window.location.href = '/auth/login';
+      return Promise.reject(error);
+    }
 
     if (
       error.response?.status === 401 &&
@@ -57,18 +63,21 @@ axiosInstance.interceptors.response.use(
         refreshPromise = authService.refresh()
           .then((newTokens) => {
             isRefreshing = false;
-            refreshPromise = null; // 🔹 очищаємо
+            refreshPromise = null;
             return newTokens;
           })
           .catch((err) => {
-            console.log(err);
             isRefreshing = false;
             refreshPromise = null;
+
+            // refresh не валідний, чистимо storage і редіректимо
+            localStorage.removeItem('tokenPair');
+            window.location.href = '/auth/login';
+
             throw err;
           });
       }
 
-      // тут refreshPromise вже точно не null
       const newTokens = await refreshPromise!;
       originalRequest.headers['Authorization'] = 'Bearer ' + newTokens.accessToken;
 
@@ -87,7 +96,7 @@ const authService = {
   },
   refresh: async () => {
     const current = retrieveLocalStorage<AuthResDto>('tokenPair');
-    if (!current) throw new Error("No user found in localStorage during refresh");
+    if (!current) throw new Error("Error authService.refresh");
 
     const response = await axiosInstance.post<AuthTokenDto>(
       '/auth/refresh',
@@ -97,6 +106,7 @@ const authService = {
         headers: {
           Authorization: 'Bearer ' + current.tokens.refreshToken,
           'Cache-Control': 'no-cache, no-store, must-revalidate',
+          // щоб запит не кешувався і нам не видавало дані по старому токену (відповідь)
           'Pragma': 'no-cache',
           'Expires': '0',
         },
