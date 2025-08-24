@@ -212,29 +212,30 @@ export class AuthService {
     return user;
   }
 
+
   public async refresh(userData: IUserData): Promise<TokenPairResDto> {
+    // Видаляємо старі токени
     await Promise.all([
       this.authCacheService.deleteToken(userData.userId, userData.deviceId),
-      // видаляємо всі accessToken токени, збережені для цього ключа в кеші (Redis)
       this.refreshTokenRepository.delete({
         user_id: userData.userId,
         deviceId: userData.deviceId,
-      }), // видаляємо всі refreshToken,
-      // що зберігаються в базі даних для конкретного користувача та його пристрою
+      }),
     ]);
 
+    // Генеруємо нові токени
     const tokens = await this.tokenService.generateAuthTokens({
       userId: userData.userId,
       deviceId: userData.deviceId,
     });
-    // генеруємо пару токенів accessToken і refreshToken на основі userId та deviceId
+
+    // Зберігаємо нові токени
     await Promise.all([
       this.authCacheService.saveToken(
         tokens.accessToken,
         userData.userId,
         userData.deviceId,
       ),
-      // зберігаємо access токен в кеш (Redis)
       this.refreshTokenRepository.save(
         this.refreshTokenRepository.create({
           user_id: userData.userId,
@@ -243,6 +244,7 @@ export class AuthService {
         }),
       ),
     ]);
-    return tokens; // повертаємо пару токенів accessToken і refreshToken
+
+    return tokens;
   }
 }

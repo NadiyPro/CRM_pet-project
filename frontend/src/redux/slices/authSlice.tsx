@@ -3,6 +3,8 @@ import { loadLogin } from '../reducers/authLoad/loadLogin';
 import { loadLogOut } from '../reducers/authLoad/loadLogOut';
 import { loadActivatePassword } from '../reducers/authLoad/loadActivatePassword';
 import { initialStateAuth } from '../initialState/auth_initialState';
+import { loadRefresh } from '../reducers/authLoad/loadRefresh';
+
 
 export const authSlice = createSlice({
   name: 'authSlice',
@@ -15,6 +17,7 @@ export const authSlice = createSlice({
           state.isValid = action.payload;
           state.loadingLogin = false;
           state.errorLogin = null;
+          state.isValidRefresh = true;
         })
       .addCase(loadLogin.pending, (state) => {
         state.loadingLogin = true;
@@ -23,7 +26,6 @@ export const authSlice = createSlice({
       .addCase(loadLogin.rejected, (state) => {
         state.loadingLogin = false;
         state.errorLogin = 'Будь ласка, перевірте коректність введених даних.'
-        // console.error('Будь ласка, перевірте коректність введених даних:', action.payload);
         }
       )
       .addCase(
@@ -47,9 +49,24 @@ export const authSlice = createSlice({
       .addCase(loadActivatePassword.rejected, (state) => {
           state.loadingPassword = false;
           state.errorPassword = 'Будь ласка, перевірте чи збігаються password та confirm_password / термін дії посилання для реєстрації.'
-          // console.error('Помилка при введені паролю для реєстрації / зміни паролю:', action.payload);
         }
       )
+      .addCase(loadRefresh.pending, (state) => {
+        state.loadingRefresh = true;
+        state.errorLogin = null;
+      })
+      .addCase(loadRefresh.fulfilled, (state) => {
+          state.isValid = true;
+          state.isValidRefresh = true;
+          state.loadingRefresh = false;
+      }
+      )
+      .addCase(loadRefresh.rejected, (state) => {
+        state.isValid = false;
+        state.isValidRefresh = false;
+        state.loadingRefresh = false;
+      });
+
   }
 });
 
@@ -57,5 +74,6 @@ export const authAction = {
   ...authSlice.actions,
   loadLogin,
   loadLogOut,
-  loadActivatePassword
+  loadActivatePassword,
+  loadRefresh
 }

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { IsNull } from 'typeorm';
-import { Request, Response } from 'express';
+import { Request } from 'express';
 
 import { UserRepository } from '../../../infrastructure/repository/services/user.repository';
 import { UserMapper } from '../../users/service/user.mapper';
@@ -37,7 +37,7 @@ export class JwtAccessGuard implements CanActivate {
     // Якщо для методу або класу встановлений SKIP_AUTH,
     // то аутентифікація пропускається, і запит одразу дозволяється (return true).
     const request = context.switchToHttp().getRequest<Request>();
-    const response = context.switchToHttp().getResponse<Response>();
+    // const response = context.switchToHttp().getResponse<Response>();
     // дістаємо обєкт запиту (request) - це об'єкт,
     // таку як заголовки, параметри запиту, тіло запиту (body),
     // параметри маршруту (route params), тощо.
@@ -90,7 +90,7 @@ export class JwtAccessGuard implements CanActivate {
       throw new UnauthorizedException();
     }
 
-    response.locals.user = UserMapper.toIUserData(user, payload);
+    request.res.locals.user = UserMapper.toIUserData(user, payload);
     // UserMapper.toIUserData(user, payload) дані користувача перетворюються на формат,
     // зручний для передачі в наступні етапи обробки запиту
     // зберігає дані користувача, щоб вони були доступні у всьому ланцюжку обробки запиту

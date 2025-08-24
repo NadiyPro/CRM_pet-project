@@ -11,5 +11,7 @@ export const initialStateAuth: AuthSliceInterface = {
   loadingLogin: false,
   loadingPassword: false,
   errorLogin: null,
-  errorPassword: null
+  errorPassword: null,
+  isValidRefresh: false,
+  loadingRefresh: null,
 };
