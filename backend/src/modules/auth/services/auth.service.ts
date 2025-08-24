@@ -212,7 +212,6 @@ export class AuthService {
     return user;
   }
 
-
   public async refresh(userData: IUserData): Promise<TokenPairResDto> {
     // Видаляємо старі токени
     await Promise.all([
