@@ -100,14 +100,16 @@ const MessagesOrderIdComponent = () => {
               <input type={'text'} {...register('messages')} placeholder={'Comment'} />
               <button
                 className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                type={'submit'} disabled={!isValid}>SUBMIT
+                type={'submit'} disabled={!isValid}>
+                SUBMIT
               </button>
             </form>
             { createMessageError && <div><p style={{margin: 0, color: '#6e0707'}}>{createMessageError}</p></div>}
 
             <button
               className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-              onClick={handleEditOrder}>EDIT
+              onClick={handleEditOrder}>
+              EDIT
             </button>
 
           </div>
