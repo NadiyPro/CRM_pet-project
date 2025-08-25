@@ -29,7 +29,6 @@ const GiveRoleComponent = () => {
 
   return(
     <div className={'divMainLayout__outlet__adminPage__giveRoleComponent'}>
-      {/*className={'divMainLayout__outlet__adminPage__giveRoleComponent__button'}*/}
       <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
          type={'button'} onClick={handleRoleModalOpen} disabled={ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN}>
         CREATE
