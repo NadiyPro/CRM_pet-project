@@ -4,10 +4,12 @@ import { GiveRoleDto } from '../../module/admin_dto/giveRole.dto';
 import { joiResolver } from '@hookform/resolvers/joi';
 import giveRoleValidator from '../../validator/giveRole.validator';
 import { adminAction } from '../../redux/slices/adminSlice';
+import { RoleTypeEnum } from '../../module/enums/roleTypeEnum';
 
 const GiveRoleComponent = () => {
-  const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)})
-  const {statusGiveRole, isGiveRoleModalOpen, dto } = useAppSelector((state) => state.adminStore)
+  const {handleSubmit, register, reset, formState:{isValid}} = useForm<GiveRoleDto>({mode: 'all', resolver: joiResolver(giveRoleValidator)});
+  const {statusGiveRole, isGiveRoleModalOpen, dto } = useAppSelector((state) => state.adminStore);
+  const { ordersStatisticAll } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
   const handleRole = async (dtoRole:GiveRoleDto) => {
@@ -27,7 +29,11 @@ const GiveRoleComponent = () => {
 
   return(
     <div className={'divMainLayout__outlet__adminPage__giveRoleComponent'}>
-      <button className={'divMainLayout__outlet__adminPage__giveRoleComponent__button'} type={'button'} onClick={handleRoleModalOpen}>CREATE</button>
+      {/*className={'divMainLayout__outlet__adminPage__giveRoleComponent__button'}*/}
+      <button className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
+         type={'button'} onClick={handleRoleModalOpen} disabled={ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN}>
+        CREATE
+      </button>
 
       {isGiveRoleModalOpen && (
         <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen'}>

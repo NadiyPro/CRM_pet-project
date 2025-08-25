@@ -37,11 +37,15 @@ axiosInstance.interceptors.request.use(request => {
 });
 
 let refreshPromise: Promise<AuthTokenDto> | null = null;
+// зберігається запит на оновлення токену, щоб уникнути дублюючих запитів,
+// refreshPromise може бути AuthTokenDto або null і початкове значення задаємо = null
 let isRefreshing = false;
+// щоб не дублювати запит, а перевіряти чи зараз виконується оновлення токену
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error: AxiosError & { config?: AxiosRequestConfig & { _retry?: boolean } }) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config; // зберігаємо оригінальний запит
 
     // refresh токен протермінований, то чистимо storage і редіректимо
     if (originalRequest?.url?.includes('/auth/refresh') && error.response?.status === 401) {
@@ -85,6 +89,7 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
+    // якщо інші помилки, то ми їх прокидуємо далі (ловимо 401, інші просто далі прокидуємо)
   }
 );
 
