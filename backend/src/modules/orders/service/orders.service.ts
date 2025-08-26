@@ -72,7 +72,7 @@ export class OrdersService {
       where: { id: userData.userId },
     });
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('User not found');
     }
 
     const order = this.ordersRepository.create({
@@ -147,7 +147,7 @@ export class OrdersService {
     });
 
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('User not found');
     }
 
     const order = await this.ordersRepository.findOne({
@@ -156,7 +156,7 @@ export class OrdersService {
     });
 
     if (!order) {
-      throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('Order not found');
     }
 
     if (order.status !== StatusEnum.NEW && order.status !== null) {
@@ -196,7 +196,7 @@ export class OrdersService {
     });
 
     if (!order) {
-      throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
+      throw new NotFoundException('Order not found');
     }
 
     return OrdersMapper.toResDto(order, userData);
