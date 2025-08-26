@@ -58,7 +58,7 @@ export class OrdersController {
     @Query() query: ListOrdersQueryReqDto,
   ): Promise<ListOrdersResQueryDto> {
     const [entities, total] = await this.ordersService.findAll(userData, query);
-    return OrdersMapper.toAllResDtoList(entities, total, query);
+    return OrdersMapper.toAllResDtoList(entities, total, query, userData);
   }
 
   @ApiOperation({
@@ -242,9 +242,10 @@ export class OrdersController {
   @Role([RoleTypeEnum.ADMIN, RoleTypeEnum.MANAGER])
   @Get(':orderId')
   public async findOneOrder(
+    @CurrentUser() userData: IUserData,
     @Param('orderId', ParseIntPipe) orderId: number,
   ): Promise<BaseOrdersResDto> {
-    return await this.ordersService.findOneOrder(orderId);
+    return await this.ordersService.findOneOrder(userData, orderId);
   }
 
   @ApiOperation({

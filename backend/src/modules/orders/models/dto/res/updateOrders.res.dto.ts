@@ -21,6 +21,7 @@ export interface UpdateOrdersResDto {
   created_at: Date | null;
   updated_at?: Date | null;
   manager: UserOrderResDto | null;
+  authManager: string | null;
   group_id: number | null;
   group_name: string | null;
   messages: MessageEntity[] | null;

@@ -100,7 +100,7 @@ const MessagesOrderIdComponent = () => {
               <input type={'text'} {...register('messages')} placeholder={'Comment'} />
               <button
                 className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-                type={'submit'} disabled={!isValid}>
+                type={'submit'} disabled={!isValid || (findOneOrder.manager !== findOneOrder.authManager)}>
                 SUBMIT
               </button>
             </form>
@@ -108,7 +108,7 @@ const MessagesOrderIdComponent = () => {
 
             <button
               className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__button'}
-              onClick={handleEditOrder}>
+              onClick={handleEditOrder} disabled={findOneOrder.manager !== findOneOrder.authManager}>
               EDIT
             </button>
 

@@ -14,7 +14,6 @@ export interface OrderSliceInterface {
   };
   dataExel: string;
   findOneOrder: BaseOrdersDto;
-  // findOneOrderError: string | null;
   loadingExel: boolean;
   exportSuccess: TypeTextDto | null;
   messagesOrderId: MessageResDto[];
@@ -31,7 +30,6 @@ export interface OrderSliceInterface {
   isCreateGroup: boolean;
   isDuplicate: boolean;
   isGroupOrder: TypeTextDto | null;
-  // isGroupOrder: boolean;
   isNoGroup: boolean;
   isUpdateEditOrder: TypeTextDto | null;
 }

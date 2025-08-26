@@ -5,9 +5,13 @@ import { ListOrdersResQueryDto } from '../models/dto/res/listOrdersQuery.res.dto
 import { UpdateOrdersResDto } from '../models/dto/res/updateOrders.res.dto';
 import { UserEntity } from '../../../infrastructure/mysql/entities/user.entity';
 import { UserOrderResDto } from '../models/dto/res/userOrder.res.dto';
+import { IUserData } from '../../auth/models/interfaces/user_data.interface';
 
 export class OrdersMapper {
-  public static toResDto(order: OrdersEntity): BaseOrdersResDto {
+  public static toResDto(
+    order: OrdersEntity,
+    userData: IUserData,
+  ): BaseOrdersResDto {
     return {
       id: order.id,
       name: order.name,
@@ -24,6 +28,7 @@ export class OrdersMapper {
       created_at: order.created_at,
       updated_at: order.updated_at,
       manager: order.manager?.surname ?? null,
+      authManager: userData.surname ?? null,
       group_id: order?.group_id ?? null,
       group_name: order?.group_name ?? null,
       messages: order.messages ?? null,
@@ -36,9 +41,10 @@ export class OrdersMapper {
     orders: OrdersEntity[],
     total: number,
     query: ListUsersQueryReqDto,
+    userData: IUserData,
   ): ListOrdersResQueryDto {
     return {
-      orders: orders.map((order) => this.toResDto(order)),
+      orders: orders.map((order) => this.toResDto(order, userData)),
       total,
       ...query,
     };
@@ -46,6 +52,7 @@ export class OrdersMapper {
 
   public static toUpdatedOrderResDto(
     updatedOrder: OrdersEntity,
+    userData: IUserData,
   ): UpdateOrdersResDto {
     return {
       id: updatedOrder.id,
@@ -65,6 +72,7 @@ export class OrdersMapper {
       manager: updatedOrder.manager
         ? this.toUserOrderResDto(updatedOrder.manager)
         : null,
+      authManager: userData.surname ?? null,
       group_id: updatedOrder?.group_id ?? null,
       group_name: updatedOrder?.group_name ?? null,
       messages: updatedOrder.messages ?? null,

@@ -29,7 +29,6 @@ export const initialStateOrder: OrderSliceInterface = {
     sortASCOrDESC: SortASCOrDESCEnum.DESC,
     my: false,
   },
-  // findOneOrderError: null,
   findOneOrder: {
     id: null,
     name: null,
@@ -46,6 +45,7 @@ export const initialStateOrder: OrderSliceInterface = {
     created_at: null,
     updated_at: null,
     manager: null,
+    authManager: null,
     group_id: null,
     group_name: null,
     messages: null,
@@ -80,6 +80,7 @@ export const initialStateOrder: OrderSliceInterface = {
     created_at: null,
     updated_at: null,
     manager: null,
+    authManager: null,
     group_id: null,
     group_group_name: null,
     messages: [],
@@ -102,7 +103,6 @@ export const initialStateOrder: OrderSliceInterface = {
   isCreateGroup: false,
   isDuplicate: false,
   isGroupOrder: null,
-  // isGroupOrder: false,
   isNoGroup: false,
   isUpdateEditOrder: null
 };

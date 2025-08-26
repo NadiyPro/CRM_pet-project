@@ -20,6 +20,7 @@ export interface BaseOrdersResDto {
   created_at: Date | null;
   updated_at: Date | null;
   manager: string | null;
+  authManager: string | null;
   group_id: number | null;
   group_name: string | null;
   messages: MessageEntity[] | null;

@@ -183,10 +183,13 @@ export class OrdersService {
       );
     }
 
-    return OrdersMapper.toUpdatedOrderResDto(updatedOrder);
+    return OrdersMapper.toUpdatedOrderResDto(updatedOrder, userData);
   }
 
-  public async findOneOrder(orderId: number): Promise<BaseOrdersResDto> {
+  public async findOneOrder(
+    userData: IUserData,
+    orderId: number,
+  ): Promise<BaseOrdersResDto> {
     const order = await this.ordersRepository.findOne({
       where: { id: orderId },
       relations: ['manager', 'messages'],
@@ -196,7 +199,7 @@ export class OrdersService {
       throw new HttpException('Order not found', HttpStatus.NOT_FOUND);
     }
 
-    return OrdersMapper.toResDto(order);
+    return OrdersMapper.toResDto(order, userData);
   }
 
   public async deleteId(orderId: number): Promise<string> {
