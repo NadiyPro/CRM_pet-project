@@ -48,6 +48,7 @@ export class OrdersService {
     return {
       ...satistic,
       roleAuth: userData.role,
+      userIdAuth: userData.userId,
     };
   }
 

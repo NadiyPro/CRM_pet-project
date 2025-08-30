@@ -2,6 +2,7 @@ import { RoleTypeEnum } from "../enums/roleTypeEnum";
 
 export interface OrdersStatisticAllDto {
   roleAuth: RoleTypeEnum;
+  userIdAuth: string;
   total: number | null;
   In_work: number | null;
   New: number | null;

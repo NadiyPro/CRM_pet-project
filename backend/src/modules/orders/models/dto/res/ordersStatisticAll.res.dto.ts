@@ -2,6 +2,7 @@ import { RoleTypeEnum } from '../../../../../infrastructure/mysql/entities/enums
 
 export interface OrdersStatisticAllResDto {
   roleAuth: RoleTypeEnum;
+  userIdAuth: string;
   total: number | null;
   In_work: number | null;
   New: number | null;

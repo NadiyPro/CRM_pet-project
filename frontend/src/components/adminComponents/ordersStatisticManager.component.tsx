@@ -62,7 +62,7 @@ const OrdersStatisticManager = () => {
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__activate'}
-                  onClick={() => handleActive(value.id)} disabled={ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN}>
+                  onClick={() => handleActive(value.id)} disabled={(ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN) || (ordersStatisticAll.userIdAuth === value.id)}>
                   {value.is_active ? 'RECOVERY PASSWORD' : 'ACTIVATE'}
                 </button>
                 {isActivateUser && isActivateUser.id === value.id &&
@@ -74,7 +74,7 @@ const OrdersStatisticManager = () => {
               <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
-                  onClick={() => handleBan(value.id)} disabled={ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN}>BAN
+                  onClick={() => handleBan(value.id)} disabled={(ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN) || (ordersStatisticAll.userIdAuth === value.id)}>BAN
                 </button>
                 {isBanUser && isBanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
@@ -89,7 +89,7 @@ const OrdersStatisticManager = () => {
                 className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban'}>
                 <button
                   className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__banUnban'}
-                  onClick={() => handleUnban(value.id)} disabled={ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN}>UNBAN
+                  onClick={() => handleUnban(value.id)} disabled={(ordersStatisticAll.roleAuth !== RoleTypeEnum.ADMIN) || (ordersStatisticAll.userIdAuth === value.id)} >UNBAN
                 </button>
                 { isUnbanUser && isUnbanUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divBanUnban__isBanUnban'}>
