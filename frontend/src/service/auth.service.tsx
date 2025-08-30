@@ -78,7 +78,8 @@ axiosInstance.interceptors.response.use(
       }
 
       const newTokens = await refreshPromise!;
-      originalRequest.headers['Authorization'] = 'Bearer ' + newTokens.accessToken;
+      originalRequest.headers.set('Authorization', 'Bearer ' + newTokens.accessToken);
+      // originalRequest.headers['Authorization'] = 'Bearer ' + newTokens.accessToken;
 
       return axiosInstance(originalRequest);
     }
