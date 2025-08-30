@@ -10,11 +10,6 @@ export const axiosInstance = axios.create({
   // baseURL: 'http://localhost:3000',
   withCredentials: true,
 });
-// axiosInstance.interceptors.request.use(request => {
-//   if(localStorage.getItem('tokenPair') && request.url !== '/auth/login' && request.url !== '/auth/refresh' && request.url !== '/auth/activate')
-//     request.headers.set('Authorization', 'Bearer ' + retrieveLocalStorage<AuthResDto>('tokenPair').tokens.accessToken);
-//   return request;
-// });
 
 axiosInstance.interceptors.request.use(request => {
   const pair = retrieveLocalStorage<AuthResDto>('tokenPair');
@@ -23,14 +18,14 @@ axiosInstance.interceptors.request.use(request => {
   const url = request.url || '';
 
   if (!url.includes('/auth/login') && !url.includes('/auth/refresh') && !url.includes('/auth/activate')) {
-    request.headers['Authorization'] = 'Bearer ' + pair.tokens.accessToken;
+    request.headers.set('Authorization', 'Bearer ' + pair.tokens.accessToken);
   }
 
   if (url.includes('/auth/refresh')) {
-    request.headers['Authorization'] = 'Bearer ' + pair.tokens.refreshToken;
-    request.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate';
-    request.headers['Pragma'] = 'no-cache';
-    request.headers['Expires'] = '0';
+    request.headers.set('Authorization', 'Bearer ' + pair.tokens.refreshToken);
+    request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+    request.headers.set('Pragma', 'no-cache');
+    request.headers.set('Expires', '0');
   }
 
   return request;
