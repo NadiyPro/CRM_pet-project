@@ -22,7 +22,7 @@ axiosInstance.interceptors.request.use(request => {
 
   const url = request.url || '';
 
-  if (!url.includes('/auth/login') && !url.includes('/auth/refresh')) {
+  if (!url.includes('/auth/login') && !url.includes('/auth/refresh') && !url.includes('/auth/activate')) {
     request.headers['Authorization'] = 'Bearer ' + pair.tokens.accessToken;
   }
 
