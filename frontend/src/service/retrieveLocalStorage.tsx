@@ -1,10 +1,10 @@
 const retrieveLocalStorage = <T, > (key:string) => {
-  const pairJSON = localStorage.getItem(key) || '';
-  if(!pairJSON){
+  const pair = localStorage.getItem(key) || '';
+  if(!pair){
     return {} as T;
   }
-  const pair = JSON.parse(pairJSON);
-  return pair as T;
+  const pairJSON = JSON.parse(pair);
+  return pairJSON as T;
 };
 
 export {retrieveLocalStorage};
