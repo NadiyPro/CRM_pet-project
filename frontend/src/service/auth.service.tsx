@@ -36,26 +36,40 @@ let refreshPromise: Promise<AuthTokenDto> | null = null;
 // refreshPromise може бути AuthTokenDto або null і початкове значення задаємо = null
 let isRefreshing = false;
 // щоб не дублювати запит, а перевіряти чи зараз виконується оновлення токену
+// щоб якщо ми в один момент отримаємо 5 різних запитів з помилкою 401,
+// щоб вони не викликали оновлення рефрешу 100500 разів,
+// а чекали поки оновляться токени по першому запиту
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  async (error: AxiosError & { config?: AxiosRequestConfig & { _retry?: boolean } }) => {
+  async (error: AxiosError & { config?: AxiosRequestConfig & { retry?: boolean } }) => {
+    // error.config - оригінальний конфіг запиту, який зберігає axios (урл, метод, хедери, тіло тощо)
+    // retry?: boolean - додаю кастомне поле, щоб запити на refresh не були циклічні,
+    // якщо refresh токен протерміновано і нам знову видасть 401 то виходимо на /auth/login,
+    // а не робимо 100500 циклічних запитів
+
     const originalRequest = error.config; // зберігаємо оригінальний запит
 
-    // refresh токен протермінований, то чистимо storage і редіректимо
-    if (originalRequest?.url?.includes('/auth/refresh') && error.response?.status === 401) {
+    // якщо ми йдемо на запит refresh токена і отримуємо там 401 (рефреш токен протермінований) то чистимо локальне сховище і виконуємо редірект на '/auth/login'
+    if (originalRequest?.url === '/auth/refresh' && error.response?.status === 401) {
       localStorage.removeItem('tokenPair');
       window.location.href = '/auth/login';
       return Promise.reject(error);
+      // тут ми кажемо, що запит закінчився помилкою, щоб axios не сварився
     }
 
+    // якщо ми отимуємо помилку 401 і ця помилка виникає при запиті НЕ на refresh токен, а на інший якийсь запит (наприклад на /orders)
+    // то кажемо, що робимо новий запит authService.refresh() на отимання пари токенів
+    // потім нновий access токен підставляємо в хедер і виконуємо запит новий
     if (
       error.response?.status === 401 &&
       originalRequest &&
-      !originalRequest._retry &&
-      !(originalRequest.url?.includes('/auth/refresh'))
+      (originalRequest.url !=='/auth/refresh') &&
+      !originalRequest.retry
+      // якщо ми ще не виконували запиту з новою парою токенів отриманих від рефреш запиту,
+      // щоб не робити нескінченний цикл повторних запитів оки не завершився попередній
     ) {
-      originalRequest._retry = true;
+      originalRequest.retry = true;
 
       if (!isRefreshing) {
         isRefreshing = true;
@@ -97,13 +111,11 @@ const authService = {
   },
   refresh: async () => {
     const current = retrieveLocalStorage<AuthResDto>('tokenPair');
-    if (!current) throw new Error("Error authService.refresh");
 
     const response = await axiosInstance.post<AuthTokenDto>(
       '/auth/refresh',
       {},
       {
-
         headers: {
           Authorization: 'Bearer ' + current.tokens.refreshToken,
           'Cache-Control': 'no-cache, no-store, must-revalidate',
