@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -40,6 +41,7 @@ export class AuthController {
   })
   @SkipAuth()
   @Post('login')
+  @HttpCode(200)
   public async login(@Body() dto: LoginReqDto): Promise<AuthResDto> {
     return await this.authService.login(dto);
   }

@@ -159,7 +159,7 @@ export const orderSlice = createSlice({
         state.editOrder = action.payload;
       })
       .addCase(loadEditOrder.rejected, (state, action) => {
-          console.error('Помилка при редагувані заявки:', action.payload);
+          console.error('Помилка при редагувані заявки', action.error?.message || action.error);
         }
       )
       .addCase(loadCreateGroup.fulfilled, (state, action) => {
