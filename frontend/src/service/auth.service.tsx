@@ -33,7 +33,6 @@ axiosInstance.interceptors.request.use(request => {
 
 let refreshPromise: Promise<AuthTokenDto> | null = null;
 // зберігається запит на оновлення токену, щоб уникнути дублюючих запитів,
-// refreshPromise може бути AuthTokenDto або null і початкове значення задаємо = null
 let isRefreshing = false;
 // щоб не дублювати запит, а перевіряти чи зараз виконується оновлення токену
 // щоб якщо ми в один момент отримаємо 5 різних запитів з помилкою 401,
@@ -73,7 +72,7 @@ axiosInstance.interceptors.response.use(
 
       if (!isRefreshing) {
         isRefreshing = true;
-        refreshPromise = authService.refresh()
+        refreshPromise = authService.refresh() //зберігаємо, ще не завершений асинхронний запит (тобто всі запити на рефреш чекають на результат поточнного рефреш запиту)
           .then((newTokens) => {
             isRefreshing = false;
             refreshPromise = null;
@@ -92,6 +91,7 @@ axiosInstance.interceptors.response.use(
       }
 
       const newTokens = await refreshPromise!;
+      // await ― чекає завершення проміса refreshPromise та "!" кажемо що тут точно не null не undefined
       originalRequest.headers.set('Authorization', 'Bearer ' + newTokens.accessToken);
       // originalRequest.headers['Authorization'] = 'Bearer ' + newTokens.accessToken;
 
