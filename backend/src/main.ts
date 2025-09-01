@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-// import { ValidationPipe } from '@nestjs/common';
 import { SwaggerHelper } from './common/helpers/swagger.helper';
 import { ConfigService } from '@nestjs/config';
 import { AppConfig } from './configs/config.type';
 import * as dotenv from 'dotenv';
 import { CustomErrorUnauthorized } from './modules/auth/customErrorUnauthorized/customErrorUnauthorized';
+import { ValidationPipe } from '@nestjs/common';
 
 dotenv.config();
 console.log('ENV TEST:', process.env.MYSQL_HOST);
@@ -38,7 +38,7 @@ async function bootstrap() {
     .build(); // Створює остаточну конфігурацію на основі вказаних параметрів
 
   app.useGlobalPipes(
-    new CustomErrorUnauthorized({
+    new ValidationPipe({
       whitelist: true,
       // ця опція автоматично видаляє всі властивості,
       // яких немає у валідаційних класах.Якщо клієнт надішле додаткові поля у запиті,
@@ -60,6 +60,8 @@ async function bootstrap() {
   // на основі валідаційних правил, визначених у класах за допомогою декораторів
   // Пайп( pipe) - це механізм обробки вхідних даних перевірка/перетворення перед тим,
   // як вони будуть передані у відповідні методи контролера
+
+  app.useGlobalFilters(new CustomErrorUnauthorized());
 
   const document = SwaggerModule.createDocument(app, config);
   // Генерує документ Swagger (OpenAPI специфікацію)
