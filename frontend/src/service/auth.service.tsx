@@ -64,7 +64,8 @@ axiosInstance.interceptors.response.use(
     if (
       error.response?.status === 401 &&
       originalRequest &&
-      (originalRequest.url !=='/auth/refresh') &&
+      originalRequest.url !=='/auth/refresh' &&
+      originalRequest.url !== '/auth/login' &&
       !originalRequest.retry
       // якщо ми ще не виконували запиту з новою парою токенів отриманих від рефреш запиту,
       // щоб не робити нескінченний цикл повторних запитів оки не завершився попередній
