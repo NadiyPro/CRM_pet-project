@@ -10,6 +10,7 @@ import { GroupModule } from './modules/group/group.module';
 import { MessageModule } from './modules/message/message.module';
 import { MySqlModule } from './infrastructure/mysql/mysql.module';
 import { EmailModule } from './modules/email/email.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { EmailModule } from './modules/email/email.module';
     GroupModule,
     MessageModule,
     EmailModule,
+    ScheduleModule.forRoot(),
   ],
 })
 export class AppModule {}

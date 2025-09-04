@@ -18,6 +18,13 @@ export class RefreshTokenRepository extends Repository<RefreshTokenEntity> {
       deviceId,
       refreshToken,
     });
+
+    if (!token) return false;
+
+    if (token.exp < new Date()) {
+      return false;
+    }
+
     return !!token;
   }
 }

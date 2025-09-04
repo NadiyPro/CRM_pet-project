@@ -18,6 +18,9 @@ export class RefreshTokenEntity extends CreateUpdateModel {
   @Column('text')
   refreshToken: string;
 
+  @Column({ type: 'datetime', nullable: true })
+  exp: Date;
+
   @Column('text', { nullable: true })
   deviceId?: string | null;
 

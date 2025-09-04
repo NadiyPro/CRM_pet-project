@@ -27,7 +27,7 @@ export type JwtConfig = {
   accessExpiresIn: number;
   accessActiveExpiresIn: number;
   refreshSecret: string;
-  refreshExpiresIn: string | number;
+  refreshExpiresIn: number;
 };
 
 export type EmailConfig = {

@@ -20,16 +20,23 @@ import { ActivatePasswordReqDto } from '../models/dto/req/activatePassword.req.d
 import { TokenType } from '../../enums/token_type.enum';
 import { AuthUserResDto } from '../models/dto/res/auth_user.res.dto';
 import { TokenPairResDto } from '../models/dto/res/token_pair.res.dto';
+import { ConfigService } from '@nestjs/config/dist/config.service';
+import { Config, JwtConfig } from '../../../configs/config.type';
 
 @Injectable()
 export class AuthService {
+  [x: string]: any;
+  private jwtConfig: JwtConfig;
   constructor(
     private readonly authCacheService: AuthCacheService,
     private readonly tokenService: TokenService,
     private readonly userRepository: UserRepository,
     private readonly refreshTokenRepository: RefreshTokenRepository,
     private readonly emailService: EmailService,
-  ) {}
+    private readonly configService: ConfigService<Config>,
+  ) {
+    this.jwtConfig = this.configService.get('jwt');
+  }
 
   public async login(dto: LoginReqDto): Promise<AuthResDto> {
     let user = await this.userRepository.findOne({
@@ -71,18 +78,19 @@ export class AuthService {
       userId: user.id,
       deviceId: dto.deviceId,
     });
-    // генеруємо пару токенів accessToken і refreshToken на основі userId та deviceId
+
     await Promise.all([
       this.authCacheService.saveToken(
         tokens.accessToken,
         user.id,
         dto.deviceId,
-      ), // зберігаємо access токен в кеш (Redis)
+      ),
       this.refreshTokenRepository.save(
         this.refreshTokenRepository.create({
           user_id: user.id,
           deviceId: dto.deviceId,
           refreshToken: tokens.refreshToken,
+          exp: new Date(Date.now() + this.jwtConfig.refreshExpiresIn * 1000),
         }),
       ),
     ]);
@@ -115,14 +123,14 @@ export class AuthService {
     const tokens = await this.tokenService.generateActiveTokens({
       userId: user.id,
     });
-    // генеруємо пару токенів для нового юзера (accessToken та refreshToken)
+
     await Promise.all([
       this.authCacheService.saveActiveToken(tokens.accessToken, user.id),
-      // зберігаємо accessToken для нового юзера в кеш (Redis)
       this.refreshTokenRepository.save(
         this.refreshTokenRepository.create({
           user_id: user.id,
           refreshToken: tokens.refreshToken,
+          exp: new Date(Date.now() + this.jwtConfig.refreshExpiresIn * 1000),
         }),
       ),
     ]);
@@ -164,19 +172,20 @@ export class AuthService {
       userId: user.id,
       deviceId: dto.deviceId,
     });
-    // генеруємо пару токенів для нового юзера (accessToken та refreshToken)
+
     await Promise.all([
       this.authCacheService.saveToken(
         tokens.accessToken,
         user.id,
         dto.deviceId,
       ),
-      // зберігаємо accessToken для нового юзера в кеш (Redis)
+
       this.refreshTokenRepository.save(
         this.refreshTokenRepository.create({
           user_id: user.id,
           deviceId: dto.deviceId,
           refreshToken: tokens.refreshToken,
+          exp: new Date(Date.now() + this.jwtConfig.refreshExpiresIn * 1000),
         }),
       ),
     ]);
@@ -213,22 +222,19 @@ export class AuthService {
   }
 
   public async refresh(userData: IUserData): Promise<TokenPairResDto> {
-    // Видаляємо старі токени
     await Promise.all([
       this.authCacheService.deleteToken(userData.userId, userData.deviceId),
       this.refreshTokenRepository.delete({
         user_id: userData.userId,
         deviceId: userData.deviceId,
       }),
-    ]);
+    ]); // видаляємо старі токени
 
-    // Генеруємо нові токени
     const tokens = await this.tokenService.generateAuthTokens({
       userId: userData.userId,
       deviceId: userData.deviceId,
     });
 
-    // Зберігаємо нові токени
     await Promise.all([
       this.authCacheService.saveToken(
         tokens.accessToken,
@@ -240,9 +246,10 @@ export class AuthService {
           user_id: userData.userId,
           deviceId: userData.deviceId,
           refreshToken: tokens.refreshToken,
+          exp: new Date(Date.now() + this.jwtConfig.refreshExpiresIn * 1000),
         }),
       ),
-    ]);
+    ]); // зберігаємо нові токени
 
     return tokens;
   }
