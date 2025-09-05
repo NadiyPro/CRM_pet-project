@@ -28,6 +28,8 @@ final_project/
 │   │   │   └── repository/        # Сервіси роботи з базами, postman_collection
 │   │   ├── modules/               # Основні модулі системи
 │   │   │   ├── auth/              # Авторизація/Аутентифікація (JWT)
+│   │   │   │     ├── cron/        # CRON для видалення refresh токенів
+│   │   │   │     └── ...        
 │   │   │   ├── email/             # Логіка для надсилання email
 │   │   │   ├── group/             # Робота з групами
 │   │   │   ├── guards/            # NestJS Guards

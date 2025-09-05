@@ -11,13 +11,13 @@ export class RemiveOldRefreshToken {
 
   @Cron('*/20 * * * *') // поставила для тесту щогодини о */20 хвилині, потім поставлю раз на добу 0 0 * * *
   async handleCron() {
-    const result = await this.dataSource
+    await this.dataSource
       .createQueryBuilder()
       .delete()
       .from(RefreshTokenEntity)
       .where('exp <= NOW()')
       .execute();
 
-    this.logger.log(`Deleted ${result.affected} exp refresh tokens with cron`);
+    this.logger.log(`Deleted exp refresh tokens with cron`);
   }
 }
