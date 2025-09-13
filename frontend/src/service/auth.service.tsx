@@ -17,16 +17,24 @@ axiosInstance.interceptors.request.use(request => {
 
   const url = request.url || '';
 
-  if (!url.includes('/auth/login') && !url.includes('/auth/refresh') && !url.includes('/auth/activate')) {
+  if (url !== '/auth/login' && url !== '/auth/refresh' && url !== '/auth/activate') {
     request.headers.set('Authorization', 'Bearer ' + pair.tokens.accessToken);
   }
-
-  if (url.includes('/auth/refresh')) {
+  // if (!url.includes('/auth/login') && !url.includes('/auth/refresh') && !url.includes('/auth/activate')) {
+  //   request.headers.set('Authorization', 'Bearer ' + pair.tokens.accessToken);
+  // }
+  if (url ==='/auth/refresh') {
     request.headers.set('Authorization', 'Bearer ' + pair.tokens.refreshToken);
     request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
     request.headers.set('Pragma', 'no-cache');
     request.headers.set('Expires', '0');
   }
+  // if (url.includes('/auth/refresh')) {
+  //   request.headers.set('Authorization', 'Bearer ' + pair.tokens.refreshToken);
+  //   request.headers.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  //   request.headers.set('Pragma', 'no-cache');
+  //   request.headers.set('Expires', '0');
+  // }
 
   return request;
 });
