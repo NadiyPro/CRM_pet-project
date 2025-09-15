@@ -12,7 +12,8 @@ dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  //Ця команда створює новий екземпляр додатка на основі AppModule за допомогою NestFactory.
+  // NestFactory – фабрика, що вміє створювати Nest-додатки.
+  // create(AppModule) – каже: "Створи застосунок, використовуючи головний модуль AppModule
 
   app.enableCors({
     origin: [
@@ -21,8 +22,9 @@ async function bootstrap() {
       'http://localhost:80',
       'http://127.0.0.1:5173',
     ],
-    credentials: true,
-  });
+    credentials: true, // credentials: true - дозволяє передавати куки/токени між фронтом і беком
+  }); // вказуємо з яких адрес можна робити запити на бекенд (enableCors - вмикає CORS у NestJS)
+  // це я пишу бо nginx рендить в мене на 80 порті контейнери, щоб мати доступ фронту до беку
 
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
     .setTitle('final_project_NadiaPro') // Встановлює заголовок API документації
@@ -83,6 +85,7 @@ async function bootstrap() {
     },
   });
   // Налаштовує маршрут /docs, за яким буде доступна ваша Swagger документація
+
   const configService = app.get(ConfigService);
   // дістаємо конфігураційний сервіс з configuration.ts
   const appConfig = configService.get<AppConfig>('app');
