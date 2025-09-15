@@ -28,7 +28,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder() //  Створює новий об'єкт для побудови конфігурації Swagger
     .setTitle('final_project_NadiaPro') // Встановлює заголовок API документації
-    .setDescription('The cats API description') // опис нашого API
+    .setDescription('The API description') // опис нашого API
     .setVersion('1.0') // версія нашого API
     .addBearerAuth({
       in: 'header', //вказує, що токен буде передаватися в заголовку HTTP-запиту.
