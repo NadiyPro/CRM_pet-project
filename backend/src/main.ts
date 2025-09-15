@@ -9,7 +9,6 @@ import { CustomErrorUnauthorized } from './modules/auth/customErrorUnauthorized/
 import { ValidationPipe } from '@nestjs/common';
 
 dotenv.config();
-console.log('ENV TEST:', process.env.MYSQL_HOST);
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
