@@ -8,12 +8,12 @@ export const ThemeComponent: React.FC  = () => {
     if(theme_dark === 'dark'){
       setIsDark(true)
     }
-  }, [])
+  }, []) // при завантаженні сторінки зчитуємо тему з localStorage (orders та admin)
 
   useEffect(() => {
     document.body.classList.toggle('dark', isDark);
     localStorage.setItem('theme', isDark? 'dark' : 'light')
-  }, [isDark])
+  }, [isDark]) // додаємо/знімаємо клас 'dark' у body та записуємо/оновлюємо значення в localStorage
 
   const handleClick = () => {
     setIsDark(value => !value);
