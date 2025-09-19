@@ -3,6 +3,7 @@ import LogOutComponent from '../components/mainLayoutComponents/logOut.component
 import AdminPanelComponent from '../components/mainLayoutComponents/adminPanel.component';
 import OrdersPanelComponent from '../components/mainLayoutComponents/ordersPanel.component';
 import '../styles/styles.scss';
+import { ThemeComponent } from '../components/mainLayoutComponents/theme.component';
 
 const MainLayout = () => {
 
@@ -16,6 +17,7 @@ return(
         <OrdersPanelComponent />
         <AdminPanelComponent />
         <LogOutComponent />
+        <ThemeComponent/>
       </nav>
     </header>
 
