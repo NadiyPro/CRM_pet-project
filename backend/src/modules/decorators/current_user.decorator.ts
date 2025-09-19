@@ -13,7 +13,9 @@ interface CustomResponse extends Response {
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext): IUserData => {
+    // context все про поточний запит
     const response = context.switchToHttp().getResponse<CustomResponse>();
+    // дістаємо з поточного запиту HTTP-відповідь (дістаємо із запиту дані з відповіді)
     const user = response.locals?.user;
     if (!user) {
       throw new UnauthorizedException('User not found in request context');

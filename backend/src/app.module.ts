@@ -27,7 +27,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     GroupModule,
     MessageModule,
     EmailModule,
-    ScheduleModule.forRoot(),
+    ScheduleModule.forRoot(), // модуль для крон-задач у NestJS
   ],
 })
 export class AppModule {}

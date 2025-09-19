@@ -11,7 +11,7 @@ import { JwtAccessGuard } from './guards/jwt_access.guard';
 import { UsersModule } from '../users/users.module';
 import { OrdersModule } from '../orders/orders.module';
 import { EmailModule } from '../email/email.module';
-import { RemiveOldRefreshToken } from './cron/remiveOldRefreshToken';
+import { CronOldRefreshToken } from './cron/remiveOldRefreshToken';
 
 @Module({
   imports: [
@@ -31,7 +31,7 @@ import { RemiveOldRefreshToken } from './cron/remiveOldRefreshToken';
     AuthService,
     AuthCacheService,
     TokenService,
-    RemiveOldRefreshToken,
+    CronOldRefreshToken,
   ],
   exports: [TokenService],
 })

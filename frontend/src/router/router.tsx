@@ -13,13 +13,11 @@ export const router = createBrowserRouter([
     path: '/',
     errorElement: <ErrorElement />,
     children: [
-
-      { index: true, element: <Navigate to="/orders" replace /> },
-
       {
         path: 'auth',
         children: [
           { index: true, element: <Navigate to="/auth/login" replace /> },
+          // replace для того, щоб нас не повертало на '/'
           { path: 'login', element: <AuthLoginPage /> },
           { path: 'activate/:token', element: <AuthPasswordPage /> },
         ],
