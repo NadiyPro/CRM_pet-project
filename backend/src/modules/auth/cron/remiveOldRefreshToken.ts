@@ -9,6 +9,7 @@ export class CronOldRefreshToken {
   // щоб вивести повідомлення в консоль через вбудований в Nest сервіс new Logger
 
   constructor(private readonly dataSource: DataSource) {}
+  // через DataSource у TypeORM ми підключаємося до БД
 
   @Cron('0 0 * * *') // раз на добу 0 0 * * * (для тесту щогодини о */20 хвилині)
   async handleCron() {

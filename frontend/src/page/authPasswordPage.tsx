@@ -23,7 +23,7 @@ const AuthPasswordPage = () => {
   }
 
   const dtoPassword = async (authPasswordDto: AuthPasswordDto) => {
-    if (!token) return; // ✅ обробка ситуації, коли token не передано
+    if (!token) return;
     const isValidPassword = await dispatch(authAction.loadActivatePassword({
       authPasswordDto: { ...authPasswordDto, deviceId: getDeviceId() },
       token,
@@ -41,10 +41,10 @@ const AuthPasswordPage = () => {
       <div  className={'baseLogin__contentLogin__divLogin'}>
         <form className={'baseLogin__contentLogin__divLogin__form'} onSubmit={handleSubmit(dtoPassword)}>
           <label htmlFor={'password'}>Password</label>
-          <input className={'basePassword__password_confirm_password'} type={'password'} {...register('password')} required/>
+          <input className={'baseLogin__contentLogin__divLogin__form__input'} type={'password'} {...register('password')} required/>
 
           <label htmlFor={'confirm_password'}>Confirm password</label>
-          <input className={'basePassword__password_confirm_password'} type={'password'} {...register('confirm_password')} required/>
+          <input className={'baseLogin__contentLogin__divLogin__form__input'} type={'password'} {...register('confirm_password')} required/>
 
           <button className={'baseLogin__contentLogin__divLogin__form__button'} type={'submit'} disabled={!isValid || loadingPassword}> {loadingPassword ? 'Loading...' : 'ACTIVATE'}</button>
         </form>

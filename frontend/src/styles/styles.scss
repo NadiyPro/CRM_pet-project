@@ -83,7 +83,7 @@ html, body {
 
       &__p{
         color: white;
-        font-size: 3em;
+        font-size: 4em;
         font-weight: 900;
         letter-spacing: 8px; // відстань між літерами
         animation: textHello 3s infinite;
@@ -138,6 +138,11 @@ html, body {
         z-index: 1;
         position: relative;
         gap: 10px; // додає простір між полями форми
+
+        &__input{
+          background-color: white;
+          color: black;
+        }
 
         &__button {
           width: 8vw;
@@ -718,11 +723,6 @@ html, body {
           }
         }
       }
-
-      //&__paginationComponent__button{
-      //  display: flex;
-      //  height: 5vh;
-      //}
     }
   }
 
