@@ -24,3 +24,5 @@ export default new DataSource({
   ],
   synchronize: false,
 });
+// ЧЕРЕЗ DataSource у TypeORM ми підключаємося до БД
+// DataSource зберігає всі налаштування (хост, порт, юзер, пароль, тип БД, ентіті) і через нього ми працюємо з табл
