@@ -5,7 +5,6 @@ import { DataSource } from 'typeorm';
 import configuration from './src/configs/configuration';
 
 dotenv.config();
-// console.log('ENV TEST:', process.env.MYSQL_DB);
 
 const config = configuration().database;
 

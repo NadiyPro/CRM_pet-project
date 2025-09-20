@@ -6,7 +6,7 @@ import { Config, DatabaseConfig } from '../../configs/config.type';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
-console.log('ENV TEST:', process.env.MYSQL_PORT);
+// console.log('ENV TEST:', process.env.MYSQL_PORT);
 
 @Module({
   imports: [
