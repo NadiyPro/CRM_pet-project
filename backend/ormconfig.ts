@@ -7,6 +7,10 @@ import configuration from './src/configs/configuration';
 dotenv.config();
 
 const config = configuration().database;
+// створюєш DataSource поза NestJS-контейнером (у data-source.ts).
+// тут ConfigService ще не доступний, бо він живе в DI NestJS.
+// тому в цьому файлі працює тільки: const config = configuration().database;
+// (викликаємо функцію з файлу configuration.ts та доступаємося там до database)
 
 export default new DataSource({
   type: 'mysql',
