@@ -8,10 +8,6 @@ const OrdersStatisticManager = () => {
   const { ordersStatisticAll } = useAppSelector((state) => state.adminStore);
   const dispatch = useAppDispatch();
 
-  // useEffect(() => {
-  //   dispatch(adminAction.setPage(1));
-  // }, [dispatch]);
-
   useEffect(() => {
     dispatch(adminAction.loadUsersAll(dto));
   }, [dto, dispatch]);

@@ -5,12 +5,6 @@ import {
 } from '@nestjs/common';
 import { IUserData } from '../auth/models/interfaces/user_data.interface';
 import { CustomResponse } from '../auth/guards/jwt_access.guard';
-// interface CustomResponse extends Response {
-//   locals: {
-//     user?: IUserData;
-//     [key: string]: any;
-//   };
-// }
 
 export const CurrentUser = createParamDecorator(
   (_data: unknown, context: ExecutionContext): IUserData => {
