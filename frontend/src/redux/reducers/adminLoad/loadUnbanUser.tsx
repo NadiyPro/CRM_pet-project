@@ -11,7 +11,7 @@ const loadUnbanUser = createAsyncThunk(
       thunkAPI.dispatch(adminAction.setIsUnbanUser({ text: 'Користувача розблоковано', type: 'success', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsUnbanUser(null));
-      }, 5000)
+      }, 7000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;

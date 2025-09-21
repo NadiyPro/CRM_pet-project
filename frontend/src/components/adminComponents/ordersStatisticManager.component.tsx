@@ -67,7 +67,7 @@ const OrdersStatisticManager = () => {
                 </button>
                 {isActivateUser && isActivateUser.id === value.id &&
                   <div className={'divMainLayout__outlet__adminPage__ordersStatisticManager__buttonAccessAccount__divActivate__isActivateUser'}>
-                  <p style={{ margin: '5px 0', color: '#1f615c'}}>{isActivateUser.text}</p>
+                  <p style={{ margin: '5px 0', color: '#2a817b'}}>{isActivateUser.text}</p>
                 </div>}
               </div>
 

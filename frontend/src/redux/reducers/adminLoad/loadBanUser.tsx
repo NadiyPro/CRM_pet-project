@@ -11,7 +11,7 @@ const loadBanUser = createAsyncThunk(
       thunkAPI.dispatch(adminAction.setIsBanUser({ text: 'Користувача заблоковано', type: 'success', id: managerId }));
       setTimeout(()=>{
         thunkAPI.dispatch(adminAction.setIsBanUser(null));
-      }, 5000)
+      }, 7000)
       return thunkAPI.fulfillWithValue(response);
     } catch (e) {
       const error = e as AxiosError;

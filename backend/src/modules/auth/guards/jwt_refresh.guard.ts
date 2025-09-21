@@ -74,7 +74,8 @@ export class JwtRefreshGuard implements CanActivate {
     }
 
     // 5) Put user into response.locals so controller decorator can read it
-    response.locals = response.locals || {};
+    // response.locals = response.locals || {};
+    // response.locals.user = UserMapper.toIUserData(user, payload);
     response.locals.user = UserMapper.toIUserData(user, payload);
 
     return true;
