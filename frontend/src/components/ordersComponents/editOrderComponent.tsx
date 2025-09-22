@@ -130,7 +130,7 @@ const EditOrderComponent = () => {
             { isCreateGroup &&
               <div>
                 <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                   style={{margin: 0, color: '#1f615c'}}>
+                   style={{margin: 0, color: '#2f918b'}}>
                   Група успішно створена
                 </p>
               </div>}
@@ -166,7 +166,7 @@ const EditOrderComponent = () => {
             { isGroupOrder &&
               <div>
                 <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'}
-                   style={{margin: 0, color: isGroupOrder.type === 'success' ? '#1f615c' : '#6e0707'}}>
+                   style={{margin: 0, color: isGroupOrder.type === 'success' ? '#2f918b' : '#6e0707'}}>
                   {isGroupOrder.text}
                 </p>
               </div>}
@@ -254,7 +254,7 @@ const EditOrderComponent = () => {
             <div>
               <p className={'divMainLayout__outlet__ordersAllPage__ordersTableComponent__table__tbody__messagesOrderIdComponent__messages__data__managerDate__p'} style={{
                 margin: 0,
-                color: isUpdateEditOrder.type === 'success' ? '#1f615c' : '#6e0707'
+                color: isUpdateEditOrder.type === 'success' ? '#2f918b' : '#6e0707'
               }}>{isUpdateEditOrder.text}</p>
             </div>}
         </form>

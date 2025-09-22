@@ -65,7 +65,7 @@ const GiveRoleComponent = () => {
 
               { statusGiveRole &&
                 <div className={'divMainLayout__outlet__adminPage__giveRoleComponent__baseGiveRoleModalOpen__colorGiveRoleModalOpen__divGiveRoleModalOpen__form__statusGiveRole'}>
-                  <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#1f615c' : '#6e0707' }}>{statusGiveRole.text}</p>
+                  <p style={{ margin: 0, color: statusGiveRole.type === 'success' ? '#2f918b' : '#6e0707' }}>{statusGiveRole.text}</p>
                 </div>}
             </form>
           </div>
