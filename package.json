@@ -16,5 +16,9 @@
   },
   "scripts": {
     "test:e2e": "npx wdio run ./wdio.conf.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.1.6",
+    "express": "^5.1.0"
   }
 }
