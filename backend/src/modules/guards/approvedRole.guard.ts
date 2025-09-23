@@ -27,12 +27,12 @@ export class ApprovedRoleGuard implements CanActivate {
     const user = response.locals?.user;
 
     if (!user) {
-      console.error('User not found ');
+      // console.error('User not found ');
       return false;
     }
 
     // перевіряємо чи в locals збережена роль відповідає ролі вказаній в метаданих @Role([...])
-    // якщо так то пропускаємо користувача на ендпоінт,
+    // якщо так то includes поверне нам true і ми пропускаємо користувача на ендпоінт,
     // інакше повернемо false і видамо помилку статусом 403 та не пропустимо до методу контролера (ендпоінту)
     return roles.includes(user.role);
   }
