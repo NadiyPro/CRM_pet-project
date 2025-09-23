@@ -11,15 +11,8 @@ import { UserRepository } from '../../../infrastructure/repository/services/user
 import { UserMapper } from '../../users/service/user.mapper';
 import { TokenType } from '../../enums/token_type.enum';
 import { TokenService } from '../services/token.service';
-import { IUserData } from '../models/interfaces/user_data.interface';
 import { IJwtPayload } from '../models/interfaces/jwt_payload.interface';
-
-interface CustomResponse extends Response {
-  locals: {
-    user?: IUserData;
-    [k: string]: any;
-  };
-}
+import { CustomResponse } from './jwt_access.guard';
 
 @Injectable()
 export class JwtRefreshGuard implements CanActivate {
