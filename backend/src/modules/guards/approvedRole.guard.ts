@@ -36,6 +36,5 @@ export class ApprovedRoleGuard implements CanActivate {
     // якщо так то includes поверне нам true і ми пропускаємо користувача на ендпоінт,
     // інакше повернемо false і видамо помилку статусом 403 та не пропустимо до методу контролера (ендпоінту)
     return roles.includes(user.role);
-    // тест
   }
 }
