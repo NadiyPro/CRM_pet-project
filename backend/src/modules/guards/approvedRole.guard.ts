@@ -15,6 +15,7 @@ export class ApprovedRoleGuard implements CanActivate {
       'roles',
       context.getHandler(),
     );
+    // дістаємо роль яку записали в метадані декоратора @Role()
     // canActivate - метод, який запускається перед виконанням контролера
     // context - містить дані про поточний запит (handler, class, request, response та ін.)
     // дістаємо дані з метаданих reflector.get(key, context.getHandler())
