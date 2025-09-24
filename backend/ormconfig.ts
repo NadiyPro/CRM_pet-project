@@ -14,7 +14,7 @@ const config = configuration().database;
 
 export default new DataSource({
   type: 'mysql',
-  host: config.host || 'owu.linkpc.net',
+  host: config.host,
   port: config.port || 3306,
   username: config.user || 'nadiamysql',
   password: config.password || 'password',
