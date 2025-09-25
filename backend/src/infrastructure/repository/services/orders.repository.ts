@@ -72,7 +72,15 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         }
       }
 
+      const selectOptionEnum: (keyof ListOrdersQueryReqDto)[] = [
+        'course',
+        'course_format',
+        'course_type',
+        'status',
+      ];
       if (numericFields.includes(key)) {
+        qb.andWhere(`${field} = :${param}`, { [param]: value });
+      } else if (selectOptionEnum.includes(key)) {
         qb.andWhere(`${field} = :${param}`, { [param]: value });
       } else {
         qb.andWhere(`${field} LIKE :${param}`, { [param]: `%${value}%` });
@@ -164,7 +172,15 @@ export class OrdersRepository extends Repository<OrdersEntity> {
         }
       }
 
+      const selectOptionEnum: (keyof ListOrdersQueryReqDto)[] = [
+        'course',
+        'course_format',
+        'course_type',
+        'status',
+      ];
       if (numericFields.includes(key)) {
+        qbExport.andWhere(`${field} = :${param}`, { [param]: value });
+      } else if (selectOptionEnum.includes(key)) {
         qbExport.andWhere(`${field} = :${param}`, { [param]: value });
       } else {
         qbExport.andWhere(`${field} LIKE :${param}`, { [param]: `%${value}%` });

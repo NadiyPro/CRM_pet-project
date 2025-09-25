@@ -46,7 +46,7 @@ services:
     env_file:
       - ./backend/.env
     environment:
-#      MYSQL_ROOT_PASSWORD: nadiamysq
+      MYSQL_ROOT_PASSWORD: nadiamysq
       MYSQL_USER: nadiamysql
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: nadiamysql
