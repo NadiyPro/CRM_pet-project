@@ -1,0 +1,17 @@
+import { CourseEnum } from '../../../../../infrastructure/mysql/entities/enums/course.enum';
+import { CourseFormatEnum } from '../../../../../infrastructure/mysql/entities/enums/courseFormat.enum';
+import { CourseTypeEnum } from '../../../../../infrastructure/mysql/entities/enums/courseType.enum';
+import { StatusEnum } from '../../../../../infrastructure/mysql/entities/enums/status.enum';
+export declare class BaseOrdersReqDto {
+    name?: string | null;
+    surname?: string | null;
+    email?: string | null;
+    phone?: string | null;
+    age?: number | null;
+    course?: CourseEnum | null;
+    course_format?: CourseFormatEnum | null;
+    course_type?: CourseTypeEnum | null;
+    sum?: number | null;
+    alreadyPaid?: number | null;
+    status?: StatusEnum | null;
+}
