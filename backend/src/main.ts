@@ -21,6 +21,7 @@ async function bootstrap() {
       'http://localhost',
       'http://localhost:80',
       'http://127.0.0.1:5173',
+      'http://18.119.206.49',
     ],
     credentials: true, // credentials: true - дозволяє передавати куки/токени між фронтом і беком
   });
