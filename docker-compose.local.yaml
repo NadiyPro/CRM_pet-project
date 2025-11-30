@@ -15,9 +15,9 @@ services:
     env_file:
       - ./backend/.env
     working_dir: /app
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
+    volumes: []
+      # - ./backend:/app
+      # - /app/node_modules
     restart: on-failure
     depends_on:
       - CRM_pet-project-mysql
@@ -50,8 +50,8 @@ services:
       MYSQL_USER: nadiamysql
       MYSQL_PASSWORD: password
       MYSQL_DATABASE: nadiamysql
-    ports:
-      - "3306:3306"
+    ports: []
+      # - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
     healthcheck:
