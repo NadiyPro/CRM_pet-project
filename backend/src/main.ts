@@ -14,6 +14,8 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // NestFactory – фабрика, що вміє створювати Nest-додатки.
   // create(AppModule) – каже: "Створи застосунок, використовуючи головний модуль AppModule
+  
+  app.setGlobalPrefix('api');
 
   app.enableCors({
     origin: [
@@ -22,6 +24,7 @@ async function bootstrap() {
       'http://localhost:80',
       'http://127.0.0.1:5173',
       'http://18.119.206.49',
+      'http://18.119.206.49:80',
     ],
     credentials: true, // credentials: true - дозволяє передавати куки/токени між фронтом і беком
   });

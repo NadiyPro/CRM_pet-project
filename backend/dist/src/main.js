@@ -11,6 +11,7 @@ const common_1 = require("@nestjs/common");
 dotenv.config();
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
+    app.setGlobalPrefix('api');
     app.enableCors({
         origin: [
             'http://localhost:5173',
@@ -18,6 +19,7 @@ async function bootstrap() {
             'http://localhost:80',
             'http://127.0.0.1:5173',
             'http://18.119.206.49',
+            'http://18.119.206.49:80',
         ],
         credentials: true,
     });
