@@ -36,6 +36,7 @@ export class AuthService {
     private readonly configService: ConfigService<Config>,
   ) {
     this.jwtConfig = this.configService.get('jwt');
+    this.emailServerUrl = this.configService.get('app').emailServerUrl;
   }
 
   public async login(dto: LoginReqDto): Promise<AuthResDto> {
@@ -123,8 +124,8 @@ export class AuthService {
     const tokens = await this.tokenService.generateActiveTokens({
       userId: user.id,
     });
-    const emailServerUrl = this.configService.get('app').emailServerUrl;
-    
+    // const emailServerUrl = this.configService.get('app').emailServerUrl;
+
     await Promise.all([
       this.authCacheService.saveActiveToken(tokens.accessToken, user.id),
       this.refreshTokenRepository.save(
@@ -142,7 +143,7 @@ export class AuthService {
       {
         surname: user.surname,
         name: user.name,
-        registration_password: `http://${emailServerUrl}/auth/activate/${tokens.accessToken}`,
+        registration_password: `http://${this.emailServerUrl}/auth/activate/${tokens.accessToken}`,
       },
     );
     return { user: UserMapper.toResDto(user), tokens };
