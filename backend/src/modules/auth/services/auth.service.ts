@@ -141,7 +141,7 @@ export class AuthService {
       {
         surname: user.surname,
         name: user.name,
-        registration_password: `http://localhost:80/auth/activate/${tokens.accessToken}`,
+        registration_password: `http://${this.config.app.emailServerUrl}/auth/activate/${tokens.accessToken}`,
       },
     );
     return { user: UserMapper.toResDto(user), tokens };
