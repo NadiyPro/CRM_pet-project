@@ -123,7 +123,8 @@ export class AuthService {
     const tokens = await this.tokenService.generateActiveTokens({
       userId: user.id,
     });
-
+    const emailServerUrl = this.configService.get('app').emailServerUrl;
+    
     await Promise.all([
       this.authCacheService.saveActiveToken(tokens.accessToken, user.id),
       this.refreshTokenRepository.save(
@@ -141,7 +142,7 @@ export class AuthService {
       {
         surname: user.surname,
         name: user.name,
-        registration_password: `http://${this.config.app.emailServerUrl}/auth/activate/${tokens.accessToken}`,
+        registration_password: `http://${emailServerUrl}/auth/activate/${tokens.accessToken}`,
       },
     );
     return { user: UserMapper.toResDto(user), tokens };
