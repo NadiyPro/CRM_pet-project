@@ -31,6 +31,7 @@ let AuthService = class AuthService {
         this.emailService = emailService;
         this.configService = configService;
         this.jwtConfig = this.configService.get('jwt');
+        this.emailServerUrl = this.configService.get('app').emailServerUrl;
     }
     async login(dto) {
         let user = await this.userRepository.findOne({
@@ -102,7 +103,7 @@ let AuthService = class AuthService {
         await this.emailService.sendMail(email_enum_1.EmailTypeEnum.ACTIVE, user.email, {
             surname: user.surname,
             name: user.name,
-            registration_password: `http://localhost:80/auth/activate/${tokens.accessToken}`,
+            registration_password: `http://${this.emailServerUrl}/auth/activate/${tokens.accessToken}`,
         });
         return { user: user_mapper_1.UserMapper.toResDto(user), tokens };
     }

@@ -8,6 +8,7 @@ export type Config = {
 export type AppConfig = {
     port: number;
     host: string;
+    emailServerUrl: string;
 };
 export type DatabaseConfig = {
     host: string;

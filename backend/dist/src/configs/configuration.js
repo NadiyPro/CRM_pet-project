@@ -5,6 +5,7 @@ exports.default = () => ({
     app: {
         port: parseInt(process.env.APP_PORT, 10) || 3000,
         host: process.env.APP_HOST,
+        emailServerUrl: process.env.EMAILSERVER_URL,
     },
     database: {
         host: process.env.MYSQL_HOST,
