@@ -124,7 +124,6 @@ export class AuthService {
     const tokens = await this.tokenService.generateActiveTokens({
       userId: user.id,
     });
-    // const emailServerUrl = this.configService.get('app').emailServerUrl;
 
     await Promise.all([
       this.authCacheService.saveActiveToken(tokens.accessToken, user.id),
@@ -136,6 +135,7 @@ export class AuthService {
         }),
       ),
     ]);
+    console.log('emailServerUrl', this.emailServerUrl);
     await this.emailService.sendMail(
       EmailTypeEnum.ACTIVE,
       // 'siroviyn13@gmail.com',

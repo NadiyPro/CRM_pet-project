@@ -17,6 +17,7 @@ import { ScheduleModule } from '@nestjs/schedule';
     ConfigModule.forRoot({
       load: [configuration],
       isGlobal: true,
+      envFilePath: '.env',
     }),
     MySqlModule,
     RepositoryModule,
