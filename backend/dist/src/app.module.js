@@ -29,6 +29,7 @@ exports.AppModule = AppModule = __decorate([
             config_1.ConfigModule.forRoot({
                 load: [configuration_1.default],
                 isGlobal: true,
+                envFilePath: '.env',
             }),
             mysql_module_1.MySqlModule,
             repository_module_1.RepositoryModule,

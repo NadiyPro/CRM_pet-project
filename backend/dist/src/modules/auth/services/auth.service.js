@@ -100,6 +100,7 @@ let AuthService = class AuthService {
                 exp: new Date(Date.now() + this.jwtConfig.refreshExpiresIn * 1000),
             })),
         ]);
+        console.log('emailServerUrl', this.emailServerUrl);
         await this.emailService.sendMail(email_enum_1.EmailTypeEnum.ACTIVE, user.email, {
             surname: user.surname,
             name: user.name,
