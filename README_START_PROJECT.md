@@ -168,7 +168,7 @@ npm run test
     ```bash
     $ docker-compose -f docker-compose.local.yaml up --build
     ```
-    + отім запускаємо сам тест
+    + потім запускаємо сам тест
     ```bash
     npx wdio run wdio.conf.ts
     ```
